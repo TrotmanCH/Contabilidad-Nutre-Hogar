@@ -40,7 +40,7 @@ public class CuentaService {
      *
      * @param cuenta objeto Cuenta a ser guardado.
      */
-    public void agregarCuentas(Cuenta cuenta) {
+    public void agregarCuenta(Cuenta cuenta) {
         Transaction transaction = null;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -94,4 +94,5 @@ public class CuentaService {
             e.printStackTrace();
         }
     }
+
 }

@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Table(name = "cuenta")
 public class Cuenta {
     @Id
+    @Column(length = 10)
     String id;
     String nombre;
 }
