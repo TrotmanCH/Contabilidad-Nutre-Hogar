@@ -1,10 +1,10 @@
 DROP DATABASE IF EXISTS Contabilidad;
-CREATE DATABASE IF NOT EXISTSContabilidad;
+CREATE DATABASE IF NOT EXISTS Contabilidad;
 USE Contabilidad;
 
 DROP TABLE IF EXISTS Cuenta;
 CREATE TABLE IF NOT EXISTS Cuenta(
-id int primay key auto_increment,
+id int primary key auto_increment,
 num_cuenta VARCHAR(10) unique key,
 nombre VARCHAR(100)
 );
@@ -176,5 +176,22 @@ CREATE TABLE IF NOT EXISTS Tipo_Documento(
 INSERT INTO Tipo_Documento VALUES(null,"N-ING");
 INSERT INTO Tipo_Documento VALUES(null,"N-EGR");
 INSERT INTO Tipo_Documento VALUES(null,"N-AJT"); 
+
+DROP TABLE IF EXISTS transacciones;
+CREATE TABLE IF NOT EXISTS transacciones(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    fecha DATE, 
+    nodoc INT, 
+    tipo_docu INT,
+    no_cheque_comp VARCHAR(100), 
+    referencia VARCHAR(1000), 
+    codigoC INT, 
+    debe REAL, 
+    hacer REAL,
+    CONSTRAINT nodoc_fk FOREIGN KEY(nodoc) REFERENCES Tipo_Documento(id),
+    CONSTRAINT codigoC_fk FOREIGN KEY(codigoC) REFERENCES Cuenta(id)
+);
+
+describe transacciones;
 
 
