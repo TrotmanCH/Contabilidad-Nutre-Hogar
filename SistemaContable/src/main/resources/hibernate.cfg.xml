@@ -1,28 +1,18 @@
 
 <!DOCTYPE hibernate-configuration PUBLIC
     "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <!-- Configuración de la base de datos -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mi_base_datos</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
-
-        <!-- Dialecto de la base de datos -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
-
-        <!-- Mostrar consultas SQL en la consola -->
         <property name="hibernate.show_sql">true</property>
-
-        <!-- Formato de las consultas SQL -->
         <property name="hibernate.format_sql">true</property>
-
-        <!-- Actualizar la base de datos automáticamente -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <!-- Lista de clases anotadas (entidades) -->
         <mapping class="com.example.mi_entidad.MiEntidad"/>
     </session-factory>
 </hibernate-configuration>
