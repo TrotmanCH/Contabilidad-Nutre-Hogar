@@ -2,8 +2,9 @@ CREATE DATABASE Contabilidad;
 USE Contabilidad;
 
 CREATE TABLE Cuenta(
-Codigo VARCHAR(10),
-Nombre VARCHAR(100)
+id int unique key,
+num_cuenta VARCHAR(10) unique key,
+nombre VARCHAR(100)
 );
 
 INSERT INTO Cuenta VALUES("1", "Activo");
