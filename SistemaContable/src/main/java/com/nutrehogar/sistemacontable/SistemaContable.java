@@ -14,7 +14,7 @@ public class SistemaContable {
     public static void main(String[] args) {
 
         CuentaService cuentaService = new CuentaService();
-        cuentaService.agergarCuentas(Cuenta.builder().id("udds").nombre("siyd").build());
+        cuentaService.agergarCuentas(Cuenta.builder().id("yfghjkn").nombre("rdtfgyhj").build());
 
         List<Cuenta> cuentaList = cuentaService.mostrarCuentas();
 
