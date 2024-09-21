@@ -14,5 +14,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="com.nutrehogar.sistemacontable.Entities.Cuenta"/>
+        <mapping class="com.nutrehogar.sistemacontable.Entities.Transaccion"/>
+        <mapping class="com.nutrehogar.sistemacontable.Entities.TipoDocumento"/>
     </session-factory>
 </hibernate-configuration>
