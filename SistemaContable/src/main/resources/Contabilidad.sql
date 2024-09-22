@@ -166,7 +166,7 @@ INSERT INTO Cuenta VALUES(null,"52003", "Donación Medicamentos");
 INSERT INTO Cuenta VALUES(null,"52004", "Donación - Bolsa de Alimentos");
 INSERT INTO Cuenta VALUES(null,"52005", "Productos Vencidos O Dañados");
 INSERT INTO Cuenta VALUES(null,"52006", "Donación - Otros");
-
+select * from Cuenta;
 DROP TABLE IF EXISTS Tipo_Documento;
 CREATE TABLE IF NOT EXISTS Tipo_Documento(
     id int primary key auto_increment, 
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS Tipo_Documento(
 INSERT INTO Tipo_Documento VALUES(null,"N-ING");
 INSERT INTO Tipo_Documento VALUES(null,"N-EGR");
 INSERT INTO Tipo_Documento VALUES(null,"N-AJT"); 
-
+select * from Tipo_Documentp;
 DROP TABLE IF EXISTS transacciones;
 CREATE TABLE IF NOT EXISTS transacciones(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -188,10 +188,27 @@ CREATE TABLE IF NOT EXISTS transacciones(
     codigoC INT, 
     debe REAL, 
     hacer REAL,
-    CONSTRAINT nodoc_fk FOREIGN KEY(nodoc) REFERENCES Tipo_Documento(id),
+    CONSTRAINT tipo_docu_fk FOREIGN KEY(tipo_docu) REFERENCES Tipo_Documento(id),
     CONSTRAINT codigoC_fk FOREIGN KEY(codigoC) REFERENCES Cuenta(id)
 );
 
 describe transacciones;
 
+select * from transacciones; 
+insert into transacciones(id, fecha, nodoc,tipo_docu,no_cheque_comp,referencia,codigoC, debe,hacer) values (null, curdate(),066,2,'101',"Para comprar jugos",5,200,200);
+
+SELECT 
+    t.id, 
+    t.fecha, 
+    t.nodoc, 
+    td.nombre AS tipo_documento,  
+    t.no_cheque_comp, 
+    t.referencia, 
+    c.num_cuenta AS num_cuenta,      
+    t.debe, 
+    t.hacer
+FROM 
+    transacciones t 
+JOIN Tipo_Documento td ON t.tipo_docu = td.id             
+JOIN Cuenta c ON t.codigoC = c.id;               
 
