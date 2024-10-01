@@ -3,6 +3,10 @@ package com.nutrehogar.sistemacontable.service;
 import com.nutrehogar.sistemacontable.entities.Cuenta;
 import com.nutrehogar.sistemacontable.utils.HibernateUtil;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
+
 
 /**
  * CuentaService es una clase de servicio que proporciona métodos para gestionar
@@ -61,14 +65,19 @@ public class CuentaService {
         }
     }
 
-    /**
-     * Obtiene una cuenta de la base de datos por su ID.
-     *
-     * @param id El ID de la cuenta a obtener.
-     * @return La cuenta correspondiente al ID proporcionado o null si no se encuentra.
-     */
-    public Cuenta obtenerCuenta(Integer id) {
-        return HibernateUtil.getSession().get(Cuenta.class, id);
+    public void guardarCuenta(List<Cuenta> listadoCuentas) {
+        listadoCuentas.forEach(this::guardarCuenta);
+    }
+
+
+        /**
+         * Obtiene una cuenta de la base de datos por su ID.
+         *
+         * @param id El ID de la cuenta a obtener.
+         * @return Un {@code Optinal} que contiene la cuenta correspondiente al ID proporcionado o null si no se encuentra.
+         */
+    public Optional<Cuenta> obtenerCuenta(Integer id) {
+        return Optional.ofNullable(HibernateUtil.getSession().load(Cuenta.class, id));
     }
 
     /**
@@ -90,6 +99,9 @@ public class CuentaService {
             HibernateUtil.getSession().getTransaction().rollback();
             e.printStackTrace();
         }
+    }
+    public void actualizarCuenta(List<Cuenta> listadoCuentas) {
+        listadoCuentas.forEach(this::actualizarCuenta);
     }
 
     /**
@@ -115,5 +127,9 @@ public class CuentaService {
             HibernateUtil.getSession().getTransaction().rollback();
             e.printStackTrace();
         }
+    }
+
+    public void borrarCuenta(List<Integer> listadoId){
+        listadoId.forEach(this::borrarCuenta);
     }
 }
