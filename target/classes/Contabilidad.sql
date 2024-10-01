@@ -181,7 +181,7 @@ DROP TABLE IF EXISTS transacciones;
 CREATE TABLE IF NOT EXISTS transacciones(
     id INT PRIMARY KEY AUTO_INCREMENT,
     fecha DATE, 
-    nodoc INT, 
+    no_doc INT,
     tipo_docu INT,
     no_cheque_comp VARCHAR(100), 
     referencia VARCHAR(1000), 
