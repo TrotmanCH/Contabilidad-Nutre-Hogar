@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e9a5f86c-21c2-4194-9bb7-74e704ddd2da" name="Changes" comment="esta bien">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaContable.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nutrehogar/sistemacontable/Entities/Cuenta.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nutrehogar/sistemacontable/Entities/CuentaService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nutrehogar/sistemacontable/Entities/TipoDocumento.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nutrehogar/sistemacontable/Entities/TipoDocumentoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nutrehogar/sistemacontable/Entities/Transaccion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nutrehogar/sistemacontable/HibernateUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nutrehogar/sistemacontable/SistemaContable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Contabilidad-Nutre-Hogar.code-workspace" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Contabilidad.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nutrehogar/sistemacontable/Entities/Cuenta$CuentaBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nutrehogar/sistemacontable/Entities/Cuenta.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nutrehogar/sistemacontable/Entities/CuentaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nutrehogar/sistemacontable/Entities/TipoDocumento$TipoDocumentoBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nutrehogar/sistemacontable/Entities/TipoDocumento.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nutrehogar/sistemacontable/Entities/TipoDocumentoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nutrehogar/sistemacontable/Entities/Transaccion$TransaccionBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nutrehogar/sistemacontable/Entities/Transaccion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nutrehogar/sistemacontable/HibernateUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nutrehogar/sistemacontable/SistemaContable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOM1ELtc58QQsy&quot;,
+        &quot;number&quot;: 3
+      },
+      &quot;lastSeen&quot;: 1727548170793
+    },
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOM1ELtc58QM5V&quot;,
+        &quot;number&quot;: 1
+      },
+      &quot;lastSeen&quot;: 1727548181067
+    },
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOM1ELtc58QP9J&quot;,
+        &quot;number&quot;: 2
+      },
+      &quot;lastSeen&quot;: 1727548186576
+    },
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOM1ELtc58QWSh&quot;,
+        &quot;number&quot;: 4
+      },
+      &quot;lastSeen&quot;: 1727631579083
+    }
+  ]
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/TrotmanCH/Contabilidad-Nutre-Hogar.git&quot;,
+    &quot;accountId&quot;: &quot;ce61237b-b77a-4fc2-8839-13bbd3bce36a&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;Calcifer1331&quot;,
+    &quot;repository&quot;: &quot;Contabilidad-Nutre-Hogar&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2mOBf5YTEZqD89cgT74o2I5WACP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.SistemaContable.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Calci/OneDrive/Documents/GitHub/Contabilidad-Nutre-Hogar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.nutrehogar.sistemacontable" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e9a5f86c-21c2-4194-9bb7-74e704ddd2da" name="Changes" comment="" />
+      <created>1726937841315</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726937841315</updated>
+      <workItem from="1726937842384" duration="9738000" />
+      <workItem from="1726947833246" duration="327000" />
+      <workItem from="1727545581730" duration="498000" />
+      <workItem from="1727546144603" duration="1713000" />
+      <workItem from="1727631028480" duration="680000" />
+      <workItem from="1727787561649" duration="60000" />
+      <workItem from="1727791302256" duration="27000" />
+      <workItem from="1727791337862" duration="2136000" />
+    </task>
+    <task id="LOCAL-00001" summary="i">
+      <option name="closed" value="true" />
+      <created>1726938005000</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1726938005000</updated>
+    </task>
+    <task id="LOCAL-00002" summary="i">
+      <option name="closed" value="true" />
+      <created>1726938610741</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1726938610741</updated>
+    </task>
+    <task id="LOCAL-00003" summary="se agrego el metodo estatico ejectaTransaction a hibernateUtil">
+      <option name="closed" value="true" />
+      <created>1726939888205</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726939888205</updated>
+    </task>
+    <task id="LOCAL-00004" summary="se agrego la entidad Cuenta">
+      <option name="closed" value="true" />
+      <created>1726942421520</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1726942421520</updated>
+    </task>
+    <task id="LOCAL-00005" summary="se agrego documentacion">
+      <option name="closed" value="true" />
+      <created>1726943059537</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1726943059537</updated>
+    </task>
+    <task id="LOCAL-00006" summary="esta bien">
+      <option name="closed" value="true" />
+      <created>1726947782509</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1726947782509</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="i" />
+    <MESSAGE value="se agrego el metodo estatico ejectaTransaction a hibernateUtil" />
+    <MESSAGE value="se agrego la entidad Cuenta" />
+    <MESSAGE value="se agrego documentacion" />
+    <MESSAGE value="esta bien" />
+    <option name="LAST_COMMIT_MESSAGE" value="esta bien" />
+  </component>
+</project>
