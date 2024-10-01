@@ -2,6 +2,7 @@
 package com.nutrehogar.sistemacontable;
 
 import com.nutrehogar.sistemacontable.entities.Cuenta;
+import com.nutrehogar.sistemacontable.service.BackupService;
 import com.nutrehogar.sistemacontable.service.CuentaService;
 import com.nutrehogar.sistemacontable.utils.HibernateUtil;
 
@@ -19,6 +20,7 @@ public class SistemaContable {
         CuentaService cuentaService = new CuentaService();
         Cuenta cuenta = cuentaService.obtenerCuenta(1);
         System.out.println(cuenta);
+        BackupService.backupDatabase();
         shutdown();
     }
 }
