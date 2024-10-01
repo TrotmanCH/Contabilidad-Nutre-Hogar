@@ -7,4 +7,5 @@ Este proyecto es una aplicación de escritorio para la gestión contable de Nutr
 - **Registro de Transacciones**: Permite registrar transacciones contables como ingresos, egresos y adjuntos.
 - **Visualización de Reportes**: Genera reportes en formato imprimible utilizando JasperStudio.
 - **Interfaz de Usuario Amigable**: Desarrollada con Java Swing para una experiencia de usuario fluida.
-- **Persistencia de Datos**: Utiliza Hibernate para la interacción con una base de datos SQL.
+- **Persistencia de Datos**: Utiliza Hibernate para la interacción con una base de datos SQLite.
+- **Copias de Ceguridad**: Funciones de creacion de Backup y Restableciminto.
