@@ -1,6 +1,6 @@
 # Sistema Contable
 
-Este proyecto es una aplicación de escritorio para la gestión contable de una Nutre Hogar. Permite el registro y control de transacciones contables, incluyendo la generación de reportes de libro diario mayor y general.
+Este proyecto es una aplicación de escritorio para la gestión contable de Nutre Hogar. Permite el registro y control de transacciones contables, incluyendo la generación de reportes de libro diario mayor y general.
 
 ## Características
 
