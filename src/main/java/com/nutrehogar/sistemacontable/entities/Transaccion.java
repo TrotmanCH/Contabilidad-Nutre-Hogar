@@ -31,7 +31,7 @@ public class Transaccion {
     /**
      * Fecha en que se realizó la transacción.
      */
-    LocalDate fecha;
+    java.sql.Date fecha;
 
     /**
      * Número del documento asociado a la transacción.
