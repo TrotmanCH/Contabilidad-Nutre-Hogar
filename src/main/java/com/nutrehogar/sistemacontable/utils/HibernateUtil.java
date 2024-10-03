@@ -28,7 +28,7 @@ import org.hibernate.cfg.Configuration;
  * </pre>
  */
 public class HibernateUtil {
-    private static SessionFactory sessionFactory;
+    private static final SessionFactory sessionFactory;
 
     @Getter
     private static Session session;
