@@ -5,6 +5,7 @@ import com.nutrehogar.sistemacontable.persistence.model.TransaccionEntity;
 import com.nutrehogar.sistemacontable.persistence.repository.interfaces.ITransaccionRepository;
 import com.nutrehogar.sistemacontable.utils.HibernateUtil;
 import org.hibernate.Session;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -46,6 +47,15 @@ public class TransaccionHibernateRepository implements ITransaccionRepository {
         try {
             session.beginTransaction();
             session.save(transaccionEntity);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+    }
+    public void save(@NotNull List<TransaccionEntity> transaccion) {
+        try {
+            session.beginTransaction();
+            transaccion.forEach(session::save);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

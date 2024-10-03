@@ -73,7 +73,7 @@ public class CuentaHibernateRepository implements ICuentaRepository {
         List<CuentaEntity> cuentas;
         try {
             session.beginTransaction();
-            cuentas = session.createQuery("from CuentaEntity ", CuentaEntity.class).list();
+            cuentas = session.createQuery("from CuentaEntity", CuentaEntity.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -92,6 +92,19 @@ public class CuentaHibernateRepository implements ICuentaRepository {
     @Override
     public CuentaEntity findById(Integer id) {
         return session.find(CuentaEntity.class, id);
+    }
+
+    public CuentaEntity findByNoCuenta(String noCuenta) {
+        CuentaEntity cuenta = null;
+        try {
+            session.beginTransaction();
+            cuenta = session.createQuery("from CuentaEntity where noCuenta = :noCuenta", CuentaEntity.class).setParameter("noCuenta", noCuenta).uniqueResult();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        return cuenta;
     }
 
     /**
@@ -116,7 +129,13 @@ public class CuentaHibernateRepository implements ICuentaRepository {
     }
 
     public void save(@NotNull List<CuentaEntity> cuentas) {
-        cuentas.forEach(this::save);
+        try {
+            session.beginTransaction();
+            cuentas.forEach(session::save);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        }
     }
 
     /**

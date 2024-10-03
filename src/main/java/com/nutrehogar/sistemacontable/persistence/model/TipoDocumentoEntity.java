@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,5 +39,5 @@ public class TipoDocumentoEntity {
      * Relación uno a muchos con la entidad Transaccion.
      */
     @OneToMany(mappedBy = "tipoDocumento", cascade = CascadeType.ALL) // Relación uno a muchos
-            List<TransaccionEntity> transacciones; // Lista de transacciones asociadas
+            List<TransaccionEntity> transacciones = new ArrayList<>(); // Lista de transacciones asociadas
 }

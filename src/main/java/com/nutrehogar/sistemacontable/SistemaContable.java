@@ -5,33 +5,50 @@ import com.nutrehogar.sistemacontable.persistence.model.CuentaEntity;
 import com.nutrehogar.sistemacontable.persistence.model.TipoDocumentoEntity;
 import com.nutrehogar.sistemacontable.persistence.model.TransaccionEntity;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaHibernateRepository;
-import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoHibernateRepository;
 import com.nutrehogar.sistemacontable.persistence.repository.TransaccionHibernateRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SistemaContable {
-    /**
-     * metodo que cierra la session y el factory.
-     * Es importante que se cierren correctamente para evitar perdida de datos. En la implementacion final se debe asignar esta funciona a un Listener de el bton close de windows.
-     */
-
     public static void main(String[] args) {
         TransaccionHibernateRepository transaccionRepo = TransaccionHibernateRepository.getInstance();
+        List<TransaccionEntity> transacciones = new ArrayList<>();
+        for (int i = 0; i < 5000; i++) {
+            transacciones.add(TransaccionEntity.builder()
+                    .fecha(LocalDate.now())
+                    .credito(BigDecimal.valueOf(i))
+                    .noCheque("num:" + i)
+                    .noDocumento(i)
+                    .referencia("est")
+                    .cuenta(CuentaEntity.builder()
+                            .noCuenta("NoCuenta:" + i)
+                            .nombre("nombre:" + i)
+                            .build())
+                    .tipoDocumento(TipoDocumentoEntity.builder()
+                            .nombre("nombre:" + i)
+                            .build())
+                    .build());
+        }
+        transaccionRepo.save(transacciones);
+        System.out.println(transacciones.size());
+
         CuentaHibernateRepository cuentaRepo = CuentaHibernateRepository.getInstance();
-        TipoDocumentoHibernateRepository tipoDocumentoRepo = TipoDocumentoHibernateRepository.getInstance();
-        TipoDocumentoEntity tipoDocumentoEntity = tipoDocumentoRepo.findById(1);
-        CuentaEntity cuenta = cuentaRepo.findById(1);
-        CuentaEntity cuenta2 = cuentaRepo.findById(2);
+        // Comienza a medir el tiempo
+        long startTime = System.currentTimeMillis();
 
-        transaccionRepo.save(TransaccionEntity.builder().fecha(LocalDate.now()).credito(BigDecimal.valueOf(198467)).cuenta(cuenta).noCheque("es").noDocumento(122).tipoDocumento(tipoDocumentoEntity).build());
-        TransaccionEntity transaccionEntity = transaccionRepo.findById(2);
-        System.out.println(transaccionEntity+"  "+ transaccionEntity.getCuenta()+"  "+ transaccionEntity.getTipoDocumento());
-        transaccionEntity.setCuenta(cuenta2);
-        transaccionRepo.update(transaccionEntity);
-        transaccionEntity = transaccionRepo.findById(2);
-        System.out.println(transaccionEntity+"  "+ transaccionEntity.getCuenta());
+        // Realiza la consulta
+        CuentaEntity cuenta = cuentaRepo.findByNoCuenta("15001");
 
+
+        // Termina de medir el tiempo
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime; // Tiempo en milisegundos
+
+        // Muestra información
+        System.out.println("Consulta realizada en: " + duration + " ms");
+        System.out.println(cuenta);
     }
 }
