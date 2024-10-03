@@ -2,8 +2,8 @@ package com.nutrehogar.sistemacontable.service;
 
 import com.nutrehogar.sistemacontable.entities.Cuenta;
 import com.nutrehogar.sistemacontable.utils.HibernateUtil;
+import org.hibernate.Session;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +42,18 @@ import java.util.Optional;
  */
 
 public class CuentaService {
+    private static CuentaService instance;
+    private static final Session session = HibernateUtil.getSession();
+
+    private CuentaService() {
+    }
+
+    public static CuentaService getInstance() {
+        if (instance == null) {
+            instance = new CuentaService();
+        }
+        return instance;
+    }
 
 
     /**
@@ -56,11 +68,11 @@ public class CuentaService {
      */
     public void guardarCuenta(Cuenta cuenta) {
         try {
-            HibernateUtil.getSession().beginTransaction();
-            HibernateUtil.getSession().save(cuenta);
-            HibernateUtil.getSession().getTransaction().commit();
+            session.beginTransaction();
+            session.save(cuenta);
+            session.getTransaction().commit();
         } catch (Exception e) {
-            HibernateUtil.getSession().getTransaction().rollback();
+            session.getTransaction().rollback();
             e.printStackTrace();
         }
     }
@@ -70,14 +82,18 @@ public class CuentaService {
     }
 
 
-        /**
-         * Obtiene una cuenta de la base de datos por su ID.
-         *
-         * @param id El ID de la cuenta a obtener.
-         * @return Un {@code Optinal} que contiene la cuenta correspondiente al ID proporcionado o null si no se encuentra.
-         */
+    /**
+     * Obtiene una cuenta de la base de datos por su ID.
+     *
+     * @param id El ID de la cuenta a obtener.
+     * @return Un {@code Optinal} que contiene la cuenta correspondiente al ID proporcionado o null si no se encuentra.
+     */
     public Optional<Cuenta> obtenerCuenta(Integer id) {
-        return Optional.ofNullable(HibernateUtil.getSession().load(Cuenta.class, id));
+        return Optional.ofNullable(session.load(Cuenta.class, id));
+    }
+
+    public List<Cuenta> obtenerCuentas() {
+        return session.createCriteria(Cuenta.class).list();
     }
 
     /**
@@ -92,14 +108,15 @@ public class CuentaService {
      */
     public void actualizarCuenta(Cuenta cuenta) {
         try {
-            HibernateUtil.getSession().beginTransaction();
-            HibernateUtil.getSession().update(cuenta);
-            HibernateUtil.getSession().getTransaction().commit();
+            session.beginTransaction();
+            session.update(cuenta);
+            session.getTransaction().commit();
         } catch (Exception e) {
-            HibernateUtil.getSession().getTransaction().rollback();
+            session.getTransaction().rollback();
             e.printStackTrace();
         }
     }
+
     public void actualizarCuenta(List<Cuenta> listadoCuentas) {
         listadoCuentas.forEach(this::actualizarCuenta);
     }
@@ -117,19 +134,19 @@ public class CuentaService {
      */
     public void borrarCuenta(Integer id) {
         try {
-            HibernateUtil.getSession().beginTransaction();
-            Cuenta cuenta = HibernateUtil.getSession().get(Cuenta.class, id);
+            session.beginTransaction();
+            Cuenta cuenta = session.get(Cuenta.class, id);
             if (cuenta != null) {
-                HibernateUtil.getSession().delete(cuenta);
+                session.delete(cuenta);
             }
-            HibernateUtil.getSession().getTransaction().commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
-            HibernateUtil.getSession().getTransaction().rollback();
+            session.getTransaction().rollback();
             e.printStackTrace();
         }
     }
 
-    public void borrarCuenta(List<Integer> listadoId){
+    public void borrarCuenta(List<Integer> listadoId) {
         listadoId.forEach(this::borrarCuenta);
     }
 }

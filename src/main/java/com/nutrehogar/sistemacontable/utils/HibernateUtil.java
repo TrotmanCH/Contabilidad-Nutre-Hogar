@@ -1,8 +1,9 @@
 package com.nutrehogar.sistemacontable.utils;
+
+import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import lombok.Getter;
 
 /**
  * HibernateUtil es una clase de utilidad para gestionar la configuración de Hibernate y las sesiones.
@@ -65,4 +66,10 @@ public class HibernateUtil {
             sessionFactory.close();
         }
     }
+
+    public static void shutdown() {
+        HibernateUtil.closeSession();
+        HibernateUtil.closeSessionFactory();
+    }
+
 }
