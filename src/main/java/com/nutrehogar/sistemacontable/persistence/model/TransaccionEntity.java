@@ -1,10 +1,9 @@
-package com.nutrehogar.sistemacontable.entities;
+package com.nutrehogar.sistemacontable.persistence.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 /**
  * Representa una transacción en el sistema contable.
@@ -18,7 +17,7 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "transaccion")
-public class Transaccion {
+public class TransaccionEntity {
 
     /**
      * Identificador único de la transacción.
@@ -26,7 +25,7 @@ public class Transaccion {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;  // Considera usar Integer para permitir valores nulos.
+    Integer id;
 
     /**
      * Fecha en que se realizó la transacción.
@@ -45,7 +44,7 @@ public class Transaccion {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_documento_id")
-    TipoDocumento tipoDocumento;
+    TipoDocumentoEntity tipoDocumento;
 
     /**
      * Número de cheque asociado a la transacción.
@@ -63,7 +62,7 @@ public class Transaccion {
      * Relación muchos a uno con la entidad Cuenta.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    Cuenta cuenta;
+    CuentaEntity cuenta;
 
     /**
      * Monto debitado en la transacción.

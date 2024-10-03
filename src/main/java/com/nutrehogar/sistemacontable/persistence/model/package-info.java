@@ -5,4 +5,4 @@
  * Las entidades son usadas por Hibernate para realizar operaciones de persistencia
  * en la base de datos.
  */
-package com.nutrehogar.sistemacontable.entities;
+package com.nutrehogar.sistemacontable.persistence.model;

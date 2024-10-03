@@ -2,7 +2,8 @@ package com.nutrehogar.sistemacontable.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nutrehogar.sistemacontable.entities.Cuenta;
+import com.nutrehogar.sistemacontable.persistence.model.CuentaEntity;
+import com.nutrehogar.sistemacontable.persistence.repository.CuentaHibernateRepository;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class BackupService {
 
     //    private final CuentaService cuentaService;
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static final CuentaService cuentaService = CuentaService.getInstance();
+    private static final CuentaHibernateRepository cuentaService = CuentaHibernateRepository.getInstance();
 
     private BackupService() {
 //        this.cuentaService = CuentaService.getInstance();
@@ -39,7 +40,7 @@ public class BackupService {
 
     public void backupDatabaseJSON() {
         try {
-            List<Cuenta> cuentas = cuentaService.obtenerCuentas();
+            List<CuentaEntity> cuentas = cuentaService.findAll();
             File file = new File(BACKUP_PATH + nameByDate());
             if (file.createNewFile()) {
                 escribirCuentasAArchivo(file, cuentas);
@@ -60,8 +61,8 @@ public class BackupService {
     public void restoreDatabaseJSON(String backupFileName) {
         try {
             File file = new File(BACKUP_PATH + backupFileName);
-            List<Cuenta> cuentas = leerCuentasDesdeArchivo(file);
-            cuentaService.guardarCuenta(cuentas);
+            List<CuentaEntity> cuentas = leerCuentasDesdeArchivo(file);
+            cuentaService.save(cuentas);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,21 +71,21 @@ public class BackupService {
     public void startDataCuenta() {
         try {
             File file = new File(BACKUP_PATH + "initCuenta.json");
-            List<Cuenta> cuentas = objectMapper.readValue(file, new TypeReference<>() {
+            List<CuentaEntity> cuentas = objectMapper.readValue(file, new TypeReference<>() {
             });
 
-            cuentaService.guardarCuenta(cuentas);
+            cuentaService.save(cuentas);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private List<Cuenta> leerCuentasDesdeArchivo(File file) throws IOException {
+    private List<CuentaEntity> leerCuentasDesdeArchivo(File file) throws IOException {
         return objectMapper.readValue(file, new TypeReference<>() {
         });
     }
 
-    private void escribirCuentasAArchivo(File file, List<Cuenta> cuentas) throws IOException {
+    private void escribirCuentasAArchivo(File file, List<CuentaEntity> cuentas) throws IOException {
         objectMapper.writeValue(file, cuentas);
     }
 
