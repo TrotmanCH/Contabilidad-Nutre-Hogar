@@ -1,64 +1,97 @@
 package com.nutrehogar.sistemacontable.service;
 
-import com.nutrehogar.sistemacontable.utils.HibernateUtil;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nutrehogar.sistemacontable.entities.Cuenta;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
+import java.util.List;
 
 public class BackupService {
+    private static BackupService instance;
 
-    static final String BACKUP_PATH = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "backup" + File.separator;
+    private static final String BACKUP_PATH = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "backup" + File.separator;
+    private static final String DB_PATH = "contabilidad.db";
 
-    static final String DB_PATH = "contabilidad.db";
+    //    private final CuentaService cuentaService;
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final CuentaService cuentaService = CuentaService.getInstance();
+
+    private BackupService() {
+//        this.cuentaService = CuentaService.getInstance();
+    }
+
+    // Método estático para obtener la instancia única
+    public static BackupService getInstance() {
+        if (instance == null) {
+            instance = new BackupService();
+        }
+        return instance;
+    }
 
     /**
      * Realiza una copia de seguridad de la base de datos.
      * Se copia el archivo de la base de datos a una nueva ubicación con un nombre basado en la fecha y hora.
      */
-    public static Optional<String> backupDatabase() {
 
+    public void backupDatabaseJSON() {
         try {
-            LocalDateTime date = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
-            String fileName = "backup_" + date.format(formatter) + ".db";
-            Path sourcePath = Paths.get(DB_PATH);
-            Path backupPath = Paths.get(BACKUP_PATH + fileName);
-
-            Files.createDirectories(backupPath.getParent());
-
-            Files.copy(sourcePath, backupPath, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("Backup realizado correctamente: " + backupPath);
-            return Optional.of(fileName);
+            List<Cuenta> cuentas = cuentaService.obtenerCuentas();
+            File file = new File(BACKUP_PATH + nameByDate());
+            if (file.createNewFile()) {
+                escribirCuentasAArchivo(file, cuentas);
+                System.out.println("Backup creado exitosamente.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            return Optional.empty();
         }
     }
+
 
     /**
      * Restaura la base de datos desde un archivo de backup.
      *
      * @param backupFileName El nombre del archivo de backup a restaurar.
      */
-    public static void restoreDatabase(String backupFileName) {
-        HibernateUtil.closeSession();
-        HibernateUtil.closeSessionFactory();
 
+    public void restoreDatabaseJSON(String backupFileName) {
         try {
-            Path backup = Paths.get(BACKUP_PATH + backupFileName);
-            Path target = Paths.get(DB_PATH);
-
-            Files.copy(backup, target, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("Restauración de la base de datos realizada correctamente desde: " + backup);
+            File file = new File(BACKUP_PATH + backupFileName);
+            List<Cuenta> cuentas = leerCuentasDesdeArchivo(file);
+            cuentaService.guardarCuenta(cuentas);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void startDataCuenta() {
+        try {
+            File file = new File(BACKUP_PATH + "initCuenta.json");
+            List<Cuenta> cuentas = objectMapper.readValue(file, new TypeReference<>() {
+            });
+
+            cuentaService.guardarCuenta(cuentas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<Cuenta> leerCuentasDesdeArchivo(File file) throws IOException {
+        return objectMapper.readValue(file, new TypeReference<>() {
+        });
+    }
+
+    private void escribirCuentasAArchivo(File file, List<Cuenta> cuentas) throws IOException {
+        objectMapper.writeValue(file, cuentas);
+    }
+
+    private static String nameByDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        LocalDateTime date = LocalDateTime.now();
+        return "backup_" + date.format(formatter) + ".json";
+    }
+
 }

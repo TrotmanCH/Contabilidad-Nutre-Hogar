@@ -29,7 +29,7 @@ C:/Users/Calci/OneDrive/Documents/GitHub/Contabilidad-Nutre-Hogar/SistemaContabl
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="contabilidad" uuid="ae020a97-f4bf-4f6e-b670-09eb316ef520">
+    <data-source source="LOCAL" name="contabilidad" uuid="98e69c7f-0345-4eff-8c59-da927f832848">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
