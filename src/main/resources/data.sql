@@ -83,3 +83,9 @@ INSERT INTO cuenta (numero_cuenta, nombre) VALUES ('31002', 'Excedentes');
 INSERT INTO cuenta (numero_cuenta, nombre) VALUES ('32', 'Resultados del Ejercicio');
 INSERT INTO cuenta (numero_cuenta, nombre) VALUES ('32000', 'Ingresos');
 INSERT INTO cuenta (numero_cuenta, nombre) VALUES ('32001', 'Gastos');
+
+INSERT INTO tipo_documento (nombre) VALUES ('N-ING');
+INSERT INTO tipo_documento (nombre) VALUES ('N-EGR');
+INSERT INTO tipo_documento (nombre) VALUES ('N-AJT');
+
+INSERT INTO transaccion (credito, debito, fecha, numero_cheque, numero_documento, referencia, cuenta_id, tipo_documento_id) VALUES (14425.12,null, null, '120',543,'esrerd',100,2)

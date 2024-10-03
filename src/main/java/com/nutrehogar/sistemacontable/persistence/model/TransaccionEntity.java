@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 /**
  * Representa una transacción en el sistema contable.
@@ -13,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = {"cuenta","tipoDocumento"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "transaccion")
@@ -30,7 +32,7 @@ public class TransaccionEntity {
     /**
      * Fecha en que se realizó la transacción.
      */
-    java.sql.Date fecha;
+    LocalDate fecha;
 
     /**
      * Número del documento asociado a la transacción.
@@ -67,10 +69,10 @@ public class TransaccionEntity {
     /**
      * Monto debitado en la transacción.
      */
-    float debito;
+    BigDecimal debito;
 
     /**
      * Monto acreditado en la transacción.
      */
-    float credito;
+    BigDecimal credito;
 }
