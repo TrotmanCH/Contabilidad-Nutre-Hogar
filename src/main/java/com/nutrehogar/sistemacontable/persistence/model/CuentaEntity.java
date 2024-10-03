@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.entities;
+package com.nutrehogar.sistemacontable.persistence.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -17,7 +17,7 @@ import javax.persistence.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "cuenta")
-public class Cuenta {
+public class CuentaEntity {
 
     /**
      * Identificador único de la cuenta.
@@ -25,17 +25,17 @@ public class Cuenta {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(length = 10)
-    Integer id;  // Considera usar Integer para permitir valores nulos.
+    Integer id;
 
     /**
      * Número de cuenta, debe ser único y no nulo.
      */
-    @Column(name = "numero_cuenta", unique = true, nullable = false)
+    @Column(name = "numero_cuenta", nullable = false)
     String noCuenta;
 
     /**
      * Nombre asociado a la cuenta.
      */
+    @Column(nullable = false)
     String nombre;
 }

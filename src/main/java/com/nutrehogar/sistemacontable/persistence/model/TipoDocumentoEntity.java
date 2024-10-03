@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.entities;
+package com.nutrehogar.sistemacontable.persistence.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -18,7 +18,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "tipo_documento")
-public class TipoDocumento {
+public class TipoDocumentoEntity {
 
     /**
      * Identificador único del tipo de documento.
@@ -26,7 +26,7 @@ public class TipoDocumento {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;  // Considera usar Integer para permitir valores nulos.
+    Integer id;
 
     /**
      * Nombre del tipo de documento.
@@ -38,5 +38,5 @@ public class TipoDocumento {
      * Relación uno a muchos con la entidad Transaccion.
      */
     @OneToMany(mappedBy = "tipoDocumento", cascade = CascadeType.ALL) // Relación uno a muchos
-            List<Transaccion> transacciones; // Lista de transacciones asociadas
+            List<TransaccionEntity> transacciones; // Lista de transacciones asociadas
 }

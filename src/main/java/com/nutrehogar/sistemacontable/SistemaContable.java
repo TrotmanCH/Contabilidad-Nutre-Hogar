@@ -1,6 +1,7 @@
 
 package com.nutrehogar.sistemacontable;
 
+import com.nutrehogar.sistemacontable.utils.HibernateUtil;
 
 public class SistemaContable {
     /**
@@ -9,5 +10,6 @@ public class SistemaContable {
      */
 
     public static void main(String[] args) {
+        HibernateUtil.getSession();
     }
 }
