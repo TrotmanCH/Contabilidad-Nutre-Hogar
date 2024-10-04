@@ -44,7 +44,7 @@ public class TransaccionEntity {
      * Tipo de documento asociado a esta transacción.
      * Relación muchos a uno con la entidad TipoDocumento.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "tipo_documento_id")
     TipoDocumentoEntity tipoDocumento;
 
@@ -63,7 +63,7 @@ public class TransaccionEntity {
      * Cuenta asociada a la transacción.
      * Relación muchos a uno con la entidad Cuenta.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     CuentaEntity cuenta;
 
     /**

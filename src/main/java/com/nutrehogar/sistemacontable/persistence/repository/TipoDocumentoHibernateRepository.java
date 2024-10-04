@@ -1,9 +1,11 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
+import com.nutrehogar.sistemacontable.persistence.model.CuentaEntity;
 import com.nutrehogar.sistemacontable.persistence.model.TipoDocumentoEntity;
 import com.nutrehogar.sistemacontable.persistence.repository.interfaces.ITipoDocumentoRepository;
 import com.nutrehogar.sistemacontable.utils.HibernateUtil;
 import org.hibernate.Session;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -47,6 +49,15 @@ public class TipoDocumentoHibernateRepository implements ITipoDocumentoRepositor
         try {
             session.beginTransaction();
             session.save(tipoDocumento);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+    }
+    public void save(@NotNull List<TipoDocumentoEntity> tipoDocumento) {
+        try {
+            session.beginTransaction();
+            tipoDocumento.forEach(session::save);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

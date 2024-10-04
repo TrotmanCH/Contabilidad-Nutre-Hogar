@@ -16,7 +16,9 @@ import javax.persistence.*;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "cuenta")
+@Table(name = "cuenta", indexes = {
+        @Index(name = "idx_no_cuenta", columnList = "numero_cuenta")
+})
 public class CuentaEntity {
 
     /**
@@ -36,6 +38,6 @@ public class CuentaEntity {
     /**
      * Nombre asociado a la cuenta.
      */
-    @Column(nullable = false)
+    @Column(name = "nombre", nullable = false)
     String nombre;
 }
