@@ -2,8 +2,10 @@ package com.nutrehogar.sistemacontable.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nutrehogar.sistemacontable.SistemaContable;
 import com.nutrehogar.sistemacontable.persistence.model.CuentaEntity;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaHibernateRepository;
+import com.nutrehogar.sistemacontable.utils.ConfigLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,33 +14,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class BackupService {
-    private static BackupService instance;
 
-    private static final String BACKUP_PATH = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "backup" + File.separator;
-    private static final String DB_PATH = "contabilidad.db";
+    private static final String BACKUP_PATH = ConfigLoader.getBackupPath() + File.separator;
 
     //    private final CuentaService cuentaService;
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final CuentaHibernateRepository cuentaService = CuentaHibernateRepository.getInstance();
 
-    private BackupService() {
-//        this.cuentaService = CuentaService.getInstance();
-    }
-
-    // Método estático para obtener la instancia única
-    public static BackupService getInstance() {
-        if (instance == null) {
-            instance = new BackupService();
-        }
-        return instance;
-    }
 
     /**
      * Realiza una copia de seguridad de la base de datos.
      * Se copia el archivo de la base de datos a una nueva ubicación con un nombre basado en la fecha y hora.
      */
 
-    public void backupDatabaseJSON() {
+    public static void backupDatabaseJSON() {
         try {
             List<CuentaEntity> cuentas = cuentaService.findAll();
             File file = new File(BACKUP_PATH + nameByDate());
@@ -58,7 +47,7 @@ public class BackupService {
      * @param backupFileName El nombre del archivo de backup a restaurar.
      */
 
-    public void restoreDatabaseJSON(String backupFileName) {
+    public static void restoreDatabaseJSON(String backupFileName) {
         try {
             File file = new File(BACKUP_PATH + backupFileName);
             List<CuentaEntity> cuentas = leerCuentasDesdeArchivo(file);
@@ -68,7 +57,7 @@ public class BackupService {
         }
     }
 
-    public void startDataCuenta() {
+    public static void startDataCuenta() {
         try {
             File file = new File(BACKUP_PATH + "initCuenta.json");
             List<CuentaEntity> cuentas = objectMapper.readValue(file, new TypeReference<>() {
@@ -80,12 +69,12 @@ public class BackupService {
         }
     }
 
-    private List<CuentaEntity> leerCuentasDesdeArchivo(File file) throws IOException {
+    private static List<CuentaEntity> leerCuentasDesdeArchivo(File file) throws IOException {
         return objectMapper.readValue(file, new TypeReference<>() {
         });
     }
 
-    private void escribirCuentasAArchivo(File file, List<CuentaEntity> cuentas) throws IOException {
+    private static void escribirCuentasAArchivo(File file, List<CuentaEntity> cuentas) throws IOException {
         objectMapper.writeValue(file, cuentas);
     }
 

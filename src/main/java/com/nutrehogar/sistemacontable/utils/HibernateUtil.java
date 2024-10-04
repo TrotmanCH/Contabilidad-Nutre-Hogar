@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.io.File;
+
 /**
  * HibernateUtil es una clase de utilidad para gestionar la configuración de Hibernate y las sesiones.
  * Esta clase proporciona métodos para inicializar una única sesión de Hibernate y cerrarla adecuadamente,
@@ -37,7 +39,10 @@ public class HibernateUtil {
         try {
             // Crea la configuración de Hibernate
             Configuration configuration = new Configuration();
+
             configuration.configure(); // Carga hibernate.cfg.xml
+            // Establecer esta URL en tu configuración de Hibernate
+            configuration.setProperty("hibernate.connection.url", "jdbc:sqlite:"+ConfigLoader.getDbPath());
             sessionFactory = configuration.buildSessionFactory();
             session = sessionFactory.openSession(); // Abre una única sesión
         } catch (Throwable ex) {
