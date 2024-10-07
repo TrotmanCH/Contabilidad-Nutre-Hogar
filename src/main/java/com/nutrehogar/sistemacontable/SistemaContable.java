@@ -6,6 +6,6 @@ import com.nutrehogar.sistemacontable.persistence.repository.CuentaHibernateRepo
 public class SistemaContable {
 
     public static void main(String[] args) {
-CuentaHibernateRepository cuentaHibernateRepository = CuentaHibernateRepository.getInstance();
+        CuentaHibernateRepository cuentaHibernateRepository = CuentaHibernateRepository.getInstance();
     }
 }
