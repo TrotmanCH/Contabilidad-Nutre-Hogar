@@ -1,6 +1,6 @@
 /**
  * Paquete que contiene las vistas de la interfaz de usuario de {@code SistemaContable}.
- *
+ * <p>
  * Las vistas son responsables de presentar la información al usuario de manera clara y efectiva.
  * Pueden incluir componentes gráficos, formularios de entrada y representaciones visuales de los datos contables.
  *

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 /**
  * Representa un detalle de asiento contable que especifica una transacción en una cuenta específica.
- *
+ * <p>
  * Cada detalle de asiento indica si la cuenta se debita o acredita, y en qué monto.
  *
  * <p><strong>Ámbito de Desarrollo:</strong></p>
@@ -42,7 +42,7 @@ import java.math.BigDecimal;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "Detalles_Asientos")
+@Table(name = "detalles_asientos")
 public class DetalleAsiento {
 
     /**
@@ -60,7 +60,7 @@ public class DetalleAsiento {
      */
     @ManyToOne
     @JoinColumn(name = "id_asiento", nullable = false)
-    private Asiento asiento;
+    Asiento asiento;
 
     /**
      * Cuenta contable afectada por este detalle de asiento.
@@ -87,7 +87,6 @@ public class DetalleAsiento {
     @Column(name = "haber", precision = 15, scale = 2)
     BigDecimal haber;
 
-    // Métodos adicionales (si es necesario)
 
     /**
      * Calcula el impacto neto de este detalle de asiento.

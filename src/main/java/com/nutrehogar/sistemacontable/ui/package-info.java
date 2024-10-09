@@ -1,6 +1,6 @@
 /**
  * Paquete que maneja la interfaz de usuario de {@code SistemaContable}.
- *
+ * <p>
  * Este paquete contiene los controladores que gestionan las interacciones del usuario y las vistas que presentan la información.
  *
  * <p>

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TransaccionRepository {
     private static TransaccionRepository instance;
-    private static Session session = HibernateUtil.getSession();
+    private static final Session session = HibernateUtil.getSession();
 
 
     private TransaccionRepository() {

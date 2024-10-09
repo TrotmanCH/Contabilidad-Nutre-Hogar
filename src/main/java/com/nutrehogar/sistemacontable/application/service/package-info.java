@@ -1,6 +1,6 @@
 /**
  * Paquete que contiene los servicios de negocio de {@code SistemaContable}.
- *
+ * <p>
  * Los servicios encapsulan la lógica de negocio y coordinan las operaciones entre las diferentes capas del sistema.
  * Utilizan los repositorios para acceder a los datos y los DTOs para transferir información entre la capa de aplicación y la capa de presentación.
  *

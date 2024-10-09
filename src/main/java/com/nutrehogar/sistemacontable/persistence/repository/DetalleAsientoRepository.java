@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DetalleAsientoRepository {
     private static DetalleAsientoRepository instance;
-    private static Session session = HibernateUtil.getSession();
+    private static final Session session = HibernateUtil.getSession();
 
 
     private DetalleAsientoRepository() {

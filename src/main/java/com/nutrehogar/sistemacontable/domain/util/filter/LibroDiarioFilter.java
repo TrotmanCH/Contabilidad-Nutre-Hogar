@@ -12,7 +12,7 @@ import java.time.LocalDate;
  * Clase sellada que define los criterios de filtrado para el Libro Diario.
  */
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public sealed abstract class LibroDiarioFilter permits LibroDiarioFilter.ByFechaRange, LibroDiarioFilter.ByConcepto, LibroDiarioFilter.All {
+public sealed abstract class LibroDiarioFilter permits LibroDiarioFilter.All, LibroDiarioFilter.ByConcepto, LibroDiarioFilter.ByFechaRange {
 
     /**
      * Filtra el Libro Diario por un rango de fechas.

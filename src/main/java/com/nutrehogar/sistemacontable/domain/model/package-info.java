@@ -1,6 +1,6 @@
 /**
  * Paquete que contiene las entidades del dominio de {@code SistemaContable}.
- *
+ * <p>
  * Las entidades representan los conceptos contables fundamentales como transacciones, asientos y cuentas.
  * Estas clases están mapeadas a las tablas de la base de datos y contienen la lógica necesaria para mantener la integridad de los datos.
  *

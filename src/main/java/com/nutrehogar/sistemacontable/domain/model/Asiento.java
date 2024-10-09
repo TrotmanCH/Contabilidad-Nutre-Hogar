@@ -46,7 +46,7 @@ import java.util.List;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "Asientos")
+@Table(name = "asientos")
 public class Asiento {
 
     /**

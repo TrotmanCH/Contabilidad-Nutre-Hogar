@@ -6,6 +6,8 @@ package com.nutrehogar.sistemacontable.domain.util.order;
  */
 public enum LibroDiarioOrderField {
     FECHA("fecha"),
+    TIPO_DOCUMENTO("tipoDocumento"),
+    CODIGO_CUENTA("codigoCuenta"),
     CONCEPTO("concepto"),
     DEBE("debe"),
     HABER("haber");

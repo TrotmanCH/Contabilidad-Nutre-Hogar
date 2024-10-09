@@ -1,6 +1,6 @@
 /**
  * Paquete que contiene la lógica de aplicación de {@code SistemaContable}.
- *
+ * <p>
  * Este paquete coordina las operaciones entre la capa de presentación (UI) y la capa de persistencia (repositorios).
  * Incluye servicios que implementan la lógica de negocio y objetos de transferencia de datos (DTO) que facilitan la comunicación entre capas.
  *

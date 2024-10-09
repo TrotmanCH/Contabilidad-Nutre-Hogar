@@ -1,9 +1,14 @@
 package com.nutrehogar.sistemacontable.application.dto;
 
-import java.math.BigDecimal;
+import com.nutrehogar.sistemacontable.domain.components.TipoCuenta;
 
+import java.math.BigDecimal;
+/**
+ * DTO que representa un registro en el Libro Mayor.
+ */
 public record LibroMayorDTO(String codigoCuenta,
                             String nombreCuenta,
-                            BigDecimal totalDebe,
-                            BigDecimal totalHaber) {
+                            TipoCuenta tipoCuenta,
+                            BigDecimal debe,
+                            BigDecimal haber) {
 }

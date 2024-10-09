@@ -1,6 +1,6 @@
 /**
  * Paquete que contiene las configuraciones de persistencia de {@code SistemaContable}.
- *
+ * <p>
  * Incluye configuraciones relacionadas con Hibernate, como la creación de la SessionFactory y la configuración de las conexiones a la base de datos.
  *
  * <p>
