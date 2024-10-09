@@ -1,6 +1,6 @@
 /**
  * Paquete que contiene las clases de filtrado del dominio de {@code SistemaContable}.
- *
+ * <p>
  * Estas clases definen los diferentes criterios y periodos para filtrar las transacciones contables y generar informes financieros.
  *
  * <p>

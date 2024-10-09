@@ -1,6 +1,6 @@
 /**
  * Paquete que contiene los controladores de la interfaz de usuario de {@code SistemaContable}.
- *
+ * <p>
  * Los controladores gestionan las solicitudes del usuario, interactúan con los servicios de aplicación y actualizan las vistas en consecuencia.
  *
  * <p>

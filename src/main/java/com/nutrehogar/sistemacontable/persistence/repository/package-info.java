@@ -1,6 +1,6 @@
 /**
  * Paquete que contiene los repositorios de persistencia de {@code SistemaContable}.
- *
+ * <p>
  * Los repositorios son responsables de la interacción directa con la base de datos, proporcionando métodos para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar).
  *
  * <p>

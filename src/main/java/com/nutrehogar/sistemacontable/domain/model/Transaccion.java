@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Representa una transacción financiera en el sistema contable.
- *
+ * <p>
  * Una transacción es una acción que afecta la posición financiera de la empresa y está compuesta por uno o más asientos contables.
  *
  * <p><strong>Ámbito de Desarrollo:</strong></p>
@@ -42,7 +42,7 @@ import java.util.List;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "Transacciones")
+@Table(name = "transacciones")
 public class Transaccion {
 
     /**

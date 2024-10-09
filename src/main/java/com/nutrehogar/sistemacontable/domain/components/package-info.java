@@ -1,6 +1,6 @@
 /**
  * Paquete que contiene las enumeraciones del dominio de {@code SistemaContable}.
- *
+ * <p>
  * Las enumeraciones definen tipos y categorías utilizadas en las entidades, proporcionando un conjunto fijo de valores para propiedades específicas.
  *
  * <p>

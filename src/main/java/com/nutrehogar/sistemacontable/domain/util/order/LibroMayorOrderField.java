@@ -7,7 +7,9 @@ package com.nutrehogar.sistemacontable.domain.util.order;
 public enum LibroMayorOrderField {
     CODIGO_CUENTA("codigoCuenta"),
     NOMBRE_CUENTA("nombreCuenta"),
-    SALDO("saldo");
+    TIPO_CUENTA("tipoCuenta"),
+    DEBE("debe"),
+    HABER("haber"),;
 
     private final String fieldName;
 

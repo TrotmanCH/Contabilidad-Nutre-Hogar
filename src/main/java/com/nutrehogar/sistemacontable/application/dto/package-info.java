@@ -1,6 +1,6 @@
 /**
  * Paquete que contiene los Objetos de Transferencia de Datos (DTO) de {@code SistemaContable}.
- *
+ * <p>
  * Los DTOs son utilizados para transferir datos entre las capas de la aplicación, especialmente entre la capa de servicio y la capa de presentación.
  * Ayudan a encapsular y estructurar la información de manera eficiente, facilitando la comunicación y reduciendo el acoplamiento entre capas.
  *

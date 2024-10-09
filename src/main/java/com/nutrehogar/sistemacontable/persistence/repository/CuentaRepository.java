@@ -1,16 +1,17 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.components.TipoCuenta;
+import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CuentaRepository {
     private static CuentaRepository instance;
-    private static Session session = HibernateUtil.getSession();
+    private static final Session session = HibernateUtil.getSession();
 
 
     private CuentaRepository() {
@@ -24,7 +25,7 @@ public class CuentaRepository {
         return instance;
     }
 
-    public List<Cuenta> findAll() {
+    public Optional<List<Cuenta>> findAll() {
         List<Cuenta> cuentas;
         try {
             session.beginTransaction();
@@ -35,14 +36,14 @@ public class CuentaRepository {
             cuentas = null;
             e.printStackTrace();
         }
-        return cuentas;
+        return Optional.ofNullable(cuentas);
     }
 
-    public Cuenta findById(Integer id) {
-        return session.find(Cuenta.class, id);
+    public Optional<Cuenta> findById(Integer id) {
+        return Optional.ofNullable(session.find(Cuenta.class, id));
     }
 
-    public Cuenta findByCodigo(String Codigo) {
+    public Optional<Cuenta> findByCodigo(String Codigo) {
         Cuenta cuenta = null;
         try {
             session.beginTransaction();
@@ -52,10 +53,10 @@ public class CuentaRepository {
             session.getTransaction().rollback();
             e.printStackTrace();
         }
-        return cuenta;
+        return Optional.ofNullable(cuenta);
     }
 
-    public Cuenta findByNombreCuenta(String nombreCuenta) {
+    public Optional<Cuenta> findByNombreCuenta(String nombreCuenta) {
         Cuenta cuenta = null;
         try {
             session.beginTransaction();
@@ -65,10 +66,10 @@ public class CuentaRepository {
             session.getTransaction().rollback();
             e.printStackTrace();
         }
-        return cuenta;
+        return Optional.ofNullable(cuenta);
     }
 
-    public Cuenta findByTipoCuenta(TipoCuenta tipoCuenta) {
+    public Optional<Cuenta> findByTipoCuenta(TipoCuenta tipoCuenta) {
         Cuenta cuenta = null;
         try {
             session.beginTransaction();
@@ -78,7 +79,7 @@ public class CuentaRepository {
             session.getTransaction().rollback();
             e.printStackTrace();
         }
-        return cuenta;
+        return Optional.ofNullable(cuenta);
     }
 
     public void save(Cuenta cuenta) {
@@ -115,10 +116,8 @@ public class CuentaRepository {
     }
 
     public void deleteById(Integer id) {
-        Cuenta cuenta = this.findById(id);
-        if (cuenta != null) {
-            delete(cuenta);
-        }
+        Optional<Cuenta> cuenta = this.findById(id);
+        cuenta.ifPresent(session::delete);
     }
 
     public void update(Cuenta cuenta) {
