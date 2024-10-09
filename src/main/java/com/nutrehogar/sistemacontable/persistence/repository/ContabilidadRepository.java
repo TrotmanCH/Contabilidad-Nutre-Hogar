@@ -1,5 +1,6 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
+import com.nutrehogar.sistemacontable.application.dto.BalanceComprobacionDTO;
 import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.application.dto.LibroMayorDTO;
 import com.nutrehogar.sistemacontable.domain.components.TipoCuenta;
@@ -8,8 +9,10 @@ import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.DetalleAsiento;
 import com.nutrehogar.sistemacontable.domain.model.Transaccion;
+import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComprobacionFilter;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroMayorFilter;
+import com.nutrehogar.sistemacontable.domain.util.order.BalanceComprobacionOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.LibroMayorOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
@@ -263,5 +266,16 @@ public class ContabilidadRepository {
             }
         }
         return Optional.ofNullable(libroMayorDTOS);
+    }
+    /**
+     * Busca registros del Balance de Comprobación aplicando filtros y ordenamientos dinámicos.
+     *
+     * @param filters Criterio de filtrado.
+     * @param orderField Campo por el cual ordenar.
+     * @param orderDirection Tipo de ordenamiento (ascendente o descendente).
+     * @return Lista de {@code BalanceComprobacionDTO} que cumplen con los criterios.
+     */
+    public List<BalanceComprobacionDTO> findBalanceComprobacion(List<BalanceComprobacionFilter> filters, BalanceComprobacionOrderField orderField, OrderDirection orderDirection) {
+
     }
 }
