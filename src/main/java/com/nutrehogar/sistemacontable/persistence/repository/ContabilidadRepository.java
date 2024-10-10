@@ -275,7 +275,7 @@ public class ContabilidadRepository {
      * @param orderDirection Tipo de ordenamiento (ascendente o descendente).
      * @return Lista de {@code BalanceComprobacionDTO} que cumplen con los criterios.
      */
-    public List<BalanceComprobacionDTO> findBalanceComprobacion(List<BalanceComprobacionFilter> filters, BalanceComprobacionOrderField orderField, OrderDirection orderDirection) {
+//    public List<BalanceComprobacionDTO> findBalanceComprobacion(List<BalanceComprobacionFilter> filters, BalanceComprobacionOrderField orderField, OrderDirection orderDirection) {
 
-    }
+//    }
 }

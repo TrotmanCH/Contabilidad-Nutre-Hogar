@@ -28,7 +28,7 @@ public class SistemaContable {
                 List.of(
                         new LibroDiarioFilter.ByFechaRange(
                                 LocalDate.of(2024, 1, 1),
-                                LocalDate.of(2024, 1, 13)
+                                LocalDate.of(2024, 12, 31)
                         ),
                         new LibroDiarioFilter.ByConcepto("servi")
                 ),
@@ -39,17 +39,17 @@ public class SistemaContable {
 
         opListLibro.ifPresent(libroDiario -> libroDiario.forEach(System.out::println));
 
-        Optional<List<LibroMayorDTO>> optionalLibroMayorDTOS = contabilidadRepository.findLibroMayor(
-                List.of(
-                        new LibroMayorFilter.ByFechaRange(
-                                LocalDate.of(2024, 1, 1),
-                                LocalDate.of(2024, 1, 13)
-                        )
-                ),
-                LibroMayorOrderField.CODIGO_CUENTA,
-                OrderDirection.ASCENDING
-        );
-        optionalLibroMayorDTOS.ifPresent(libroMayorDTOs -> libroMayorDTOs.forEach(System.out::println));
+//        Optional<List<LibroMayorDTO>> optionalLibroMayorDTOS = contabilidadRepository.findLibroMayor(
+//                List.of(
+//                        new LibroMayorFilter.ByFechaRange(
+//                                LocalDate.of(2024, 1, 1),
+//                                LocalDate.of(2024, 1, 13)
+//                        )
+//                ),
+//                LibroMayorOrderField.CODIGO_CUENTA,
+//                OrderDirection.ASCENDING
+//        );
+//        optionalLibroMayorDTOS.ifPresent(libroMayorDTOs -> libroMayorDTOs.forEach(System.out::println));
     }
 
 }
