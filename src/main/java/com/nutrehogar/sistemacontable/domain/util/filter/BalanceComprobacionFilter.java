@@ -6,12 +6,24 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 /**
  * Clase sellada que define los criterios de filtrado para el Balance de Comprobación.
  */
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public sealed abstract class BalanceComprobacionFilter permits BalanceComprobacionFilter.ByCodigoCuenta, BalanceComprobacionFilter.ByNombreCuenta, BalanceComprobacionFilter.All {
+public sealed abstract class BalanceComprobacionFilter permits BalanceComprobacionFilter.All, BalanceComprobacionFilter.ByCodigoCuenta, BalanceComprobacionFilter.ByFechaRange, BalanceComprobacionFilter.ByNombreCuenta {
 
+    /**
+     * Filtra por un rango de fechas.
+     */
+    @Getter
+    @AllArgsConstructor
+    @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+    public static final class ByFechaRange extends BalanceComprobacionFilter {
+        LocalDate startDate;
+        LocalDate endDate;
+    }
     /**
      * Filtra el Balance de Comprobación por código de cuenta.
      */

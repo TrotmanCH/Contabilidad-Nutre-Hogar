@@ -206,4 +206,87 @@ public class ContabilidadRepository {
         }
         return Optional.ofNullable(libroMayorDTOS);
     }
+    public Optional<List<BalanceComprobacionDTO>> findBalanceComprobacion(List<BalanceComprobacionFilter> filters, BalanceComprobacionOrderField orderField, OrderDirection orderDirection) {
+        List<BalanceComprobacionDTO> BalanceComprobacionDTOS = null;
+        Session session = null; // Inicializar la sesión aquí
+
+        try {
+            session = HibernateUtil.getSession(); // Obtiene la sesión
+            session.beginTransaction();
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<BalanceComprobacionDTO> cq = cb.createQuery(BalanceComprobacionDTO.class);
+            Root<Cuenta> cuenta = cq.from(Cuenta.class);
+            Join<Cuenta, Asiento> asientos = cuenta.join("asientos", JoinType.LEFT);
+            Join<Asiento, Transaccion> transaccion = asientos.join("transaccion");
+
+
+            // Alias
+
+            Path<BigDecimal> debePath = asientos.get("debe");
+            Path<BigDecimal> haberPath = asientos.get("haber");
+            Path<LocalDate> fechaPath = transaccion.get("fecha");
+            Path<TipoDocumento> tipoCuentaPath = transaccion.get("tipoDocumento");
+            Path<String> codigoCuentaPath = cuenta.get("codigoCuenta");
+            Path<String> nombreCuentaPath = cuenta.get("nombreCuenta");
+            Path<String> referenciaPath = asientos.get("referencia");
+            // Selección de campos para el DTO
+            cq.select(cb.construct(
+                    BalanceComprobacionDTO.class,
+                    fechaPath,
+                    tipoCuentaPath,
+                    codigoCuentaPath,
+                    nombreCuentaPath, referenciaPath, debePath, haberPath));
+
+            List<Predicate> predicates = new ArrayList<>();
+
+            // Aplicar filtros
+
+            filters.forEach(filter -> {
+                if (filter instanceof BalanceComprobacionFilter.ByFechaRange byFechaRange) {
+                    predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
+                } else if (filter instanceof BalanceComprobacionFilter.ByNombreCuenta byNombreCuenta) {
+                    predicates.add(cb.like(cb.lower(nombreCuentaPath), "%" + byNombreCuenta.getNombreCuenta().toLowerCase() + "%"));
+                } else if (filter instanceof BalanceComprobacionFilter.ByCodigoCuenta byCodigoCuenta) {
+                    predicates.add(cb.like(cb.lower(nombreCuentaPath), "%" + byCodigoCuenta.getCodigoCuenta().toLowerCase() + "%"));
+                }
+            });
+
+            Predicate predicate = cb.conjunction();
+            if (!predicates.isEmpty()) {
+                predicate = cb.and(predicates.toArray(new Predicate[0]));
+            }
+
+            cq.where(predicate);
+            // Aplicar orden
+            Path<?> orderPath = switch (orderField) {
+                case CODIGO_CUENTA -> codigoCuentaPath;
+                case NOMBRE_CUENTA -> nombreCuentaPath;
+                case TIPO_DOCUMENTO -> tipoCuentaPath;
+                case DEBE -> debePath;
+                case HABER -> haberPath;
+                case FECHA -> fechaPath;
+                case REFERENCIA -> referenciaPath;
+            };
+
+            Order order = orderDirection == OrderDirection.ASCENDING ? cb.asc(orderPath) : cb.desc(orderPath);
+            cq.orderBy(order);
+
+            TypedQuery<BalanceComprobacionDTO> query = session.createQuery(cq);
+            BalanceComprobacionDTOS= query.getResultList();
+
+            // Completarmpletar la transacción
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session != null && session.getTransaction() != null) {
+                session.getTransaction().rollback(); // Deshacer la transacción en caso de error
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close(); // Cierra la sesión manualmente
+            }
+        }
+        return Optional.ofNullable(BalanceComprobacionDTOS);
+    }
+
 }
