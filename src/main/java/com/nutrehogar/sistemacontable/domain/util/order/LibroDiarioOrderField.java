@@ -8,7 +8,8 @@ public enum LibroDiarioOrderField {
     FECHA("fecha"),
     TIPO_DOCUMENTO("tipoDocumento"),
     CODIGO_CUENTA("codigoCuenta"),
-    CONCEPTO("concepto"),
+    COMPROBANTE("comprobante"),
+    REFERENCIA("referencia"),
     DEBE("debe"),
     HABER("haber");
 

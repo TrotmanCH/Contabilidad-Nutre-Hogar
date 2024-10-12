@@ -5,11 +5,12 @@ package com.nutrehogar.sistemacontable.domain.util.order;
  * Enum que define los campos por los cuales se puede ordenar el Mayor General.
  */
 public enum MayorGeneralOrderField {
-    CODIGO_CUENTA("codigoCuenta"),
-    NOMBRE_CUENTA("nombreCuenta"),
     FECHA("fecha"),
-    CONCEPTO("concepto"),
-    SALDO("saldo");
+    TIPO_DOCUMENTO("tipoDocumento"),
+    CODIGO_CUENTA("codigoCuenta"),
+    REFERENCIA("referencia"),
+    DEBE("debe"),
+    HABER("haber");
 
     private final String fieldName;
 

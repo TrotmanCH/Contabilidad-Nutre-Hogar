@@ -1,15 +1,11 @@
 package com.nutrehogar.sistemacontable.domain.model;
 
 
-import com.nutrehogar.sistemacontable.domain.components.TipoDocumento;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Representa un asiento contable asociado a una transacción.
@@ -91,6 +87,12 @@ public class Asiento {
      */
     @Column(name = "haber", precision = 15, scale = 2)
     BigDecimal haber;
+
+    /**
+     * Referencia a documento
+     */
+    @Column(name = "comprobante")
+    String comprobante;
 
     /**
      * Descripción o concepto que detalla la naturaleza del asiento.

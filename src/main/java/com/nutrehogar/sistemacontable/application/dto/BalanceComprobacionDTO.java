@@ -10,6 +10,7 @@ public record BalanceComprobacionDTO(
         TipoDocumento tipoDocumento,
         String codigoCuenta,
         String nombreCuenta,
+        String comprobante,
         String referencia,
         BigDecimal debe,
         BigDecimal haber) {

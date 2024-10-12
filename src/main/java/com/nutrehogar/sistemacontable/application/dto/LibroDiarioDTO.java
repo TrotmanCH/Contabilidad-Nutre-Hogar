@@ -9,7 +9,8 @@ import java.time.LocalDate;
 public record LibroDiarioDTO(LocalDate fecha,
                              TipoDocumento tipoDocumento,
                              String codigoCuenta,
-                             String concepto,
+                             String comprobante,
+                             String referencia,
                              BigDecimal debe,
                              BigDecimal haber) {
 }
