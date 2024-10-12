@@ -1,6 +1,6 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
-import com.nutrehogar.sistemacontable.application.dto.BalanceComprobacionDTO;
+
 import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.application.dto.LibroMayorDTO;
 import com.nutrehogar.sistemacontable.domain.components.TipoCuenta;
@@ -8,10 +8,8 @@ import com.nutrehogar.sistemacontable.domain.components.TipoDocumento;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.Transaccion;
-import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComprobacionFilter;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroMayorFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.BalanceComprobacionOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.LibroMayorOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
@@ -206,18 +204,19 @@ public class ContabilidadRepository {
         }
         return Optional.ofNullable(libroMayorDTOS);
     }
-}
+
+
+    /**
+     * Busca registros del Balance de Comprobación aplicando filtros y ordenamientos dinámicos.
+     *
+     * @param filters Criterio de filtrado.
+     * @param orderField Campo por el cual ordenar.
+     * @param orderDirection Tipo de ordenamiento (ascendente o descendente).
+     * @return Lista de {@code BalanceComprobacionDTO} que cumplen con los criterios.
+     */
 //
-//    /**
-//     * Busca registros del Balance de Comprobación aplicando filtros y ordenamientos dinámicos.
-//     *
-//     * @param filters Criterio de filtrado.
-//     * @param orderField Campo por el cual ordenar.
-//     * @param orderDirection Tipo de ordenamiento (ascendente o descendente).
-//     * @return Lista de {@code BalanceComprobacionDTO} que cumplen con los criterios.
-//     */
-//    public List<BalanceComprobacionDTO> findBalanceComprobacion(List<BalanceComprobacionFilter> filters, BalanceComprobacionOrderField orderField, OrderDirection orderDirection) {
-//        List<BalanceComprobacionDTO> balanceComprobacionDTOS = null;
+//    public Optional<List<LibroMayorDTO>> findBalanceGeneral(List<BalanceGeneralFilter> filters, LibroMayorOrderField orderField, OrderDirection orderDirection) {
+//        List<LibroMayorDTO> libroMayorDTOS = null;
 //        Session session = null; // Inicializar la sesión aquí
 //
 //        try {
@@ -226,17 +225,17 @@ public class ContabilidadRepository {
 //            CriteriaBuilder cb = session.getCriteriaBuilder();
 //            CriteriaQuery<LibroMayorDTO> cq = cb.createQuery(LibroMayorDTO.class);
 //            Root<Cuenta> cuenta = cq.from(Cuenta.class);
-//            Join<Cuenta, DetalleAsiento> detallesAsientos = cuenta.join("detallesAsientos", JoinType.LEFT);
-//            Join<DetalleAsiento, Asiento> asientos = detallesAsientos.join("asiento");
+//            Join<Cuenta, Asiento> asientos = cuenta.join("asientos", JoinType.LEFT);
+//            Join<Asiento, Transaccion> transaccion = asientos.join("transaccion");
 //
 //
 //            // Alias
 //            Path<String> codigoCuentaPath = cuenta.get("codigoCuenta");
 //            Path<String> nombreCuentaPath = cuenta.get("nombreCuenta");
 //            Path<TipoCuenta> tipoCuentaPath = cuenta.get("tipoCuenta");
-//            Path<BigDecimal> debePath = detallesAsientos.get("debe");
-//            Path<BigDecimal> haberPath = detallesAsientos.get("haber");
-//            Path<LocalDate> fechaPath = asientos.get("fechaAsiento");
+//            Path<BigDecimal> debePath = asientos.get("debe");
+//            Path<BigDecimal> haberPath = asientos.get("haber");
+//            Path<LocalDate> fechaPath = transaccion.get("fecha");
 //
 //            // Selección de campos para el DTO
 //            cq.select(cb.construct(LibroMayorDTO.class, codigoCuentaPath, nombreCuentaPath, tipoCuentaPath, debePath, haberPath));
@@ -247,9 +246,9 @@ public class ContabilidadRepository {
 //
 //            filters.forEach(filter -> {
 //                if (filter instanceof LibroMayorFilter.ByCodigoCuenta byCodigoCuenta) {
-//                    predicates.add(cb.equal(cuenta.get("codigoCuenta"), byCodigoCuenta.getCodigoCuenta()));
+//                    predicates.add(cb.equal(codigoCuentaPath, byCodigoCuenta.getCodigoCuenta()));
 //                } else if (filter instanceof LibroMayorFilter.ByNombreCuenta byNombreCuenta) {
-//                    predicates.add(cb.like(cb.lower(cuenta.get("nombreCuenta")), "%" + byNombreCuenta.getNombreCuenta().toLowerCase() + "%"));
+//                    predicates.add(cb.like(cb.lower(nombreCuentaPath), "%" + byNombreCuenta.getNombreCuenta().toLowerCase() + "%"));
 //                } else if (filter instanceof LibroMayorFilter.ByFechaRange byFechaRange) {
 //                    predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
 //                } else if (filter instanceof LibroMayorFilter.ByTipoCuenta byTipoCuenta) {
@@ -292,4 +291,5 @@ public class ContabilidadRepository {
 //        }
 //        return Optional.ofNullable(libroMayorDTOS);
 //    }
-//}
+
+}

@@ -4,7 +4,7 @@ package com.nutrehogar.sistemacontable.domain.util.order;
 /**
  * Enum que define los campos por los cuales se puede ordenar el Balance de Comprobación.
  */
-public enum BalanceComprobacionOrderField {
+public enum BalanceGeneralOrderField {
     CODIGO_CUENTA("codigoCuenta"),
     NOMBRE_CUENTA("nombreCuenta"),
     DEBE("debe"),
@@ -17,7 +17,7 @@ public enum BalanceComprobacionOrderField {
      *
      * @param fieldName Nombre del campo en la entidad Cuenta.
      */
-    BalanceComprobacionOrderField(String fieldName) {
+    BalanceGeneralOrderField(String fieldName) {
         this.fieldName = fieldName;
     }
 
