@@ -14,7 +14,6 @@
 
         <mapping class="com.nutrehogar.sistemacontable.domain.model.Asiento"/>
         <mapping class="com.nutrehogar.sistemacontable.domain.model.Cuenta"/>
-        <mapping class="com.nutrehogar.sistemacontable.domain.model.DetalleAsiento"/>
         <mapping class="com.nutrehogar.sistemacontable.domain.model.Transaccion"/>
     </session-factory>
 </hibernate-configuration>

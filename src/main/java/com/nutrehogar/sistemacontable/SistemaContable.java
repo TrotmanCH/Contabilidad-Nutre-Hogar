@@ -12,6 +12,7 @@ import com.nutrehogar.sistemacontable.persistence.repository.ContabilidadReposit
 import org.hibernate.Session;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,6 @@ import java.util.Optional;
 public class SistemaContable {
 
     public static void main(String[] args) {
-
         Session session = HibernateUtil.getSession();
         ContabilidadRepository contabilidadRepository = ContabilidadRepository.getInstance();
 
@@ -39,17 +39,17 @@ public class SistemaContable {
 
         opListLibro.ifPresent(libroDiario -> libroDiario.forEach(System.out::println));
 
-//        Optional<List<LibroMayorDTO>> optionalLibroMayorDTOS = contabilidadRepository.findLibroMayor(
-//                List.of(
-//                        new LibroMayorFilter.ByFechaRange(
-//                                LocalDate.of(2024, 1, 1),
-//                                LocalDate.of(2024, 1, 13)
-//                        )
-//                ),
-//                LibroMayorOrderField.CODIGO_CUENTA,
-//                OrderDirection.ASCENDING
-//        );
-//        optionalLibroMayorDTOS.ifPresent(libroMayorDTOs -> libroMayorDTOs.forEach(System.out::println));
+        Optional<List<LibroMayorDTO>> libro= contabilidadRepository.findLibroMayor(
+                List.of(
+                        new LibroMayorFilter.ByFechaRange(
+                                LocalDate.of(2024, 1, 1),
+                                LocalDate.of(2024, 12, 31)
+                        )
+                ),
+                        LibroMayorOrderField.CODIGO_CUENTA,
+                        OrderDirection.DESCENDING
+        );
+        libro.ifPresent(mayor -> mayor.forEach(System.out::println));
     }
 
 }
