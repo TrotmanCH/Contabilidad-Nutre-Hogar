@@ -65,12 +65,13 @@ public class ContabilidadRepository {
             Path<LocalDate> fechaPath = transaccion.get("fecha");
             Path<TipoDocumento> tipoDocumentoPath = transaccion.get("tipoDocumento");
             Path<String> codigoCuentaPath = cuenta.get("codigoCuenta");
-            Path<String> conceptoPath = transaccion.get("concepto");
+            Path<String> comprobantePath = asientos.get("comprobante");
+            Path<String> referenciaPath = asientos.get("referencia");
             Path<BigDecimal> debePath = asientos.get("debe");
             Path<BigDecimal> haberPath = asientos.get("haber");
 
             // Selección de campos para el DTO
-            cq.select(cb.construct(LibroDiarioDTO.class, fechaPath, tipoDocumentoPath, codigoCuentaPath, conceptoPath, debePath, haberPath));
+            cq.select(cb.construct(LibroDiarioDTO.class, fechaPath, tipoDocumentoPath, codigoCuentaPath, comprobantePath, referenciaPath, debePath, haberPath));
 
             // Aplicar filtros
             List<Predicate> predicates = new ArrayList<>();
@@ -78,8 +79,10 @@ public class ContabilidadRepository {
             filters.forEach(filter -> {
                 if (filter instanceof LibroDiarioFilter.ByFechaRange byFechaRange) {
                     predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
-                } else if (filter instanceof LibroDiarioFilter.ByConcepto byConcepto) {
-                    predicates.add(cb.like(cb.lower(conceptoPath), "%" + byConcepto.getConcepto().toLowerCase() + "%"));
+                } else if (filter instanceof LibroDiarioFilter.ByReferencia byReferencia) {
+                    predicates.add(cb.like(cb.lower(referenciaPath), "%" + byReferencia.getReferencia().toLowerCase() + "%"));
+                }else if (filter instanceof LibroDiarioFilter.ByComprobante byComprobante) {
+                    predicates.add(cb.like(cb.lower(comprobantePath), "%" + byComprobante.getComprobante().toLowerCase() + "%"));
                 }
             });
 
@@ -96,7 +99,8 @@ public class ContabilidadRepository {
                 case FECHA -> fechaPath;
                 case TIPO_DOCUMENTO -> tipoDocumentoPath;
                 case CODIGO_CUENTA -> codigoCuentaPath;
-                case CONCEPTO -> conceptoPath;
+                case COMPROBANTE -> comprobantePath;
+                case REFERENCIA -> referenciaPath;
                 case DEBE -> debePath;
                 case HABER -> haberPath;
             };
@@ -206,6 +210,7 @@ public class ContabilidadRepository {
         }
         return Optional.ofNullable(libroMayorDTOS);
     }
+
     public Optional<List<BalanceComprobacionDTO>> findBalanceComprobacion(List<BalanceComprobacionFilter> filters, BalanceComprobacionOrderField orderField, OrderDirection orderDirection) {
         List<BalanceComprobacionDTO> BalanceComprobacionDTOS = null;
         Session session = null; // Inicializar la sesión aquí
@@ -229,6 +234,8 @@ public class ContabilidadRepository {
             Path<String> codigoCuentaPath = cuenta.get("codigoCuenta");
             Path<String> nombreCuentaPath = cuenta.get("nombreCuenta");
             Path<String> referenciaPath = asientos.get("referencia");
+            Path<String> comprobantePath = asientos.get("comprobante");
+
             // Selección de campos para el DTO
             cq.select(cb.construct(
                     BalanceComprobacionDTO.class,
@@ -236,6 +243,7 @@ public class ContabilidadRepository {
                     tipoDocumentoPath,
                     codigoCuentaPath,
                     nombreCuentaPath,
+                    comprobantePath,
                     referenciaPath,
                     debePath,
                     haberPath));
@@ -250,7 +258,7 @@ public class ContabilidadRepository {
                 } else if (filter instanceof BalanceComprobacionFilter.ByNombreCuenta byNombreCuenta) {
                     predicates.add(cb.like(cb.lower(nombreCuentaPath), "%" + byNombreCuenta.getNombreCuenta().toLowerCase() + "%"));
                 } else if (filter instanceof BalanceComprobacionFilter.ByCodigoCuenta byCodigoCuenta) {
-                    predicates.add(cb.like(cb.lower(nombreCuentaPath), "%" + byCodigoCuenta.getCodigoCuenta().toLowerCase() + "%"));
+                    predicates.add(cb.like(cb.lower(codigoCuentaPath), "%" + byCodigoCuenta.getCodigoCuenta().toLowerCase() + "%"));
                 }
             });
 
@@ -275,7 +283,7 @@ public class ContabilidadRepository {
             cq.orderBy(order);
 
             TypedQuery<BalanceComprobacionDTO> query = session.createQuery(cq);
-            BalanceComprobacionDTOS= query.getResultList();
+            BalanceComprobacionDTOS = query.getResultList();
 
             // Completarmpletar la transacción
             session.getTransaction().commit();
@@ -291,5 +299,6 @@ public class ContabilidadRepository {
         }
         return Optional.ofNullable(BalanceComprobacionDTOS);
     }
+
 
 }
