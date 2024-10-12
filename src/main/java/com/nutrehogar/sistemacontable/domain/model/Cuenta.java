@@ -92,5 +92,5 @@ public class Cuenta {
      * <p>Relación bidireccional: una cuenta puede estar asociada a múltiples detalles de asiento.</p>
      */
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<DetalleAsiento> detallesAsientos = new ArrayList<>();
+    List<Asiento> asientos = new ArrayList<>();
 }

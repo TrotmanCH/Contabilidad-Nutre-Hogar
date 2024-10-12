@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,31 +68,35 @@ public class Asiento {
     Transaccion transaccion;
 
     /**
-     * Tipo de documento que representa el asiento contable.
+     * Cuenta contable afectada por este detalle de asiento.
+     *
+     * <p>Relación bidireccional: un detalle de asiento está asociado a una cuenta.</p>
      */
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_documento", nullable = false)
-    TipoDocumento tipoDocumento;
+    @ManyToOne
+    @JoinColumn(name = "id_cuenta", nullable = false)
+    Cuenta cuenta;
 
     /**
-     * Fecha en la que se realiza el asiento contable.
+     * Monto debitado en la cuenta.
+     *
+     * <p>Debe ser mayor o igual a cero. Un valor de cero indica que no hay débito en esta transacción.</p>
      */
-    @Column(name = "fecha_asiento", nullable = false)
-    LocalDate fechaAsiento;
+    @Column(name = "debe", precision = 15, scale = 2)
+    BigDecimal debe;
+
+    /**
+     * Monto acreditado en la cuenta.
+     *
+     * <p>Debe ser mayor o igual a cero. Un valor de cero indica que no hay crédito en esta transacción.</p>
+     */
+    @Column(name = "haber", precision = 15, scale = 2)
+    BigDecimal haber;
 
     /**
      * Descripción o concepto que detalla la naturaleza del asiento.
      */
-    @Column(name = "concepto", columnDefinition = "TEXT")
-    String concepto;
+    @Column(name = "referencia", columnDefinition = "TEXT")
+    String referencia;
 
     // Relaciones con otras entidades
-
-    /**
-     * Lista de detalles de asiento asociados a este asiento contable.
-     *
-     * <p>Relación bidireccional: un asiento puede tener múltiples detalles de asiento.</p>
-     */
-    @OneToMany(mappedBy = "asiento", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<DetalleAsiento> detallesAsientos = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package com.nutrehogar.sistemacontable.domain.model;
 
+import com.nutrehogar.sistemacontable.domain.components.TipoDocumento;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -64,6 +65,13 @@ public class Transaccion {
      */
     @Column(name = "concepto", columnDefinition = "TEXT")
     String concepto;
+
+    /**
+     * Tipo de documento que representa el asiento contable.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_documento", nullable = false)
+    TipoDocumento tipoDocumento;
 
     // Relaciones con otras entidades
 
