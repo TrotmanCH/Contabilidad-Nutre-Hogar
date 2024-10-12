@@ -207,15 +207,15 @@ public class ContabilidadRepository {
         return Optional.ofNullable(libroMayorDTOS);
     }
 }
-//
-//    /**
-//     * Busca registros del Balance de Comprobación aplicando filtros y ordenamientos dinámicos.
-//     *
-//     * @param filters Criterio de filtrado.
-//     * @param orderField Campo por el cual ordenar.
-//     * @param orderDirection Tipo de ordenamiento (ascendente o descendente).
-//     * @return Lista de {@code BalanceComprobacionDTO} que cumplen con los criterios.
-//     */
+
+    /**
+     * Busca registros del Balance de Comprobación aplicando filtros y ordenamientos dinámicos.
+     *
+     * @param filters Criterio de filtrado.
+     * @param orderField Campo por el cual ordenar.
+     * @param orderDirection Tipo de ordenamiento (ascendente o descendente).
+     * @return Lista de {@code BalanceComprobacionDTO} que cumplen con los criterios.
+     */
 //    public List<BalanceComprobacionDTO> findBalanceComprobacion(List<BalanceComprobacionFilter> filters, BalanceComprobacionOrderField orderField, OrderDirection orderDirection) {
 //        List<BalanceComprobacionDTO> balanceComprobacionDTOS = null;
 //        Session session = null; // Inicializar la sesión aquí
