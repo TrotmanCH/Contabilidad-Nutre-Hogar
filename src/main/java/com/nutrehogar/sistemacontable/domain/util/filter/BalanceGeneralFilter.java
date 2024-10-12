@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
  * Clase sellada que define los criterios de filtrado para el Balance de Comprobación.
  */
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public sealed abstract class BalanceComprobacionFilter permits BalanceComprobacionFilter.ByCodigoCuenta, BalanceComprobacionFilter.ByNombreCuenta, BalanceComprobacionFilter.All {
+public sealed abstract class BalanceGeneralFilter permits BalanceGeneralFilter.ByCodigoCuenta, BalanceGeneralFilter.ByNombreCuenta, BalanceGeneralFilter.All {
 
     /**
      * Filtra el Balance de Comprobación por código de cuenta.
@@ -18,7 +18,7 @@ public sealed abstract class BalanceComprobacionFilter permits BalanceComprobaci
     @Getter
     @AllArgsConstructor
     @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-    public static final class ByCodigoCuenta extends BalanceComprobacionFilter {
+    public static final class ByCodigoCuenta extends BalanceGeneralFilter {
         String codigoCuenta;
     }
 
@@ -28,7 +28,7 @@ public sealed abstract class BalanceComprobacionFilter permits BalanceComprobaci
     @Getter
     @AllArgsConstructor
     @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-    public static final class ByNombreCuenta extends BalanceComprobacionFilter {
+    public static final class ByNombreCuenta extends BalanceGeneralFilter {
         String nombreCuenta;
     }
 
@@ -36,7 +36,7 @@ public sealed abstract class BalanceComprobacionFilter permits BalanceComprobaci
      * Representa la opción de no aplicar ningún filtro al Balance de Comprobación.
      */
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    public static final class All extends BalanceComprobacionFilter {
+    public static final class All extends BalanceGeneralFilter {
         public static final All INSTANCE = new All();
     }
 }
