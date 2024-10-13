@@ -1,17 +1,11 @@
 package com.nutrehogar.sistemacontable.domain.util.filter;
 
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.experimental.FieldDefaults;
-
 import java.time.LocalDate;
 
 /**
  * Clase sellada que define los criterios de filtrado para el Libro Diario.
  */
-//@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public sealed abstract class LibroDiarioFilter permits LibroDiarioFilter.All, LibroDiarioFilter.ByComprobante, LibroDiarioFilter.ByFechaRange, LibroDiarioFilter.ByReferencia {
     protected LibroDiarioFilter() {
     }
@@ -19,9 +13,6 @@ public sealed abstract class LibroDiarioFilter permits LibroDiarioFilter.All, Li
     /**
      * Filtra el Libro Diario por un rango de fechas.
      */
-//    @Getter
-//    @AllArgsConstructor
-//    @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
     public static final class ByFechaRange extends LibroDiarioFilter {
         public ByFechaRange(LocalDate startDate, LocalDate endDate) {
             this.startDate = startDate;
@@ -29,6 +20,7 @@ public sealed abstract class LibroDiarioFilter permits LibroDiarioFilter.All, Li
         }
 
         private final LocalDate startDate;
+        private final LocalDate endDate;
 
         public LocalDate getStartDate() {
             return startDate;
@@ -38,18 +30,14 @@ public sealed abstract class LibroDiarioFilter permits LibroDiarioFilter.All, Li
             return endDate;
         }
 
-        private final LocalDate endDate;
 
     }
 
     /**
      * Filtra el Libro Diario por concepto.
      */
-//    @Getter
-//    @AllArgsConstructor
-//    @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
     public static final class ByReferencia extends LibroDiarioFilter {
-        private  final String referencia;
+        private final String referencia;
 
         public String getReferencia() {
             return referencia;
@@ -63,9 +51,6 @@ public sealed abstract class LibroDiarioFilter permits LibroDiarioFilter.All, Li
     /**
      * Filtra el Libro Diario por comprobante.
      */
-//    @Getter
-//    @AllArgsConstructor
-//    @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
     public static final class ByComprobante extends LibroDiarioFilter {
         private final String comprobante;
 
@@ -81,7 +66,6 @@ public sealed abstract class LibroDiarioFilter permits LibroDiarioFilter.All, Li
     /**
      * Representa la opción de no aplicar ningún filtro al Libro Diario.
      */
-//    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class All extends LibroDiarioFilter {
         private All() {
         }

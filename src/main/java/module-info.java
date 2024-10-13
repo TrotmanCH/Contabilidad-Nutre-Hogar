@@ -16,7 +16,7 @@ module SistemaContable {
     requires java.rmi;
     requires java.sql;
     requires java.sql.rowset;
-    requires java.transaction;
+//    requires java.transaction;
     requires java.xml;
     exports com.nutrehogar.sistemacontable;
     exports com.nutrehogar.sistemacontable.application.service;

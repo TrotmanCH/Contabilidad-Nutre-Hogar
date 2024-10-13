@@ -6,7 +6,19 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigLoader {
+    public static ConfigLoader instance;
     private static final Properties properties = new Properties();
+
+    private ConfigLoader() {
+
+    }
+
+    public static ConfigLoader getInstance() {
+        if (instance == null) {
+            instance = new ConfigLoader();
+        }
+        return instance;
+    }
 
     static {
         loadProperties();
