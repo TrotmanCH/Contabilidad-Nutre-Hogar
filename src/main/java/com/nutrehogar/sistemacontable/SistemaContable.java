@@ -1,8 +1,6 @@
 package com.nutrehogar.sistemacontable;
 
-import com.nutrehogar.sistemacontable.application.dto.BalanceComprobacionDTO;
-import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
-import com.nutrehogar.sistemacontable.application.dto.LibroMayorDTO;
+import com.nutrehogar.sistemacontable.application.service.ConfigLoader;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroMayorFilter;
 import com.nutrehogar.sistemacontable.domain.util.order.BalanceComprobacionOrderField;
@@ -13,21 +11,19 @@ import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import com.nutrehogar.sistemacontable.persistence.repository.ContabilidadRepository;
 import org.hibernate.Session;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class SistemaContable {
 
     public static void main(String[] args) {
+        ConfigLoader.getInstance();
         Session session = HibernateUtil.getSession();
         ContabilidadRepository contabilidadRepository = ContabilidadRepository.getInstance();
 
 
-        Optional<List<LibroDiarioDTO>> opListLibro = contabilidadRepository.findLibroDiario(
+        contabilidadRepository.findLibroDiario(
                 List.of(
                         new LibroDiarioFilter.ByFechaRange(
                                 LocalDate.of(2024, 1, 1),
@@ -37,31 +33,27 @@ public class SistemaContable {
                 ),
                 LibroDiarioOrderField.FECHA,
                 OrderDirection.DESCENDING
-        );
+        ).ifPresent(libroDiario -> libroDiario.forEach(System.out::println));
 
-
-        opListLibro.ifPresent(libroDiario -> libroDiario.forEach(System.out::println));
-
-        Optional<List<LibroMayorDTO>> libro= contabilidadRepository.findLibroMayor(
+        contabilidadRepository.findLibroMayor(
                 List.of(
                         new LibroMayorFilter.ByFechaRange(
                                 LocalDate.of(2024, 1, 1),
                                 LocalDate.of(2024, 12, 31)
                         )
                 ),
-                        LibroMayorOrderField.CODIGO_CUENTA,
-                        OrderDirection.DESCENDING
-        );
-        libro.ifPresent(mayor -> mayor.forEach(System.out::println));
+                LibroMayorOrderField.CODIGO_CUENTA,
+                OrderDirection.DESCENDING
+        ).ifPresent(mayor -> mayor.forEach(System.out::println));
 
 
-        Optional<List<BalanceComprobacionDTO>> opLiBa= contabilidadRepository.findBalanceComprobacion(
+        contabilidadRepository.findBalanceComprobacion(
                 List.of(
 
                 ),
                 BalanceComprobacionOrderField.FECHA,
                 OrderDirection.DESCENDING
-        );
+        ).ifPresent(balanceComprobacionDTOS -> balanceComprobacionDTOS.forEach(System.out::println));
 
 //        opLiBa.ifPresent(listLi ->{
 //            AtomicReference<BigDecimal> sumaHaber = new AtomicReference<>(BigDecimal.ZERO);

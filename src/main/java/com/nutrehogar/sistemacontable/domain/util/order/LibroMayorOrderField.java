@@ -9,7 +9,8 @@ public enum LibroMayorOrderField {
     NOMBRE_CUENTA("nombreCuenta"),
     TIPO_CUENTA("tipoCuenta"),
     DEBE("debe"),
-    HABER("haber"),;
+    HABER("haber"),
+    ;
 
     private final String fieldName;
 

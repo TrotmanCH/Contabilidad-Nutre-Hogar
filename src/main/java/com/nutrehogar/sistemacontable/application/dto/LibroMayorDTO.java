@@ -3,6 +3,7 @@ package com.nutrehogar.sistemacontable.application.dto;
 import com.nutrehogar.sistemacontable.domain.components.TipoCuenta;
 
 import java.math.BigDecimal;
+
 /**
  * DTO que representa un registro en el Libro Mayor.
  */

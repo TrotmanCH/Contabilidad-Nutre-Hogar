@@ -4,7 +4,6 @@ package com.nutrehogar.sistemacontable.persistence.repository;
 import com.nutrehogar.sistemacontable.application.dto.BalanceComprobacionDTO;
 import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.application.dto.LibroMayorDTO;
-import com.nutrehogar.sistemacontable.application.dto.MayorGeneralDTO;
 import com.nutrehogar.sistemacontable.domain.components.TipoCuenta;
 import com.nutrehogar.sistemacontable.domain.components.TipoDocumento;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
@@ -13,8 +12,10 @@ import com.nutrehogar.sistemacontable.domain.model.Transaccion;
 import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComprobacionFilter;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroMayorFilter;
-import com.nutrehogar.sistemacontable.domain.util.filter.MayorGeneralFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.*;
+import com.nutrehogar.sistemacontable.domain.util.order.BalanceComprobacionOrderField;
+import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
+import com.nutrehogar.sistemacontable.domain.util.order.LibroMayorOrderField;
+import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import org.hibernate.Session;
 
@@ -81,7 +82,7 @@ public class ContabilidadRepository {
                     predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
                 } else if (filter instanceof LibroDiarioFilter.ByReferencia byReferencia) {
                     predicates.add(cb.like(cb.lower(referenciaPath), "%" + byReferencia.getReferencia().toLowerCase() + "%"));
-                }else if (filter instanceof LibroDiarioFilter.ByComprobante byComprobante) {
+                } else if (filter instanceof LibroDiarioFilter.ByComprobante byComprobante) {
                     predicates.add(cb.like(cb.lower(comprobantePath), "%" + byComprobante.getComprobante().toLowerCase() + "%"));
                 }
             });
@@ -300,5 +301,86 @@ public class ContabilidadRepository {
         return Optional.ofNullable(BalanceComprobacionDTOS);
     }
 
-
+//    public Optional<List<MayorGeneralDTO>> findMayorGeneral(List<MayorGeneralFilter> filters, MayorGeneralOrderField orderField, OrderDirection orderDirection) {
+//        List<MayorGeneralDTO> mayorGeneralDTOS = null;
+//        Session session = null;
+//        try {
+//            session = HibernateUtil.getSession();
+//            session.beginTransaction();
+//            CriteriaBuilder cb = session.getCriteriaBuilder();
+//            CriteriaQuery<MayorGeneralDTO> cq = cb.createQuery(MayorGeneralDTO.class);
+//            Root<Cuenta> cuenta = cq.from(Cuenta.class);
+//            Join<Cuenta, Asiento> asientos = cuenta.join("asientos");
+//            Join<Asiento, Transaccion> transaccion = asientos.join("transaccion");
+//
+//            Path<LocalDate> fechaPath = transaccion.get("fecha");
+//            Path<TipoDocumento> tipoDocumentoPath = transaccion.get("tipoDocumento");
+//            Path<String> codigoCuentaPath = cuenta.get("codigoCuenta");
+//            Path<String> referenciaPath = asientos.get("referencia");
+//
+//            Path<BigDecimal> debePath = asientos.get("debe");
+//            Path<BigDecimal> haberPath = asientos.get("haber");
+//
+//            Path<String> dalsoPath = cuenta.get("saldo");
+//            cq.select(cb.construct(
+//                    MayorGeneralDTO.class,
+//                    fechaPath,
+//                    tipoDocumentoPath,
+//                    codigoCuentaPath,
+//                    referenciaPath,
+//                    DebeOperado,
+//                    HaberOperado,
+//                    SaldoOperado
+//            ));
+//
+//            List<Predicate> predicates = new ArrayList<>();
+//
+//            // Aplicar filtros
+//
+//            filters.forEach(filter -> {
+//                if (filter instanceof MayorGeneralFilter.ByFechaRange byFechaRange) {
+//                    predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
+//                } else if (filter instanceof MayorGeneralFilter.ByNombreCuenta byNombreCuenta) {
+//                    predicates.add(cb.like(cb.lower(cuenta.get("nombreCuenta")), "%" + byNombreCuenta.getNombreCuenta().toLowerCase() + "%"));
+//                } else if (filter instanceof MayorGeneralFilter.ByCodigoCuenta byCodigoCuenta) {
+//                    predicates.add(cb.like(cb.lower(codigoCuentaPath), "%" + byCodigoCuenta.getCodigoCuenta().toLowerCase() + "%"));
+//                }
+//            });
+//
+//            Predicate predicate = cb.conjunction();
+//            if (!predicates.isEmpty()) {
+//                predicate = cb.and(predicates.toArray(new Predicate[0]));
+//            }
+//
+//            cq.where(predicate);
+//            // Aplicar orden
+//            Path<?> orderPath = switch (orderField) {
+//                case FECHA -> fechaPath;
+//                case TIPO_DOCUMENTO -> tipoDocumentoPath;
+//                case CODIGO_CUENTA -> codigoCuentaPath;
+//                case REFERENCIA -> referenciaPath;
+//                case DEBE -> debePath;
+//                case HABER -> haberPath;
+//            };
+//
+//            Order order = orderDirection == OrderDirection.ASCENDING ? cb.asc(orderPath) : cb.desc(orderPath);
+//            cq.orderBy(order);
+//
+//            TypedQuery<MayorGeneralDTO> query = session.createQuery(cq);
+//            mayorGeneralDTOS = query.getResultList();
+//
+//            // Completarmpletar la transacción
+//            session.getTransaction().commit();
+//        } catch (Exception e) {
+//            if (session != null && session.getTransaction() != null) {
+//                session.getTransaction().rollback(); // Deshacer la transacción en caso de error
+//            }
+//            e.printStackTrace();
+//        } finally {
+//            if (session != null) {
+//                session.close(); // Cierra la sesión manualmente
+//            }
+//        }
+//        return Optional.ofNullable(mayorGeneralDTOS);
+//    }
 }
