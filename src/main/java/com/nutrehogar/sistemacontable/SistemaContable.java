@@ -13,11 +13,9 @@ import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import com.nutrehogar.sistemacontable.persistence.repository.ContabilidadRepository;
 import org.hibernate.Session;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class SistemaContable {
@@ -41,27 +39,27 @@ public class SistemaContable {
 
 
         opListLibro.ifPresent(libroDiario -> libroDiario.forEach(System.out::println));
-
-        Optional<List<LibroMayorDTO>> libro= contabilidadRepository.findLibroMayor(
-                List.of(
-                        new LibroMayorFilter.ByFechaRange(
-                                LocalDate.of(2024, 1, 1),
-                                LocalDate.of(2024, 12, 31)
-                        )
-                ),
-                        LibroMayorOrderField.CODIGO_CUENTA,
-                        OrderDirection.DESCENDING
-        );
-        libro.ifPresent(mayor -> mayor.forEach(System.out::println));
-
-
-        Optional<List<BalanceComprobacionDTO>> opLiBa= contabilidadRepository.findBalanceComprobacion(
-                List.of(
-
-                ),
-                BalanceComprobacionOrderField.FECHA,
-                OrderDirection.DESCENDING
-        );
+//
+//        Optional<List<LibroMayorDTO>> libro = contabilidadRepository.findLibroMayor(
+//                List.of(
+//                        new LibroMayorFilter.ByFechaRange(
+//                                LocalDate.of(2024, 1, 1),
+//                                LocalDate.of(2024, 12, 31)
+//                        )
+//                ),
+//                LibroMayorOrderField.CODIGO_CUENTA,
+//                OrderDirection.DESCENDING
+//        );
+//        libro.ifPresent(mayor -> mayor.forEach(System.out::println));
+//
+//
+//        Optional<List<BalanceComprobacionDTO>> opLiBa = contabilidadRepository.findBalanceComprobacion(
+//                List.of(
+//
+//                ),
+//                BalanceComprobacionOrderField.FECHA,
+//                OrderDirection.DESCENDING
+//        );
 
 //        opLiBa.ifPresent(listLi ->{
 //            AtomicReference<BigDecimal> sumaHaber = new AtomicReference<>(BigDecimal.ZERO);

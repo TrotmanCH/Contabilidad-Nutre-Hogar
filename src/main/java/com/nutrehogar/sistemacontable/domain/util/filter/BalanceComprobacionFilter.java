@@ -24,6 +24,7 @@ public sealed abstract class BalanceComprobacionFilter permits BalanceComprobaci
         LocalDate startDate;
         LocalDate endDate;
     }
+
     /**
      * Filtra el Balance de Comprobación por código de cuenta.
      */
