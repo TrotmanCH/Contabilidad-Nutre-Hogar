@@ -1,5 +1,6 @@
 package com.nutrehogar.sistemacontable;
 
+/*
 import com.nutrehogar.sistemacontable.application.dto.BalanceComprobacionDTO;
 import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.application.dto.LibroMayorDTO;
@@ -18,12 +19,116 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+*/
 
+import com.nutrehogar.sistemacontable.domain.model.Asiento;
+import com.nutrehogar.sistemacontable.domain.model.Cuenta;
+import com.nutrehogar.sistemacontable.domain.model.Registro;
+import com.nutrehogar.sistemacontable.domain.model.SubtipoCuenta;
+import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
+import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
+import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
+import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
+import com.nutrehogar.sistemacontable.persistence.repository.RegistroRepo;
+import com.nutrehogar.sistemacontable.persistence.repository.SubtipoCuentaRepo;
+import com.nutrehogar.sistemacontable.persistence.repository.TipoCuentaRepo;
+import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoRepo;
+import java.math.BigDecimal;
 
 public class SistemaContable {
-
     public static void main(String[] args) {
-        Session session = HibernateUtil.getSession();
+        /* Utilizando clases de repository y model para insertar en la base de datos
+        Verifiquen si la base de datos ya tiene los datos de abajo
+        con db browser, si ya los tiene comenten todo lo que no esta comentado
+        en esta clase.
+        */
+        // Repos
+        TipoDocumentoRepo tipoDocuRepo = TipoDocumentoRepo.getInstance();
+        TipoCuentaRepo tipoCuentaRepo = TipoCuentaRepo.getInstance();
+        SubtipoCuentaRepo subtipoCuentaRepo = SubtipoCuentaRepo.getInstance();
+        CuentaRepo cuentaRepo = CuentaRepo.getInstance();
+        AsientoRepo asientoRepo = AsientoRepo.getInstance();
+        RegistroRepo registroRepo = RegistroRepo.getInstance();
+        // Tipos de Documentos
+        tipoDocuRepo.save(TipoDocumento.builder().id(1).nombre("EGRESO").build());
+        tipoDocuRepo.save(TipoDocumento.builder().id(2).nombre("INGRESO").build());
+        tipoDocuRepo.save(TipoDocumento.builder().id(3).nombre("AJUSTE").build());
+        // Tipo de Cuentas
+        tipoCuentaRepo.save(TipoCuenta.builder().id(1).nombre("ACTIVOS").build());
+        tipoCuentaRepo.save(TipoCuenta.builder().id(2).nombre("PASIVOS").build());
+        tipoCuentaRepo.save(TipoCuenta.builder().id(3).nombre("PATRIMONIO").build());
+        tipoCuentaRepo.save(TipoCuenta.builder().id(4).nombre("INGRESOS").build());
+        tipoCuentaRepo.save(TipoCuenta.builder().id(5).nombre("GASTOS").build());
+        // Subtipo de Cuentas
+        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("1.1").nombre("ACTIVOS CORRIENTES").build());
+        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("1.3").nombre("INVETARIOS").build());
+        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("1.5").nombre("CUENTAS POR COBRAR").build());
+        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("1.6").nombre("ACTIVOS FIJOS").build());
+        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("1.61").nombre("DEPRECIACIÓN ACUMULADA").build());
+        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("2.1").nombre("CUENTAS POR PAGAR").build());
+        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("2.2").nombre("OTRAS CUENTAS POR PAGAR").build());
+        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("4.2").nombre("INGRESOS POR DONACIÓN").build());
+        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("5.2").nombre("GASTOS OTROS/DONACIONES").build());
+        // Cuentas
+        TipoCuenta tipo1 = tipoCuentaRepo.findById(2);
+        SubtipoCuenta subtipo1 = subtipoCuentaRepo.findById("2.1");
+        cuentaRepo.save(
+                Cuenta.builder()
+                        .id("21010")
+                        .nombre("Ventas A.C.M.")
+                        .saldo(BigDecimal.valueOf(82.85))
+                        .tipoCuenta(tipo1)
+                        .subtipoCuenta(subtipo1)
+                .build()
+        );
+        TipoCuenta tipo2 = tipoCuentaRepo.findById(1);
+        SubtipoCuenta subtipo2 = subtipoCuentaRepo.findById("1.1");
+        cuentaRepo.save(
+                Cuenta.builder()
+                        .id("11051")
+                        .nombre("Banco Nacional")
+                        .saldo(BigDecimal.valueOf(82.85))
+                        .tipoCuenta(tipo2)
+                        .subtipoCuenta(subtipo2)
+                .build()
+        );
+        // Asiento
+        TipoDocumento docu = tipoDocuRepo.findById(1);
+        asientoRepo.save(
+                Asiento.builder()
+                        .id(1)
+                        .fecha("2024-09-11")
+                        .concepto("Para cancelar factura")
+                        .tipoDocumento(docu)
+                .build()
+        );
+        
+        // Registros
+        Asiento asiento = asientoRepo.findById(1);
+        Cuenta cuenta1 = cuentaRepo.findById("21010");
+        registroRepo.save(
+                Registro.builder()
+                        .asiento(asiento)
+                        .comprobante("Compr-095")
+                        .referencia("F-00008711")
+                        .cuenta(cuenta1)
+                        .debe(cuenta1.getSaldo())
+                        .haber(null)
+                .build()
+        );
+        Cuenta cuenta2 = cuentaRepo.findById("11051");
+        registroRepo.save(
+                Registro.builder()
+                        .asiento(asiento)
+                        .comprobante("Ch-4818")
+                        .referencia("Pago de Factura")
+                        .cuenta(cuenta2)
+                        .debe(null)
+                        .haber(cuenta2.getSaldo())
+                .build()
+        );
+        
+        /*Session session = HibernateUtil.getSession();
         ContabilidadRepository contabilidadRepository = ContabilidadRepository.getInstance();
 
 
@@ -62,7 +167,7 @@ public class SistemaContable {
                 BalanceComprobacionOrderField.FECHA,
                 OrderDirection.DESCENDING
         );
-
+        */
 //        opLiBa.ifPresent(listLi ->{
 //            AtomicReference<BigDecimal> sumaHaber = new AtomicReference<>(BigDecimal.ZERO);
 //            AtomicReference<BigDecimal> sumadebe = new AtomicReference<>(BigDecimal.ZERO);
