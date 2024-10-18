@@ -1,8 +1,6 @@
 package com.nutrehogar.sistemacontable.domain.util.filter;
 
 
-import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -13,11 +11,12 @@ import java.time.LocalDate;
  * Clase sellada que define los criterios de filtrado para el Libro Diario.
  */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public sealed abstract class LibroDiarioFilter extends Filter permits LibroDiarioFilter.All, LibroDiarioFilter.ByComprobante, LibroDiarioFilter.ByFechaRange, LibroDiarioFilter.ByReferencia {
+public sealed abstract class LibroDiarioFilter permits LibroDiarioFilter.All, LibroDiarioFilter.ByComprobante, LibroDiarioFilter.ByFechaRange, LibroDiarioFilter.ByReferencia {
 
-    protected LibroDiarioFilter(OrderDirection direction, LibroDiarioOrderField orderField) {
-        super(direction, orderField);
+    protected LibroDiarioFilter() {
+
     }
+
 
     /**
      * Filtra el Libro Diario por un rango de fechas.
@@ -28,8 +27,7 @@ public sealed abstract class LibroDiarioFilter extends Filter permits LibroDiari
         LocalDate starDate;
         LocalDate endDate;
 
-        public ByFechaRange(OrderDirection direction, LibroDiarioOrderField order, LocalDate startDate, LocalDate endDate) {
-            super(direction, order);
+        public ByFechaRange(LocalDate startDate, LocalDate endDate) {
             this.starDate = startDate;
             this.endDate = endDate;
         }
@@ -43,8 +41,7 @@ public sealed abstract class LibroDiarioFilter extends Filter permits LibroDiari
     public static final class ByReferencia extends LibroDiarioFilter {
         String referencia;
 
-        public ByReferencia(OrderDirection direction, LibroDiarioOrderField order, String referencia) {
-            super(direction, order);
+        public ByReferencia(String referencia) {
             this.referencia = referencia;
         }
     }
@@ -57,8 +54,8 @@ public sealed abstract class LibroDiarioFilter extends Filter permits LibroDiari
     public static final class ByComprobante extends LibroDiarioFilter {
         String comprobante;
 
-        public ByComprobante(OrderDirection direction, LibroDiarioOrderField order, String comprobante) {
-            super(direction, order);
+        public ByComprobante(String comprobante) {
+
             this.comprobante = comprobante;
         }
     }
@@ -67,8 +64,16 @@ public sealed abstract class LibroDiarioFilter extends Filter permits LibroDiari
      * Representa la opción de no aplicar ningún filtro
      */
     public static final class All extends LibroDiarioFilter {
-        public All(OrderDirection direction, LibroDiarioOrderField orderField) {
-            super(direction, orderField);
+        private static All instance;
+
+        private All() {
+        }
+
+        public static All getInstance() {
+            if (instance == null) {
+                instance = new All();
+            }
+            return instance;
         }
     }
 }

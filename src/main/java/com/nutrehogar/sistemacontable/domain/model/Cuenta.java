@@ -36,5 +36,5 @@ public class Cuenta {
     SubtipoCuenta subtipoCuenta;
     
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    List<Registro> asientos = new ArrayList<>();
+    List<Registro> registros = new ArrayList<>();
 }

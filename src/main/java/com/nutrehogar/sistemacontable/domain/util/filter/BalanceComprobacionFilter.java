@@ -1,8 +1,6 @@
 package com.nutrehogar.sistemacontable.domain.util.filter;
 
 
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderField;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -12,9 +10,8 @@ import java.time.LocalDate;
 /**
  * Clase sellada que define los criterios de filtrado para el Balance de Comprobación.
  */
-public sealed abstract class BalanceComprobacionFilter extends Filter permits BalanceComprobacionFilter.All, BalanceComprobacionFilter.ByCodigoCuenta, BalanceComprobacionFilter.ByFechaRange, BalanceComprobacionFilter.ByNombreCuenta {
-    protected BalanceComprobacionFilter(OrderDirection direction, OrderField orderField) {
-        super(direction, orderField);
+public sealed abstract class BalanceComprobacionFilter permits BalanceComprobacionFilter.All, BalanceComprobacionFilter.ByCodigoCuenta, BalanceComprobacionFilter.ByFechaRange, BalanceComprobacionFilter.ByNombreCuenta {
+    protected BalanceComprobacionFilter() {
     }
 
     /**
@@ -26,8 +23,7 @@ public sealed abstract class BalanceComprobacionFilter extends Filter permits Ba
         LocalDate startDate;
         LocalDate endDate;
 
-        public ByFechaRange(OrderDirection direction, OrderField orderField, LocalDate startDate, LocalDate endDate) {
-            super(direction, orderField);
+        public ByFechaRange(LocalDate startDate, LocalDate endDate) {
             this.startDate = startDate;
             this.endDate = endDate;
         }
@@ -42,8 +38,7 @@ public sealed abstract class BalanceComprobacionFilter extends Filter permits Ba
     public static final class ByCodigoCuenta extends BalanceComprobacionFilter {
         String codigoCuenta;
 
-        public ByCodigoCuenta(OrderDirection direction, OrderField orderField, String codigoCuenta) {
-            super(direction, orderField);
+        public ByCodigoCuenta(String codigoCuenta) {
             this.codigoCuenta = codigoCuenta;
         }
     }
@@ -56,8 +51,7 @@ public sealed abstract class BalanceComprobacionFilter extends Filter permits Ba
     public static final class ByNombreCuenta extends BalanceComprobacionFilter {
         String nombreCuenta;
 
-        public ByNombreCuenta(OrderDirection direction, OrderField orderField, String nombreCuenta) {
-            super(direction, orderField);
+        public ByNombreCuenta(String nombreCuenta) {
             this.nombreCuenta = nombreCuenta;
         }
     }
@@ -65,9 +59,18 @@ public sealed abstract class BalanceComprobacionFilter extends Filter permits Ba
     /**
      * Representa la opción de no aplicar ningún filtro al Balance de Comprobación.
      */
+    @Getter
     public static final class All extends BalanceComprobacionFilter {
-        public All(OrderDirection direction, OrderField orderField) {
-            super(direction, orderField);
+        private static All instance;
+
+        private All() {
+        }
+
+        public static All getInstance() {
+            if (instance == null) {
+                instance = new All();
+            }
+            return instance;
         }
     }
 }

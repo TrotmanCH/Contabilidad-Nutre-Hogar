@@ -18,27 +18,27 @@ import lombok.Getter;
  *     <li>{@code PATRIMONIO}: Representa el patrimonio de la empresa, combinando capital, reservas y resultados acumulados.</li>
  * </ul>
  */
-@Getter
-public enum TipoCuenta {
-    ACTIVO("Activo"),
-    PASIVO("Pasivo"),
-    CAPITAL("Capital"),
-    INGRESO("Ingreso"),
-    GASTO("Gasto"),
-    RESULTADOS("Resultados"),
-    PATRIMONIO("Patrimonio");
-
-    /**
-     * Descripción del tipo de cuenta.
-     */
-    private final String descripcion;
-
-    /**
-     * Constructor de {@code TipoCuenta}.
-     *
-     * @param descripcion Descripción detallada del tipo de cuenta.
-     */
-    TipoCuenta(String descripcion) {
-        this.descripcion = descripcion;
-    }
-}
+//@Getter
+//public enum TipoCuenta {
+//    ACTIVO("Activo"),
+//    PASIVO("Pasivo"),
+//    CAPITAL("Capital"),
+//    INGRESO("Ingreso"),
+//    GASTO("Gasto"),
+//    RESULTADOS("Resultados"),
+//    PATRIMONIO("Patrimonio");
+//
+//    /**
+//     * Descripción del tipo de cuenta.
+//     */
+//    private final String descripcion;
+//
+//    /**
+//     * Constructor de {@code TipoCuenta}.
+//     *
+//     * @param descripcion Descripción detallada del tipo de cuenta.
+//     */
+//    TipoCuenta(String descripcion) {
+//        this.descripcion = descripcion;
+//    }
+//}

@@ -1,8 +1,6 @@
 package com.nutrehogar.sistemacontable.domain.util.filter;
 
 
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderField;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -12,9 +10,8 @@ import java.time.LocalDate;
 /**
  * Clase sellada que define los criterios de filtrado para el Mayor General.
  */
-public sealed abstract class MayorGeneralFilter extends Filter permits MayorGeneralFilter.ByCodigoCuenta, MayorGeneralFilter.ByNombreCuenta, MayorGeneralFilter.ByFechaRange, MayorGeneralFilter.All {
-    protected MayorGeneralFilter(OrderDirection direction, OrderField orderField) {
-        super(direction, orderField);
+public sealed abstract class MayorGeneralFilter permits MayorGeneralFilter.ByCodigoCuenta, MayorGeneralFilter.ByNombreCuenta, MayorGeneralFilter.ByFechaRange, MayorGeneralFilter.All {
+    protected MayorGeneralFilter() {
     }
 
     /**
@@ -25,8 +22,7 @@ public sealed abstract class MayorGeneralFilter extends Filter permits MayorGene
     public static final class ByCodigoCuenta extends MayorGeneralFilter {
         String codigoCuenta;
 
-        public ByCodigoCuenta(OrderDirection direction, OrderField orderField, String codigoCuenta) {
-            super(direction, orderField);
+        public ByCodigoCuenta(String codigoCuenta) {
             this.codigoCuenta = codigoCuenta;
         }
     }
@@ -39,8 +35,7 @@ public sealed abstract class MayorGeneralFilter extends Filter permits MayorGene
     public static final class ByNombreCuenta extends MayorGeneralFilter {
         String nombreCuenta;
 
-        public ByNombreCuenta(OrderDirection direction, OrderField orderField, String nombreCuenta) {
-            super(direction, orderField);
+        public ByNombreCuenta(String nombreCuenta) {
             this.nombreCuenta = nombreCuenta;
         }
     }
@@ -54,8 +49,7 @@ public sealed abstract class MayorGeneralFilter extends Filter permits MayorGene
         LocalDate startDate;
         LocalDate endDate;
 
-        public ByFechaRange(OrderDirection direction, OrderField orderField, LocalDate startDate, LocalDate endDate) {
-            super(direction, orderField);
+        public ByFechaRange(LocalDate startDate, LocalDate endDate) {
             this.startDate = startDate;
             this.endDate = endDate;
         }
@@ -65,8 +59,16 @@ public sealed abstract class MayorGeneralFilter extends Filter permits MayorGene
      * Representa la opción de no aplicar ningún filtro al Mayor General.
      */
     public static final class All extends MayorGeneralFilter {
-        public All(OrderDirection direction, OrderField orderField) {
-            super(direction, orderField);
+        private static All instance;
+
+        private All() {
+        }
+
+        public static All getInstance() {
+            if (instance == null) {
+                instance = new All();
+            }
+            return instance;
         }
     }
 }
