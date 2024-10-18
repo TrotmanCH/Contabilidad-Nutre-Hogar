@@ -1,6 +1,6 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
-
+/*
 import com.nutrehogar.sistemacontable.application.dto.BalanceComprobacionDTO;
 import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.application.dto.LibroMayorDTO;
@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+*/
 public class ContabilidadRepository {
     private static ContabilidadRepository instance;
 
@@ -48,6 +48,7 @@ public class ContabilidadRepository {
      * @param orderDirection Tipo de ordenamiento (ascendente o descendente).
      * @return Lista de {@code LibroDiarioDTO} que cumplen con los criterios.
      */
+    /*
     public Optional<List<LibroDiarioDTO>> findLibroDiario(List<LibroDiarioFilter> filters, LibroDiarioOrderField orderField, OrderDirection orderDirection) {
         List<LibroDiarioDTO> libroDiarioDTOS = null;
         Session session = null; // Inicializar la sesión aquí
@@ -125,7 +126,7 @@ public class ContabilidadRepository {
         }
         return Optional.ofNullable(libroDiarioDTOS);
     }
-
+    */
     /**
      * Busca registros del Libro Mayor aplicando filtros y ordenamientos dinámicos.
      *
@@ -134,6 +135,7 @@ public class ContabilidadRepository {
      * @param orderDirection Tipo de ordenamiento (ascendente o descendente).
      * @return Lista de {@code LibroMayorDTO} que cumplen con los criterios.
      */
+    /*
     public Optional<List<LibroMayorDTO>> findLibroMayor(List<LibroMayorFilter> filters, LibroMayorOrderField orderField, OrderDirection orderDirection) {
         List<LibroMayorDTO> libroMayorDTOS = null;
         Session session = null; // Inicializar la sesión aquí
@@ -299,6 +301,6 @@ public class ContabilidadRepository {
         }
         return Optional.ofNullable(BalanceComprobacionDTOS);
     }
-
+    */
 
 }
