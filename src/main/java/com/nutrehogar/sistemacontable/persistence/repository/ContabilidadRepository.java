@@ -1,5 +1,14 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
+import com.nutrehogar.sistemacontable.application.dto.BalanceComprobacionDTO;
+import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
+import com.nutrehogar.sistemacontable.application.dto.LibroMayorDTO;
+import com.nutrehogar.sistemacontable.application.dto.MayorGeneralDTO;
+import com.nutrehogar.sistemacontable.domain.util.filter.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 import com.nutrehogar.sistemacontable.application.dto.BalanceComprobacionDTO;
 import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
@@ -29,7 +38,7 @@ import java.util.Optional;
 public class ContabilidadRepository {
     private static ContabilidadRepository instance;
 
-    private ContabilidadRepository() {
+    protected ContabilidadRepository() {
     }
 
     public static synchronized ContabilidadRepository getInstance() {
@@ -40,93 +49,101 @@ public class ContabilidadRepository {
     }
 
 
-    /**
-     * Busca registros del Libro Diario aplicando filtros y ordenamientos dinámicos.
-     *
-     * @param filters        Criterio de filtrado.
-     * @param orderField     Campo por el cual ordenar.
-     * @param orderDirection Tipo de ordenamiento (ascendente o descendente).
-     * @return Lista de {@code LibroDiarioDTO} que cumplen con los criterios.
-     */
-    /*
-    public Optional<List<LibroDiarioDTO>> findLibroDiario(List<LibroDiarioFilter> filters, LibroDiarioOrderField orderField, OrderDirection orderDirection) {
-        List<LibroDiarioDTO> libroDiarioDTOS = null;
-        Session session = null; // Inicializar la sesión aquí
-
-        try {
-            session = HibernateUtil.getSession(); // Obtiene la sesión
-            session.beginTransaction();
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<LibroDiarioDTO> cq = cb.createQuery(LibroDiarioDTO.class);// Datos que obtendremos
-            Root<Transaccion> transaccion = cq.from(Transaccion.class);// cada query tiene un Root<T> y apunta a la entidad clave de la consulta
-            Join<Transaccion, Asiento> asientos = transaccion.join("asientos");//
-            Join<Asiento, Cuenta> cuenta = asientos.join("cuenta");
-
-            // Alias
-            Path<LocalDate> fechaPath = transaccion.get("fecha");
-            Path<TipoDocumento> tipoDocumentoPath = transaccion.get("tipoDocumento");
-            Path<String> codigoCuentaPath = cuenta.get("codigoCuenta");
-            Path<String> comprobantePath = asientos.get("comprobante");
-            Path<String> referenciaPath = asientos.get("referencia");
-            Path<BigDecimal> debePath = asientos.get("debe");
-            Path<BigDecimal> haberPath = asientos.get("haber");
-
-            // Selección de campos para el DTO
-            cq.select(cb.construct(LibroDiarioDTO.class, fechaPath, tipoDocumentoPath, codigoCuentaPath, comprobantePath, referenciaPath, debePath, haberPath));
-
-            // Aplicar filtros
-            List<Predicate> predicates = new ArrayList<>();
-
-            filters.forEach(filter -> {
-                if (filter instanceof LibroDiarioFilter.ByFechaRange byFechaRange) {
-                    predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
-                } else if (filter instanceof LibroDiarioFilter.ByReferencia byReferencia) {
-                    predicates.add(cb.like(cb.lower(referenciaPath), "%" + byReferencia.getReferencia().toLowerCase() + "%"));
-                }else if (filter instanceof LibroDiarioFilter.ByComprobante byComprobante) {
-                    predicates.add(cb.like(cb.lower(comprobantePath), "%" + byComprobante.getComprobante().toLowerCase() + "%"));
-                }
-            });
-
-// Combina todos los predicados en uno solo
-            Predicate predicate = cb.conjunction();
-            if (!predicates.isEmpty()) {
-                predicate = cb.and(predicates.toArray(new Predicate[0]));
-            }
-
-            cq.where(predicate);
-
-            // Aplicar orden
-            Path<?> orderPath = switch (orderField) {
-                case FECHA -> fechaPath;
-                case TIPO_DOCUMENTO -> tipoDocumentoPath;
-                case CODIGO_CUENTA -> codigoCuentaPath;
-                case COMPROBANTE -> comprobantePath;
-                case REFERENCIA -> referenciaPath;
-                case DEBE -> debePath;
-                case HABER -> haberPath;
-            };
-
-            Order order = orderDirection == OrderDirection.ASCENDING ? cb.asc(orderPath) : cb.desc(orderPath);
-            cq.orderBy(order);
-
-            TypedQuery<LibroDiarioDTO> query = session.createQuery(cq);
-            libroDiarioDTOS = query.getResultList();
-
-            // Completarmpletar la transacción
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if (session != null && session.getTransaction() != null) {
-                session.getTransaction().rollback(); // Deshacer la transacción en caso de error
-            }
-            e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close(); // Cierra la sesión manualmente
-            }
+    public <T> List<T> get(Filter filter) {
+        List<T> list = new ArrayList<T>();
+        Class<T> tClass= (Class<T>) LibroDiarioDTO.class;
+        switch (filter) {
+            case LibroDiarioFilter ignored -> T = LibroDiarioDTO;
+            case LibroMayorFilter ignored -> T = LibroMayorDTO;
+            case BalanceComprobacionFilter ignored -> BalanceComprobacionDTO;
+            case MayorGeneralFilter ignored -> MayorGeneralDTO;
         }
-        return Optional.ofNullable(libroDiarioDTOS);
+        return list;
     }
-    */
+
+    public void getLibroDiario(LibroDiarioFilter filter) {
+        System.out.println(filter);
+    }
+
+
+//    public Optional<List<LibroDiarioDTO>> findLibroDiario(List<LibroDiarioFilter> filters, LibroDiarioOrderField orderField, OrderDirection orderDirection) {
+//        List<LibroDiarioDTO> libroDiarioDTOS = null;
+//        Session session = null; // Inicializar la sesión aquí
+//
+//        try {
+//            session = HibernateUtil.getSession(); // Obtiene la sesión
+//            session.beginTransaction();
+//            CriteriaBuilder cb = session.getCriteriaBuilder();
+//            CriteriaQuery<LibroDiarioDTO> cq = cb.createQuery(LibroDiarioDTO.class);// Datos que obtendremos
+//            Root<Transaccion> transaccion = cq.from(Transaccion.class);// cada query tiene un Root<T> y apunta a la entidad clave de la consulta
+//            Join<Transaccion, Asiento> asientos = transaccion.join("asientos");//
+//            Join<Asiento, Cuenta> cuenta = asientos.join("cuenta");
+//
+//            // Alias
+//            Path<LocalDate> fechaPath = transaccion.get("fecha");
+//            Path<TipoDocumento> tipoDocumentoPath = transaccion.get("tipoDocumento");
+//            Path<String> codigoCuentaPath = cuenta.get("codigoCuenta");
+//            Path<String> comprobantePath = asientos.get("comprobante");
+//            Path<String> referenciaPath = asientos.get("referencia");
+//            Path<BigDecimal> debePath = asientos.get("debe");
+//            Path<BigDecimal> haberPath = asientos.get("haber");
+//
+//            // Selección de campos para el DTO
+//            cq.select(cb.construct(LibroDiarioDTO.class, fechaPath, tipoDocumentoPath, codigoCuentaPath, comprobantePath, referenciaPath, debePath, haberPath));
+//
+//            // Aplicar filtros
+//            List<Predicate> predicates = new ArrayList<>();
+//
+//            filters.forEach(filter -> {
+//                if (filter instanceof LibroDiarioFilter.ByFechaRange byFechaRange) {
+//                    predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
+//                } else if (filter instanceof LibroDiarioFilter.ByReferencia byReferencia) {
+//                    predicates.add(cb.like(cb.lower(referenciaPath), "%" + byReferencia.getReferencia().toLowerCase() + "%"));
+//                } else if (filter instanceof LibroDiarioFilter.ByComprobante byComprobante) {
+//                    predicates.add(cb.like(cb.lower(comprobantePath), "%" + byComprobante.getComprobante().toLowerCase() + "%"));
+//                }
+//            });
+//
+//// Combina todos los predicados en uno solo
+//            Predicate predicate = cb.conjunction();
+//            if (!predicates.isEmpty()) {
+//                predicate = cb.and(predicates.toArray(new Predicate[0]));
+//            }
+//
+//            cq.where(predicate);
+//
+//            // Aplicar orden
+//            Path<?> orderPath = switch (orderField) {
+//                case FECHA -> fechaPath;
+//                case TIPO_DOCUMENTO -> tipoDocumentoPath;
+//                case CODIGO_CUENTA -> codigoCuentaPath;
+//                case COMPROBANTE -> comprobantePath;
+//                case REFERENCIA -> referenciaPath;
+//                case DEBE -> debePath;
+//                case HABER -> haberPath;
+//            };
+//
+//            Order order = orderDirection == OrderDirection.ASCENDING ? cb.asc(orderPath) : cb.desc(orderPath);
+//            cq.orderBy(order);
+//
+//            TypedQuery<LibroDiarioDTO> query = session.createQuery(cq);
+//            libroDiarioDTOS = query.getResultList();
+//
+//            // Completarmpletar la transacción
+//            session.getTransaction().commit();
+//        } catch (Exception e) {
+//            if (session != null && session.getTransaction() != null) {
+//                session.getTransaction().rollback(); // Deshacer la transacción en caso de error
+//            }
+//            e.printStackTrace();
+//        } finally {
+//            if (session != null) {
+//                session.close(); // Cierra la sesión manualmente
+//            }
+//        }
+//        return Optional.ofNullable(libroDiarioDTOS);
+//    }
+
     /**
      * Busca registros del Libro Mayor aplicando filtros y ordenamientos dinámicos.
      *

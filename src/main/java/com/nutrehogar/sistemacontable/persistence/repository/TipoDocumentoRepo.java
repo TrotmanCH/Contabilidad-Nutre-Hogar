@@ -8,10 +8,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class TipoDocumentoRepo {
-    private static TipoDocumentoRepo instance;
     private static final Session session = HibernateUtil.getSession();
+    private static TipoDocumentoRepo instance;
 
-    private TipoDocumentoRepo() {
+    protected TipoDocumentoRepo() {
     }
 
     public static TipoDocumentoRepo getInstance() {

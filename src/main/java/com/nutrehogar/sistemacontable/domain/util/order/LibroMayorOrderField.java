@@ -4,12 +4,13 @@ package com.nutrehogar.sistemacontable.domain.util.order;
 /**
  * Enum que define los campos por los cuales se puede ordenar el Libro Mayor.
  */
-public enum LibroMayorOrderField {
+public enum LibroMayorOrderField implements OrderField {
     CODIGO_CUENTA("codigoCuenta"),
     NOMBRE_CUENTA("nombreCuenta"),
     TIPO_CUENTA("tipoCuenta"),
     DEBE("debe"),
-    HABER("haber"),;
+    HABER("haber"),
+    ;
 
     private final String fieldName;
 

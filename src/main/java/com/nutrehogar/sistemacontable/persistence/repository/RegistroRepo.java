@@ -2,16 +2,18 @@ package com.nutrehogar.sistemacontable.persistence.repository;
 
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
-import java.util.List;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
-public class RegistroRepo {
-    private static RegistroRepo instance;
-    private static final Session session = HibernateUtil.getSession();
+import java.util.List;
 
-    private RegistroRepo() {
+public class RegistroRepo {
+    private static final Session session = HibernateUtil.getSession();
+    private static RegistroRepo instance;
+
+    protected RegistroRepo() {
     }
+
     public static RegistroRepo getInstance() {
         if (instance == null) {
             instance = new RegistroRepo();
@@ -32,9 +34,11 @@ public class RegistroRepo {
         }
         return Transaccions;
     }
+
     public Registro findById(Integer id) {
         return session.find(Registro.class, id);
     }
+
     public void save(Registro Registro) {
         try {
             session.beginTransaction();
@@ -44,6 +48,7 @@ public class RegistroRepo {
             session.getTransaction().rollback();
         }
     }
+
     public void save(@NotNull List<Registro> Transaccions) {
         try {
             session.beginTransaction();
@@ -53,6 +58,7 @@ public class RegistroRepo {
             session.getTransaction().rollback();
         }
     }
+
     public void delete(Registro Registro) {
         try {
             session.beginTransaction();
@@ -65,12 +71,14 @@ public class RegistroRepo {
             e.printStackTrace();
         }
     }
+
     public void deleteById(Integer id) {
         Registro Registro = this.findById(id);
         if (Registro != null) {
             delete(Registro);
         }
     }
+
     public void update(Registro Registro) {
         try {
             session.beginTransaction();

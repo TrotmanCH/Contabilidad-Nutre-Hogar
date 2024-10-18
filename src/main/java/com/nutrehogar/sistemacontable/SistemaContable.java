@@ -22,6 +22,12 @@ import java.util.concurrent.atomic.AtomicReference;
 */
 
 import com.nutrehogar.sistemacontable.domain.model.*;
+import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComprobacionFilter;
+import com.nutrehogar.sistemacontable.domain.util.filter.Filter;
+import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
+import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
+import com.nutrehogar.sistemacontable.domain.util.order.MayorGeneralOrderField;
+import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import com.nutrehogar.sistemacontable.persistence.repository.*;
 
@@ -30,6 +36,9 @@ import java.time.LocalDate;
 
 public class SistemaContable {
     public static void main(String[] args) {
+
+//        ContabilidadRepository.getInstance().get(new LibroDiarioFilter.ByComprobante(OrderDirection.DESCENDING,LibroDiarioOrderField.FECHA,"yoseph"));
+
         /* Utilizando clases de repository y model para insertar en la base de datos
         Verifiquen si la base de datos ya tiene los datos de abajo
         con db browser, si ya los tiene comenten todo lo que no esta comentado

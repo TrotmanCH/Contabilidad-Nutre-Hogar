@@ -22,10 +22,10 @@ public class Asiento {
     @Column(name = "id")
     Integer id;
 
-    @Column(name = "fecha", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "fecha", nullable = false)
     LocalDate fecha;
 
-    @Column(name = "concepto")
+    @Column(name = "concepto", columnDefinition = "TEXT")
     String concepto;
 
     @ManyToOne

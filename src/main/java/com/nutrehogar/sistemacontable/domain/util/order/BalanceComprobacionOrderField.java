@@ -4,7 +4,7 @@ package com.nutrehogar.sistemacontable.domain.util.order;
 /**
  * Enum que define los campos por los cuales se puede ordenar el Balance de Comprobación.
  */
-public enum BalanceComprobacionOrderField {
+public enum BalanceComprobacionOrderField implements OrderField {
     FECHA("fecha"),
     TIPO_DOCUMENTO("tipo documento"),
     CODIGO_CUENTA("codigoCuenta"),
