@@ -2,6 +2,7 @@ package com.nutrehogar.sistemacontable.domain.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -14,24 +15,23 @@ import java.math.BigDecimal;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "registro")
-
 public class Registro {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Integer id;
 
     @ManyToOne
     @JoinColumn(name = "id_asiento", nullable = false)
     Asiento asiento;
-    
-    @Column(name = "comprobante", columnDefinition = "TEXT")
+
+    @Column(name = "comprobante")
     String comprobante;
-    
-    @Column(name = "referencia", columnDefinition = "TEXT")
+
+    @Column(name = "referencia")
     String referencia;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_cuenta", nullable = false)
     Cuenta cuenta;
 

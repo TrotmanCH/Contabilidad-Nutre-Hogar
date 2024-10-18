@@ -16,10 +16,9 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "cuenta")
-
 public class Cuenta {
     @Id
-    @Column(name = "id", columnDefinition = "TEXT")
+    @Column(name = "id")
     String id;
 
     @Column(name = "nombre", nullable = false)
@@ -28,14 +27,14 @@ public class Cuenta {
     @Column(name = "saldo", precision = 15, scale = 2)
     BigDecimal saldo;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_tipo_cuenta", nullable = false)
     TipoCuenta tipoCuenta;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_subtipo_cuenta", nullable = false)
     SubtipoCuenta subtipoCuenta;
     
-    @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<Registro> asientos = new ArrayList<>();
 }

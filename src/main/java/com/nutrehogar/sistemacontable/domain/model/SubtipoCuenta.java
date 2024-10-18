@@ -16,15 +16,14 @@ import javax.persistence.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "subtipo_cuenta")
-
 public class SubtipoCuenta {
     @Id
-    @Column(name = "id", columnDefinition = "TEXT")
+    @Column(name = "id")
     String id;
     
-    @Column(name = "nombre", columnDefinition = "TEXT")
+    @Column(name = "nombre")
     String nombre;
     
-    @OneToMany(mappedBy = "subtipoCuenta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "subtipoCuenta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<Cuenta> cuentas = new ArrayList<>();
 }

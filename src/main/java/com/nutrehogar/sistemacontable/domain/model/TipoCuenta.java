@@ -15,15 +15,15 @@ import javax.persistence.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "tipo_cuenta")
-
 public class TipoCuenta {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Integer id;
     
-    @Column(name = "nombre", columnDefinition = "TEXT")
+    @Column(name = "nombre")
     String nombre;
     
-    @OneToMany(mappedBy = "tipoCuenta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tipoCuenta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<Cuenta> cuentas = new ArrayList<>();
 }
