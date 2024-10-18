@@ -11,9 +11,11 @@
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 <!--        <property name="hibernate.hbm2ddl.import_files">data.sql</property>-->
-
-        <mapping class="com.nutrehogar.sistemacontable.domain.model.Asiento"/>
+	<mapping class="com.nutrehogar.sistemacontable.domain.model.Asiento"/>
         <mapping class="com.nutrehogar.sistemacontable.domain.model.Cuenta"/>
-        <mapping class="com.nutrehogar.sistemacontable.domain.model.Transaccion"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.Registro"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.SubtipoCuenta"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.TipoCuenta"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.TipoDocumento"/>
     </session-factory>
 </hibernate-configuration>
