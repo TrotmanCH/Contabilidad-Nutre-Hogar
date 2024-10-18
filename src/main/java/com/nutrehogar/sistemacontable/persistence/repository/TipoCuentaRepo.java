@@ -2,16 +2,18 @@ package com.nutrehogar.sistemacontable.persistence.repository;
 
 import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
-import java.util.List;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
-public class TipoCuentaRepo {
-    private static TipoCuentaRepo instance;
-    private static final Session session = HibernateUtil.getSession();
+import java.util.List;
 
-    private TipoCuentaRepo() {
+public class TipoCuentaRepo {
+    private static final Session session = HibernateUtil.getSession();
+    private static TipoCuentaRepo instance;
+
+    protected TipoCuentaRepo() {
     }
+
     public static TipoCuentaRepo getInstance() {
         if (instance == null) {
             instance = new TipoCuentaRepo();
@@ -32,9 +34,11 @@ public class TipoCuentaRepo {
         }
         return Transaccions;
     }
+
     public TipoCuenta findById(Integer id) {
         return session.find(TipoCuenta.class, id);
     }
+
     public void save(TipoCuenta TipoCuenta) {
         try {
             session.beginTransaction();
@@ -44,6 +48,7 @@ public class TipoCuentaRepo {
             session.getTransaction().rollback();
         }
     }
+
     public void save(@NotNull List<TipoCuenta> Transaccions) {
         try {
             session.beginTransaction();
@@ -53,6 +58,7 @@ public class TipoCuentaRepo {
             session.getTransaction().rollback();
         }
     }
+
     public void delete(TipoCuenta TipoCuenta) {
         try {
             session.beginTransaction();
@@ -65,12 +71,14 @@ public class TipoCuentaRepo {
             e.printStackTrace();
         }
     }
+
     public void deleteById(Integer id) {
         TipoCuenta TipoCuenta = this.findById(id);
         if (TipoCuenta != null) {
             delete(TipoCuenta);
         }
     }
+
     public void update(TipoCuenta TipoCuenta) {
         try {
             session.beginTransaction();

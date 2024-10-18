@@ -25,10 +25,10 @@ public class Registro {
     @JoinColumn(name = "id_asiento", nullable = false)
     Asiento asiento;
 
-    @Column(name = "comprobante")
+    @Column(name = "comprobante", columnDefinition = "TEXT")
     String comprobante;
 
-    @Column(name = "referencia")
+    @Column(name = "referencia", columnDefinition = "TEXT")
     String referencia;
 
     @ManyToOne

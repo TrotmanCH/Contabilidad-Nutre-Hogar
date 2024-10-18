@@ -12,8 +12,8 @@ package com.nutrehogar.sistemacontable.domain.components;
  *     <li>{@code AJUSTE}: Representa ajustes contables que corrigen o modifican asientos anteriores.</li>
  * </ul>
  */
-public enum TipoDocumento {
-    INGRESO,
-    EGRESO,
-    AJUSTE
-}
+//public enum TipoDocumento {
+//    INGRESO,
+//    EGRESO,
+//    AJUSTE
+//}

@@ -2,16 +2,18 @@ package com.nutrehogar.sistemacontable.persistence.repository;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
-import java.util.List;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
-public class CuentaRepo {
-    private static CuentaRepo instance;
-    private static final Session session = HibernateUtil.getSession();
+import java.util.List;
 
-    private CuentaRepo() {
+public class CuentaRepo {
+    private static final Session session = HibernateUtil.getSession();
+    private static CuentaRepo instance;
+
+    protected CuentaRepo() {
     }
+
     public static CuentaRepo getInstance() {
         if (instance == null) {
             instance = new CuentaRepo();
@@ -32,9 +34,11 @@ public class CuentaRepo {
         }
         return Transaccions;
     }
+
     public Cuenta findById(String id) {
         return session.find(Cuenta.class, id);
     }
+
     public void save(Cuenta Cuenta) {
         try {
             session.beginTransaction();
@@ -44,6 +48,7 @@ public class CuentaRepo {
             session.getTransaction().rollback();
         }
     }
+
     public void save(@NotNull List<Cuenta> Transaccions) {
         try {
             session.beginTransaction();
@@ -53,6 +58,7 @@ public class CuentaRepo {
             session.getTransaction().rollback();
         }
     }
+
     public void delete(Cuenta Cuenta) {
         try {
             session.beginTransaction();
@@ -65,12 +71,14 @@ public class CuentaRepo {
             e.printStackTrace();
         }
     }
+
     public void deleteById(String id) {
         Cuenta Cuenta = this.findById(id);
         if (Cuenta != null) {
             delete(Cuenta);
         }
     }
+
     public void update(Cuenta Cuenta) {
         try {
             session.beginTransaction();

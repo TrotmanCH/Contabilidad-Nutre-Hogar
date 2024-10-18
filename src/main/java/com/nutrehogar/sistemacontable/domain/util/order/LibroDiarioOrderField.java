@@ -4,7 +4,7 @@ package com.nutrehogar.sistemacontable.domain.util.order;
 /**
  * Enum que define los campos por los cuales se puede ordenar el Libro Diario.
  */
-public enum LibroDiarioOrderField {
+public enum LibroDiarioOrderField implements OrderField {
     FECHA("fecha"),
     TIPO_DOCUMENTO("tipoDocumento"),
     CODIGO_CUENTA("codigoCuenta"),
