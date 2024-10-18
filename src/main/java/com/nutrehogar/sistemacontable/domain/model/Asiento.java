@@ -16,19 +16,19 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "asiento")
-
 public class Asiento {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Integer id;
 
     @Column(name = "fecha", columnDefinition = "TEXT", nullable = false)
-    String fecha;
+    LocalDate fecha;
 
-    @Column(name = "concepto", columnDefinition = "TEXT")
+    @Column(name = "concepto")
     String concepto;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_tipo_documento", nullable = false)
     TipoDocumento tipoDocumento;
 

@@ -2,9 +2,10 @@ package com.nutrehogar.sistemacontable.persistence.repository;
 
 import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
-import java.util.List;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class TipoDocumentoRepo {
     private static TipoDocumentoRepo instance;
@@ -12,6 +13,7 @@ public class TipoDocumentoRepo {
 
     private TipoDocumentoRepo() {
     }
+
     public static TipoDocumentoRepo getInstance() {
         if (instance == null) {
             instance = new TipoDocumentoRepo();
@@ -32,9 +34,11 @@ public class TipoDocumentoRepo {
         }
         return Transaccions;
     }
+
     public TipoDocumento findById(Integer id) {
         return session.find(TipoDocumento.class, id);
     }
+
     public void save(TipoDocumento TipoDocumento) {
         try {
             session.beginTransaction();
@@ -44,6 +48,7 @@ public class TipoDocumentoRepo {
             session.getTransaction().rollback();
         }
     }
+
     public void save(@NotNull List<TipoDocumento> Transaccions) {
         try {
             session.beginTransaction();
@@ -53,6 +58,7 @@ public class TipoDocumentoRepo {
             session.getTransaction().rollback();
         }
     }
+
     public void delete(TipoDocumento TipoDocumento) {
         try {
             session.beginTransaction();
@@ -65,12 +71,14 @@ public class TipoDocumentoRepo {
             e.printStackTrace();
         }
     }
+
     public void deleteById(Integer id) {
         TipoDocumento TipoDocumento = this.findById(id);
         if (TipoDocumento != null) {
             delete(TipoDocumento);
         }
     }
+
     public void update(TipoDocumento TipoDocumento) {
         try {
             session.beginTransaction();

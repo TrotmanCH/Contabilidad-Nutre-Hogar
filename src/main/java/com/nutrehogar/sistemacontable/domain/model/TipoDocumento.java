@@ -1,10 +1,11 @@
 package com.nutrehogar.sistemacontable.domain.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,15 +16,15 @@ import javax.persistence.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "tipo_documento")
-
 public class TipoDocumento {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Integer id;
-    
-    @Column(name = "nombre", columnDefinition = "TEXT")
+
+    @Column(name = "nombre")
     String nombre;
-    
-    @OneToMany(mappedBy = "tipoDocumento", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "tipoDocumento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<Asiento> asientos = new ArrayList<>();
 }

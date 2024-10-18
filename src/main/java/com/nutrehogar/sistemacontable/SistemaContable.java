@@ -21,19 +21,12 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 */
 
-import com.nutrehogar.sistemacontable.domain.model.Asiento;
-import com.nutrehogar.sistemacontable.domain.model.Cuenta;
-import com.nutrehogar.sistemacontable.domain.model.Registro;
-import com.nutrehogar.sistemacontable.domain.model.SubtipoCuenta;
-import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
-import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
-import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.RegistroRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.SubtipoCuentaRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.TipoCuentaRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoRepo;
+import com.nutrehogar.sistemacontable.domain.model.*;
+import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.persistence.repository.*;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class SistemaContable {
     public static void main(String[] args) {
@@ -42,6 +35,7 @@ public class SistemaContable {
         con db browser, si ya los tiene comenten todo lo que no esta comentado
         en esta clase.
         */
+        HibernateUtil.getSession();
         // Repos
         TipoDocumentoRepo tipoDocuRepo = TipoDocumentoRepo.getInstance();
         TipoCuentaRepo tipoCuentaRepo = TipoCuentaRepo.getInstance();
@@ -79,7 +73,7 @@ public class SistemaContable {
                         .saldo(BigDecimal.valueOf(82.85))
                         .tipoCuenta(tipo1)
                         .subtipoCuenta(subtipo1)
-                .build()
+                        .build()
         );
         TipoCuenta tipo2 = tipoCuentaRepo.findById(1);
         SubtipoCuenta subtipo2 = subtipoCuentaRepo.findById("1.1");
@@ -90,19 +84,19 @@ public class SistemaContable {
                         .saldo(BigDecimal.valueOf(82.85))
                         .tipoCuenta(tipo2)
                         .subtipoCuenta(subtipo2)
-                .build()
+                        .build()
         );
         // Asiento
         TipoDocumento docu = tipoDocuRepo.findById(1);
         asientoRepo.save(
                 Asiento.builder()
                         .id(1)
-                        .fecha("2024-09-11")
+                        .fecha(LocalDate.now())
                         .concepto("Para cancelar factura")
                         .tipoDocumento(docu)
-                .build()
+                        .build()
         );
-        
+
         // Registros
         Asiento asiento = asientoRepo.findById(1);
         Cuenta cuenta1 = cuentaRepo.findById("21010");
@@ -114,7 +108,7 @@ public class SistemaContable {
                         .cuenta(cuenta1)
                         .debe(cuenta1.getSaldo())
                         .haber(null)
-                .build()
+                        .build()
         );
         Cuenta cuenta2 = cuentaRepo.findById("11051");
         registroRepo.save(
@@ -125,7 +119,7 @@ public class SistemaContable {
                         .cuenta(cuenta2)
                         .debe(null)
                         .haber(cuenta2.getSaldo())
-                .build()
+                        .build()
         );
         
         /*Session session = HibernateUtil.getSession();
