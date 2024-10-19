@@ -8,9 +8,9 @@ import com.nutrehogar.sistemacontable.domain.util.order.BalanceComprobacionOrder
 import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.MayorGeneralOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
-import com.nutrehogar.sistemacontable.persistence.repository.BalanceComprobacionRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.LibroDiarioRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.MayorGeneralRepo;
+import com.nutrehogar.sistemacontable.persistence.repository.*;
+import com.nutrehogar.sistemacontable.domain.model.*;
+import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,11 +21,11 @@ import java.util.concurrent.atomic.AtomicReference;
 public class SistemaContable {
     public static void main(String[] args) {
 
-//        /* Utilizando clases de repository y model para insertar en la base de datos
-//        Verifiquen si la base de datos ya tiene los datos de abajo
-//        con db browser, si ya los tiene comenten todo lo que no esta comentado
-//        en esta clase.
-//        */
+        /* Utilizando clases de repository y model para insertar en la base de datos
+        Verifiquen si la base de datos ya tiene los datos de abajo
+        con db browser, si ya los tiene comenten todo lo que no esta comentado
+        en esta clase.
+        */
 //        HibernateUtil.getSession();
 //        // Repos
 //        TipoDocumentoRepo tipoDocuRepo = TipoDocumentoRepo.getInstance();
@@ -54,7 +54,7 @@ public class SistemaContable {
 //        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("2.2").nombre("OTRAS CUENTAS POR PAGAR").build());
 //        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("4.2").nombre("INGRESOS POR DONACIÓN").build());
 //        subtipoCuentaRepo.save(SubtipoCuenta.builder().id("5.2").nombre("GASTOS OTROS/DONACIONES").build());
-//        // Cuentas
+        // Cuentas
 //        TipoCuenta tipo1 = tipoCuentaRepo.findById(2);
 //        SubtipoCuenta subtipo1 = subtipoCuentaRepo.findById("2.1");
 //        cuentaRepo.save(
