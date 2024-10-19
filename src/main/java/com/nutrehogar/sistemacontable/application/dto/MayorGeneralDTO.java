@@ -12,7 +12,6 @@ public record MayorGeneralDTO(
         String codigoCuenta,
         String referencia,
         BigDecimal debe,
-        BigDecimal haber,
-        BigDecimal saldo
+        BigDecimal haber
 ) {
 }

@@ -1,7 +1,6 @@
-
 <!DOCTYPE hibernate-configuration PUBLIC
-    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
@@ -10,8 +9,8 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-<!--        <property name="hibernate.hbm2ddl.import_files">data.sql</property>-->
-	<mapping class="com.nutrehogar.sistemacontable.domain.model.Asiento"/>
+        <!--<property name="hibernate.hbm2ddl.import_files">data.sql</property>-->
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.Asiento"/>
         <mapping class="com.nutrehogar.sistemacontable.domain.model.Cuenta"/>
         <mapping class="com.nutrehogar.sistemacontable.domain.model.Registro"/>
         <mapping class="com.nutrehogar.sistemacontable.domain.model.SubtipoCuenta"/>
