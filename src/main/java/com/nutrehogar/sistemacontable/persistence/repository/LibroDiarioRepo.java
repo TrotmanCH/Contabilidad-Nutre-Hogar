@@ -48,7 +48,7 @@ public class LibroDiarioRepo {
 
             // Alias
             Path<LocalDate> fechaPath = asiento.get("fecha");
-            Path<TipoDocumento> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
+            Path<String> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
             Path<String> codigoCuentaPath = cuenta.get("id");
             Path<String> comprobantePath = registro.get("comprobante");
             Path<String> referenciaPath = registro.get("referencia");

@@ -1,12 +1,15 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
-import com.nutrehogar.sistemacontable.application.dto.BalanceComprobacionDTO;
+import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
+import com.nutrehogar.sistemacontable.application.dto.MayorGeneralDTO;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
-import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComprobacionFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.BalanceComprobacionOrderField;
+import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
+import com.nutrehogar.sistemacontable.domain.util.filter.MayorGeneralFilter;
+import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
+import com.nutrehogar.sistemacontable.domain.util.order.MayorGeneralOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import org.hibernate.Session;
@@ -19,50 +22,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BalanceComprobacionRepo {
+public class MayorGeneralRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static BalanceComprobacionRepo instance;
+    private static MayorGeneralRepo instance;
 
-    protected BalanceComprobacionRepo() {
+    protected MayorGeneralRepo() {
     }
 
-    public static BalanceComprobacionRepo getInstance() {
+    public static MayorGeneralRepo getInstance() {
         if (instance == null) {
-            instance = new BalanceComprobacionRepo();
+            instance = new MayorGeneralRepo();
         }
         return instance;
     }
+    public Optional<List<MayorGeneralDTO>> find(List<MayorGeneralFilter> filters, MayorGeneralOrderField orderField, OrderDirection orderDirection) {
+        List<MayorGeneralDTO> mayorGeneralDTOS = null;
 
-    public Optional<List<BalanceComprobacionDTO>> find(List<BalanceComprobacionFilter> filters, BalanceComprobacionOrderField orderField, OrderDirection orderDirection) {
-        List<BalanceComprobacionDTO> BalanceComprobacionDTOS = null;
 
         try {
             session.beginTransaction();
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<BalanceComprobacionDTO> cq = cb.createQuery(BalanceComprobacionDTO.class);
+            CriteriaQuery<MayorGeneralDTO> cq = cb.createQuery(MayorGeneralDTO.class);// Datos que obtendremos
             Root<Cuenta> cuenta = cq.from(Cuenta.class);
-            Join<Cuenta, Registro> registros = cuenta.join("registros");
-            Join<Registro, Asiento> asiento = registros.join("asiento");
+            Join<Cuenta, Registro> registro = cuenta.join("registros");
+            Join<Registro, Asiento> asiento = registro.join("asiento");
             Join<Asiento, TipoDocumento> tipoDocumento = asiento.join("tipoDocumento");
 
-
             // Alias
-
-            Path<BigDecimal> debePath = registros.get("debe");
-            Path<BigDecimal> haberPath = registros.get("haber");
             Path<LocalDate> fechaPath = asiento.get("fecha");
             Path<String> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
-            Path<String> codigoCuentaPath = cuenta.get("id");
             Path<String> nombreCuentaPath = cuenta.get("nombre");
-            Path<String> referenciaPath = registros.get("referencia");
+            Path<String> codigoCuentaPath = cuenta.get("id");
+            Path<String> referenciaPath = registro.get("referencia");
+            Path<BigDecimal> debePath = registro.get("debe");
+            Path<BigDecimal> haberPath = registro.get("haber");
 
             // Selección de campos para el DTO
             cq.select(cb.construct(
-                    BalanceComprobacionDTO.class,
+                    MayorGeneralDTO.class,
                     fechaPath,
                     tipoDocumentoNombrePath,
                     codigoCuentaPath,
-                    nombreCuentaPath,
                     referenciaPath,
                     debePath,
                     haberPath));
@@ -71,12 +71,12 @@ public class BalanceComprobacionRepo {
                 List<Predicate> predicates = new ArrayList<>();
 
                 filters.forEach(filter -> {
-                    if (filter instanceof BalanceComprobacionFilter.ByFechaRange byFechaRange) {
+                    if (filter instanceof MayorGeneralFilter.ByFechaRange byFechaRange) {
                         predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
-                    } else if (filter instanceof BalanceComprobacionFilter.ByNombreCuenta byNombreCuenta) {
-                        predicates.add(cb.like(cb.lower(nombreCuentaPath), "%" + byNombreCuenta.getNombreCuenta().toLowerCase() + "%"));
-                    } else if (filter instanceof BalanceComprobacionFilter.ByCodigoCuenta byCodigoCuenta) {
+                    } else if (filter instanceof MayorGeneralFilter.ByCodigoCuenta byCodigoCuenta) {
                         predicates.add(cb.like(cb.lower(codigoCuentaPath), "%" + byCodigoCuenta.getCodigoCuenta().toLowerCase() + "%"));
+                    } else if (filter instanceof MayorGeneralFilter.ByNombreCuenta byNombreCuenta) {
+                        predicates.add(cb.like(cb.lower(nombreCuentaPath), "%" + byNombreCuenta.getNombreCuenta().toLowerCase() + "%"));
                     }
                 });
 
@@ -90,23 +90,20 @@ public class BalanceComprobacionRepo {
 
             // Aplicar orden
             Path<?> orderPath = switch (orderField) {
-                case CODIGO_CUENTA -> codigoCuentaPath;
-                case NOMBRE_CUENTA -> nombreCuentaPath;
+                case FECHA -> fechaPath;
                 case TIPO_DOCUMENTO -> tipoDocumentoNombrePath;
+                case CODIGO_CUENTA -> codigoCuentaPath;
+                case REFERENCIA -> referenciaPath;
                 case DEBE -> debePath;
                 case HABER -> haberPath;
-                case FECHA -> fechaPath;
-                case REFERENCIA -> referenciaPath;
             };
-
             cq.orderBy(switch (orderDirection) {
                 case ASCENDING -> cb.asc(orderPath);
                 case DESCENDING -> cb.desc(orderPath);
             });
 
-
-            TypedQuery<BalanceComprobacionDTO> query = session.createQuery(cq);
-            BalanceComprobacionDTOS = query.getResultList();
+            TypedQuery<MayorGeneralDTO> query = session.createQuery(cq);
+            mayorGeneralDTOS = query.getResultList();
 
             // Completarmpletar la transacción
             session.getTransaction().commit();
@@ -116,6 +113,6 @@ public class BalanceComprobacionRepo {
             }
             e.printStackTrace();
         }
-        return Optional.ofNullable(BalanceComprobacionDTOS);
+        return Optional.ofNullable(mayorGeneralDTOS);
     }
 }

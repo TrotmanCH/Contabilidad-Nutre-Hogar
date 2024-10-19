@@ -1,46 +1,26 @@
 package com.nutrehogar.sistemacontable;
 
-/*
-import com.nutrehogar.sistemacontable.application.dto.BalanceComprobacionDTO;
-import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
-import com.nutrehogar.sistemacontable.application.dto.LibroMayorDTO;
-import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
-import com.nutrehogar.sistemacontable.domain.util.filter.LibroMayorFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.BalanceComprobacionOrderField;
-import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
-import com.nutrehogar.sistemacontable.domain.util.order.LibroMayorOrderField;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
-import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
-import com.nutrehogar.sistemacontable.persistence.repository.ContabilidadRepository;
-import org.hibernate.Session;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
-*/
-
-import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComprobacionFilter;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
+import com.nutrehogar.sistemacontable.domain.util.filter.MayorGeneralFilter;
 import com.nutrehogar.sistemacontable.domain.util.order.BalanceComprobacionOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
+import com.nutrehogar.sistemacontable.domain.util.order.MayorGeneralOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.repository.BalanceComprobacionRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.LibroDiarioRepo;
+import com.nutrehogar.sistemacontable.persistence.repository.MayorGeneralRepo;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SistemaContable {
     public static void main(String[] args) {
 
-//        List<LibroDiarioDTO> list = ContabilidadRepository.getInstance().get(new LibroDiarioFilter.ByComprobante(OrderDirection.DESCENDING, LibroDiarioOrderField.FECHA, "yoseph"), LibroDiarioDTO.class);
-//        System.out.println(list.toString());
-//        Filter filter= new LibroDiarioFilter.All(OrderDirection.DESCENDING,LibroDiarioOrderField.FECHA);
-//
 //        /* Utilizando clases de repository y model para insertar en la base de datos
 //        Verifiquen si la base de datos ya tiene los datos de abajo
 //        con db browser, si ya los tiene comenten todo lo que no esta comentado
@@ -134,8 +114,8 @@ public class SistemaContable {
 //        );
 
 ////
-
-        Optional<List<LibroDiarioDTO>> opListLibro = LibroDiarioRepo.getInstance().find(
+//
+        var opListLibro = LibroDiarioRepo.getInstance().find(
                 List.of(
                         new LibroDiarioFilter.ByFechaRange(
                                 LocalDate.of(2024, 1, 1),
@@ -149,35 +129,52 @@ public class SistemaContable {
         opListLibro.ifPresent(libroDiario -> libroDiario.forEach(System.out::println));
 
 
-        BalanceComprobacionRepo.getInstance().find(
+        var opLiBa = BalanceComprobacionRepo.getInstance().find(
                 List.of(
                         new BalanceComprobacionFilter.ByFechaRange(
-                                LocalDate.of(2024, 1, 1),
-                                LocalDate.of(2024, 4, 20)
+                                LocalDate.of(2024, Month.JUNE, 1),
+                                LocalDate.of(2024, Month.FEBRUARY, 20)
                         )
                 ),
                 BalanceComprobacionOrderField.FECHA,
                 OrderDirection.DESCENDING
-        ).ifPresent(o -> {
-            o.forEach(System.out::println);
+        );
+
+        opLiBa.ifPresent(listLi -> {
+            AtomicReference<BigDecimal> sumaHaber = new AtomicReference<>(BigDecimal.ZERO);
+            AtomicReference<BigDecimal> sumadebe = new AtomicReference<>(BigDecimal.ZERO);
+
+            System.out.println("Fecha  |  Codigo de cuenta  |  debe   |    haber");
+            listLi.forEach(libro -> {
+
+                System.out.println(libro.fecha() + " | " + libro.codigoCuenta() + "  |  " + libro.debe() + "  |  " + libro.haber());
+                BigDecimal debee = sumadebe.get().add(libro.debe());
+                BigDecimal habere = sumaHaber.get().add(libro.haber());
+                sumadebe.set(debee);
+                sumaHaber.set(habere);
+
+            });
+            System.out.println("Suma de Debe: " + sumaHaber + "  |  Suma de haber: " + sumadebe + "  |  Saldo: " + sumadebe.get().subtract(sumaHaber.get()));
         });
 
-//        opLiBa.ifPresent(listLi ->{
-//            AtomicReference<BigDecimal> sumaHaber = new AtomicReference<>(BigDecimal.ZERO);
-//            AtomicReference<BigDecimal> sumadebe = new AtomicReference<>(BigDecimal.ZERO);
-//
-//            System.out.println("Fecha  |  Codigo de cuenta  |  debe   |    haber");
-//            listLi.forEach(libro -> {
-//
-//                System.out.println(libro.fecha()+" | "+libro.codigoCuenta()+"  |  "+ libro.debe()+"  |  "+libro.haber());
-//                BigDecimal debee = sumadebe.get().add(libro.debe());
-//                BigDecimal habere = sumaHaber.get().add(libro.haber());
-//                sumadebe.set(debee);
-//                sumaHaber.set(habere);
-//
-//            });
-//            System.out.println("Suma de Debe: "+sumaHaber+"  |  Suma de haber: "+sumadebe+"  |  Saldo: "+sumadebe.get().subtract(sumaHaber.get()));
-//        });
+        var OpListDtoMayor = MayorGeneralRepo.getInstance().find(
+                List.of(
+                        new MayorGeneralFilter.ByCodigoCuenta("1200")
+                ),
+                MayorGeneralOrderField.FECHA,
+                OrderDirection.DESCENDING
+        );
+
+        OpListDtoMayor.ifPresentOrElse(
+                (listDtoMayor)->{
+                    listDtoMayor.forEach(dtoMayor->{
+                        System.out.println(dtoMayor);
+                            });
+                },
+                ()->{
+                    new RuntimeException().printStackTrace();
+                }
+        );
     }
 
 
