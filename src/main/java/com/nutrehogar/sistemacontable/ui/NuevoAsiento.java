@@ -1,17 +1,21 @@
 package com.nutrehogar.sistemacontable.ui;
 
-import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
-import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoRepo;
+import com.nutrehogar.sistemacontable.domain.model.*;
+import com.nutrehogar.sistemacontable.domain.model.Asiento.AsientoBuilder;
+import com.nutrehogar.sistemacontable.domain.model.Registro.RegistroBuilder;
+import com.nutrehogar.sistemacontable.persistence.repository.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
-public class FormularioRegistro extends javax.swing.JFrame {
+public class NuevoAsiento extends javax.swing.JFrame {
     TipoDocumentoRepo tipoDocumentoRepo = TipoDocumentoRepo.getInstance();
-    public FormularioRegistro() {
+    List<Cuenta> cuentasRegistros = new ArrayList<>();;
+    public NuevoAsiento() {
         initComponents();
-        List<TipoDocumento> listaTiposDocumento = tipoDocumentoRepo.findAll();
-        listaTiposDocumento.forEach((tipoDocumento) -> {
+        tipoDocumentoRepo.findAll().forEach((tipoDocumento) -> {
             cmbxTipoDoc.addItem(tipoDocumento.getNombre());
         });
     }
@@ -24,15 +28,15 @@ public class FormularioRegistro extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txtMonto = new javax.swing.JTextField();
+        txtNoDoc = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblRegistros = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txtFecha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtConcepto = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         bttAnadirRegistro = new javax.swing.JButton();
         txtDebe = new javax.swing.JTextField();
@@ -55,8 +59,10 @@ public class FormularioRegistro extends javax.swing.JFrame {
 
         jTextField1.setName("nombreField"); // NOI18N
 
-        jTextField5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTextField5.setName("docField"); // NOI18N
+        txtMonto.setEditable(false);
+
+        txtNoDoc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtNoDoc.setName("docField"); // NOI18N
 
         tblRegistros.setAutoCreateRowSorter(true);
         tblRegistros.setModel(new javax.swing.table.DefaultTableModel(
@@ -87,13 +93,13 @@ public class FormularioRegistro extends javax.swing.JFrame {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 100));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setMinimumSize(new java.awt.Dimension(400, 100));
-        jScrollPane1.setViewportView(jTextArea1);
+        txtConcepto.setColumns(20);
+        txtConcepto.setRows(5);
+        txtConcepto.setMinimumSize(new java.awt.Dimension(400, 100));
+        jScrollPane1.setViewportView(txtConcepto);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("FORMULARIO DE REGISTRO");
+        jLabel1.setText("NUEVO ASIENTO");
         jLabel1.setName(" tituloFormulario"); // NOI18N
 
         bttAnadirRegistro.setText("Añadir Registro");
@@ -124,12 +130,12 @@ public class FormularioRegistro extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -139,55 +145,51 @@ public class FormularioRegistro extends javax.swing.JFrame {
                                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(226, 226, 226)
-                                .addComponent(jLabel1)
-                                .addGap(74, 74, 74)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40))
-                            .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel10))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(bttGuardarAsiento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bttAnadirRegistro)
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel11)
-                        .addGap(26, 26, 26)
-                        .addComponent(txtDebe, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(txtHaber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)))
-                .addGap(27, 27, 27))
+                                        .addComponent(cmbxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel10)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtNoDoc))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel7)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bttGuardarAsiento)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bttAnadirRegistro)
+                                .addGap(56, 56, 56)
+                                .addComponent(jLabel11)
+                                .addGap(26, 26, 26)
+                                .addComponent(txtDebe, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(txtHaber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17)))
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(306, 306, 306))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
@@ -201,19 +203,19 @@ public class FormularioRegistro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(cmbxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cmbxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -223,50 +225,53 @@ public class FormularioRegistro extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(bttAnadirRegistro)
                     .addComponent(bttGuardarAsiento))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     //Clicks
     private void bttAnadirRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bttAnadirRegistroMouseClicked
-        new NuevoRegistro(tblRegistros).setVisible(true);
+        new NuevoRegistro(tblRegistros, cuentasRegistros).setVisible(true);
     }//GEN-LAST:event_bttAnadirRegistroMouseClicked
 
     private void bttGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bttGuardarAsientoMouseClicked
-//        // Registrar Transaccion
-//        TransaccionEntityBuilder nuevaTransaccion = TransaccionEntity.builder();
-//        //
-//        LocalDate fechaFormat = LocalDate.parse(fecha.replace("/", "-"));
-//        nuevaTransaccion.fecha(fechaFormat);
-//        //
-//        nuevaTransaccion.noDocumento(Integer.parseInt(noDoc));
-//        //      
-//        TipoDocumentoEntity tipoDocumento = tipoDocumentoRepo.findById(cmbxTipoDoc.getSelectedIndex());
-//        nuevaTransaccion.tipoDocumento(tipoDocumento);
-//        //
-//        nuevaTransaccion.noCheque(noCheque);
-//        //
-//        nuevaTransaccion.referencia(referencia);
-//        //
-//        CuentaEntity cuenta = cuentaRepo.findById(cmbxCuenta.getSelectedIndex());
-//        nuevaTransaccion.cuenta(cuenta);
-//        //
-//        BigDecimal montoFormat = BigDecimal.valueOf(Double.parseDouble(monto));
-//        if (ultimoRegistro.getDebito() != null) {
-//            nuevaTransaccion.debito(montoFormat);
-//            nuevaTransaccion.credito(null);
-//        } else if (ultimoRegistro.getCredito() != null) {
-//            nuevaTransaccion.credito(montoFormat);
-//            nuevaTransaccion.debito(null);
-//        }    
-//        //
-//        TransaccionHibernateRepository transaccionRepo = TransaccionHibernateRepository.getInstance();
-//        transaccionRepo.save(nuevaTransaccion.build());
-//        // wait
-//        int ultimoRegistroIndice = transaccionRepo.findAll().size();
-//        TransaccionEntity ultimoRegistro = transaccionRepo.findById(ultimoRegistroIndice);
-        
+        // Creación de Asiento
+        AsientoBuilder nuevoAsiento = Asiento.builder();        
+        nuevoAsiento.id(Integer.valueOf(txtNoDoc.getText()));
+        nuevoAsiento.fecha(LocalDate.parse(txtFecha.getText()));
+        nuevoAsiento.concepto(txtConcepto.getText());
+        nuevoAsiento.tipoDocumento(tipoDocumentoRepo.findById(
+                cmbxTipoDoc.getSelectedIndex()
+        ));
+        AsientoRepo asientoRepo = AsientoRepo.getInstance();
+        Asiento asientoListo = nuevoAsiento.build();
+        asientoRepo.save(asientoListo);
+        // Creación de Registros
+        DefaultTableModel modeloTblRegistros = (DefaultTableModel) this.tblRegistros.getModel();
+        RegistroRepo registroRepo = RegistroRepo.getInstance();
+        for (Integer fila = 0; fila < modeloTblRegistros.getRowCount(); fila++) {
+            RegistroBuilder nuevoRegistro = Registro.builder();  
+            nuevoRegistro.asiento(asientoListo);
+            nuevoRegistro.comprobante(String.valueOf(modeloTblRegistros.getValueAt(fila, 0)));
+            nuevoRegistro.referencia(String.valueOf(modeloTblRegistros.getValueAt(fila, 1)));
+            nuevoRegistro.cuenta(cuentasRegistros.get(fila));
+            Object columnaDebe = modeloTblRegistros.getValueAt(fila, 3);
+            Object columnaHaber = modeloTblRegistros.getValueAt(fila, 4);
+
+            if (columnaDebe != "") {
+                nuevoRegistro.debe(BigDecimal.valueOf(
+                    Double.parseDouble(columnaDebe.toString())
+                ));
+            } else if (columnaHaber != "") {
+                nuevoRegistro.haber(BigDecimal.valueOf(
+                    Double.parseDouble(columnaHaber.toString())
+                ));
+            }   
+
+            Registro registroListo = nuevoRegistro.build();
+            registroRepo.save(registroListo);
+        }
     }//GEN-LAST:event_bttGuardarAsientoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -283,13 +288,13 @@ public class FormularioRegistro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField9;
     public javax.swing.JTable tblRegistros;
+    private javax.swing.JTextArea txtConcepto;
     private javax.swing.JTextField txtDebe;
+    private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtHaber;
+    private javax.swing.JTextField txtMonto;
+    private javax.swing.JTextField txtNoDoc;
     // End of variables declaration//GEN-END:variables
 }
