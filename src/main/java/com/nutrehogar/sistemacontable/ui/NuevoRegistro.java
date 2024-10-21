@@ -2,23 +2,24 @@ package com.nutrehogar.sistemacontable.ui;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class NuevoRegistro extends javax.swing.JFrame {
-    private JTable tblRegistros;
-//    private List<Cuenta> cuentasRegistros;
+    private JTable tabla;
     CuentaRepo cuentaRepo = CuentaRepo.getInstance();
     
-    public NuevoRegistro(JTable tblRegistros, List<Cuenta> cuentasRegistros) {
+    public NuevoRegistro(JTable tabla) {
         initComponents();
-        this.tblRegistros = tblRegistros;
-//        this.cuentasRegistros = cuentasRegistros;
+        this.tabla = tabla;
         btgrTipoRegistro.add(rdbtDebito);
         btgrTipoRegistro.add(rdbtCredito);
-        cuentaRepo.findAll().forEach((cuenta) -> {
+        List<Cuenta> listaCuentas = cuentaRepo.findAll();
+        listaCuentas.forEach((cuenta) -> {
             cmbxCuenta.addItem(cuenta.getId()+ " | " + cuenta.getNombre());
         });
     }
@@ -38,7 +39,7 @@ public class NuevoRegistro extends javax.swing.JFrame {
         rdbtCredito = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
         txtMonto = new javax.swing.JTextField();
-        bttGuardarRegistro = new javax.swing.JButton();
+        bttRegistrar = new javax.swing.JButton();
         cmbxCuenta = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -61,10 +62,10 @@ public class NuevoRegistro extends javax.swing.JFrame {
 
         jLabel9.setText("Monto:");
 
-        bttGuardarRegistro.setText("Guardar Registro");
-        bttGuardarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
+        bttRegistrar.setText("Registrar");
+        bttRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bttGuardarRegistroMouseClicked(evt);
+                bttRegistrarMouseClicked(evt);
             }
         });
 
@@ -73,12 +74,18 @@ public class NuevoRegistro extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(rdbtDebito)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdbtCredito))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -87,23 +94,17 @@ public class NuevoRegistro extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(rdbtDebito)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rdbtCredito))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(bttGuardarRegistro))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(jLabel1)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtNoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(bttRegistrar)
+                .addGap(127, 127, 127))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,35 +132,33 @@ public class NuevoRegistro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(bttGuardarRegistro)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(bttRegistrar)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void bttGuardarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bttGuardarRegistroMouseClicked
+    // Clicks
+    private void bttRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bttRegistrarMouseClicked
         // Mostrar Registro
-        DefaultTableModel modeloTblRegistros = (DefaultTableModel) this.tblRegistros.getModel();
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tabla.getModel();
         String noCheque = txtNoCheque.getText();
         String referencia = txtReferencia.getText();
-//        String codigo = cmbxCuenta.getSelectedItem().toString().substring(0, 5);
-        String codigo = "11100";
+//        String codigo = cmbxCuenta.getSelectedItem().toString();
+        String codigo = "pepe";
         String monto = txtMonto.getText();
        
         if (rdbtDebito.isSelected()) {
-            modeloTblRegistros.addRow(new Object[] {noCheque, referencia, codigo, monto, ""});
+            modeloTabla.addRow(new Object[] {noCheque, referencia, codigo, monto, ""});
         } else if (rdbtCredito.isSelected()) {
-            modeloTblRegistros.addRow(new Object[] {noCheque, referencia, codigo, "", monto});
+            modeloTabla.addRow(new Object[] {noCheque, referencia, codigo, "", monto});
         }
-        
-//        Cuenta cuentaSeleccionada = cuentaRepo.findById(codigo);
-//        this.cuentasRegistros.add(cuentaSeleccionada);
         setVisible(false);
-    }//GEN-LAST:event_bttGuardarRegistroMouseClicked
+    }//GEN-LAST:event_bttRegistrarMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btgrTipoRegistro;
-    private javax.swing.JButton bttGuardarRegistro;
+    private javax.swing.JButton bttRegistrar;
     private javax.swing.JComboBox<String> cmbxCuenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
