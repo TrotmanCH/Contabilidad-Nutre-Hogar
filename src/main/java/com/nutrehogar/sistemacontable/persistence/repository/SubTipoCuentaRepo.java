@@ -1,69 +1,71 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.SubtipoCuenta;
+import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-public class SubtipoCuentaRepo {
+public class SubTipoCuentaRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static SubtipoCuentaRepo instance;
+    private static SubTipoCuentaRepo instance;
 
-    protected SubtipoCuentaRepo() {
+    protected SubTipoCuentaRepo() {
     }
 
-    public static SubtipoCuentaRepo getInstance() {
+    public static SubTipoCuentaRepo getInstance() {
         if (instance == null) {
-            instance = new SubtipoCuentaRepo();
+            instance = new SubTipoCuentaRepo();
         }
         return instance;
     }
 
-    public List<SubtipoCuenta> findAll() {
-        List<SubtipoCuenta> Transaccions;
+    public List<SubTipoCuenta> findAll() {
+        List<SubTipoCuenta> Transaccions;
         try {
             session.beginTransaction();
-            Transaccions = session.createQuery("from SubtipoCuenta", SubtipoCuenta.class).list();
+            Transaccions = session.createQuery("from SubTipoCuenta", SubTipoCuenta.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            Transaccions = null;
+            Transaccions = Collections.emptyList();
             e.printStackTrace();
         }
         return Transaccions;
     }
 
-    public SubtipoCuenta findById(String id) {
-        return session.find(SubtipoCuenta.class, id);
+    public SubTipoCuenta findById(String id) {
+        return session.find(SubTipoCuenta.class, id);
     }
 
-    public void save(SubtipoCuenta SubtipoCuenta) {
+    public void save(SubTipoCuenta subTipoCuenta) {
         try {
             session.beginTransaction();
-            session.save(SubtipoCuenta);
+            session.persist(subTipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<SubtipoCuenta> Transaccions) {
+    public void save(@NotNull List<SubTipoCuenta> subTipoCuentas) {
         try {
             session.beginTransaction();
-            Transaccions.forEach(session::save);
+            subTipoCuentas.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(SubtipoCuenta SubtipoCuenta) {
+    public void delete(SubTipoCuenta subTipoCuenta) {
         try {
             session.beginTransaction();
 
-            session.delete(SubtipoCuenta);
+            session.remove(session.contains(subTipoCuenta) ? subTipoCuenta : session.merge(subTipoCuenta));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -72,17 +74,22 @@ public class SubtipoCuentaRepo {
         }
     }
 
-    public void deleteById(String id) {
-        SubtipoCuenta SubtipoCuenta = this.findById(id);
-        if (SubtipoCuenta != null) {
-            delete(SubtipoCuenta);
+    public void delete(String id) {
+        try {
+            session.beginTransaction();
+
+            Optional.ofNullable(findById(id)).ifPresent(session::remove);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
         }
     }
 
-    public void update(SubtipoCuenta SubtipoCuenta) {
+    public void update(SubTipoCuenta subTipoCuenta) {
         try {
             session.beginTransaction();
-            session.update(SubtipoCuenta);
+            session.merge(subTipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

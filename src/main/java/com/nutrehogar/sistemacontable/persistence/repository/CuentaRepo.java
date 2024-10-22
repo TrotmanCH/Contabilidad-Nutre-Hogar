@@ -5,7 +5,9 @@ import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class CuentaRepo {
     private static final Session session = HibernateUtil.getSession();
@@ -29,7 +31,7 @@ public class CuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            Transaccions = null;
+            Transaccions = Collections.emptyList();
             e.printStackTrace();
         }
         return Transaccions;
@@ -39,31 +41,31 @@ public class CuentaRepo {
         return session.find(Cuenta.class, id);
     }
 
-    public void save(Cuenta Cuenta) {
+    public void save(Cuenta cuenta) {
         try {
             session.beginTransaction();
-            session.save(Cuenta);
+            session.persist(cuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<Cuenta> Transaccions) {
+    public void save(@NotNull List<Cuenta> cuentas) {
         try {
             session.beginTransaction();
-            Transaccions.forEach(session::save);
+            cuentas.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(Cuenta Cuenta) {
+    public void delete(Cuenta cuenta) {
         try {
             session.beginTransaction();
 
-            session.delete(Cuenta);
+            session.remove(session.contains(cuenta) ? cuenta : session.merge(cuenta));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -72,17 +74,21 @@ public class CuentaRepo {
         }
     }
 
-    public void deleteById(String id) {
-        Cuenta Cuenta = this.findById(id);
-        if (Cuenta != null) {
-            delete(Cuenta);
+    public void delete(String id) {
+        try {
+            session.beginTransaction();
+            Optional.ofNullable(session.find(Cuenta.class, id)).ifPresent(session::remove);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
         }
     }
 
-    public void update(Cuenta Cuenta) {
+    public void update(Cuenta cuenta) {
         try {
             session.beginTransaction();
-            session.update(Cuenta);
+            session.merge(cuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

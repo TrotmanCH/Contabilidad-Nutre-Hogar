@@ -1,9 +1,9 @@
 package com.nutrehogar.sistemacontable.domain.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Getter
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = "asiento")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "registro")

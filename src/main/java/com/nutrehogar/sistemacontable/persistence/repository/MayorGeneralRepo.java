@@ -1,21 +1,18 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
-import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.application.dto.MayorGeneralDTO;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
-import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
 import com.nutrehogar.sistemacontable.domain.util.filter.MayorGeneralFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.MayorGeneralOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import org.hibernate.Session;
 
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,6 +32,7 @@ public class MayorGeneralRepo {
         }
         return instance;
     }
+
     public Optional<List<MayorGeneralDTO>> find(List<MayorGeneralFilter> filters, MayorGeneralOrderField orderField, OrderDirection orderDirection) {
         List<MayorGeneralDTO> mayorGeneralDTOS = null;
 
