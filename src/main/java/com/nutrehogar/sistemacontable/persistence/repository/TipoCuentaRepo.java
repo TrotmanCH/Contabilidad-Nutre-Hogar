@@ -5,7 +5,9 @@ import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class TipoCuentaRepo {
     private static final Session session = HibernateUtil.getSession();
@@ -29,7 +31,7 @@ public class TipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            Transaccions = null;
+            Transaccions = Collections.emptyList();
             e.printStackTrace();
         }
         return Transaccions;
@@ -39,31 +41,31 @@ public class TipoCuentaRepo {
         return session.find(TipoCuenta.class, id);
     }
 
-    public void save(TipoCuenta TipoCuenta) {
+    public void save(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
-            session.save(TipoCuenta);
+            session.persist(tipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<TipoCuenta> Transaccions) {
+    public void save(@NotNull List<TipoCuenta> tipoCuentas) {
         try {
             session.beginTransaction();
-            Transaccions.forEach(session::save);
+            tipoCuentas.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(TipoCuenta TipoCuenta) {
+    public void delete(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
 
-            session.delete(TipoCuenta);
+            session.remove(session.contains(tipoCuenta) ? tipoCuenta : session.merge(tipoCuenta));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -72,17 +74,24 @@ public class TipoCuentaRepo {
         }
     }
 
-    public void deleteById(Integer id) {
-        TipoCuenta TipoCuenta = this.findById(id);
-        if (TipoCuenta != null) {
-            delete(TipoCuenta);
+    public void delete(Integer id) {
+        try {
+            session.beginTransaction();
+
+            Optional.ofNullable(session.find(TipoCuenta.class, id)).ifPresent(session::remove);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
         }
     }
 
-    public void update(TipoCuenta TipoCuenta) {
+
+    public void update(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
-            session.update(TipoCuenta);
+            session.merge(tipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

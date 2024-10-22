@@ -9,10 +9,10 @@ import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
 import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import org.hibernate.Session;
 
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;

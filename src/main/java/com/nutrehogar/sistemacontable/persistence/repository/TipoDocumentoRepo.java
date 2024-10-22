@@ -5,7 +5,9 @@ import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class TipoDocumentoRepo {
     private static final Session session = HibernateUtil.getSession();
@@ -29,7 +31,7 @@ public class TipoDocumentoRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            Transaccions = null;
+            Transaccions = Collections.emptyList();
             e.printStackTrace();
         }
         return Transaccions;
@@ -39,31 +41,31 @@ public class TipoDocumentoRepo {
         return session.find(TipoDocumento.class, id);
     }
 
-    public void save(TipoDocumento TipoDocumento) {
+    public void save(TipoDocumento tipoDocumento) {
         try {
             session.beginTransaction();
-            session.save(TipoDocumento);
+            session.persist(tipoDocumento);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<TipoDocumento> Transaccions) {
+    public void save(@NotNull List<TipoDocumento> tipoDocumentos) {
         try {
             session.beginTransaction();
-            Transaccions.forEach(session::save);
+            tipoDocumentos.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(TipoDocumento TipoDocumento) {
+    public void delete(TipoDocumento tipoDocumento) {
         try {
             session.beginTransaction();
 
-            session.delete(TipoDocumento);
+            session.remove(session.contains(tipoDocumento) ? tipoDocumento : session.merge(tipoDocumento));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -72,17 +74,22 @@ public class TipoDocumentoRepo {
         }
     }
 
-    public void deleteById(Integer id) {
-        TipoDocumento TipoDocumento = this.findById(id);
-        if (TipoDocumento != null) {
-            delete(TipoDocumento);
+    public void delete(Integer id) {
+        try {
+            session.beginTransaction();
+
+            Optional.ofNullable(findById(id)).ifPresent(session::remove);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
         }
     }
 
-    public void update(TipoDocumento TipoDocumento) {
+    public void update(TipoDocumento tipoDocumento) {
         try {
             session.beginTransaction();
-            session.update(TipoDocumento);
+            session.merge(tipoDocumento);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

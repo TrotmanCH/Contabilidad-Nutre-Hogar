@@ -1,24 +1,27 @@
 package com.nutrehogar.sistemacontable.domain.model;
 
-import java.math.BigDecimal;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import javax.persistence.*;
-import java.util.ArrayList;
+
+import java.math.BigDecimal;
 import java.util.List;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = "registros")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "cuenta")
 public class Cuenta {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+
     String id;
 
     @Column(name = "nombre", nullable = false)
@@ -26,15 +29,11 @@ public class Cuenta {
 
     @Column(name = "saldo", precision = 15, scale = 2)
     BigDecimal saldo;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_cuenta", nullable = false)
-    TipoCuenta tipoCuenta;
 
     @ManyToOne
-    @JoinColumn(name = "id_subtipo_cuenta", nullable = false)
-    SubtipoCuenta subtipoCuenta;
-    
+    @JoinColumn(name = "id_sub_tipo_cuenta", nullable = false)
+    SubTipoCuenta subTipoCuenta;
+
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    List<Registro> registros = new ArrayList<>();
+    List<Registro> registros;
 }

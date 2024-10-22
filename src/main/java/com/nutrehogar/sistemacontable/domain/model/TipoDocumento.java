@@ -1,9 +1,9 @@
 package com.nutrehogar.sistemacontable.domain.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = "asientos")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "tipo_documento")
@@ -26,5 +26,5 @@ public class TipoDocumento {
     String nombre;
 
     @OneToMany(mappedBy = "tipoDocumento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    List<Asiento> asientos = new ArrayList<>();
+    List<Asiento> asientos;
 }

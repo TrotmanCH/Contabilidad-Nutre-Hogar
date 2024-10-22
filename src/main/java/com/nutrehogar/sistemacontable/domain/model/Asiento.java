@@ -1,10 +1,10 @@
 package com.nutrehogar.sistemacontable.domain.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import javax.persistence.*;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -33,5 +33,5 @@ public class Asiento {
     TipoDocumento tipoDocumento;
 
     @OneToMany(mappedBy = "asiento", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Registro> registros = new ArrayList<>();
+    List<Registro> registros;
 }

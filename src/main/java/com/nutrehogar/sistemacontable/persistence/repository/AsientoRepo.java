@@ -5,7 +5,9 @@ import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class AsientoRepo {
     private static final Session session = HibernateUtil.getSession();
@@ -29,7 +31,7 @@ public class AsientoRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            Transaccions = null;
+            Transaccions = Collections.emptyList();
             e.printStackTrace();
         }
         return Transaccions;
@@ -39,31 +41,31 @@ public class AsientoRepo {
         return session.find(Asiento.class, id);
     }
 
-    public void save(Asiento Asiento) {
+    public void save(Asiento asiento) {
         try {
             session.beginTransaction();
-            session.save(Asiento);
+            session.persist(asiento);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<Asiento> Transaccions) {
+    public void save(@NotNull List<Asiento> asientos) {
         try {
             session.beginTransaction();
-            Transaccions.forEach(session::save);
+            asientos.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(Asiento Asiento) {
+    public void delete(Asiento asiento) {
         try {
             session.beginTransaction();
 
-            session.delete(Asiento);
+            session.remove(session.contains(asiento) ? asiento : session.merge(asiento));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -72,17 +74,23 @@ public class AsientoRepo {
         }
     }
 
-    public void deleteById(Integer id) {
-        Asiento Asiento = this.findById(id);
-        if (Asiento != null) {
-            delete(Asiento);
+    public void delete(Integer id) {
+        try {
+            session.beginTransaction();
+
+            Optional.ofNullable(session.find(Asiento.class, id)).ifPresent(session::remove);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
         }
     }
 
-    public void update(Asiento Asiento) {
+    public void update(Asiento asiento) {
         try {
             session.beginTransaction();
-            session.update(Asiento);
+            session.merge(asiento);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

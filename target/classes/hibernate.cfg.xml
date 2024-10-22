@@ -1,20 +1,22 @@
-
-<!DOCTYPE hibernate-configuration PUBLIC
-    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <!-- Configuración de la base de datos -->
         <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
         <property name="hibernate.connection.url">jdbc:sqlite:srccontabilidad.db</property>
-        <property name="hibernate.dialect">org.sqlite.hibernate.dialect.SQLiteDialect</property>
+        <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property>
+
+        <!-- log SQL -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
+
+        <!-- Configuración del esquema -->
         <property name="hibernate.hbm2ddl.auto">update</property>
-<!--        <property name="hibernate.hbm2ddl.import_files">data.sql</property>-->
-	<mapping class="com.nutrehogar.sistemacontable.domain.model.Asiento"/>
+
+        <!-- Mapeo de clases de entidad -->
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.Asiento"/>
         <mapping class="com.nutrehogar.sistemacontable.domain.model.Cuenta"/>
         <mapping class="com.nutrehogar.sistemacontable.domain.model.Registro"/>
-        <mapping class="com.nutrehogar.sistemacontable.domain.model.SubtipoCuenta"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta"/>
         <mapping class="com.nutrehogar.sistemacontable.domain.model.TipoCuenta"/>
         <mapping class="com.nutrehogar.sistemacontable.domain.model.TipoDocumento"/>
     </session-factory>
