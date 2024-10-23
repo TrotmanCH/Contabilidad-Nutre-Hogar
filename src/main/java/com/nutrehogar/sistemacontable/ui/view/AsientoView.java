@@ -1,20 +1,27 @@
-package com.nutrehogar.sistemacontable.ui;
+package com.nutrehogar.sistemacontable.ui.view;
 
-import com.nutrehogar.sistemacontable.domain.model.*;
-import com.nutrehogar.sistemacontable.domain.model.Asiento.AsientoBuilder;
-import com.nutrehogar.sistemacontable.domain.model.Registro.RegistroBuilder;
-import com.nutrehogar.sistemacontable.persistence.repository.*;
+import com.nutrehogar.sistemacontable.domain.model.Asiento;
+import com.nutrehogar.sistemacontable.domain.model.Cuenta;
+import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
+import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoRepo;
+import com.nutrehogar.sistemacontable.ui.controller.AsientoControl;
+import com.nutrehogar.sistemacontable.ui.controller.RegistroControl;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-public class NuevoAsiento extends javax.swing.JFrame {
-    TipoDocumentoRepo tipoDocumentoRepo = TipoDocumentoRepo.getInstance();
-    List<Cuenta> cuentasRegistros = new ArrayList<>();;
-    public NuevoAsiento() {
+public class AsientoView extends javax.swing.JFrame {
+    private final AsientoControl asientoControl = new AsientoControl();
+    private final RegistroControl registroControl = new RegistroControl();
+    private final TipoDocumentoRepo tipoDocumentoRepo = TipoDocumentoRepo.getInstance();
+    private final List<Cuenta> cuentasRegistros = new ArrayList<>();
+    private final DefaultTableModel tblRegistrosModelo;
+    
+    public AsientoView() {
         initComponents();
+        this.tblRegistrosModelo = (DefaultTableModel) tblRegistros.getModel();
         tipoDocumentoRepo.findAll().forEach((tipoDocumento) -> {
             cmbxTipoDoc.addItem(tipoDocumento.getNombre());
         });
@@ -39,8 +46,8 @@ public class NuevoAsiento extends javax.swing.JFrame {
         txtConcepto = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         bttAnadirRegistro = new javax.swing.JButton();
-        txtDebe = new javax.swing.JTextField();
-        txtHaber = new javax.swing.JTextField();
+        txtDebeTotal = new javax.swing.JTextField();
+        txtHaberTotal = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         cmbxTipoDoc = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -109,9 +116,9 @@ public class NuevoAsiento extends javax.swing.JFrame {
             }
         });
 
-        txtDebe.setEditable(false);
+        txtDebeTotal.setEditable(false);
 
-        txtHaber.setEditable(false);
+        txtHaberTotal.setEditable(false);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Total:");
@@ -173,9 +180,9 @@ public class NuevoAsiento extends javax.swing.JFrame {
                                 .addGap(56, 56, 56)
                                 .addComponent(jLabel11)
                                 .addGap(26, 26, 26)
-                                .addComponent(txtDebe, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(42, 42, 42)
-                                .addComponent(txtHaber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(17, 17, 17)))
                         .addGap(27, 27, 27))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -220,8 +227,8 @@ public class NuevoAsiento extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDebe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtHaber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(bttAnadirRegistro)
                     .addComponent(bttGuardarAsiento))
@@ -230,48 +237,33 @@ public class NuevoAsiento extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    //Clicks
     private void bttAnadirRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bttAnadirRegistroMouseClicked
-        new NuevoRegistro(tblRegistros, cuentasRegistros).setVisible(true);
+        new RegistroView(tblRegistrosModelo, cuentasRegistros).setVisible(true);
     }//GEN-LAST:event_bttAnadirRegistroMouseClicked
-
     private void bttGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bttGuardarAsientoMouseClicked
-        // Creación de Asiento
-        AsientoBuilder nuevoAsiento = Asiento.builder();        
-        nuevoAsiento.id(Integer.valueOf(txtNoDoc.getText()));
-        nuevoAsiento.fecha(LocalDate.parse(txtFecha.getText()));
-        nuevoAsiento.concepto(txtConcepto.getText());
-        nuevoAsiento.tipoDocumento(tipoDocumentoRepo.findById(
-                cmbxTipoDoc.getSelectedIndex()
-        ));
-        AsientoRepo asientoRepo = AsientoRepo.getInstance();
-        Asiento asientoListo = nuevoAsiento.build();
-        asientoRepo.save(asientoListo);
-        // Creación de Registros
-        DefaultTableModel modeloTblRegistros = (DefaultTableModel) this.tblRegistros.getModel();
-        RegistroRepo registroRepo = RegistroRepo.getInstance();
-        for (Integer fila = 0; fila < modeloTblRegistros.getRowCount(); fila++) {
-            RegistroBuilder nuevoRegistro = Registro.builder();  
-            nuevoRegistro.asiento(asientoListo);
-            nuevoRegistro.comprobante(String.valueOf(modeloTblRegistros.getValueAt(fila, 0)));
-            nuevoRegistro.referencia(String.valueOf(modeloTblRegistros.getValueAt(fila, 1)));
-            nuevoRegistro.cuenta(cuentasRegistros.get(fila));
-            Object columnaDebe = modeloTblRegistros.getValueAt(fila, 3);
-            Object columnaHaber = modeloTblRegistros.getValueAt(fila, 4);
-
-            if (columnaDebe != "") {
-                nuevoRegistro.debe(BigDecimal.valueOf(
-                    Double.parseDouble(columnaDebe.toString())
-                ));
-            } else if (columnaHaber != "") {
-                nuevoRegistro.haber(BigDecimal.valueOf(
-                    Double.parseDouble(columnaHaber.toString())
-                ));
-            }   
-
-            Registro registroListo = nuevoRegistro.build();
-            registroRepo.save(registroListo);
+        // Valores del Asiento
+        Integer numero = Integer.valueOf(txtNoDoc.getText());
+        LocalDate fecha = LocalDate.parse(txtFecha.getText());
+        String concepto = txtConcepto.getText();
+        TipoDocumento tipo = tipoDocumentoRepo.findById(cmbxTipoDoc.getSelectedIndex());
+        Asiento asiento = asientoControl.guardarDatos(numero, fecha, concepto, tipo);
+        // Valores de Registros
+        for (Integer fila = 0; fila < tblRegistrosModelo.getRowCount(); fila++) {
+            String comprobante = String.valueOf(tblRegistrosModelo.getValueAt(fila, 0));
+            String referencia = String.valueOf(tblRegistrosModelo.getValueAt(fila, 1));
+            Cuenta cuenta = cuentasRegistros.get(fila);
+            Object columnaDebe = tblRegistrosModelo.getValueAt(fila, 3);
+            Object columnaHaber = tblRegistrosModelo.getValueAt(fila, 4);
+            
+            BigDecimal debe = null;
+            BigDecimal haber = null;
+            if (columnaDebe != null) 
+                debe = BigDecimal.valueOf(Double.parseDouble(columnaDebe.toString())); 
+            else if (columnaHaber != null) 
+                haber = BigDecimal.valueOf(Double.parseDouble(columnaHaber.toString()));
+            registroControl.guardarDatos(asiento, comprobante, referencia, cuenta, debe, haber);
         }
+        dispose();
     }//GEN-LAST:event_bttGuardarAsientoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -291,9 +283,9 @@ public class NuevoAsiento extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     public javax.swing.JTable tblRegistros;
     private javax.swing.JTextArea txtConcepto;
-    private javax.swing.JTextField txtDebe;
+    private javax.swing.JTextField txtDebeTotal;
     private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtHaber;
+    private javax.swing.JTextField txtHaberTotal;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNoDoc;
     // End of variables declaration//GEN-END:variables

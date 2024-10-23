@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui;
+package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
@@ -48,11 +48,6 @@ public class Menu extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton5.setText("BALANCE COMP.");
         jButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
 
         jButton6.setBackground(new java.awt.Color(153, 204, 255));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -233,12 +228,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void bttFormularioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttFormularioActionPerformed
         // TODO add your handling code here:
-        new NuevoAsiento().setVisible(true);
+        new AsientoView().setVisible(true);
     }//GEN-LAST:event_bttFormularioActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     public static void main(String args[]) {
         try {

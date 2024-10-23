@@ -1,20 +1,18 @@
-package com.nutrehogar.sistemacontable.ui;
+package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
 import java.util.List;
-
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class NuevoRegistro extends javax.swing.JFrame {
-    private JTable tblRegistros;
+public class RegistroView extends javax.swing.JFrame {
+    private final DefaultTableModel tblRegistrosModelo;
 //    private List<Cuenta> cuentasRegistros;
     CuentaRepo cuentaRepo = CuentaRepo.getInstance();
     
-    public NuevoRegistro(JTable tblRegistros, List<Cuenta> cuentasRegistros) {
+    public RegistroView(DefaultTableModel tblRegistrosModelo, List<Cuenta> cuentasRegistros) {
         initComponents();
-        this.tblRegistros = tblRegistros;
+        this.tblRegistrosModelo = tblRegistrosModelo;
 //        this.cuentasRegistros = cuentasRegistros;
         btgrTipoRegistro.add(rdbtDebito);
         btgrTipoRegistro.add(rdbtCredito);
@@ -140,22 +138,18 @@ public class NuevoRegistro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private void bttGuardarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bttGuardarRegistroMouseClicked
         // Mostrar Registro
-        DefaultTableModel modeloTblRegistros = (DefaultTableModel) this.tblRegistros.getModel();
-        String noCheque = txtNoCheque.getText();
+        String comprobante = txtNoCheque.getText();
         String referencia = txtReferencia.getText();
 //        String codigo = cmbxCuenta.getSelectedItem().toString().substring(0, 5);
         String codigo = "11100";
         String monto = txtMonto.getText();
        
-        if (rdbtDebito.isSelected()) {
-            modeloTblRegistros.addRow(new Object[] {noCheque, referencia, codigo, monto, ""});
-        } else if (rdbtCredito.isSelected()) {
-            modeloTblRegistros.addRow(new Object[] {noCheque, referencia, codigo, "", monto});
-        }
-        
-//        Cuenta cuentaSeleccionada = cuentaRepo.findById(codigo);
-//        this.cuentasRegistros.add(cuentaSeleccionada);
-        setVisible(false);
+        if (rdbtDebito.isSelected())
+            tblRegistrosModelo.addRow(new Object[] {comprobante, referencia, codigo, monto, null});
+        else if (rdbtCredito.isSelected())
+            tblRegistrosModelo.addRow(new Object[] {comprobante, referencia, codigo, null, monto});
+//        this.cuentasRegistros.add(cuentaRepo.findById(codigo));
+        dispose();
     }//GEN-LAST:event_bttGuardarRegistroMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btgrTipoRegistro;
