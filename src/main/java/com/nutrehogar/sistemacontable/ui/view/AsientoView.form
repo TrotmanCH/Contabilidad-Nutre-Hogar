@@ -79,6 +79,22 @@
                                   </Group>
                               </Group>
                           </Group>
+<<<<<<<< HEAD:src/main/java/com/nutrehogar/sistemacontable/ui/FormularioRegistro.form
+========
+                          <Component id="jScrollPane3" min="-2" pref="684" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="bttGuardarAsiento" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bttAnadirRegistro" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="txtDebeTotal" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <Component id="txtHaberTotal" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                          </Group>
+>>>>>>>> refa:src/main/java/com/nutrehogar/sistemacontable/ui/view/AsientoView.form
                       </Group>
                   </Group>
                   <Component id="jScrollPane3" min="-2" pref="684" max="-2" attributes="0"/>
@@ -148,8 +164,8 @@
               <Component id="jScrollPane3" min="-2" pref="132" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtDebe" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtHaber" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDebeTotal" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtHaberTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bttAnadirRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bttGuardarAsiento" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -317,12 +333,12 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="bttAnadirRegistroMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDebe">
+    <Component class="javax.swing.JTextField" name="txtDebeTotal">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtHaber">
+    <Component class="javax.swing.JTextField" name="txtHaberTotal">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
