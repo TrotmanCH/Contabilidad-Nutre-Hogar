@@ -9,11 +9,9 @@ import java.util.List;
 
 public final class AsientoControl {       
     
-    public Asiento crear(Integer numero, LocalDate fecha, String concepto, 
+    public Asiento crear(LocalDate fecha, String concepto, 
             TipoDocumento tipo, List<Registro> registros) {
         AsientoBuilder nuevoAsiento = Asiento.builder();
-        
-        nuevoAsiento.id(numero);
         nuevoAsiento.fecha(fecha);
         nuevoAsiento.concepto(concepto);
         nuevoAsiento.tipoDocumento(tipo);
