@@ -27,9 +27,6 @@ public class Cuenta {
     @Column(name = "nombre", nullable = false)
     String nombre;
 
-    @Column(name = "saldo", precision = 15, scale = 2)
-    BigDecimal saldo;
-
     @ManyToOne
     @JoinColumn(name = "id_sub_tipo_cuenta", nullable = false)
     SubTipoCuenta subTipoCuenta;
