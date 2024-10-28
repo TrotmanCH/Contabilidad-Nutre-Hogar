@@ -10,6 +10,8 @@ import com.nutrehogar.sistemacontable.ui.controller.AsientoControl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AsientoView extends javax.swing.JFrame {
@@ -18,6 +20,7 @@ public class AsientoView extends javax.swing.JFrame {
     
     public AsientoView() {
         initComponents();
+        texfieFecha.setText(LocalDate.now().toString());
         tipoDocumentoRepo.findAll().forEach((tipoDocumento) -> {
             comboxTipoDoc.addItem(tipoDocumento.getNombre());
         });
@@ -86,6 +89,12 @@ public class AsientoView extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Fecha:");
+
+        texfieFecha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                texfieFechaFocusLost(evt);
+            }
+        });
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 100));
 
@@ -239,6 +248,14 @@ public class AsientoView extends javax.swing.JFrame {
         
         dispose();
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
+
+    private void texfieFechaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieFechaFocusLost
+        if (!Pattern.matches("\\d{4}-\\d{2}-\\d{2}", texfieFecha.getText())) {
+            JOptionPane.showMessageDialog(
+                     null, "Introduzca una fecha válida", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
+            texfieFecha.setText(LocalDate.now().toString());
+        }
+    }//GEN-LAST:event_texfieFechaFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAnadirRegistro;
