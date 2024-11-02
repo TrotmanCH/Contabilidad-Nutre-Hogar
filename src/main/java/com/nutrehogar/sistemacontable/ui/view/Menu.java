@@ -80,6 +80,11 @@ public class Menu extends javax.swing.JFrame {
         jButton10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton10.setText("PLAN CONTABLE");
         jButton10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton10MouseClicked(evt);
+            }
+        });
 
         bttFormulario.setBackground(new java.awt.Color(0, 102, 255));
         bttFormulario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -222,6 +227,10 @@ public class Menu extends javax.swing.JFrame {
     private void bttFormularioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttFormularioActionPerformed
         new AsientoView().setVisible(true);
     }//GEN-LAST:event_bttFormularioActionPerformed
+
+    private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
+        new viewCuentas().setVisible(true);
+    }//GEN-LAST:event_jButton10MouseClicked
 
     public static void main(String args[]) {
         try {
