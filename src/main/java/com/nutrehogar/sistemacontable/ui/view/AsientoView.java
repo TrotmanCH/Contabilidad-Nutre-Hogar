@@ -1,29 +1,22 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
-import com.nutrehogar.sistemacontable.domain.model.Registro;
-import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
 import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.RegistroRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoRepo;
-import com.nutrehogar.sistemacontable.ui.controller.AsientoControl;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AsientoView extends javax.swing.JFrame {
-    private List<Registro> registros = new ArrayList<>();
-    TipoDocumentoRepo tipoDocumentoRepo = TipoDocumentoRepo.getInstance();
+    public final Asiento asiento = Asiento.builder().build();
     
     public AsientoView() {
         initComponents();
+   
+        asiento.setRegistros(new ArrayList<>());     
         texfieFecha.setText(LocalDate.now().toString());
-        tipoDocumentoRepo.findAll().forEach((tipoDocumento) -> {
-            comboxTipoDoc.addItem(tipoDocumento.getNombre());
-        });
     }
     
     @SuppressWarnings("unchecked")
@@ -32,7 +25,7 @@ public class AsientoView extends javax.swing.JFrame {
 
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        texfieNombre = new javax.swing.JTextField();
         txtMonto = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabRegistros = new javax.swing.JTable();
@@ -46,8 +39,6 @@ public class AsientoView extends javax.swing.JFrame {
         txtDebeTotal = new javax.swing.JTextField();
         txtHaberTotal = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        comboxTipoDoc = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         butGuardarAsiento = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -59,7 +50,7 @@ public class AsientoView extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Concepto:");
 
-        jTextField1.setName("nombreField"); // NOI18N
+        texfieNombre.setName("nombreField"); // NOI18N
 
         txtMonto.setEditable(false);
 
@@ -69,11 +60,11 @@ public class AsientoView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "No. Cheque o Comp.", "Referencia", "Código", "Debe", "Haber"
+                "Tipo de Doc.", "No. Cheque o Comp.", "Referencia", "Código", "Debe", "Haber"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                true, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -121,9 +112,6 @@ public class AsientoView extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Total:");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Tipo de Doc:");
-
         butGuardarAsiento.setText("Guardar Asiento");
         butGuardarAsiento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -146,17 +134,10 @@ public class AsientoView extends javax.swing.JFrame {
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(comboxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel8)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -164,7 +145,11 @@ public class AsientoView extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel7)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(texfieFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(texfieFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(19, 19, 19)
+                                        .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(39, 39, 39))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(butGuardarAsiento)
@@ -189,29 +174,25 @@ public class AsientoView extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(jLabel9))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(texfieFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(texfieFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(comboxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -226,33 +207,27 @@ public class AsientoView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void butAnadirRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirRegistroMouseClicked
-        DefaultTableModel tblRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
-        new RegistroView(tblRegistrosModelo, registros).setVisible(true);
+        DefaultTableModel tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
+        new RegistroView(asiento, tabRegistrosModelo).setVisible(true);
     }//GEN-LAST:event_butAnadirRegistroMouseClicked
     private void butGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarAsientoMouseClicked
-        LocalDate fecha = LocalDate.parse(texfieFecha.getText());
-        String concepto = texareConcepto.getText();
-        TipoDocumento tipo = tipoDocumentoRepo.findById(comboxTipoDoc.getSelectedIndex() + 1);
-        
-        AsientoControl asientoControl = new AsientoControl();
-        Asiento asiento = asientoControl.crear(fecha, concepto, tipo, registros);
-        
-        for (Registro registro : asiento.getRegistros()) {
-            registro.setAsiento(asiento); 
-        }
-        
-        RegistroRepo registroRepo = RegistroRepo.getInstance();
-        registroRepo.save(asiento.getRegistros());
+        asiento.setFecha(LocalDate.parse(texfieFecha.getText()));
+        asiento.setNombre(texfieNombre.getText());
+        asiento.setConcepto(texareConcepto.getText());
+ 
         AsientoRepo asientoRepo = AsientoRepo.getInstance();
         asientoRepo.save(asiento);
+        RegistroRepo registroRepo = RegistroRepo.getInstance();
+        registroRepo.save(asiento.getRegistros());
         
         dispose();
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
 
     private void texfieFechaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieFechaFocusLost
         if (!Pattern.matches("\\d{4}-\\d{2}-\\d{2}", texfieFecha.getText())) {
-            JOptionPane.showMessageDialog(
-                     null, "Introduzca una fecha válida", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Introduzca una fecha válida", 
+                    "Fecha Inválida", JOptionPane.ERROR_MESSAGE
+            );
             texfieFecha.setText(LocalDate.now().toString());
         }
     }//GEN-LAST:event_texfieFechaFocusLost
@@ -260,20 +235,18 @@ public class AsientoView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAnadirRegistro;
     private javax.swing.JButton butGuardarAsiento;
-    private javax.swing.JComboBox<String> comboxTipoDoc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
     public javax.swing.JTable tabRegistros;
     private javax.swing.JTextArea texareConcepto;
     private javax.swing.JTextField texfieFecha;
+    private javax.swing.JTextField texfieNombre;
     private javax.swing.JTextField txtDebeTotal;
     private javax.swing.JTextField txtHaberTotal;
     private javax.swing.JTextField txtMonto;

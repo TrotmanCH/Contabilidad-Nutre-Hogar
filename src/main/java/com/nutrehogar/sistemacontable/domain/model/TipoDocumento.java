@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString(exclude = "asientos")
+@ToString(exclude = "registros")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "tipo_documento")
@@ -26,5 +26,5 @@ public class TipoDocumento {
     String nombre;
 
     @OneToMany(mappedBy = "tipoDocumento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    List<Asiento> asientos;
+    List<Registro> registros;
 }
