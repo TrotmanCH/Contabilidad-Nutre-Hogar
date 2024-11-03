@@ -24,13 +24,12 @@ public class Asiento {
 
     @Column(name = "fecha", nullable = false)
     LocalDate fecha;
+    
+    @Column(name = "nombre", columnDefinition = "TEXT")
+    String nombre;
 
     @Column(name = "concepto", columnDefinition = "TEXT")
     String concepto;
-
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_documento", nullable = false)
-    TipoDocumento tipoDocumento;
 
     @OneToMany(mappedBy = "asiento", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Registro> registros;
