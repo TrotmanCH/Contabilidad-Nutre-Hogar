@@ -1,27 +1,25 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
-import com.nutrehogar.sistemacontable.domain.model.Cuenta;
+import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
-import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoRepo;
-import com.nutrehogar.sistemacontable.ui.controller.RegistroControl;
 import java.math.BigDecimal;
-import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class RegistroView extends javax.swing.JFrame {
-    private DefaultTableModel tblRegistrosModeloAsiento;
-    private List<Registro> registrosAsiento;
+    private final Registro registro = Registro.builder().build();
+    private final Asiento asiento;
+    private final DefaultTableModel tabRegistrosModelo;
     
     TipoDocumentoRepo tipoDocumentoRepo = TipoDocumentoRepo.getInstance();
     CuentaRepo cuentaRepo = CuentaRepo.getInstance();
     
-    public RegistroView(DefaultTableModel tblRegistrosModelo, List<Registro> registros) {
+    public RegistroView(Asiento asiento, DefaultTableModel tabRegistrosModelo) {
         initComponents();
         
-        this.tblRegistrosModeloAsiento = tblRegistrosModelo;
-        this.registrosAsiento = registros;
+        this.asiento = asiento;
+        this.tabRegistrosModelo = tabRegistrosModelo;
         
         tipoDocumentoRepo.findAll().forEach((tipoDocumento) -> {
             comboxTipoDoc.addItem(tipoDocumento.getNombre());
@@ -171,30 +169,29 @@ public class RegistroView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void butGuardarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarRegistroMouseClicked
-        TipoDocumento tipo = tipoDocumentoRepo.findById(comboxTipoDoc.getSelectedIndex() + 1);
-        String comprobante = texfieNoCheque.getText();
-        String referencia = texfieReferencia.getText();
-        Cuenta cuenta = cuentaRepo.findById(comboxCuenta.getSelectedItem().toString().substring(0, 5));
-        BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(texfieMonto.getText()));
+        registro.setAsiento(asiento);
+        registro.setTipoDocumento(tipoDocumentoRepo.findById(
+                comboxTipoDoc.getSelectedIndex() + 1
+        ));
+        registro.setComprobante(texfieNoCheque.getText());
+        registro.setReferencia(texfieReferencia.getText());
+        registro.setCuenta(cuentaRepo.findById(
+                comboxCuenta.getSelectedItem().toString().substring(0, 6)
+        ));
         
-        RegistroControl registroControl = new RegistroControl();
-        Registro registro = registroControl.crear(
-                null,
-                tipo,
-                comprobante,
-                referencia, 
-                cuenta, 
-                BigDecimal.valueOf(0), 
-                BigDecimal.valueOf(0)
-        );
-        
+        BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(
+                texfieMonto.getText()
+        ));
         if (radbutDebito.isSelected()) {
             registro.setDebe(monto);
+            registro.setHaber(BigDecimal.valueOf(0));
         } else if (radbutCredito.isSelected()){
+            registro.setDebe(BigDecimal.valueOf(0));
             registro.setHaber(monto);
         }
         
-        tblRegistrosModeloAsiento.addRow(new Object[] {
+        asiento.getRegistros().add(registro);
+        tabRegistrosModelo.addRow(new Object[] {
             registro.getTipoDocumento().getNombre(), 
             registro.getComprobante(), 
             registro.getReferencia(),
@@ -202,7 +199,7 @@ public class RegistroView extends javax.swing.JFrame {
             registro.getDebe(),
             registro.getHaber()
         });
-        registrosAsiento.add(registro);
+        
         dispose();
     }//GEN-LAST:event_butGuardarRegistroMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables

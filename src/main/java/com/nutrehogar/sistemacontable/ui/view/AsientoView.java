@@ -1,22 +1,21 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
-import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.RegistroRepo;
-import com.nutrehogar.sistemacontable.ui.controller.AsientoControl;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AsientoView extends javax.swing.JFrame {
-    private List<Registro> registros = new ArrayList<>();
+    public final Asiento asiento = Asiento.builder().build();
     
     public AsientoView() {
         initComponents();
+   
+        asiento.setRegistros(new ArrayList<>());     
         texfieFecha.setText(LocalDate.now().toString());
     }
     
@@ -208,26 +207,18 @@ public class AsientoView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void butAnadirRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirRegistroMouseClicked
-        DefaultTableModel tblRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
-        new RegistroView(tblRegistrosModelo, registros).setVisible(true);
+        DefaultTableModel tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
+        new RegistroView(asiento, tabRegistrosModelo).setVisible(true);
     }//GEN-LAST:event_butAnadirRegistroMouseClicked
     private void butGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarAsientoMouseClicked
-        LocalDate fecha = LocalDate.parse(texfieFecha.getText());
-        String nombre = texfieNombre.getText();
-        String concepto = texareConcepto.getText();
-        
-        
-        AsientoControl asientoControl = new AsientoControl();
-        Asiento asiento = asientoControl.crear(fecha, nombre, concepto, registros);
-        
-        for (Registro registro : asiento.getRegistros()) {
-            registro.setAsiento(asiento); 
-        }
-        
-        RegistroRepo registroRepo = RegistroRepo.getInstance();
-        registroRepo.save(asiento.getRegistros());
+        asiento.setFecha(LocalDate.parse(texfieFecha.getText()));
+        asiento.setNombre(texfieNombre.getText());
+        asiento.setConcepto(texareConcepto.getText());
+ 
         AsientoRepo asientoRepo = AsientoRepo.getInstance();
         asientoRepo.save(asiento);
+        RegistroRepo registroRepo = RegistroRepo.getInstance();
+        registroRepo.save(asiento.getRegistros());
         
         dispose();
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
