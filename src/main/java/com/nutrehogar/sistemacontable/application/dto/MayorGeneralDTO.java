@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 public record MayorGeneralDTO(
         LocalDate fecha,
+        String asientoNombre,
         String tipoDocumentoNombre,
         String codigoCuenta,
         String referencia,

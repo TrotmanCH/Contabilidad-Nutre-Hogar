@@ -13,7 +13,7 @@ public class CuentaRepo {
     private static final Session session = HibernateUtil.getSession();
     private static CuentaRepo instance;
 
-    protected CuentaRepo() {
+    private CuentaRepo() {
     }
 
     public static CuentaRepo getInstance() {

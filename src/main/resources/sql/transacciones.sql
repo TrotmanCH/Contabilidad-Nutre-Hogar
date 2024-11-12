@@ -1,47 +1,74 @@
--- Inserciones para Transacciones
-INSERT INTO Transacciones (codigo_transaccion, fecha, descripcion) VALUES (1, 1690972800, 'Compra de suministros de oficina');
-INSERT INTO Transacciones (codigo_transaccion, fecha, descripcion) VALUES (2, 1691059200, 'Venta de productos');
-INSERT INTO Transacciones (codigo_transaccion, fecha, descripcion) VALUES (3, 1691145600, 'Pago de servicios públicos');
-INSERT INTO Transacciones (codigo_transaccion, fecha, descripcion) VALUES (4, 1691232000, 'Compra de equipo informático');
-INSERT INTO Transacciones (codigo_transaccion, fecha, descripcion) VALUES (5, 1691318400, 'Pago de salarios');
-INSERT INTO Transacciones (codigo_transaccion, fecha, descripcion) VALUES (6, 1691404800, 'Alquiler de oficina');
-INSERT INTO Transacciones (codigo_transaccion, fecha, descripcion) VALUES (7, 1691491200, 'Compra de software');
-INSERT INTO Transacciones (codigo_transaccion, fecha, concepto) VALUES (8, 1691577600, 'Pago de impuestos');
-INSERT INTO Transacciones (codigo_transaccion, fecha, descripcion) VALUES (9, 1691664000, 'Gastos de marketing');
-INSERT INTO Transacciones (codigo_transaccion, fecha, descripcion) VALUES (10, 1691750400, 'Ventas de servicios de consultoría');
+-- Insertar datos en tipo_documento
+INSERT INTO tipo_documento (id, nombre)
+VALUES (1, 'INGRESO'),
+       (2, 'EGRESO'),
+       (3, 'AJUSTE');
 
--- Inserciones para Asientos
-INSERT INTO Asientos (codigo_asiento, codigo_transaccion, fecha_asiento) VALUES (1, 1, 1690972800);
-INSERT INTO Asientos (codigo_asiento, codigo_transaccion, fecha_asiento) VALUES (2, 2, 1691059200);
-INSERT INTO Asientos (codigo_asiento, codigo_transaccion, fecha_asiento) VALUES (3, 3, 1691145600);
-INSERT INTO Asientos (codigo_asiento, codigo_transaccion, fecha_asiento) VALUES (4, 4, 1691232000);
-INSERT INTO Asientos (codigo_asiento, codigo_transaccion, fecha_asiento) VALUES (5, 5, 1691318400);
-INSERT INTO Asientos (codigo_asiento, codigo_transaccion, fecha_asiento) VALUES (6, 6, 1691404800);
-INSERT INTO Asientos (id_asiento, id_transaccion, fecha_asiento) VALUES (7, 7, 1691491200);
-INSERT INTO Asientos (codigo_asiento, codigo_transaccion, fecha_asiento) VALUES (8, 8, 1691577600);
-INSERT INTO Asientos (codigo_asiento, codigo_transaccion, fecha_asiento) VALUES (9, 9, 1691664000);
-INSERT INTO Asientos (codigo_asiento, codigo_transaccion, fecha_asiento) VALUES (10, 10, 1691750400);
+-- Insertar datos en tipo_cuenta
+INSERT INTO tipo_cuenta (id, nombre)
+VALUES (1, 'ACTIVO'),
+       (2, 'PASIVO'),
+       (3, 'PATRIMONIO'),
+       (4, 'INGRESO'),
+       (5, 'GASTO'),
+       (6, 'COSTO');
 
--- Inserciones para Detalles de Asiento
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (1, 1, '5000', 150); -- Gastos de sueldos
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (2, 1, '1010', 150); -- Caja Chica
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (3, 2, '4000', 300); -- Ventas de productos
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (4, 2, '2000', 300); -- Cuentas por Pagar
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (5, 3, '5010', 75);  -- Gastos de Honorarios
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (6, 3, '1010', 75);  -- Caja Chica
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (7, 4, '1040', 1200); -- Equipos de computación
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (8, 4, '2000', 1200); -- Cuentas por Pagar
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (9, 5, '5000', 500);  -- Gastos de sueldos
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (10, 5, '1010', 500); -- Caja Chica
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (11, 6, '5010', 800);  -- Gastos de Honorarios
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (12, 6, '1100', 800); -- Bancos
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (13, 7, '1070', 400);  -- Software
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (14, 7, '2000', 400); -- Cuentas por Pagar
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (15, 8, '2050', 200);  -- Impuestos por Pagar
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (16, 8, '1100', 200); -- Bancos
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (17, 9, '5030', 600);  -- Gastos de Marketing
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (18, 9, '1010', 600); -- Caja Chica
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (19, 10, '4010', 300); -- Ventas de Servicios
-INSERT INTO DetallesAsiento (codigo_detalle, codigo_asiento, codigo_cuenta, monto) VALUES (20, 10, '1200', 300); -- Cuentas por Cobrar
+-- Insertar datos en sub_tipo_cuenta
+INSERT INTO sub_tipo_cuenta (id, nombre, id_tipo_cuenta)
+VALUES ('ACTIVO_CORRIENTE', 'ACTIVO CORRIENTE', 1),
+       ('ACTIVO_NO_CORRIENTE', 'ACTIVO NO CORRIENTE', 1),
+       ('PASIVO_CORRIENTE', 'PASIVO CORRIENTE', 2),
+       ('PASIVO_NO_CORRIENTE', 'PASIVO NO CORRIENTE', 2),
+       ('PATRIMONIO_NETO', 'PATRIMONIO NETO', 3),
+       ('INGRESO_OPERACIONAL', 'INGRESO OPERACIONAL', 4),
+       ('EGRESO_OPERACIONAL', 'EGRESO OPERACIONAL', 5),
+       ('COSTO_VENTA', 'COSTO VENTA', 6);
 
--- Repetir las inserciones anteriores para generar más asientos, detalles y transacciones
+-- Insertar datos en cuenta
+INSERT INTO cuenta (id, nombre, id_sub_tipo_cuenta)
+VALUES (1, 'Caja', 'ACTIVO_CORRIENTE'),
+       (2, 'Bancos', 'ACTIVO_CORRIENTE'),
+       (3, 'Cuentas por cobrar', 'ACTIVO_CORRIENTE'),
+       (4, 'Proveedores', 'PASIVO_CORRIENTE'),
+       (5, 'Capital Social', 'PATRIMONIO_NETO'),
+       (6, 'Ventas', 'INGRESO_OPERACIONAL'),
+       (7, 'Compras', 'EGRESO_OPERACIONAL'),
+       (8, 'Costo de ventas', 'COSTO_VENTA');
+-- Insertar datos en asiento
+INSERT INTO asiento (id, concepto, fecha, nombre)
+VALUES (1, 'Asiento de prueba 1', 1731283200000, 'Asiento 1'),
+       (2, 'Asiento de prueba 2', 1731283200000, 'Asiento 2'),
+       (3, 'Asiento de ajuste mensual', 1731379600000, 'Asiento 3'),
+       (4, 'Asiento de cierre de ejercicio', 1731466000000, 'Asiento 4'),
+       (5, 'Asiento por revalorización de activos', 1731552400000, 'Asiento 5'),
+       (6, 'Asiento de ajuste por intereses', 1731638800000, 'Asiento 6'),
+       (7, 'Asiento de ajuste mensual cuentas por pagar', 1731720400000, 'Asiento 7'),
+       (8, 'Asiento de ajuste mensual cuentas por cobrar', 1731806800000, 'Asiento 8'),
+       (9, 'Asiento por gastos operativos', 1731893200000, 'Asiento 9'),
+       (10, 'Asiento por abono a proveedor', 1731979600000, 'Asiento 10'),
+       (11, 'Asiento por pago de deuda a corto plazo', 1732066000000, 'Asiento 11');
+
+-- Insertar datos en registro
+INSERT INTO registro (id, comprobante, debe, haber, referencia, id_asiento, id_cuenta, id_tipo_documento)
+VALUES (1, 'C001', 500.00, 0.00, 'Ingreso por venta', 1, 1, 1),
+       (2, 'C001', 0.00, 500.00, 'Ingreso por venta', 1, 6, 1),
+       (3, 'C002', 300.00, 0.00, 'Pago a proveedor', 2, 4, 2),
+       (4, 'C002', 0.00, 300.00, 'Pago a proveedor', 2, 2, 2),
+       (5, 'C003', 1500.00, 0.00, 'Pago por alquiler', 3, 5, 3),
+       (6, 'C003', 0.00, 1500.00, 'Pago por alquiler', 3, 7, 3),
+       (7, 'C004', 1000.00, 0.00, 'Venta de mercadería', 4, 8, 1),
+       (8, 'C004', 0.00, 1000.00, 'Venta de mercadería', 4, 9, 1),
+       (9, 'C005', 200.00, 0.00, 'Pago de impuestos', 5, 10, 2),
+       (10, 'C005', 0.00, 200.00, 'Pago de impuestos', 5, 11, 2),
+       (11, 'C006', 300.00, 0.00, 'Depósito bancario', 6, 12, 1),
+       (12, 'C006', 0.00, 300.00, 'Depósito bancario', 6, 13, 1),
+       (13, 'C007', 1000.00, 0.00, 'Pago a proveedor A', 7, 2, 1),
+       (14, 'C007', 0.00, 1000.00, 'Pago a proveedor A', 7, 1, 1),
+       (15, 'C008', 200.00, 0.00, 'Pago a proveedor B', 8, 2, 1),
+       (16, 'C008', 0.00, 200.00, 'Pago a proveedor B', 8, 1, 1),
+       (17, 'C009', 500.00, 0.00, 'Gasto operativo', 9, 2, 2),
+       (18, 'C009', 0.00, 500.00, 'Gasto operativo', 9, 3, 2),
+       (19, 'C010', 1500.00, 0.00, 'Abono a proveedor C', 10, 2, 1),
+       (20, 'C010', 0.00, 1500.00, 'Abono a proveedor C', 10, 4, 1),
+       (21, 'C011', 300.00, 0.00, 'Pago deuda corto plazo', 11, 2, 2),
+       (22, 'C011', 0.00, 300.00, 'Pago deuda corto plazo', 11, 5, 2);

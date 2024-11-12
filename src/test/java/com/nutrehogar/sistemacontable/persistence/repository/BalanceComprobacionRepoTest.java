@@ -1,9 +1,12 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
+import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComprobacionFilter;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 class BalanceComprobacionRepoTest {
     BalanceComprobacionRepo repo;
@@ -20,7 +23,7 @@ class BalanceComprobacionRepoTest {
 
     @Test
     void find() {
-        repo.find(null, null, null).ifPresent(System.out::println);
+        repo.find(List.of(), null, null).ifPresent(System.out::println);
     }
 
 }

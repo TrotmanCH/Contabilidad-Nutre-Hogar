@@ -23,6 +23,8 @@ class LibroDiarioRepoTest {
 
     @Test
     void find() {
-        libroDiarioRepo.find(null, null, null).ifPresent(System.out::println);
+        libroDiarioRepo.find(null, null, null).ifPresent(libroDiarioDTOS -> {
+            libroDiarioDTOS.forEach(System.out::println);
+        });
     }
 }

@@ -46,6 +46,7 @@ public class MayorGeneralRepo {
 
             // Alias
             Path<LocalDate> fechaPath = asiento.get("fecha");
+            Path<String> asientoNombrePath = asiento.get("nombre");
             Path<String> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
             Path<String> nombreCuentaPath = cuenta.get("nombre");
             Path<String> codigoCuentaPath = cuenta.get("id");
@@ -57,6 +58,7 @@ public class MayorGeneralRepo {
             cq.select(cb.construct(
                     MayorGeneralDTO.class,
                     fechaPath,
+                    asientoNombrePath,
                     tipoDocumentoNombrePath,
                     codigoCuentaPath,
                     referenciaPath,

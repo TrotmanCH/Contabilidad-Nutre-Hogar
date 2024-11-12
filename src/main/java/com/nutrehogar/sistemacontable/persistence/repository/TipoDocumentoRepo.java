@@ -13,7 +13,7 @@ public class TipoDocumentoRepo {
     private static final Session session = HibernateUtil.getSession();
     private static TipoDocumentoRepo instance;
 
-    protected TipoDocumentoRepo() {
+    private TipoDocumentoRepo() {
     }
 
     public static TipoDocumentoRepo getInstance() {

@@ -31,9 +31,10 @@ class MayorGeneralRepoTest {
         var startDate = LocalDate.of(2024, 1, 1);
         var endDate = LocalDate.of(2024, 12, 31);
         var dateFilter = new MayorGeneralFilter.ByFechaRange(startDate, endDate);
-        List<MayorGeneralFilter> filters = List.of(dateFilter);
+        var cueFilter = new MayorGeneralFilter.ByNombreCuenta("Bancos");
+        List<MayorGeneralFilter> filters = List.of(dateFilter, cueFilter);
         var orderField = MayorGeneralOrderField.FECHA;
-        var order = OrderDirection.DESCENDING;
+        var order = OrderDirection.ASCENDING;
 
         var response = repo.find(filters, orderField, order);
 
@@ -41,8 +42,14 @@ class MayorGeneralRepoTest {
             mayorGeneralDTOS.forEach(System.out::println);
         });
     }
+
+
     @Test
     void findNull(){
-        repo.find(null, null, null).ifPresent(System.out::println);
+        repo.find(null, null, null).ifPresentOrElse(mayorGeneralDTOS -> {
+            mayorGeneralDTOS.forEach(System.out::println);
+        }, ()->{
+            System.out.println("Error");
+        });
     }
 }
