@@ -23,7 +23,7 @@ public class MayorGeneralRepo {
     private static final Session session = HibernateUtil.getSession();
     private static MayorGeneralRepo instance;
 
-    protected MayorGeneralRepo() {
+    private MayorGeneralRepo() {
     }
 
     public static MayorGeneralRepo getInstance() {
@@ -35,8 +35,6 @@ public class MayorGeneralRepo {
 
     public Optional<List<MayorGeneralDTO>> find(List<MayorGeneralFilter> filters, MayorGeneralOrderField orderField, OrderDirection orderDirection) {
         List<MayorGeneralDTO> mayorGeneralDTOS = null;
-
-
         try {
             session.beginTransaction();
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -44,7 +42,7 @@ public class MayorGeneralRepo {
             Root<Cuenta> cuenta = cq.from(Cuenta.class);
             Join<Cuenta, Registro> registro = cuenta.join("registros");
             Join<Registro, Asiento> asiento = registro.join("asiento");
-            Join<Asiento, TipoDocumento> tipoDocumento = asiento.join("tipoDocumento");
+            Join<Registro, TipoDocumento> tipoDocumento = registro.join("tipoDocumento");
 
             // Alias
             Path<LocalDate> fechaPath = asiento.get("fecha");
@@ -87,18 +85,23 @@ public class MayorGeneralRepo {
             }
 
             // Aplicar orden
-            Path<?> orderPath = switch (orderField) {
-                case FECHA -> fechaPath;
-                case TIPO_DOCUMENTO -> tipoDocumentoNombrePath;
-                case CODIGO_CUENTA -> codigoCuentaPath;
-                case REFERENCIA -> referenciaPath;
-                case DEBE -> debePath;
-                case HABER -> haberPath;
-            };
-            cq.orderBy(switch (orderDirection) {
-                case ASCENDING -> cb.asc(orderPath);
-                case DESCENDING -> cb.desc(orderPath);
-            });
+            if (orderField != null) {
+                Path<?> orderPath = switch (orderField) {
+                    case FECHA -> fechaPath;
+                    case TIPO_DOCUMENTO -> tipoDocumentoNombrePath;
+                    case CODIGO_CUENTA -> codigoCuentaPath;
+                    case REFERENCIA -> referenciaPath;
+                    case DEBE -> debePath;
+                    case HABER -> haberPath;
+                };
+                if (orderDirection != null) {
+                    cq.orderBy(switch (orderDirection) {
+                        case ASCENDING -> cb.asc(orderPath);
+                        case DESCENDING -> cb.desc(orderPath);
+                    });
+                }
+            }
+
 
             TypedQuery<MayorGeneralDTO> query = session.createQuery(cq);
             mayorGeneralDTOS = query.getResultList();

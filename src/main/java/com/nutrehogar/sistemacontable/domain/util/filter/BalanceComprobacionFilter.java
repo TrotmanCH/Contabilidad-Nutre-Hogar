@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * Clase sellada que define los criterios de filtrado para el Balance de Comprobación.
  */
 public sealed abstract class BalanceComprobacionFilter permits BalanceComprobacionFilter.All, BalanceComprobacionFilter.ByCodigoCuenta, BalanceComprobacionFilter.ByFechaRange, BalanceComprobacionFilter.ByNombreCuenta {
-    protected BalanceComprobacionFilter() {
+    private BalanceComprobacionFilter() {
     }
 
     /**
