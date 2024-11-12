@@ -13,7 +13,7 @@ public class AsientoRepo {
     private static final Session session = HibernateUtil.getSession();
     private static AsientoRepo instance;
 
-    protected AsientoRepo() {
+    private AsientoRepo() {
     }
 
     public static AsientoRepo getInstance() {

@@ -13,7 +13,7 @@ public class SubTipoCuentaRepo {
     private static final Session session = HibernateUtil.getSession();
     private static SubTipoCuentaRepo instance;
 
-    protected SubTipoCuentaRepo() {
+    private SubTipoCuentaRepo() {
     }
 
     public static SubTipoCuentaRepo getInstance() {

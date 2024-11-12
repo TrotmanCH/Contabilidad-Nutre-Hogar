@@ -13,7 +13,7 @@ public class CuentaRepo {
     private static final Session session = HibernateUtil.getSession();
     private static CuentaRepo instance;
 
-    protected CuentaRepo() {
+    private CuentaRepo() {
     }
 
     public static CuentaRepo getInstance() {
@@ -94,17 +94,5 @@ public class CuentaRepo {
             session.getTransaction().rollback();
             e.printStackTrace();
         }
-    }
-
-    public void Crear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

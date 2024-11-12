@@ -9,10 +9,10 @@ import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComprobacionFilt
 import com.nutrehogar.sistemacontable.domain.util.order.BalanceComprobacionOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
-import org.hibernate.Session;
-
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import org.hibernate.Session;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class BalanceComprobacionRepo {
     private static final Session session = HibernateUtil.getSession();
     private static BalanceComprobacionRepo instance;
 
-    protected BalanceComprobacionRepo() {
+    private BalanceComprobacionRepo() {
     }
 
     public static BalanceComprobacionRepo getInstance() {
@@ -43,7 +43,7 @@ public class BalanceComprobacionRepo {
             Root<Cuenta> cuenta = cq.from(Cuenta.class);
             Join<Cuenta, Registro> registros = cuenta.join("registros");
             Join<Registro, Asiento> asiento = registros.join("asiento");
-            Join<Asiento, TipoDocumento> tipoDocumento = asiento.join("tipoDocumento");
+            Join<Registro, TipoDocumento> tipoDocumento = registros.join("tipoDocumento");
 
 
             // Alias
@@ -89,20 +89,24 @@ public class BalanceComprobacionRepo {
             }
 
             // Aplicar orden
-            Path<?> orderPath = switch (orderField) {
-                case CODIGO_CUENTA -> codigoCuentaPath;
-                case NOMBRE_CUENTA -> nombreCuentaPath;
-                case TIPO_DOCUMENTO -> tipoDocumentoNombrePath;
-                case DEBE -> debePath;
-                case HABER -> haberPath;
-                case FECHA -> fechaPath;
-                case REFERENCIA -> referenciaPath;
-            };
+            if (orderField != null) {
+                Path<?> orderPath = switch (orderField) {
+                    case CODIGO_CUENTA -> codigoCuentaPath;
+                    case NOMBRE_CUENTA -> nombreCuentaPath;
+                    case TIPO_DOCUMENTO -> tipoDocumentoNombrePath;
+                    case DEBE -> debePath;
+                    case HABER -> haberPath;
+                    case FECHA -> fechaPath;
+                    case REFERENCIA -> referenciaPath;
+                };
 
-            cq.orderBy(switch (orderDirection) {
-                case ASCENDING -> cb.asc(orderPath);
-                case DESCENDING -> cb.desc(orderPath);
-            });
+                if (orderDirection != null) {
+                    cq.orderBy(switch (orderDirection) {
+                        case ASCENDING -> cb.asc(orderPath);
+                        case DESCENDING -> cb.desc(orderPath);
+                    });
+                }
+            }
 
 
             TypedQuery<BalanceComprobacionDTO> query = session.createQuery(cq);

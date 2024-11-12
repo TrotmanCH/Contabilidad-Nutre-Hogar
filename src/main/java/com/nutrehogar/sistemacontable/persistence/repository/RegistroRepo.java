@@ -13,7 +13,7 @@ public class RegistroRepo {
     private static final Session session = HibernateUtil.getSession();
     private static RegistroRepo instance;
 
-    protected RegistroRepo() {
+    private RegistroRepo() {
     }
 
     public static RegistroRepo getInstance() {

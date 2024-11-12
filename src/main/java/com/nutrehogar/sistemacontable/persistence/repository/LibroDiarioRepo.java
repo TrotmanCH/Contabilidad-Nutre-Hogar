@@ -23,7 +23,7 @@ public class LibroDiarioRepo {
     private static final Session session = HibernateUtil.getSession();
     private static LibroDiarioRepo instance;
 
-    protected LibroDiarioRepo() {
+    private LibroDiarioRepo() {
     }
 
     public static LibroDiarioRepo getInstance() {
@@ -44,7 +44,7 @@ public class LibroDiarioRepo {
             Root<Asiento> asiento = cq.from(Asiento.class);// cada query tiene un Root<T> y apunta a la entidad clave de la consulta
             Join<Asiento, Registro> registro = asiento.join("registros");
             Join<Registro, Cuenta> cuenta = registro.join("cuenta");
-            Join<Asiento, TipoDocumento> tipoDocumento = asiento.join("tipoDocumento");
+            Join<Registro, TipoDocumento> tipoDocumento = registro.join("tipoDocumento");
 
             // Alias
             Path<LocalDate> fechaPath = asiento.get("fecha");
@@ -83,24 +83,27 @@ public class LibroDiarioRepo {
                 if (!predicates.isEmpty()) {
                     predicate = cb.and(predicates.toArray(new Predicate[0]));
                 }
-
                 cq.where(predicate);
             }
 
             // Aplicar orden
-            Path<?> orderPath = switch (orderField) {
-                case FECHA -> fechaPath;
-                case TIPO_DOCUMENTO -> tipoDocumentoNombrePath;
-                case CODIGO_CUENTA -> codigoCuentaPath;
-                case COMPROBANTE -> comprobantePath;
-                case REFERENCIA -> referenciaPath;
-                case DEBE -> debePath;
-                case HABER -> haberPath;
-            };
-            cq.orderBy(switch (orderDirection) {
-                case ASCENDING -> cb.asc(orderPath);
-                case DESCENDING -> cb.desc(orderPath);
-            });
+            if (orderField != null) {
+                Path<?> orderPath = switch (orderField) {
+                    case FECHA -> fechaPath;
+                    case TIPO_DOCUMENTO -> tipoDocumentoNombrePath;
+                    case CODIGO_CUENTA -> codigoCuentaPath;
+                    case COMPROBANTE -> comprobantePath;
+                    case REFERENCIA -> referenciaPath;
+                    case DEBE -> debePath;
+                    case HABER -> haberPath;
+                };
+                if (orderDirection != null) {
+                    cq.orderBy(switch (orderDirection) {
+                        case ASCENDING -> cb.asc(orderPath);
+                        case DESCENDING -> cb.desc(orderPath);
+                    });
+                }
+            }
 
             TypedQuery<LibroDiarioDTO> query = session.createQuery(cq);
             libroDiarioDTOS = query.getResultList();

@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * Clase sellada que define los criterios de filtrado para el Mayor General.
  */
 public sealed abstract class MayorGeneralFilter permits MayorGeneralFilter.ByCodigoCuenta, MayorGeneralFilter.ByNombreCuenta, MayorGeneralFilter.ByFechaRange, MayorGeneralFilter.All {
-    protected MayorGeneralFilter() {
+    private MayorGeneralFilter() {
     }
 
     /**
