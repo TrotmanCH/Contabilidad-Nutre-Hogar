@@ -1,32 +1,34 @@
 package com.nutrehogar.sistemacontable.ui.view.components;
 
+import com.nutrehogar.sistemacontable.application.service.Util;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class MayorGeneralTable extends JTable {
-    {
+@Getter
+@Setter
+public class MayorGenTable extends JTable {
+    public MayorGenTable() {
+        init();
+    }
+
+    private void init() {
         setAutoCreateRowSorter(true);
         setFillsViewportHeight(true);
         setPreferredScrollableViewportSize(new Dimension(800, 200));
         setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
     }
 
-    public MayorGeneralTable() {
-    }
-
-    public MayorGeneralTable(TableModel model) {
-        super(model);
-    }
-
     static class BigDecimalRenderer extends DefaultTableCellRenderer {
         @Override
         protected void setValue(Object value) {
             if (value instanceof BigDecimal bigDecimal) {
-                setText(!bigDecimal.equals(BigDecimal.ZERO) ? bigDecimal.setScale(2, RoundingMode.HALF_UP).toString() : ""); // Formato con 2 decimales
+                setText(!bigDecimal.equals(BigDecimal.ZERO) ? Util.formatBigDecimal(bigDecimal) : ""); // Formato con 2 decimales
             } else {
                 super.setValue(value);
             }

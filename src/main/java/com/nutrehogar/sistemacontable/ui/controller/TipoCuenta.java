@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.view.components;
+package com.nutrehogar.sistemacontable.ui.controller;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,6 @@ import java.util.Arrays;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public enum TipoCuenta {
-
     ACTIVO(1) {
         @Override
         public BigDecimal getSaldo(BigDecimal saldo, BigDecimal haber, BigDecimal debe) {

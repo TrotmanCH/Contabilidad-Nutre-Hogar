@@ -7,13 +7,15 @@ import lombok.Getter;
  * Enum que define los campos por los cuales se puede ordenar el Mayor General.
  */
 @Getter
-public enum MayorGeneralOrderField implements OrderField {
-    FECHA("fecha"),
-    TIPO_DOCUMENTO("tipoDocumento"),
-    CODIGO_CUENTA("codigoCuenta"),
-    REFERENCIA("referencia"),
-    DEBE("debe"),
-    HABER("haber");
+public enum MayorGenField implements OrderField {
+    ASIENTO_FECHA("Fecha"),
+    ASIENTO_NOMBRE("Nombre de Asiento"),
+    TIPO_DOCUMENTO_NOMBRE("Tipo Documento"),
+    CUENTA_ID("Código Cuenta"),
+    REGISTRO_REFERENCIA("Referencia"),
+    REGISTRO_DEBE("Debe"),
+    REGISTRO_HABER("Haber"),
+    SALDO("Saldo");
 
     /**
      * -- GETTER --
@@ -28,7 +30,7 @@ public enum MayorGeneralOrderField implements OrderField {
      *
      * @param fieldName Nombre del campo en la entidad.
      */
-    MayorGeneralOrderField(String fieldName) {
+    MayorGenField(String fieldName) {
         this.fieldName = fieldName;
     }
 

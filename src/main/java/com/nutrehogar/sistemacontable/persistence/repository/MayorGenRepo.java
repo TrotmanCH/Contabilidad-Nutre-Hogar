@@ -1,9 +1,9 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
-import com.nutrehogar.sistemacontable.application.dto.MayorGeneralDTO;
+import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
 import com.nutrehogar.sistemacontable.domain.model.*;
-import com.nutrehogar.sistemacontable.domain.util.filter.MayorGeneralFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.MayorGeneralOrderField;
+import com.nutrehogar.sistemacontable.domain.util.filter.MayorGenFilter;
+import com.nutrehogar.sistemacontable.domain.util.order.MayorGenField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import jakarta.persistence.TypedQuery;
@@ -16,26 +16,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MayorGeneralRepo {
+public class MayorGenRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static MayorGeneralRepo instance;
+    private static MayorGenRepo instance;
 
-    private MayorGeneralRepo() {
+    private MayorGenRepo() {
     }
 
-    public static MayorGeneralRepo getInstance() {
+    public static MayorGenRepo getInstance() {
         if (instance == null) {
-            instance = new MayorGeneralRepo();
+            instance = new MayorGenRepo();
         }
         return instance;
     }
 
-    public Optional<List<MayorGeneralDTO>> find(List<MayorGeneralFilter> filters, MayorGeneralOrderField orderField, OrderDirection orderDirection) {
-        List<MayorGeneralDTO> mayorGeneralDTOS = null;
+    public Optional<List<MayorGenDTO>> find(List<MayorGenFilter> filters, MayorGenField orderField, OrderDirection orderDirection) {
+        List<MayorGenDTO> mayorGeneralDTOS = null;
         try {
             session.beginTransaction();
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<MayorGeneralDTO> cq = cb.createQuery(MayorGeneralDTO.class);// Datos que obtendremos
+            CriteriaQuery<MayorGenDTO> cq = cb.createQuery(MayorGenDTO.class);// Datos que obtendremos
             Root<Cuenta> cuenta = cq.from(Cuenta.class);
             Join<Cuenta, SubTipoCuenta> subTipoCuenta = cuenta.join("subTipoCuenta");
             Join<SubTipoCuenta, TipoCuenta> tipoCuenta = subTipoCuenta.join("tipoCuenta");
@@ -44,39 +44,39 @@ public class MayorGeneralRepo {
             Join<Registro, TipoDocumento> tipoDocumento = registro.join("tipoDocumento");
 
             // Alias
-            Path<LocalDate> fechaPath = asiento.get("fecha");
+            Path<LocalDate> asientoFechaPath = asiento.get("fecha");
             Path<String> asientoNombrePath = asiento.get("nombre");
             Path<String> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
-            Path<String> nombreCuentaPath = cuenta.get("nombre");
-            Path<String> codigoCuentaPath = cuenta.get("id");
-            Path<Integer> idTipoCuentaPath = tipoCuenta.get("id");
-            Path<String> referenciaPath = registro.get("referencia");
-            Path<BigDecimal> debePath = registro.get("debe");
-            Path<BigDecimal> haberPath = registro.get("haber");
+            Path<String> cuentaNombrePath = cuenta.get("nombre");
+            Path<String> cuentaIdPath = cuenta.get("id");
+            Path<Integer> tipoCuentaIdPath = tipoCuenta.get("id");
+            Path<String> registroReferenciaPath = registro.get("referencia");
+            Path<BigDecimal> registroDebePath = registro.get("debe");
+            Path<BigDecimal> registroHaberPath = registro.get("haber");
 
             // Selección de campos para el DTO
             cq.select(cb.construct(
-                    MayorGeneralDTO.class,
-                    fechaPath,
+                    MayorGenDTO.class,
+                    asientoFechaPath,
                     asientoNombrePath,
                     tipoDocumentoNombrePath,
-                    codigoCuentaPath,
-                    idTipoCuentaPath,
-                    referenciaPath,
-                    debePath,
-                    haberPath
+                    cuentaIdPath,
+                    tipoCuentaIdPath,
+                    registroReferenciaPath,
+                    registroDebePath,
+                    registroHaberPath
             ));
 
             if (filters != null && !filters.isEmpty()) {
                 List<Predicate> predicates = new ArrayList<>();
 
                 filters.forEach(filter -> {
-                    if (filter instanceof MayorGeneralFilter.ByFechaRange byFechaRange) {
-                        predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
-                    } else if (filter instanceof MayorGeneralFilter.ByCodigoCuenta byCodigoCuenta) {
-                        predicates.add(cb.like(cb.lower(codigoCuentaPath), "%" + byCodigoCuenta.getCodigoCuenta().toLowerCase() + "%"));
-                    } else if (filter instanceof MayorGeneralFilter.ByNombreCuenta byNombreCuenta) {
-                        predicates.add(cb.like(cb.lower(nombreCuentaPath), "%" + byNombreCuenta.getNombreCuenta().toLowerCase() + "%"));
+                    if (filter instanceof MayorGenFilter.ByFechaRange byFechaRange) {
+                        predicates.add(cb.between(asientoFechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
+                    } else if (filter instanceof MayorGenFilter.ByCuentaId byCuentaId) {
+                        predicates.add(cb.like(cb.lower(cuentaIdPath), "%" + byCuentaId.getId().toLowerCase() + "%"));
+                    } else if (filter instanceof MayorGenFilter.ByNombreCuenta byNombreCuenta) {
+                        predicates.add(cb.like(cb.lower(cuentaNombrePath), "%" + byNombreCuenta.getNombre().toLowerCase() + "%"));
                     }
                 });
 
@@ -91,12 +91,13 @@ public class MayorGeneralRepo {
             // Aplicar orden
             if (orderField != null) {
                 Path<?> orderPath = switch (orderField) {
-                    case FECHA -> fechaPath;
-                    case TIPO_DOCUMENTO -> tipoDocumentoNombrePath;
-                    case CODIGO_CUENTA -> codigoCuentaPath;
-                    case REFERENCIA -> referenciaPath;
-                    case DEBE -> debePath;
-                    case HABER -> haberPath;
+                    case ASIENTO_FECHA, SALDO -> asientoFechaPath;
+                    case ASIENTO_NOMBRE -> asientoNombrePath;
+                    case TIPO_DOCUMENTO_NOMBRE -> tipoDocumentoNombrePath;
+                    case CUENTA_ID -> cuentaIdPath;
+                    case REGISTRO_REFERENCIA -> registroReferenciaPath;
+                    case REGISTRO_DEBE -> registroDebePath;
+                    case REGISTRO_HABER -> registroHaberPath;
                 };
                 if (orderDirection != null) {
                     cq.orderBy(switch (orderDirection) {
@@ -107,7 +108,7 @@ public class MayorGeneralRepo {
             }
 
 
-            TypedQuery<MayorGeneralDTO> query = session.createQuery(cq);
+            TypedQuery<MayorGenDTO> query = session.createQuery(cq);
             mayorGeneralDTOS = query.getResultList();
 
             // Completarmpletar la transacción
