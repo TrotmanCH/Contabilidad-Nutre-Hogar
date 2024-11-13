@@ -10,8 +10,8 @@ import java.time.LocalDate;
 /**
  * Clase sellada que define los criterios de filtrado para el Mayor General.
  */
-public sealed abstract class MayorGeneralFilter permits MayorGeneralFilter.ByCodigoCuenta, MayorGeneralFilter.ByNombreCuenta, MayorGeneralFilter.ByFechaRange, MayorGeneralFilter.All {
-    private MayorGeneralFilter() {
+public sealed abstract class MayorGenFilter permits MayorGenFilter.ByCuentaId, MayorGenFilter.ByNombreCuenta, MayorGenFilter.ByFechaRange, MayorGenFilter.All {
+    private MayorGenFilter() {
     }
 
     /**
@@ -19,11 +19,11 @@ public sealed abstract class MayorGeneralFilter permits MayorGeneralFilter.ByCod
      */
     @Getter
     @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-    public static final class ByCodigoCuenta extends MayorGeneralFilter {
-        String codigoCuenta;
+    public static final class ByCuentaId extends MayorGenFilter {
+        String id;
 
-        public ByCodigoCuenta(String codigoCuenta) {
-            this.codigoCuenta = codigoCuenta;
+        public ByCuentaId(String id) {
+            this.id = id;
         }
     }
 
@@ -32,11 +32,11 @@ public sealed abstract class MayorGeneralFilter permits MayorGeneralFilter.ByCod
      */
     @Getter
     @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-    public static final class ByNombreCuenta extends MayorGeneralFilter {
-        String nombreCuenta;
+    public static final class ByNombreCuenta extends MayorGenFilter {
+        String nombre;
 
-        public ByNombreCuenta(String nombreCuenta) {
-            this.nombreCuenta = nombreCuenta;
+        public ByNombreCuenta(String nombre) {
+            this.nombre = nombre;
         }
     }
 
@@ -45,7 +45,7 @@ public sealed abstract class MayorGeneralFilter permits MayorGeneralFilter.ByCod
      */
     @Getter
     @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-    public static final class ByFechaRange extends MayorGeneralFilter {
+    public static final class ByFechaRange extends MayorGenFilter {
         LocalDate startDate;
         LocalDate endDate;
 
@@ -58,7 +58,7 @@ public sealed abstract class MayorGeneralFilter permits MayorGeneralFilter.ByCod
     /**
      * Representa la opción de no aplicar ningún filtro al Mayor General.
      */
-    public static final class All extends MayorGeneralFilter {
+    public static final class All extends MayorGenFilter {
         private static All instance;
 
         private All() {
