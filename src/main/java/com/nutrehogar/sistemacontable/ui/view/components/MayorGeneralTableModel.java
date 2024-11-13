@@ -1,56 +1,32 @@
 package com.nutrehogar.sistemacontable.ui.view.components;
 
 import com.nutrehogar.sistemacontable.application.dto.MayorGeneralDTO;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class MayorGeneralTableModel extends AbstractTableModel {
-    public record MayorGeneralModel(
-            LocalDate fecha,
-            String asientoNombre,
-            String tipoDocumentoNombre,
-            String codigoCuenta,
-            String referencia,
-            BigDecimal debe,
-            BigDecimal haber,
-            BigDecimal saldo
-    ) {
-    }
 
-    private List<MayorGeneralModel> data;
+    private List<MayorGeneralDTO> data;
     private final String[] columnNames = {
             "Fecha", "Nombre de Asiento", "Tipo Documento", "Código Cuenta", "Referencia", "Debe", "Haber", "Saldo"
     };
-    private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
 
     public MayorGeneralTableModel(List<MayorGeneralDTO> data) {
         this.data = calcularSaldos(data);
     }
 
-    private List<MayorGeneralModel> calcularSaldos(List<MayorGeneralDTO> data) {
-        BigDecimal saldo = BigDecimal.ZERO;
-        List<MayorGeneralModel> models = new ArrayList<>();
+    private @NotNull List<MayorGeneralDTO> calcularSaldos(@NotNull List<MayorGeneralDTO> data) {
+        BigDecimal saldo;
         for (MayorGeneralDTO mayorGeneralDTO : data) {
-            saldo = saldo.add(mayorGeneralDTO.debe(), MATH_CONTEXT).subtract(mayorGeneralDTO.haber(), MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
-            models.add(new MayorGeneralModel(
-                    mayorGeneralDTO.fecha(),
-                    mayorGeneralDTO.asientoNombre(),
-                    mayorGeneralDTO.tipoDocumentoNombre(),
-                    mayorGeneralDTO.codigoCuenta(),
-                    mayorGeneralDTO.referencia(),
-                    mayorGeneralDTO.debe(),
-                    mayorGeneralDTO.haber(),
-                    saldo
-            ));
+            saldo = TipoCuenta.fromId(mayorGeneralDTO.getIdTipoCuenta()).getSaldo(mayorGeneralDTO.getSaldo(), mayorGeneralDTO.getHaber(), mayorGeneralDTO.getDebe());
+            mayorGeneralDTO.setSaldo(saldo);
         }
-        return models;
+        return data;
     }
 
     @Override
@@ -70,16 +46,16 @@ public class MayorGeneralTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        MayorGeneralModel dto = data.get(rowIndex);
+        MayorGeneralDTO dto = data.get(rowIndex);
         return switch (columnIndex) {
-            case 0 -> dto.fecha();
-            case 1 -> dto.asientoNombre();
-            case 2 -> dto.tipoDocumentoNombre();
-            case 3 -> dto.codigoCuenta();
-            case 4 -> dto.referencia();
-            case 5 -> dto.debe();
-            case 6 -> dto.haber();
-            case 7 -> dto.saldo();
+            case 0 -> dto.getFecha();
+            case 1 -> dto.getAsientoNombre();
+            case 2 -> dto.getTipoDocumentoNombre();
+            case 3 -> dto.getCodigoCuenta();
+            case 4 -> dto.getReferencia();
+            case 5 -> dto.getDebe();
+            case 6 -> dto.getHaber();
+            case 7 -> dto.getSaldo();
             default -> null;
         };
     }

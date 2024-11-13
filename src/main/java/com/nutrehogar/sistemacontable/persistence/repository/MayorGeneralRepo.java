@@ -1,10 +1,7 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
 import com.nutrehogar.sistemacontable.application.dto.MayorGeneralDTO;
-import com.nutrehogar.sistemacontable.domain.model.Asiento;
-import com.nutrehogar.sistemacontable.domain.model.Cuenta;
-import com.nutrehogar.sistemacontable.domain.model.Registro;
-import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
+import com.nutrehogar.sistemacontable.domain.model.*;
 import com.nutrehogar.sistemacontable.domain.util.filter.MayorGeneralFilter;
 import com.nutrehogar.sistemacontable.domain.util.order.MayorGeneralOrderField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
@@ -40,6 +37,8 @@ public class MayorGeneralRepo {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<MayorGeneralDTO> cq = cb.createQuery(MayorGeneralDTO.class);// Datos que obtendremos
             Root<Cuenta> cuenta = cq.from(Cuenta.class);
+            Join<Cuenta, SubTipoCuenta> subTipoCuenta = cuenta.join("subTipoCuenta");
+            Join<SubTipoCuenta, TipoCuenta> tipoCuenta = subTipoCuenta.join("tipoCuenta");
             Join<Cuenta, Registro> registro = cuenta.join("registros");
             Join<Registro, Asiento> asiento = registro.join("asiento");
             Join<Registro, TipoDocumento> tipoDocumento = registro.join("tipoDocumento");
@@ -50,6 +49,7 @@ public class MayorGeneralRepo {
             Path<String> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
             Path<String> nombreCuentaPath = cuenta.get("nombre");
             Path<String> codigoCuentaPath = cuenta.get("id");
+            Path<Integer> idTipoCuentaPath = tipoCuenta.get("id");
             Path<String> referenciaPath = registro.get("referencia");
             Path<BigDecimal> debePath = registro.get("debe");
             Path<BigDecimal> haberPath = registro.get("haber");
@@ -61,9 +61,11 @@ public class MayorGeneralRepo {
                     asientoNombrePath,
                     tipoDocumentoNombrePath,
                     codigoCuentaPath,
+                    idTipoCuentaPath,
                     referenciaPath,
                     debePath,
-                    haberPath));
+                    haberPath
+            ));
 
             if (filters != null && !filters.isEmpty()) {
                 List<Predicate> predicates = new ArrayList<>();
