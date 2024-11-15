@@ -12,7 +12,6 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 public class MayorGenTableModel extends AbstractTableModel {
     private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
@@ -28,13 +27,16 @@ public class MayorGenTableModel extends AbstractTableModel {
             MayorGenField.REGISTRO_HABER.getFieldName(),
             MayorGenField.SALDO.getFieldName()
     };
-    BigDecimal saldo = BigDecimal.ZERO;
-    BigDecimal sumDebe = BigDecimal.ZERO;
-    BigDecimal sumHaber = BigDecimal.ZERO;
+    private BigDecimal saldo = BigDecimal.ZERO;
+    private BigDecimal sumDebe = BigDecimal.ZERO;
+    private BigDecimal sumHaber = BigDecimal.ZERO;
 
+    public MayorGenTableModel() {
+        this.data = List.of();
+    }
 
     public MayorGenTableModel(List<MayorGenDTO> data) {
-        this.data = Objects.requireNonNullElseGet(calcularSaldos(data), List::of);
+        this.data = data != null ? calcularSaldos(data) : List.of();
     }
 
     @Contract("_ -> param1")
@@ -81,7 +83,6 @@ public class MayorGenTableModel extends AbstractTableModel {
             };
         } else {
             return switch (columnIndex) {
-                case 0, 1, 2, 3 -> "";
                 case 4 -> "TOTAL:";
                 case 5 -> sumDebe;
                 case 6 -> sumHaber;
@@ -102,7 +103,7 @@ public class MayorGenTableModel extends AbstractTableModel {
     }
 
     public void setData(List<MayorGenDTO> newData) {
-        data = Objects.requireNonNullElseGet(calcularSaldos(newData), List::of);
+        data = newData != null ? calcularSaldos(newData) : List.of();
         fireTableDataChanged();
     }
 }

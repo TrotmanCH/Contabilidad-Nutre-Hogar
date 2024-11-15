@@ -3,20 +3,21 @@ package com.nutrehogar.sistemacontable.ui.view.components;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class LocalDateSpinner extends JSpinner {
-    private LocalDateSpinnerModel model;
+    private LocalDateSpinnerModel customModel;
 
     public LocalDateSpinner() {
-        configModel();
+        customModel = new LocalDateSpinnerModel();
+        this.setModel(customModel);
         configEditor();
     }
 
-    public void configModel() {
-        model = new LocalDateSpinnerModel(LocalDate.now(), null, null, ChronoUnit.DAYS);
-        this.setModel(model);
+    public LocalDateSpinner(LocalDateSpinnerModel customModel) {
+        this.customModel = customModel;
+        this.setModel(customModel);
+        configEditor();
     }
 
     public void configEditor() {
@@ -26,11 +27,11 @@ public class LocalDateSpinner extends JSpinner {
             public void mouseClicked(MouseEvent e) {
                 int position = editor.getTextField().getCaretPosition();
                 if (position < 5) {
-                    model.setIncrementUnit(ChronoUnit.YEARS);
+                    customModel.setIncrementUnit(ChronoUnit.YEARS);
                 } else if (position < 8) {
-                    model.setIncrementUnit(ChronoUnit.MONTHS);
+                    customModel.setIncrementUnit(ChronoUnit.MONTHS);
                 } else {
-                    model.setIncrementUnit(ChronoUnit.DAYS);
+                    customModel.setIncrementUnit(ChronoUnit.DAYS);
                 }
             }
         });

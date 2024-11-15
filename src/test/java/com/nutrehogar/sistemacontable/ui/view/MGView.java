@@ -1,70 +1,59 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.nutrehogar.sistemacontable.domain.util.filter.MayorGenFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.MayorGenField;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
-import com.nutrehogar.sistemacontable.ui.controller.MayorGenController;
-import com.nutrehogar.sistemacontable.ui.view.components.MayorGenTableModel;
 
 import javax.swing.*;
-import java.util.List;
+import java.awt.*;
 
 public class MGView extends javax.swing.JFrame {
-    MayorGenTableModel MGTableModel;
-    MayorGenController MGController;
+
 
     public MGView() {
-        MGTableModel = new MayorGenTableModel(List.of());
-        MGController = new MayorGenController(MGTableModel);
-        MGController.applyFiltersAndOrder(List.of(new MayorGenFilter.ByCuentaId("2")), MayorGenField.ASIENTO_FECHA, OrderDirection.ASCENDING);
         initComponents();
+        var pane = new MGPanel();
+        conteiner.removeAll();
+        conteiner.setLayout(new BorderLayout());  // Añade esta línea para restablecer el diseño del Content
+        conteiner.add(pane, BorderLayout.CENTER);
+        conteiner.revalidate();
+        conteiner.repaint();
+
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        localDateSpinner2 = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        mayorGenTable1 = new com.nutrehogar.sistemacontable.ui.view.components.MayorGenTable();
-        localDateSpinner1 = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
-        localDateSpinner3 = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        conteiner = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 255, 153));
 
-        mayorGenTable1.setModel(MGTableModel);
-        jScrollPane1.setViewportView(mayorGenTable1);
+        javax.swing.GroupLayout conteinerLayout = new javax.swing.GroupLayout(conteiner);
+        conteiner.setLayout(conteinerLayout);
+        conteinerLayout.setHorizontalGroup(
+                conteinerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 886, Short.MAX_VALUE)
+        );
+        conteinerLayout.setVerticalGroup(
+                conteinerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 458, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(localDateSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(localDateSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(conteiner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(localDateSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(localDateSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)))
-                .addComponent(jScrollPane1)
-                .addGap(118, 118, 118))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(conteiner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         pack();
@@ -83,10 +72,6 @@ public class MGView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner localDateSpinner1;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner localDateSpinner2;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner localDateSpinner3;
-    private com.nutrehogar.sistemacontable.ui.view.components.MayorGenTable mayorGenTable1;
+    private static javax.swing.JPanel conteiner;
     // End of variables declaration//GEN-END:variables
 }

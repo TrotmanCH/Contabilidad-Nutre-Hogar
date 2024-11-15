@@ -8,12 +8,16 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 @Getter
 @Setter
 public class MayorGenTable extends JTable {
     public MayorGenTable() {
+        init();
+    }
+
+    public MayorGenTable(MayorGenTableModel dm) {
+        this.setModel(dm);
         init();
     }
 
