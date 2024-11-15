@@ -18,6 +18,16 @@ public class LocalDateSpinnerModel extends AbstractSpinnerModel {
     @Setter
     private ChronoUnit incrementUnit;
 
+    public LocalDateSpinnerModel() {
+        this.currentDate = LocalDate.now();
+        this.incrementUnit = ChronoUnit.DAYS;
+    }
+
+    public LocalDateSpinnerModel(LocalDate currentDate) {
+        this.currentDate = currentDate;
+        this.incrementUnit = ChronoUnit.DAYS;
+    }
+
     public LocalDateSpinnerModel(LocalDate initialDate, LocalDate minDate, LocalDate maxDate, ChronoUnit incrementUnit) {
         this.currentDate = initialDate != null ? initialDate : LocalDate.now();
         this.minDate = minDate;

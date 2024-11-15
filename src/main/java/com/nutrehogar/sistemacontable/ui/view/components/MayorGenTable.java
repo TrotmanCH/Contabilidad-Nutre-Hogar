@@ -8,20 +8,22 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 @Getter
 @Setter
 public class MayorGenTable extends JTable {
-    public MayorGenTable() {
-        init();
-    }
-
-    private void init() {
-        setAutoCreateRowSorter(true);
+    {
+//        setAutoCreateRowSorter(true);
         setFillsViewportHeight(true);
         setPreferredScrollableViewportSize(new Dimension(800, 200));
         setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
+    }
+
+    public MayorGenTable() {
+    }
+
+    public MayorGenTable(MayorGenTableModel dm) {
+        super(dm);
     }
 
     static class BigDecimalRenderer extends DefaultTableCellRenderer {

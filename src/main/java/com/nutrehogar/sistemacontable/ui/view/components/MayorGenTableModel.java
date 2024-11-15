@@ -12,33 +12,53 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 public class MayorGenTableModel extends AbstractTableModel {
     private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
 
     private List<MayorGenDTO> data;
-    private final String[] columnNames = {
-            MayorGenField.ASIENTO_FECHA.getFieldName(),
-            MayorGenField.ASIENTO_NOMBRE.getFieldName(),
-            MayorGenField.TIPO_DOCUMENTO_NOMBRE.getFieldName(),
-            MayorGenField.CUENTA_ID.getFieldName(),
-            MayorGenField.REGISTRO_REFERENCIA.getFieldName(),
-            MayorGenField.REGISTRO_DEBE.getFieldName(),
-            MayorGenField.REGISTRO_HABER.getFieldName(),
-            MayorGenField.SALDO.getFieldName()
-    };
-    BigDecimal saldo = BigDecimal.ZERO;
-    BigDecimal sumDebe = BigDecimal.ZERO;
-    BigDecimal sumHaber = BigDecimal.ZERO;
+    /**
+     * private final String[] columnNames = {
+     * MayorGenField.ASIENTO_FECHA.getFieldName(),
+     * MayorGenField.ASIENTO_NOMBRE.getFieldName(),
+     * MayorGenField.TIPO_DOCUMENTO_NOMBRE.getFieldName(),
+     * MayorGenField.CUENTA_ID.getFieldName(),
+     * MayorGenField.REGISTRO_REFERENCIA.getFieldName(),
+     * MayorGenField.REGISTRO_DEBE.getFieldName(),
+     * MayorGenField.REGISTRO_HABER.getFieldName(),
+     * MayorGenField.SALDO.getFieldName()
+     * };
+     *
+     * @Override public String getColumnName(int column) {
+     * return columnNames[column];
+     * }
+     * @Override
+     *     public Class<?> getColumnClass(int columnIndex) {
+     *         return switch (columnIndex) {
+     *             case 0 -> LocalDate.class;
+     *             case 1, 2, 3, 4 -> String.class;
+     *             case 5, 6, 7 -> BigDecimal.class;
+     *             default -> Object.class;
+     *         };
+     *     }
+     */
+    private BigDecimal saldo = BigDecimal.ZERO;
+    private BigDecimal sumDebe = BigDecimal.ZERO;
+    private BigDecimal sumHaber = BigDecimal.ZERO;
 
+    public MayorGenTableModel() {
+        this.data = List.of();
+    }
 
     public MayorGenTableModel(List<MayorGenDTO> data) {
-        this.data = Objects.requireNonNullElseGet(calcularSaldos(data), List::of);
+        this.data = data != null ? calcularSaldos(data) : List.of();
     }
 
     @Contract("_ -> param1")
     private List<MayorGenDTO> calcularSaldos(@NotNull List<MayorGenDTO> data) {
+        saldo = BigDecimal.ZERO;
+        sumDebe = BigDecimal.ZERO;
+        sumHaber = BigDecimal.ZERO;
         for (MayorGenDTO dto : data) {
             saldo = TipoCuenta.fromId(dto.getTipoCuentaId()).getSaldo(saldo, dto.getRegistroHaber(), dto.getRegistroDebe());
             sumDebe = sumDebe.add(dto.getRegistroDebe(), MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
@@ -56,12 +76,12 @@ public class MayorGenTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return columnNames.length;
+        return MayorGenField.values().length;
     }
 
     @Override
     public String getColumnName(int column) {
-        return columnNames[column];
+        return MayorGenField.values()[column].getFieldName();
     }
 
     @Override
@@ -81,7 +101,6 @@ public class MayorGenTableModel extends AbstractTableModel {
             };
         } else {
             return switch (columnIndex) {
-                case 0, 1, 2, 3 -> "";
                 case 4 -> "TOTAL:";
                 case 5 -> sumDebe;
                 case 6 -> sumHaber;
@@ -102,7 +121,7 @@ public class MayorGenTableModel extends AbstractTableModel {
     }
 
     public void setData(List<MayorGenDTO> newData) {
-        data = Objects.requireNonNullElseGet(calcularSaldos(newData), List::of);
+        data = newData != null ? calcularSaldos(newData) : List.of();
         fireTableDataChanged();
     }
 }
