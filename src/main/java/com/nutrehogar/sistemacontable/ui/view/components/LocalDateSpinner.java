@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.time.temporal.ChronoUnit;
 
 public class LocalDateSpinner extends JSpinner {
-    private LocalDateSpinnerModel customModel;
+    private final LocalDateSpinnerModel customModel;
 
     public LocalDateSpinner() {
         customModel = new LocalDateSpinnerModel();
@@ -15,8 +15,8 @@ public class LocalDateSpinner extends JSpinner {
     }
 
     public LocalDateSpinner(LocalDateSpinnerModel customModel) {
+        super(customModel);
         this.customModel = customModel;
-        this.setModel(customModel);
         configEditor();
     }
 

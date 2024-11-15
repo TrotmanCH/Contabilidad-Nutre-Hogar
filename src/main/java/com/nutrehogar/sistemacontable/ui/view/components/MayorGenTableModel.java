@@ -17,16 +17,31 @@ public class MayorGenTableModel extends AbstractTableModel {
     private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
 
     private List<MayorGenDTO> data;
-    private final String[] columnNames = {
-            MayorGenField.ASIENTO_FECHA.getFieldName(),
-            MayorGenField.ASIENTO_NOMBRE.getFieldName(),
-            MayorGenField.TIPO_DOCUMENTO_NOMBRE.getFieldName(),
-            MayorGenField.CUENTA_ID.getFieldName(),
-            MayorGenField.REGISTRO_REFERENCIA.getFieldName(),
-            MayorGenField.REGISTRO_DEBE.getFieldName(),
-            MayorGenField.REGISTRO_HABER.getFieldName(),
-            MayorGenField.SALDO.getFieldName()
-    };
+    /**
+     * private final String[] columnNames = {
+     * MayorGenField.ASIENTO_FECHA.getFieldName(),
+     * MayorGenField.ASIENTO_NOMBRE.getFieldName(),
+     * MayorGenField.TIPO_DOCUMENTO_NOMBRE.getFieldName(),
+     * MayorGenField.CUENTA_ID.getFieldName(),
+     * MayorGenField.REGISTRO_REFERENCIA.getFieldName(),
+     * MayorGenField.REGISTRO_DEBE.getFieldName(),
+     * MayorGenField.REGISTRO_HABER.getFieldName(),
+     * MayorGenField.SALDO.getFieldName()
+     * };
+     *
+     * @Override public String getColumnName(int column) {
+     * return columnNames[column];
+     * }
+     * @Override
+     *     public Class<?> getColumnClass(int columnIndex) {
+     *         return switch (columnIndex) {
+     *             case 0 -> LocalDate.class;
+     *             case 1, 2, 3, 4 -> String.class;
+     *             case 5, 6, 7 -> BigDecimal.class;
+     *             default -> Object.class;
+     *         };
+     *     }
+     */
     private BigDecimal saldo = BigDecimal.ZERO;
     private BigDecimal sumDebe = BigDecimal.ZERO;
     private BigDecimal sumHaber = BigDecimal.ZERO;
@@ -41,6 +56,9 @@ public class MayorGenTableModel extends AbstractTableModel {
 
     @Contract("_ -> param1")
     private List<MayorGenDTO> calcularSaldos(@NotNull List<MayorGenDTO> data) {
+        saldo = BigDecimal.ZERO;
+        sumDebe = BigDecimal.ZERO;
+        sumHaber = BigDecimal.ZERO;
         for (MayorGenDTO dto : data) {
             saldo = TipoCuenta.fromId(dto.getTipoCuentaId()).getSaldo(saldo, dto.getRegistroHaber(), dto.getRegistroDebe());
             sumDebe = sumDebe.add(dto.getRegistroDebe(), MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
@@ -58,12 +76,12 @@ public class MayorGenTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return columnNames.length;
+        return MayorGenField.values().length;
     }
 
     @Override
     public String getColumnName(int column) {
-        return columnNames[column];
+        return MayorGenField.values()[column].getFieldName();
     }
 
     @Override

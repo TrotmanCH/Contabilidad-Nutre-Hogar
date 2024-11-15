@@ -12,20 +12,18 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class MayorGenTable extends JTable {
-    public MayorGenTable() {
-        init();
-    }
-
-    public MayorGenTable(MayorGenTableModel dm) {
-        this.setModel(dm);
-        init();
-    }
-
-    private void init() {
-        setAutoCreateRowSorter(true);
+    {
+//        setAutoCreateRowSorter(true);
         setFillsViewportHeight(true);
         setPreferredScrollableViewportSize(new Dimension(800, 200));
         setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
+    }
+
+    public MayorGenTable() {
+    }
+
+    public MayorGenTable(MayorGenTableModel dm) {
+        super(dm);
     }
 
     static class BigDecimalRenderer extends DefaultTableCellRenderer {

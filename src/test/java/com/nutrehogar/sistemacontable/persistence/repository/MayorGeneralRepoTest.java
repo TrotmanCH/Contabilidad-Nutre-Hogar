@@ -33,8 +33,8 @@ class MayorGeneralRepoTest {
 
         var startDate = LocalDate.of(2024, 1, 1);
         var endDate = LocalDate.of(2024, 12, 31);
-        var dateFilter = new MayorGenFilter.ByFechaRange(startDate, endDate);
-        var cueFilter = new MayorGenFilter.ByNombreCuenta("Bancos");
+        var dateFilter = MayorGenFilter.ByFechaRange.of(startDate, endDate);
+        var cueFilter = MayorGenFilter.ByNombreCuenta.of("Bancos");
         List<MayorGenFilter> filters = List.of(dateFilter, cueFilter);
         var orderField = MayorGenField.ASIENTO_FECHA;
         var order = OrderDirection.ASCENDING;
