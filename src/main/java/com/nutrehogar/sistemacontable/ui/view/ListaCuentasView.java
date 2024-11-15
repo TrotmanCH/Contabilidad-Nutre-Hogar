@@ -2,6 +2,7 @@ package com.nutrehogar.sistemacontable.ui.view;
 
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
+import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +34,7 @@ public class ListaCuentasView extends javax.swing.JFrame {
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
+                //btnActualizarActionPerformed(evt);
             }
         });
 
@@ -161,7 +162,7 @@ public class ListaCuentasView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(237, 237, 237)
                         .addComponent(jLabel1)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,6 +194,28 @@ public class ListaCuentasView extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
           //CuentaRepo.getInstance().delete(tblCuenta.get);
+            int selectedRow = tblCuenta.getSelectedRow();
+
+            // Verificar si hay una fila seleccionada
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Seleccione una cuenta para eliminar.");
+                return;
+            }
+
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta cuenta?", 
+                                                        "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirm != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            String id = tblCuenta.getValueAt(selectedRow, 0).toString();
+
+            CuentaRepo cuentaRepo = CuentaRepo.getInstance();
+            cuentaRepo.delete(id);
+
+            ((DefaultTableModel) tblCuenta.getModel()).removeRow(selectedRow);
+
+            JOptionPane.showMessageDialog(this, "Cuenta eliminada exitosamente.");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     public static void main(String args[]) {

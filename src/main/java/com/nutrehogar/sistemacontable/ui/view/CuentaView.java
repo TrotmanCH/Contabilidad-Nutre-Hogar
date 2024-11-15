@@ -10,8 +10,10 @@ import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.SubTipoCuentaRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.TipoCuentaRepo;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -130,14 +132,6 @@ public class CuentaView extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = txtId.getText();
         String nombre = txtNombre.getText();
-        
-        /*String codigoSubtipo = "vacio";
-        listaSubTipo.forEach((subTipoCuenta) -> {
-            if(subTipoCuenta.getNombre() == cboSubTipoCuenta.getSelectedItem().toString()){
-                codigoSubtipo.replace("vacio", subTipoCuenta.getId());
-            }
-        });
-        SubTipoCuenta subtipoCuenta = subTipoCuentaRepo.findById(codigoSubtipo);*/
         
         String[] codigoSubtipo = {"vacio"};
         listaSubTipo.forEach((subTipoCuenta) -> {
