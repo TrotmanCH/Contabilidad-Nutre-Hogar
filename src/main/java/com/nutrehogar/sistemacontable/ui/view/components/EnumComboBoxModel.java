@@ -6,6 +6,11 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
 
+/**
+ * Modelo de un comboBox que puede resivir cualquier enum como valor
+ * @author Calci
+ * @param <E>
+ */
 public class EnumComboBoxModel<E extends Enum<E>> implements ComboBoxModel<E> {
     private final E[] values;
     private E selected;

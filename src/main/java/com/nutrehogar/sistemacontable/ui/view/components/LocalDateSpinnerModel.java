@@ -7,13 +7,31 @@ import javax.swing.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-
+/**
+ * Modelo de un spinner que tiene como valor un {@link LocalDate}
+ *
+ * @author Calci
+ * @see LocalDate
+ * @see LocalDateSpinner
+ */
 public class LocalDateSpinnerModel extends AbstractSpinnerModel {
+    /**
+     * Valor actual del spinner
+     */
     private LocalDate currentDate;
+    /**
+     * Fecha minima que puede optiene el valor del spinner (opcional)
+     */
     @Getter
     private LocalDate minDate;
+    /**
+     * Fecha maxima que puede optiene el valor del spinner (opcional)
+     */
     @Getter
     private LocalDate maxDate;
+    /**
+     * Unidad en la que aumenta o disminuye la fecha
+     */
     @Getter
     @Setter
     private ChronoUnit incrementUnit;
@@ -64,6 +82,12 @@ public class LocalDateSpinnerModel extends AbstractSpinnerModel {
         return isWithinBounds(previousDate) ? previousDate : null;
     }
 
+    /**
+     * Verifica si la fecha es valida
+     *
+     * @param date fecha a verifica
+     * @return
+     */
     private boolean isWithinBounds(LocalDate date) {
         boolean afterMin = (minDate == null || !date.isBefore(minDate));
         boolean beforeMax = (maxDate == null || !date.isAfter(maxDate));
