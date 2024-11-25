@@ -52,22 +52,4 @@ public sealed abstract class MayorGenFilter permits MayorGenFilter.ByCuentaId, M
         LocalDate startDate;
         LocalDate endDate;
     }
-
-    /**
-     * Representa la opción de no aplicar ningún filtro al Mayor General.
-     */
-    @ToString
-    public static final class All extends MayorGenFilter {
-        private static All instance;
-
-        private All() {
-        }
-
-        public static All getInstance() {
-            if (instance == null) {
-                instance = new All();
-            }
-            return instance;
-        }
-    }
 }
