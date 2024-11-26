@@ -5,8 +5,61 @@
 
     <groupId>com.nutrehogar</groupId>
     <artifactId>SistemaContable</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.5-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <name>Sistema Contable</name>
+    <url>https://github.com/TrotmanCH/Contabilidad-Nutre-Hogar</url>
+    <description>
+        Este proyecto es una aplicación de escritorio para la gestión contable de Nutre Hogar.
+        Permite el registro y control de transacciones contables, incluyendo la generación de reportes de libro diario
+        mayor y general.
+    </description>
+    <inceptionYear>2024</inceptionYear>
+
+    <organization>
+        <name>Nutre Hogar</name>
+        <url>https://www.nutrehogar.net/</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>Calcifer1331</id>
+            <name>Yoseph Arauz</name>
+            <email>Calcifer1331@hotmail.com</email>
+            <url>https://github.com/Calcifer1331</url>
+            <roles>
+                <role>Software Developer</role>
+                <role>Full Stack Developer</role>
+                <role>Tester</role>
+                <role>Data Engineer</role>
+            </roles>
+            <organization>
+                Universidad Tecnológica de Panamá
+                Centro Regional de Bocas del Toro
+            </organization>
+            <organizationUrl>https://bt.utp.ac.pa/</organizationUrl>
+            <properties>
+                <organizationEmail>yoseph.arauz@utp.ac.pa</organizationEmail>
+            </properties>
+        </developer>
+        <developer>
+
+        </developer>
+        <developer>
+
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name></name>
+        </contributor>
+    </contributors>
+
+    <licenses>
+
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,6 +68,7 @@
         <exec.mainClass>com.nutrehogar.sistemacontable.ui.view.Menu
         </exec.mainClass> <!-- Asegúrate de especificar tu clase principal -->
     </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
         <dependency>

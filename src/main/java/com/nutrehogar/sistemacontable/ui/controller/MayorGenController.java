@@ -20,20 +20,17 @@ import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Controlador de la vista del Mayor General
  *
- * @author Calci
+ * @author Calcifer1331
  */
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MayorGenController {
-    final MayorGenRepo MGRepo = MayorGenRepo.getInstance();
     final TipoCuentaRepo tipoCuentaRepo = TipoCuentaRepo.getInstance();
     final SubTipoCuentaRepo subTipoCuentaRepo = SubTipoCuentaRepo.getInstance();
     final CuentaRepo cuentaRepo = CuentaRepo.getInstance();
@@ -53,6 +50,7 @@ public class MayorGenController {
     {
         currentDate = LocalDate.now();
     }
+
     public MayorGenController() {
         this.MGTableModel = new MayorGenTableModel();
         this.starSpinnerModel = new LocalDateSpinnerModel(getStartDateWithCurrentYear());
@@ -71,10 +69,12 @@ public class MayorGenController {
     }
 
     public LocalDate getStartDateWithCurrentYear() {
+        assert currentDate != null;
         return LocalDate.of(currentDate.getYear(), 1, 1);
     }
 
     public LocalDate getEndDateWithCurrentYear() {
+        assert currentDate != null;
         return LocalDate.of(currentDate.getYear(), 12, 31);
     }
 
@@ -116,15 +116,13 @@ public class MayorGenController {
      * Además, avisa a la tabla, para que renderice los nuevos datos
      */
     public void loadData() {
-        List<MayorGenFilter> filters = new ArrayList<>();
-        if (starSpinnerModel.getValue() instanceof LocalDate starDate && endSpinnerModel.getValue() instanceof LocalDate endDate) {
-            filters.add(MayorGenFilter.ByFechaRange.of(starDate, endDate));
-        }
-        filters.add(MayorGenFilter.ByCuentaId.of(cuentaId));
-
-        Optional<List<MayorGenDTO>> data = MGRepo.find(filters, null, null);
+        List<MayorGenDTO> data = MayorGenRepo.find(
+                null,
+                null,
+                new MayorGenFilter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
+                new MayorGenFilter.ByCuentaId(cuentaId));
         SwingUtilities.invokeLater(() -> {
-            MGTableModel.setData(data.orElseGet(List::of));
+            MGTableModel.setData(data);
         });
     }
 

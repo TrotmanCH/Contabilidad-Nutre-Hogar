@@ -18,7 +18,7 @@ import java.awt.*;
  * </u>
  *
  * @param <E>
- * @author Calci
+ * @author Calcifer1331
  */
 public class CustomComboBox<E> extends JComboBox<E> {
     {

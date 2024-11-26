@@ -15,25 +15,17 @@ import static com.nutrehogar.sistemacontable.application.service.Util.getDateFor
  * Servicio encargado de gestionar las operaciones de respaldo de la base de datos
  * utilizando Hibernate y las herramientas de conexión a base de datos.
  * Implementa el patrón Singleton para garantizar una única instancia.
- * @author Calci
+ * @author Calcifer1331
  */
 public class BackupService {
 
-    /** Sesión de Hibernate para interactuar con la base de datos. */
     private final Session session = HibernateUtil.getSession();
 
-    /** Instancia única de BackupService. */
     private static BackupService instance;
 
-    /** Constructor privado para implementar el patrón Singleton. */
     private BackupService() {
     }
 
-    /**
-     * Devuelve la instancia única de BackupService. Si no existe, la crea.
-     *
-     * @return Instancia única de BackupService.
-     */
     public static BackupService getInstance() {
         if (instance == null) {
             instance = new BackupService();

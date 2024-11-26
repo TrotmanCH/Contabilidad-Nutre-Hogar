@@ -17,7 +17,7 @@ import java.util.Arrays;
  * <p>
  * {@code COSTO} es el unico que su valor está mal
  *
- * @author Calci
+ * @author Calcifer1331
  * @see com.nutrehogar.sistemacontable.domain.model.TipoCuenta
  * @see com.nutrehogar.sistemacontable.ui.view.components.MayorGenTableModel
  */

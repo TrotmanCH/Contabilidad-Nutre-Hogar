@@ -8,7 +8,7 @@ import javax.swing.event.ListDataListener;
 
 /**
  * Modelo de un comboBox que puede resivir cualquier enum como valor
- * @author Calci
+ * @author Calcifer1331
  * @param <E>
  */
 public class EnumComboBoxModel<E extends Enum<E>> implements ComboBoxModel<E> {

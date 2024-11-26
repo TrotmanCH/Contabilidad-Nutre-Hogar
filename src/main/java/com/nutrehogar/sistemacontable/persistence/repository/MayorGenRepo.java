@@ -16,14 +16,14 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MayorGenRepo {
     private static final Session session = HibernateUtil.getSession();
 
-    public static @NotNull Optional<List<MayorGenDTO>> find(MayorGenField orderField, OrderDirection orderDirection, MayorGenFilter... filters) {
+    public static @NotNull List<MayorGenDTO> find(MayorGenField orderField, OrderDirection orderDirection, MayorGenFilter... filters) {
         List<MayorGenDTO> mayorGeneralDTOS = List.of();
+        if (filters == null || filters.length == 0) return mayorGeneralDTOS;
         try {
             session.beginTransaction();
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -59,23 +59,22 @@ public class MayorGenRepo {
                     registroHaberPath
             ));
 
-            if (filters != null && filters.length != 0) {
-                Predicate predicate = cb.conjunction();
-                for (MayorGenFilter filter : filters) {
-                    Predicate filterPredicate = switch (filter) {
-                        case MayorGenFilter.ByFechaRange fecha ->
-                                cb.between(asientoFechaPath, fecha.getStartDate(), fecha.getEndDate());
-                        case MayorGenFilter.ByNombreCuenta nombre -> nombre.getNombre() != null
-                                ? cb.like(cb.lower(cuentaIdPath), "%" + nombre.getNombre().toLowerCase() + "%")
-                                : cb.conjunction();
-                        case MayorGenFilter.ByCuentaId cuentaId -> cuentaId.getId() != null
-                                ? cb.like(cb.lower(cuentaNombrePath), "%" + cuentaId.getId().toLowerCase() + "%")
-                                : cb.conjunction();
-                    };
-                    predicate = cb.and(predicate, filterPredicate); // Combina con el acumulador
-                }
-                cq.where(predicate);
+            Predicate predicate = cb.conjunction();
+            for (MayorGenFilter filter : filters) {
+                Predicate filterPredicate = switch (filter) {
+                    case MayorGenFilter.ByFechaRange fecha -> fecha.startDate() != null || fecha.endDate() != null
+                            ? cb.between(asientoFechaPath, fecha.startDate(), fecha.endDate())
+                            : cb.conjunction();
+                    case MayorGenFilter.ByNombreCuenta nombre -> nombre.value() != null
+                            ? cb.like(cb.lower(cuentaIdPath), "%" + nombre.value().toLowerCase() + "%")
+                            : cb.conjunction();
+                    case MayorGenFilter.ByCuentaId cuentaId -> cuentaId.value() != null
+                            ? cb.like(cb.lower(cuentaNombrePath), "%" + cuentaId.value().toLowerCase() + "%")
+                            : cb.conjunction();
+                };
+                predicate = cb.and(predicate, filterPredicate); // Combina con el acumulador
             }
+            cq.where(predicate);
 
             // Aplicar orden
             if (orderField != null) {
@@ -108,6 +107,6 @@ public class MayorGenRepo {
             }
             e.printStackTrace();
         }
-        return Optional.ofNullable(mayorGeneralDTOS);
+        return mayorGeneralDTOS;
     }
 }

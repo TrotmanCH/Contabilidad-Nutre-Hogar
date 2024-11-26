@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 /**
  * Tabla que usada para mostrar una lista de {@code  MayorGenDTO}
  *
- * @author Calci
+ * @author Calcifer1331
  * @see MayorGenTableModel
  */
 @Getter

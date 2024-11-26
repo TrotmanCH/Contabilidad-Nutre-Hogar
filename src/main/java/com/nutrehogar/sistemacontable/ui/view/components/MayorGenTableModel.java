@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Modelo para una table que muestra una lista de {@link MayorGenDTO}
  *
- * @author Calci
+ * @author Calcifer1331
  * @see MayorGenTable
  */
 public class MayorGenTableModel extends AbstractTableModel {

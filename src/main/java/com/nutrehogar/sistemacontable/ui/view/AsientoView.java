@@ -17,6 +17,7 @@ public class AsientoView extends javax.swing.JFrame {
    
         asiento.setRegistros(new ArrayList<>());     
         texfieFecha.setText(LocalDate.now().toString());
+
     }
     
     @SuppressWarnings("unchecked")

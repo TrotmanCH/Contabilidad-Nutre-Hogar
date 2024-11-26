@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 /**
  * Modelo de un spinner que tiene como valor un {@link LocalDate}
  *
- * @author Calci
+ * @author Calcifer1331
  * @see LocalDate
  * @see LocalDateSpinner
  */

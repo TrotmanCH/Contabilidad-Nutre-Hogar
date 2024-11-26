@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
  *  System.out.print(getDateFormat(date)); // 2024-12-1-2-34-12
  * </pre></blockquote>
  *
- * @author Calci
+ * @author Calcifer1331
  * @see DateTimeFormatter
  * @see DecimalFormat
  */

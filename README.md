@@ -3,6 +3,17 @@
 Este proyecto es una aplicación de escritorio para la gestión contable de Nutre Hogar. Permite el registro y control de
 transacciones contables, incluyendo la generación de reportes de libro diario mayor y general.
 
+````xml
+
+<role>Software Developer</role>
+<role>Frontend Developer</role>
+<role>Backend Developer</role>
+<role>Full Stack Developer</role>
+<role>DevOps Engineer</role>
+<role>QA Engineer / Tester</role>
+<role>Data Engineer</role>
+````
+
 ## Características
 
 - **Registro de Transacciones**: Permite registrar transacciones contables como ingresos, egresos y adjuntos.

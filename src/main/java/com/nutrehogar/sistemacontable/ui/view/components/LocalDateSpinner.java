@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit;
 /**
  * Spinner que tiene como valor un {@link java.time.LocalDate}, para esto tiene un {@link LocalDateSpinnerModel}.
  *
- * @author Calci
+ * @author Calcifer1331
  * @see LocalDateSpinnerModel
  */
 public class LocalDateSpinner extends JSpinner {
