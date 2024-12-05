@@ -10,6 +10,17 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Arrays;
 
+/**
+ * Enum que define los tipos que pueden ser las cunetas.
+ * <p>
+ * Dependiendo del tipo de cuenta el saldo es el que suma es el haber o debe y vise versa con la resta
+ * <p>
+ * {@code COSTO} es el unico que su valor está mal
+ *
+ * @author Calcifer1331
+ * @see com.nutrehogar.sistemacontable.domain.model.TipoCuenta
+ * @see com.nutrehogar.sistemacontable.ui.view.components.MayorGenTableModel
+ */
 @AllArgsConstructor
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -44,17 +55,29 @@ public enum TipoCuenta {
             return saldo.add(debe, MATH_CONTEXT).subtract(haber, MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
         }
     },
+    //TODO: El metodo no esta bien implementado
     COSTO(6) {
         @Override
         public BigDecimal getSaldo(BigDecimal saldo, BigDecimal haber, BigDecimal debe) {
             return saldo.add(haber, MATH_CONTEXT).subtract(debe, MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
         }
     };
-
+    /**
+     * El contexto de las operaciones es el maximo
+     */
     private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
-
+    /**
+     * Es el id con el que esta registrado en la base de datos
+     */
     final int id;
 
+    /**
+     * Dependiendo del tipo de cuenta el saldo es el que suma es el haber o debe y vise versa con la resta
+     * @param saldo
+     * @param haber
+     * @param debe
+     * @return suma de {@code saldo} y el resultado de la resta o suma de {@code haber} y {@code debe}
+     */
     public abstract BigDecimal getSaldo(BigDecimal saldo, BigDecimal haber, BigDecimal debe);
 
     public static TipoCuenta fromId(int id) {

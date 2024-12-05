@@ -5,6 +5,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Spinner que tiene como valor un {@link java.time.LocalDate}, para esto tiene un {@link LocalDateSpinnerModel}.
+ *
+ * @author Calcifer1331
+ * @see LocalDateSpinnerModel
+ */
 public class LocalDateSpinner extends JSpinner {
     private final LocalDateSpinnerModel customModel;
 
@@ -20,10 +26,14 @@ public class LocalDateSpinner extends JSpinner {
         configEditor();
     }
 
+    /**
+     * Le da la funcionalidad al espiner de aumentar o decrementar la fecha dependiendo de que seccion se la seleccionada
+     */
     public void configEditor() {
         JSpinner.DefaultEditor editor = new JSpinner.DefaultEditor(this);
         this.setEditor(editor);
         editor.getTextField().addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent e) {
                 int position = editor.getTextField().getCaretPosition();
                 if (position < 5) {

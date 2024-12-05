@@ -8,30 +8,23 @@ import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.hibernate.Session;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MayorGenRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static MayorGenRepo instance;
 
-    private MayorGenRepo() {
-    }
-
-    public static MayorGenRepo getInstance() {
-        if (instance == null) {
-            instance = new MayorGenRepo();
-        }
-        return instance;
-    }
-
-    public Optional<List<MayorGenDTO>> find(List<MayorGenFilter> filters, MayorGenField orderField, OrderDirection orderDirection) {
-        List<MayorGenDTO> mayorGeneralDTOS = null;
+    public static @NotNull List<MayorGenDTO> find(MayorGenField orderField, OrderDirection orderDirection, MayorGenFilter... filters) {
+        List<MayorGenDTO> mayorGeneralDTOS = List.of();
+        System.out.println(filters);
+        if (filters == null || filters.length == 0) return mayorGeneralDTOS;
         try {
             session.beginTransaction();
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -67,26 +60,22 @@ public class MayorGenRepo {
                     registroHaberPath
             ));
 
-            if (filters != null && !filters.isEmpty()) {
-                List<Predicate> predicates = new ArrayList<>();
-
-                filters.forEach(filter -> {
-                    if (filter instanceof MayorGenFilter.ByFechaRange byFechaRange) {
-                        predicates.add(cb.between(asientoFechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
-                    } else if (filter instanceof MayorGenFilter.ByCuentaId byCuentaId) {
-                        predicates.add(cb.like(cb.lower(cuentaIdPath), "%" + byCuentaId.getId().toLowerCase() + "%"));
-                    } else if (filter instanceof MayorGenFilter.ByNombreCuenta byNombreCuenta) {
-                        predicates.add(cb.like(cb.lower(cuentaNombrePath), "%" + byNombreCuenta.getNombre().toLowerCase() + "%"));
-                    }
-                });
-
-                Predicate predicate = cb.conjunction();
-                if (!predicates.isEmpty()) {
-                    predicate = cb.and(predicates.toArray(new Predicate[0]));
-                }
-
-                cq.where(predicate);
+            Predicate predicate = cb.conjunction();
+            for (MayorGenFilter filter : filters) {
+                Predicate filterPredicate = switch (filter) {
+                    case MayorGenFilter.ByFechaRange fecha -> fecha.startDate() != null || fecha.endDate() != null
+                            ? cb.between(asientoFechaPath, fecha.startDate(), fecha.endDate())
+                            : cb.conjunction();
+                    case MayorGenFilter.ByNombreCuenta nombre -> nombre.value() != null
+                            ? cb.like(cb.lower(cuentaNombrePath), "%" + nombre.value().toLowerCase() + "%")
+                            : cb.conjunction();
+                    case MayorGenFilter.ByCuentaId cuentaId -> cuentaId.value() != null
+                            ? cb.like(cb.lower(cuentaIdPath), "%" + cuentaId.value().toLowerCase() + "%")
+                            : cb.conjunction();
+                };
+                predicate = cb.and(predicate, filterPredicate); // Combina con el acumulador
             }
+            cq.where(predicate);
 
             // Aplicar orden
             if (orderField != null) {
@@ -119,6 +108,6 @@ public class MayorGenRepo {
             }
             e.printStackTrace();
         }
-        return Optional.ofNullable(mayorGeneralDTOS);
+        return mayorGeneralDTOS;
     }
 }
