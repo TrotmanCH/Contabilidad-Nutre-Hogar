@@ -58,7 +58,11 @@
     </contributors>
 
     <licenses>
-
+        <license>
+            <name>Apache License</name>
+            <url>http://www.apache.org/licenses/</url>
+            <distribution>manual</distribution>
+        </license>
     </licenses>
 
     <properties>

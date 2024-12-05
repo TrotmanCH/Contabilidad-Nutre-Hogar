@@ -2,6 +2,7 @@ package com.nutrehogar.sistemacontable.application.service;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.util.Properties;
@@ -10,6 +11,9 @@ import java.util.Properties;
  * Clase encargada de gestionar la carga, el almacenamiento y la inicialización de configuraciones
  * mediante el uso de un archivo de propiedades. Utiliza un patrón Singleton para garantizar que solo
  * exista una instancia de esta clase.
+ * </p>
+ * Las propiedades se cargan del archivo {@code config.properties} que debe estar en los recursos del programa {@code src/main/resources/}.
+ * Si no existe se asignarán unas propiedades por defecto, se creará él {@code .properties} y se guardara la configuración.
  *
  * @author Calcifer1331
  */
@@ -17,8 +21,14 @@ public class ConfigLoader {
 
     public static final String RESOURCE_PATH = "config.properties";
     public static final String RESOURCE_RELATIVE_PATH = "src/main/resources/config.properties";
-
+    /**
+     * Propiedades del programa, son las que se cargan en el momento en que se arranca.
+     */
     private static final Properties properties = new Properties();
+    /**
+     * Propiedades que se editan al momento de manipular las propiedades, se debe llamar al metodo {@code persistProperties()}
+     * para efectuar las modificaciones.
+     */
     private static Properties config = null;
 
     private ConfigLoader() {
@@ -29,13 +39,14 @@ public class ConfigLoader {
      */
     @Getter
     public enum Property {
-        PROGRAM_PATH("program.path", "SistemaContable"),
-        DB_NAME("db.name", "srccontabilidad.db"),
-        DB_BACKUP_PATH("db.backup", "backup"),
-        DB_PATH("db.path", System.getProperty("user.home") + File.separator + "db");
+        PROGRAM_PATH("program.path", "SistemaContable", "Dirección del programa"),
+        DB_NAME("db.name", "srccontabilidad.db", "Nombre de Base de Datos"),
+        DB_BACKUP_PATH("db.backup", "backup", "Carpeta de las Copias de Seguridad de la Base de Datos"),
+        DB_PATH("db.path", System.getProperty("user.home") + File.separator + "db", "Dirección de la Base de Datos");
 
         private final String key;
         private final String defaultValue;
+        private final String name;
 
         /**
          * Constructor del enum Property.
@@ -43,9 +54,10 @@ public class ConfigLoader {
          * @param key          Clave de la propiedad.
          * @param defaultValue Valor predeterminado de la propiedad.
          */
-        Property(String key, String defaultValue) {
+        Property(String key, String defaultValue, String name) {
             this.key = key;
             this.defaultValue = defaultValue;
+            this.name = name;
         }
     }
 
@@ -151,18 +163,30 @@ public class ConfigLoader {
         config = null;
     }
 
-    public static void clear() {
-        System.out.println(getProperty(Property.DB_BACKUP_PATH));
-        System.out.println(getProperty(Property.PROGRAM_PATH));
+    public static int getPropertiesSize() {
+        return properties.size();
+    }
 
-        setProperty(Property.DB_BACKUP_PATH, "Hola");
-        setProperty(Property.PROGRAM_PATH, "Esteeeeeeee");
+    @Getter
+    private static final String[] columnNames = {
+            "Propiedad", "Valor", "Key", "Default Value"
+    };
 
-        persistProperties();
+    public static @Nullable Object getValues(int rowIndex, int columnIndex) {
+        if (columnIndex < properties.size()) {
+            Property property = Property.values()[rowIndex];
+            return switch (columnIndex) {
+                case 0 -> property.name;
+                case 1 -> properties.getProperty(property.key);
+                case 2 -> property.key;
+                case 3 -> property.defaultValue;
+                default -> null;
+            };
+        } else return null;
+    }
 
-        setProperty(Property.DB_BACKUP_PATH, "Holaaaaaaaaaaaaaaaaaaaaaaa");
-
-        persistProperties();
+    public static @NotNull String getAbsoluteProgramPath() {
+        return System.getProperty("user.home") + File.separator + properties.getProperty(Property.PROGRAM_PATH.key);
     }
 
     /**

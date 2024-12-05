@@ -25,31 +25,7 @@ public class MayorGenTableModel extends AbstractTableModel {
      * lista de datos a mostrar en la base de datos
      */
     private List<MayorGenDTO> data;
-    //    /**
-//     * private final String[] columnNames = {
-//     * MayorGenField.ASIENTO_FECHA.getFieldName(),
-//     * MayorGenField.ASIENTO_NOMBRE.getFieldName(),
-//     * MayorGenField.TIPO_DOCUMENTO_NOMBRE.getFieldName(),
-//     * MayorGenField.CUENTA_ID.getFieldName(),
-//     * MayorGenField.REGISTRO_REFERENCIA.getFieldName(),
-//     * MayorGenField.REGISTRO_DEBE.getFieldName(),
-//     * MayorGenField.REGISTRO_HABER.getFieldName(),
-//     * MayorGenField.SALDO.getFieldName()
-//     * };
-//     *
-//     * @Override public String getColumnName(int column) {
-//     * return columnNames[column];
-//     * }
-//     * @Override
-//     *     public Class<?> getColumnClass(int columnIndex) {
-//     *         return switch (columnIndex) {
-//     *             case 0 -> LocalDate.class;
-//     *             case 1, 2, 3, 4 -> String.class;
-//     *             case 5, 6, 7 -> BigDecimal.class;
-//     *             default -> Object.class;
-//     *         };
-//     *     }
-//     */
+
     private BigDecimal saldo = BigDecimal.ZERO;
     private BigDecimal sumDebe = BigDecimal.ZERO;
     private BigDecimal sumHaber = BigDecimal.ZERO;
@@ -144,6 +120,7 @@ public class MayorGenTableModel extends AbstractTableModel {
 
     public void setData(List<MayorGenDTO> newData) {
         data = newData != null ? calcularSaldos(newData) : List.of();
+        System.out.println("MayorGenTableModel.setData: " + data);
         fireTableDataChanged();
     }
 }
