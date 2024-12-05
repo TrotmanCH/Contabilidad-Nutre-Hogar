@@ -121,7 +121,12 @@ public class MayorGenController {
                 null,
                 new MayorGenFilter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
                 new MayorGenFilter.ByCuentaId(cuentaId));
+
+        System.out.println("MayorGenController.loadData: "+ starSpinnerModel.getValue());
+        System.out.println("MayorGenController.loadData: "+ endSpinnerModel.getValue());
+        System.out.println("MayorGenController.loadData: cuenta id: "+ cuentaId);
         SwingUtilities.invokeLater(() -> {
+            System.out.println("MayorGenController.loadData: " + data);
             MGTableModel.setData(data);
         });
     }

@@ -23,6 +23,7 @@ public class MayorGenRepo {
 
     public static @NotNull List<MayorGenDTO> find(MayorGenField orderField, OrderDirection orderDirection, MayorGenFilter... filters) {
         List<MayorGenDTO> mayorGeneralDTOS = List.of();
+        System.out.println(filters);
         if (filters == null || filters.length == 0) return mayorGeneralDTOS;
         try {
             session.beginTransaction();
@@ -66,10 +67,10 @@ public class MayorGenRepo {
                             ? cb.between(asientoFechaPath, fecha.startDate(), fecha.endDate())
                             : cb.conjunction();
                     case MayorGenFilter.ByNombreCuenta nombre -> nombre.value() != null
-                            ? cb.like(cb.lower(cuentaIdPath), "%" + nombre.value().toLowerCase() + "%")
+                            ? cb.like(cb.lower(cuentaNombrePath), "%" + nombre.value().toLowerCase() + "%")
                             : cb.conjunction();
                     case MayorGenFilter.ByCuentaId cuentaId -> cuentaId.value() != null
-                            ? cb.like(cb.lower(cuentaNombrePath), "%" + cuentaId.value().toLowerCase() + "%")
+                            ? cb.like(cb.lower(cuentaIdPath), "%" + cuentaId.value().toLowerCase() + "%")
                             : cb.conjunction();
                 };
                 predicate = cb.and(predicate, filterPredicate); // Combina con el acumulador
