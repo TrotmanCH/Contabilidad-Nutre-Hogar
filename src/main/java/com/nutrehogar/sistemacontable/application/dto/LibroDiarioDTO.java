@@ -1,17 +1,23 @@
 package com.nutrehogar.sistemacontable.application.dto;
 
-import com.nutrehogar.sistemacontable.domain.model.Cuenta;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record LibroDiarioDTO(LocalDate fecha,
+/**
+ * @author Calcifer1331
+ * @param asientoFecha
+ * @param tipoDocumentoNombre
+ * @param cuentaId
+ * @param registroComprobante
+ * @param registroReferencia
+ * @param registroDebe
+ * @param registroHaber
+ */
+public record LibroDiarioDTO(LocalDate asientoFecha,
                              String tipoDocumentoNombre,
-                             String codigoCuenta,
-                             String comprobante,
-                             String referencia,
-                             BigDecimal debe,
-                             BigDecimal haber) {
-
-
+                             String cuentaId,
+                             String registroComprobante,
+                             String registroReferencia,
+                             BigDecimal registroDebe,
+                             BigDecimal registroHaber) {
 }

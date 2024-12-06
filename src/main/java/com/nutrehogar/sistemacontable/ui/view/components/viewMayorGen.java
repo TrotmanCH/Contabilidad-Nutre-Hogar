@@ -8,18 +8,20 @@ import com.nutrehogar.sistemacontable.ui.controller.TipoCuenta;
 import lombok.Getter;
 import lombok.Setter;
 
-
-public class viewMayorGen extends javax.swing.JPanel {
+/**
+ * @author Calcifer1331
+ */
+public class ViewMayorGen extends javax.swing.JPanel {
     @Getter
     @Setter
     private MayorGenController MGController;
 
-    public viewMayorGen() {
+    public ViewMayorGen() {
         MGController = new MayorGenController();
         initComponents();
     }
 
-    public viewMayorGen(MayorGenController MGController) {
+    public ViewMayorGen(MayorGenController MGController) {
         this.MGController = MGController;
         initComponents();
     }
