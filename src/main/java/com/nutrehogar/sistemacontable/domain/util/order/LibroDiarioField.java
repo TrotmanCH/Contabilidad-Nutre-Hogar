@@ -8,7 +8,7 @@ import lombok.Getter;
  * @author Calcifer1331
  */
 @Getter
-public enum LibroDiarioField implements OrderField {
+public enum LibroDiarioField  {
     ASIENTO_FECHA("Fecha"),
     TIPO_DOCUMENTO_NOMBRE("Tipo Documento"),
     CUENTA_ID("Codigo Cuenta"),
@@ -16,7 +16,6 @@ public enum LibroDiarioField implements OrderField {
     REGISTRO_REFERENCIA("Referencia"),
     REGISTRO_DEBE("Debe"),
     REGISTRO_HABER("Haber");
-
     private final String fieldName;
 
     /**

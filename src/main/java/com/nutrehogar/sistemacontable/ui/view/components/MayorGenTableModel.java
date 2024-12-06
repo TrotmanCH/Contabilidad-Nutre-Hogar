@@ -63,7 +63,7 @@ public class MayorGenTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return data.size() + 1;//uno extra para el total
+        return data.size() + 1;
     }
 
     @Override

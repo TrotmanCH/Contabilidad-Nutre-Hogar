@@ -7,7 +7,7 @@ import lombok.Getter;
  * Enum que define los campos por los cuales se puede ordenar el Mayor General.
  */
 @Getter
-public enum MayorGenField implements OrderField {
+public enum MayorGenField {
     ASIENTO_FECHA("Fecha"),
     ASIENTO_NOMBRE("Nombre de Asiento"),
     TIPO_DOCUMENTO_NOMBRE("Tipo Documento"),
