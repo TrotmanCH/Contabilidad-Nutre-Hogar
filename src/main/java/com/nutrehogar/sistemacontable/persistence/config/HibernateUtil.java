@@ -1,5 +1,6 @@
 package com.nutrehogar.sistemacontable.persistence.config;
 
+import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -16,13 +17,14 @@ import org.hibernate.cfg.Configuration;
  */
 public class HibernateUtil {
 
+    @Getter
     private static final SessionFactory sessionFactory = buildSessionFactory(); // Instancia de SessionFactory
     private static Session session = null; // Instancia única de Session
 
     /**
      * Constructor protegido para evitar instanciación externa.
      */
-    protected HibernateUtil() {
+    private HibernateUtil() {
     }
 
     /**
@@ -34,10 +36,19 @@ public class HibernateUtil {
     private static SessionFactory buildSessionFactory() {
         try {
 //            Configuration configuration = new Configuration().configure(); // Configura Hibernate
+//            Properties settings = new Properties();
+//
+//            settings.put("hibernate.connection.url", "jdbc:sqlite:" + getProperty(ConfigLoader.Property.DB_NAME));
+//
+//            configuration.setProperties(settings);
+//
 //            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-//                    .applySettings(configuration.getProperties()).build(); // Crea el ServiceRegistry
-//            return configuration.buildSessionFactory(serviceRegistry); // Devuelve el SessionFactory
-            return new Configuration().configure().buildSessionFactory();
+//                    .applySettings(configuration.getProperties()).build();
+//            return new Configuration().configure().buildSessionFactory(serviceRegistry);
+
+            Configuration config = new Configuration().configure();
+            return config.buildSessionFactory();
+
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex); // Maneja errores en la construcción
         }
@@ -55,6 +66,7 @@ public class HibernateUtil {
         }
         return session; // Devuelve la sesión activa
     }
+
 
     /**
      * Cierra la sesión de Hibernate y el SessionFactory.

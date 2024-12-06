@@ -13,35 +13,19 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Modelo para una table que muestra una lista de {@link MayorGenDTO}
+ *
+ * @author Calcifer1331
+ * @see MayorGenTable
+ */
 public class MayorGenTableModel extends AbstractTableModel {
     private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
-
-    private List<MayorGenDTO> data;
     /**
-     * private final String[] columnNames = {
-     * MayorGenField.ASIENTO_FECHA.getFieldName(),
-     * MayorGenField.ASIENTO_NOMBRE.getFieldName(),
-     * MayorGenField.TIPO_DOCUMENTO_NOMBRE.getFieldName(),
-     * MayorGenField.CUENTA_ID.getFieldName(),
-     * MayorGenField.REGISTRO_REFERENCIA.getFieldName(),
-     * MayorGenField.REGISTRO_DEBE.getFieldName(),
-     * MayorGenField.REGISTRO_HABER.getFieldName(),
-     * MayorGenField.SALDO.getFieldName()
-     * };
-     *
-     * @Override public String getColumnName(int column) {
-     * return columnNames[column];
-     * }
-     * @Override
-     *     public Class<?> getColumnClass(int columnIndex) {
-     *         return switch (columnIndex) {
-     *             case 0 -> LocalDate.class;
-     *             case 1, 2, 3, 4 -> String.class;
-     *             case 5, 6, 7 -> BigDecimal.class;
-     *             default -> Object.class;
-     *         };
-     *     }
+     * lista de datos a mostrar en la base de datos
      */
+    private List<MayorGenDTO> data;
+
     private BigDecimal saldo = BigDecimal.ZERO;
     private BigDecimal sumDebe = BigDecimal.ZERO;
     private BigDecimal sumHaber = BigDecimal.ZERO;
@@ -54,6 +38,14 @@ public class MayorGenTableModel extends AbstractTableModel {
         this.data = data != null ? calcularSaldos(data) : List.of();
     }
 
+    /**
+     * Calcula la suma de {@code saldo}, de {@code Debe} y de {@code Haber}.
+     * <p>
+     * Dependiendo del tipo de cuenta que sea el del registro será el débito o el credito el que reste y sume
+     *
+     * @param data lista de datos a mostrar en la base de datos
+     * @return la misma lista, con el {@code saldo}, total de {@code Debe} y total de {@code Haber} sumado
+     */
     @Contract("_ -> param1")
     private List<MayorGenDTO> calcularSaldos(@NotNull List<MayorGenDTO> data) {
         saldo = BigDecimal.ZERO;
@@ -120,8 +112,15 @@ public class MayorGenTableModel extends AbstractTableModel {
         };
     }
 
+    /**
+     * Inserta los nuevos datos a la tabla y llama a {@code fireTableDataChanged()}, para que la tabla se vuelva a renderzar
+     *
+     * @param newData lista de datos a mostrar
+     */
+
     public void setData(List<MayorGenDTO> newData) {
         data = newData != null ? calcularSaldos(newData) : List.of();
+        System.out.println("MayorGenTableModel.setData: " + data);
         fireTableDataChanged();
     }
 }
