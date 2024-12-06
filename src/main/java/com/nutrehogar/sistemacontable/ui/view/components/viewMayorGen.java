@@ -57,11 +57,11 @@ public class ViewMayorGen extends javax.swing.JPanel {
             sec1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sec1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(comTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(comTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(comSubTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(comSubTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(customComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         sec1Layout.setVerticalGroup(
@@ -142,7 +142,7 @@ public class ViewMayorGen extends javax.swing.JPanel {
                     .addComponent(sec1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

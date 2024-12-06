@@ -12,7 +12,9 @@ public enum BalanceComField {
     CUENTA_NOMBRE("Nombre Cuenta"),
     REGISTRO_REFERENCIA("Referencia"),
     REGISTRO_DEBE("Debe"),
-    REGISTRO_HABER("Haber");
+    REGISTRO_HABER("Haber"),
+    SALDO("Saldo");
+
 
     private final String fieldName;
 

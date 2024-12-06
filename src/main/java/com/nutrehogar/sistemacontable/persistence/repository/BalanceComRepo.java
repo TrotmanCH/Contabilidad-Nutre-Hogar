@@ -1,24 +1,27 @@
 package com.nutrehogar.sistemacontable.persistence.repository;
 
 import com.nutrehogar.sistemacontable.application.dto.BalanceComDTO;
-import com.nutrehogar.sistemacontable.domain.model.Asiento;
-import com.nutrehogar.sistemacontable.domain.model.Cuenta;
-import com.nutrehogar.sistemacontable.domain.model.Registro;
-import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
+import com.nutrehogar.sistemacontable.domain.model.*;
 import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComFilter;
 import com.nutrehogar.sistemacontable.domain.util.order.BalanceComField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.Session;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 /**
  * @author Jayson
  */
@@ -28,14 +31,17 @@ public class BalanceComRepo {
 
     public static List<BalanceComDTO> find(BalanceComField orderField, OrderDirection orderDirection, BalanceComFilter... filters) {
         List<BalanceComDTO> BalanceComDTOS = List.of();
-        if (filters == null || filters.length == 0) {
-            return BalanceComDTOS;
-        }
+        if (filters == null || filters.length == 0) return BalanceComDTOS;
+        System.out.println("orderField: " + orderField);
+        System.out.println("orderDirection: " + orderDirection);
+        System.out.println("filters: " + Arrays.toString(filters));
         try {
             session.beginTransaction();
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<BalanceComDTO> cq = cb.createQuery(BalanceComDTO.class);
             Root<Cuenta> cuenta = cq.from(Cuenta.class);
+            Join<Cuenta, SubTipoCuenta> subTipoCuenta = cuenta.join("subTipoCuenta");
+            Join<SubTipoCuenta, TipoCuenta> tipoCuenta = subTipoCuenta.join("tipoCuenta");
             Join<Cuenta, Registro> registros = cuenta.join("registros");
             Join<Registro, Asiento> asiento = registros.join("asiento");
             Join<Registro, TipoDocumento> tipoDocumento = registros.join("tipoDocumento");
@@ -44,6 +50,7 @@ public class BalanceComRepo {
             Path<BigDecimal> debePath = registros.get("debe");
             Path<BigDecimal> haberPath = registros.get("haber");
             Path<LocalDate> fechaPath = asiento.get("fecha");
+            Path<Integer> tipoCuentaIdPath = tipoCuenta.get("id");
             Path<String> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
             Path<String> codigoCuentaPath = cuenta.get("id");
             Path<String> nombreCuentaPath = cuenta.get("nombre");
@@ -56,6 +63,7 @@ public class BalanceComRepo {
                     tipoDocumentoNombrePath,
                     codigoCuentaPath,
                     nombreCuentaPath,
+                    tipoCuentaIdPath,
                     referenciaPath,
                     debePath,
                     haberPath));
@@ -97,6 +105,7 @@ public class BalanceComRepo {
                         fechaPath;
                     case REGISTRO_REFERENCIA ->
                         referenciaPath;
+                    case SALDO -> null;
                 };
 
                 if (orderDirection != null) {

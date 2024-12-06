@@ -78,11 +78,6 @@ public class MayorGenController {
         return LocalDate.of(currentDate.getYear(), 12, 31);
     }
 
-    public void restarDateToSpinners() {
-        this.starSpinnerModel.setValue(getStartDateWithCurrentYear());
-        this.endSpinnerModel.setValue(getEndDateWithCurrentYear());
-    }
-
     /**
      * Optiene el {@link TipoCuenta} que está seleccionado en el {@code tipoCuentaComboModel},
      * busca el tipo de cuenta en la base de datos mediante su id,
@@ -121,12 +116,7 @@ public class MayorGenController {
                 null,
                 new MayorGenFilter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
                 new MayorGenFilter.ByCuentaId(cuentaId));
-
-        System.out.println("MayorGenController.loadData: "+ starSpinnerModel.getValue());
-        System.out.println("MayorGenController.loadData: "+ endSpinnerModel.getValue());
-        System.out.println("MayorGenController.loadData: cuenta id: "+ cuentaId);
         SwingUtilities.invokeLater(() -> {
-            System.out.println("MayorGenController.loadData: " + data);
             MGTableModel.setData(data);
         });
     }
@@ -204,7 +194,6 @@ public class MayorGenController {
 
             @Override
             public void contentsChanged(ListDataEvent e) {
-                System.out.println("Change: " + subTipoCuentaComboModel.getSelectedItem().toString());
                 loadCuenta();
             }
         });
@@ -220,7 +209,6 @@ public class MayorGenController {
 
             @Override
             public void contentsChanged(ListDataEvent e) {
-                System.out.println("change : " + tipoCuentaComboModel.getSelectedItem().toString());
                 loadSubTipoCuentas();
             }
         });
@@ -240,7 +228,6 @@ public class MayorGenController {
                     cuentaId = cuenta.getId();
                 }
                 loadData();
-                System.out.printf("-------------------------------------------------- LOADDATA --------------------------------");
             }
         });
     }

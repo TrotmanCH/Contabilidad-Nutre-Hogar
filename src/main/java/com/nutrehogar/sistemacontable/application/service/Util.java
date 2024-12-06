@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -32,6 +33,7 @@ import java.time.format.DateTimeFormatter;
  * @see DecimalFormat
  */
 public class Util {
+    public static LocalDate currentDate = LocalDate.now();
     /**
      * Formato por defecto de un {@link BigDecimal}
      *
@@ -73,4 +75,5 @@ public class Util {
             }
         }
     }
+
 }
