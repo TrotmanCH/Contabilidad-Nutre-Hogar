@@ -44,7 +44,22 @@
             </properties>
         </developer>
         <developer>
-
+            <id>JaysonG05 </id>
+            <name>Jayson Grant</name>
+            <email>jaysonc-09@outlook.es</email>
+            <url>https://github.com/JaysonG05</url>
+            <roles> 
+                <role>Software Developer</role>
+                <role>Full Stack Developer</role>
+            </roles>
+            <organization>
+                Universidad Tecnológica de Panamá
+                Centro Regional de Bocas del Toro
+            </organization>
+            <organizationUrl>https://bt.utp.ac.pa/</organizationUrl>
+            <properties>
+                <organizationEmail>yoseph.arauz@utp.ac.pa</organizationEmail>
+            </properties>
         </developer>
         <developer>
 
