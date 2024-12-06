@@ -66,6 +66,12 @@ public class CuentaView extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Subtipo Cuenta");
 
+        cboSubTipoCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboSubTipoCuentaActionPerformed(evt);
+            }
+        });
+
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +147,7 @@ public class CuentaView extends javax.swing.JFrame {
         });
         SubTipoCuenta subtipoCuenta = subTipoCuentaRepo.findById(codigoSubtipo[0]);
         
-        Cuenta cuenta = Cuenta.builder().build();
+        Cuenta cuenta =new Cuenta();
         cuenta.setId(id);
         cuenta.setNombre(nombre);
         cuenta.setSubTipoCuenta(subtipoCuenta);
@@ -152,6 +158,10 @@ public class CuentaView extends javax.swing.JFrame {
         });
         dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void cboSubTipoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSubTipoCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboSubTipoCuentaActionPerformed
 
     /**
      * @param args the command line arguments
