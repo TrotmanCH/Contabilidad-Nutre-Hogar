@@ -17,6 +17,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * @author Calcifer1331
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MayorGenRepo {
     private static final Session session = HibernateUtil.getSession();
@@ -63,7 +66,7 @@ public class MayorGenRepo {
             Predicate predicate = cb.conjunction();
             for (MayorGenFilter filter : filters) {
                 Predicate filterPredicate = switch (filter) {
-                    case MayorGenFilter.ByFechaRange fecha -> fecha.startDate() != null || fecha.endDate() != null
+                    case MayorGenFilter.ByFechaRange fecha -> fecha.startDate() != null && fecha.endDate() != null
                             ? cb.between(asientoFechaPath, fecha.startDate(), fecha.endDate())
                             : cb.conjunction();
                     case MayorGenFilter.ByNombreCuenta nombre -> nombre.value() != null

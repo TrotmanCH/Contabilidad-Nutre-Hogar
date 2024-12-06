@@ -6,36 +6,32 @@ import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioOrderField;
+import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.hibernate.Session;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+/**
+ * @author Calcifer1331
+ */
 public class LibroDiarioRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static LibroDiarioRepo instance;
 
-    private LibroDiarioRepo() {
-    }
-
-    public static LibroDiarioRepo getInstance() {
-        if (instance == null) {
-            instance = new LibroDiarioRepo();
-        }
-        return instance;
-    }
-
-    public Optional<List<LibroDiarioDTO>> find(List<LibroDiarioFilter> filters, LibroDiarioOrderField orderField, OrderDirection orderDirection) {
-        List<LibroDiarioDTO> libroDiarioDTOS = null;
-
+    public static @NotNull List<LibroDiarioDTO> find(LibroDiarioField orderField, OrderDirection orderDirection, LibroDiarioFilter... filters) {
+        List<LibroDiarioDTO> libroDiarioDTOS = List.of();
+        System.out.println(Arrays.toString(filters));
+        if (filters == null || filters.length == 0) return libroDiarioDTOS;
 
         try {
             session.beginTransaction();
@@ -66,36 +62,33 @@ public class LibroDiarioRepo {
                     debePath,
                     haberPath));
 
-            if (filters != null && !filters.isEmpty()) {
-                List<Predicate> predicates = new ArrayList<>();
-
-                filters.forEach(filter -> {
-                    if (filter instanceof LibroDiarioFilter.ByFechaRange byFechaRange) {
-                        predicates.add(cb.between(fechaPath, byFechaRange.getStarDate(), byFechaRange.getEndDate()));
-                    } else if (filter instanceof LibroDiarioFilter.ByComprobante byComprobante) {
-                        predicates.add(cb.like(cb.lower(comprobantePath), "%" + byComprobante.getComprobante().toLowerCase() + "%"));
-                    } else if (filter instanceof LibroDiarioFilter.ByReferencia byReferencia) {
-                        predicates.add(cb.like(cb.lower(referenciaPath), "%" + byReferencia.getReferencia().toLowerCase() + "%"));
-                    }
-                });
-
-                Predicate predicate = cb.conjunction();
-                if (!predicates.isEmpty()) {
-                    predicate = cb.and(predicates.toArray(new Predicate[0]));
-                }
-                cq.where(predicate);
+            Predicate predicate = cb.conjunction();
+            for (LibroDiarioFilter filter : filters) {
+                Predicate filterPredicate = switch (filter) {
+                    case LibroDiarioFilter.ByFechaRange fecha -> fecha.startDate() != null && fecha.endDate() != null
+                            ? cb.between(fechaPath, fecha.startDate(), fecha.endDate())
+                            : cb.conjunction();
+                    case LibroDiarioFilter.ByComprobante comprobante -> comprobante.value() != null
+                            ? cb.like(cb.lower(comprobantePath), "%" + comprobante.value().toLowerCase() + "%")
+                            : cb.conjunction();
+                    case LibroDiarioFilter.ByReferencia referencia -> referencia.value() != null
+                            ? cb.like(cb.lower(referenciaPath), "%" + referencia.value().toLowerCase() + "%")
+                            : cb.conjunction();
+                };
+                predicate = cb.and(predicate, filterPredicate);
             }
+            cq.where(predicate);
 
             // Aplicar orden
             if (orderField != null) {
                 Path<?> orderPath = switch (orderField) {
-                    case FECHA -> fechaPath;
-                    case TIPO_DOCUMENTO -> tipoDocumentoNombrePath;
-                    case CODIGO_CUENTA -> codigoCuentaPath;
-                    case COMPROBANTE -> comprobantePath;
-                    case REFERENCIA -> referenciaPath;
-                    case DEBE -> debePath;
-                    case HABER -> haberPath;
+                    case ASIENTO_FECHA -> fechaPath;
+                    case TIPO_DOCUMENTO_NOMBRE -> tipoDocumentoNombrePath;
+                    case CUENTA_ID -> codigoCuentaPath;
+                    case REGISTRO_COMPROBANTE -> comprobantePath;
+                    case REGISTRO_REFERENCIA -> referenciaPath;
+                    case REGISTRO_DEBE -> debePath;
+                    case REGISTRO_HABER -> haberPath;
                 };
                 if (orderDirection != null) {
                     cq.orderBy(switch (orderDirection) {
@@ -116,6 +109,6 @@ public class LibroDiarioRepo {
             }
             e.printStackTrace();
         }
-        return Optional.ofNullable(libroDiarioDTOS);
+        return libroDiarioDTOS;
     }
 }

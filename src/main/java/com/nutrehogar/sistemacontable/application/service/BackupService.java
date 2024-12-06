@@ -2,8 +2,10 @@ package com.nutrehogar.sistemacontable.application.service;
 
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import com.nutrehogar.sistemacontable.ui.view.components.BackupPanel;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,62 +37,63 @@ import static com.nutrehogar.sistemacontable.application.service.Util.getDateFor
  */
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BackupService {
 
     /**
      * Sesión de Hibernate para la conexión con la base de datos.
      */
-    private final Session session = HibernateUtil.getSession();
+     final Session session = HibernateUtil.getSession();
 
     /**
      * Instancia única de la clase, siguiendo el patrón Singleton.
      */
-    private static BackupService instance;
+     static BackupService instance;
 
     /**
      * Diálogo modal que muestra la interfaz gráfica de respaldo.
      */
-    private JDialog dialog;
+     JDialog dialog;
 
     /**
      * Panel principal que contiene los elementos de la interfaz gráfica.
      */
-    private BackupPanel backupPanel;
+     BackupPanel backupPanel;
 
     /**
      * Tabla que muestra la lista de respaldos disponibles.
      */
-    private JTable tableBackup;
+     JTable tableBackup;
 
     /**
      * Modelo de datos para la tabla de respaldos.
      */
-    private BackupTableModel backupTableModel;
+     BackupTableModel backupTableModel;
 
     /**
      * Botón para cerrar la ventana de respaldo.
      */
-    private JButton btnClose;
+     JButton btnClose;
 
     /**
      * Botón para crear un nuevo respaldo.
      */
-    private JButton btnCreateBackup;
+     JButton btnCreateBackup;
 
     /**
      * Botón para restaurar un respaldo seleccionado.
      */
-    private JButton btnRestarBackup;
+     JButton btnRestarBackup;
 
     /**
      * Lista de archivos de respaldo encontrados en el directorio configurado.
      */
-    private File[] files;
+     File[] files;
 
     /**
      * Archivo seleccionado para la restauración.
      */
-    private File selectedFile;
+     File selectedFile;
 
     /**
      * Obtiene la instancia única de {@code BackupService}.
