@@ -7,22 +7,14 @@ import com.nutrehogar.sistemacontable.ui.controller.TipoCuenta;
 
 import lombok.Getter;
 import lombok.Setter;
-
+@Getter
+@Setter
 /**
  * @author Calcifer1331
  */
 public class ViewMayorGen extends javax.swing.JPanel {
-    @Getter
-    @Setter
-    private MayorGenController MGController;
 
     public ViewMayorGen() {
-        MGController = new MayorGenController();
-        initComponents();
-    }
-
-    public ViewMayorGen(MayorGenController MGController) {
-        this.MGController = MGController;
         initComponents();
     }
     
@@ -32,22 +24,18 @@ public class ViewMayorGen extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        mayorGenTable1 = new com.nutrehogar.sistemacontable.ui.view.components.MayorGenTable();
         sec1 = new javax.swing.JPanel();
-        comTipoCuenta = new com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<>(MGController.getTipoCuentaComboModel());
-        comSubTipoCuenta = new com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<>(MGController.getSubTipoCuentaComboModel());
-        customComboBox1 = new com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<>(MGController.getCuentaComboModel());
+        comTipoCuenta = new com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<>();
+        comSubTipoCuenta = new com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<>();
+        comCuenta = new com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<>();
         jPanel1 = new javax.swing.JPanel();
-        starDateSpinner = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner(MGController.getStarSpinnerModel());
+        starDateSpinner = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
         jLabel2 = new javax.swing.JLabel();
-        endDateSpinner = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner(MGController.getEndSpinnerModel());
+        endDateSpinner = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-
-        mayorGenTable1.setModel(MGController.getMGTableModel()
-        );
-        jScrollPane1.setViewportView(mayorGenTable1);
+        btnFilter = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        mayorGenTable = new javax.swing.JTable();
 
         sec1.setBorder(javax.swing.BorderFactory.createTitledBorder("Selector"));
 
@@ -61,7 +49,7 @@ public class ViewMayorGen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comSubTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(comCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         sec1Layout.setVerticalGroup(
@@ -71,22 +59,22 @@ public class ViewMayorGen extends javax.swing.JPanel {
                 .addGroup(sec1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comSubTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros"));
 
-        starDateSpinner.setToolTipText("<html><b>¡Cuidado!</b><br>Este botón realiza una acción <span style='color:red;'>importante</span></html>");
+        starDateSpinner.setToolTipText("");
 
         jLabel2.setText("Inicio:");
 
         jLabel3.setText("Fin:");
 
-        jButton1.setText("Filtrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnFilter.setText("Filtrar");
+        btnFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnFilterActionPerformed(evt);
             }
         });
 
@@ -104,7 +92,7 @@ public class ViewMayorGen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(endDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnFilter)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -116,18 +104,28 @@ public class ViewMayorGen extends javax.swing.JPanel {
                     .addComponent(starDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(endDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnFilter))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        mayorGenTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(mayorGenTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(sec1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -142,28 +140,27 @@ public class ViewMayorGen extends javax.swing.JPanel {
                     .addComponent(sec1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
         // TODO add your handling code here:
-        MGController.loadData();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnFilterActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFilter;
+    private com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<Cuenta> comCuenta;
     private com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<SubTipoCuenta> comSubTipoCuenta;
     private com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<TipoCuenta> comTipoCuenta;
-    private com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<Cuenta> customComboBox1;
     private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner endDateSpinner;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private com.nutrehogar.sistemacontable.ui.view.components.MayorGenTable mayorGenTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable mayorGenTable;
     private javax.swing.JPanel sec1;
     private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner starDateSpinner;
     // End of variables declaration//GEN-END:variables

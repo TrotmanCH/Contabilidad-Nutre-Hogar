@@ -10,8 +10,8 @@ import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComFilter;
 import com.nutrehogar.sistemacontable.domain.util.order.BalanceComField;
 import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.repository.BalanceComRepo;
-import com.nutrehogar.sistemacontable.ui.view.BalancedeComprobacionView;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
+import com.nutrehogar.sistemacontable.ui.view.components.ViewBalanceCom;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.nutrehogar.sistemacontable.application.service.Util.currentDate;
+import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 /**
@@ -39,7 +39,7 @@ import static com.nutrehogar.sistemacontable.application.service.Util.currentDat
 public class BalanceComController {
     static BalanceComController instance;
     @Getter
-    final BalancedeComprobacionView view;
+    final ViewBalanceCom view;
     final JTable table;
     final BalanceComTableModel tableModel;
 
@@ -47,7 +47,7 @@ public class BalanceComController {
     final LocalDateSpinner endDateSpinner;
 
     private BalanceComController() {
-        view = new BalancedeComprobacionView();
+        view = new ViewBalanceCom();
         table = view.getBalanceComTabla();
         starDateSpinner = view.getStartSpinnerDate();
         endDateSpinner = view.getEndSpinnerDate();
@@ -57,7 +57,7 @@ public class BalanceComController {
         tableModel = new BalanceComTableModel();
         table.setModel(tableModel);
         table.setDefaultRenderer(BigDecimal.class, new Util.BigDecimalRenderer());
-        restarDateToSpinners();
+        restarDateToSpinners(starDateSpinner, endDateSpinner);
         loadData();
     }
 
@@ -76,11 +76,6 @@ public class BalanceComController {
         SwingUtilities.invokeLater(() -> {
             tableModel.setData(data);
         });
-    }
-
-    public void restarDateToSpinners() {
-        this.starDateSpinner.setValue(LocalDate.of(currentDate.getYear(), 1, 1));
-        this.endDateSpinner.setValue(LocalDate.of(currentDate.getYear(), 12, 31));
     }
 
     public class BalanceComTableModel extends AbstractTableModel {

@@ -1,5 +1,7 @@
 package com.nutrehogar.sistemacontable.ui.view.components;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11,6 +13,7 @@ import java.time.temporal.ChronoUnit;
  * @author Calcifer1331
  * @see LocalDateSpinnerModel
  */
+@Getter
 public class LocalDateSpinner extends JSpinner {
     private final LocalDateSpinnerModel customModel;
 
