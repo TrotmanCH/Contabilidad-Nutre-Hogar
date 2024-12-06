@@ -4,6 +4,7 @@ import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.application.service.Util;
 import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
 import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioField;
+import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.repository.LibroDiarioRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.view.components.ViewLibroDiario;
@@ -17,7 +18,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.nutrehogar.sistemacontable.application.service.Util.currentDate;
+import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
 
 /**
  * @author Calcifer1331
@@ -58,23 +59,18 @@ public class LibroDiarioController {
         btnFilter.addActionListener(e -> {
             loadData();
         });
-        restarDateToSpinners();
+        restarDateToSpinners(starDateSpinner, endDateSpinner);
     }
 
     public void loadData() {
         var data = LibroDiarioRepo.find(
-                null,
-                null,
+                LibroDiarioField.ASIENTO_FECHA,
+                OrderDirection.ASCENDING,
                 new LibroDiarioFilter.ByFechaRange((LocalDate) starDateSpinner.getValue(), (LocalDate) endDateSpinner.getValue()));
 
         SwingUtilities.invokeLater(() -> {
             libroDiarioTableModel.setData(data);
         });
-    }
-
-    public void restarDateToSpinners() {
-        this.starDateSpinner.setValue(LocalDate.of(currentDate.getYear(), 1, 1));
-        this.endDateSpinner.setValue(LocalDate.of(currentDate.getYear(), 12, 31));
     }
 
     public class LibroDiarioTableModel extends AbstractTableModel {

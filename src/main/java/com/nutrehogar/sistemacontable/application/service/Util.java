@@ -1,8 +1,11 @@
 package com.nutrehogar.sistemacontable.application.service;
 
+import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
+import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -74,6 +77,15 @@ public class Util {
                 super.setValue(value);
             }
         }
+    }
+
+    public static void restarDateToSpinners(@NotNull LocalDateSpinnerModel star, @NotNull LocalDateSpinnerModel end) {
+        star.setValue(LocalDate.of(currentDate.getYear(), 1, 1));
+        end.setValue(LocalDate.of(currentDate.getYear(), 12, 31));
+    }
+    public static void restarDateToSpinners(@NotNull LocalDateSpinner star, @NotNull LocalDateSpinner end) {
+        star.setValue(LocalDate.of(currentDate.getYear(), 1, 1));
+        end.setValue(LocalDate.of(currentDate.getYear(), 12, 31));
     }
 
 }
