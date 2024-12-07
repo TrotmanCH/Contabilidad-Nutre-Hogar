@@ -5,6 +5,7 @@ import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoRepo;
 import java.math.BigDecimal;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class RegistroView extends javax.swing.JFrame {
@@ -73,6 +74,7 @@ public class RegistroView extends javax.swing.JFrame {
         jLabel8.setText("Tipo de Registro:");
 
         butgroTipoRegistro.add(radbutDebito);
+        radbutDebito.setSelected(true);
         radbutDebito.setText("Debito");
 
         butgroTipoRegistro.add(radbutCredito);
@@ -80,6 +82,12 @@ public class RegistroView extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Monto:");
+
+        texfieMonto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                texfieMontoFocusLost(evt);
+            }
+        });
 
         butGuardarRegistro.setText("Añadir");
         butGuardarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -235,6 +243,17 @@ public class RegistroView extends javax.swing.JFrame {
         
         dispose();
     }//GEN-LAST:event_butEditarRegistroMouseClicked
+
+    private void texfieMontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieMontoFocusLost
+        try {
+            BigDecimal.valueOf(Double.parseDouble(texfieMonto.getText()));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Introduzca un número decimal válido", 
+                    "Valor Incorrecto", JOptionPane.ERROR_MESSAGE
+            );
+            texfieMonto.setText("");
+        }
+    }//GEN-LAST:event_texfieMontoFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butEditarRegistro;

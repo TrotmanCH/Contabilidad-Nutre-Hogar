@@ -6,8 +6,8 @@ import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.RegistroRepo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -19,12 +19,17 @@ public class AsientoView extends javax.swing.JFrame {
     public final Asiento asiento = Asiento.builder().build();
     public final DefaultTableModel tabRegistrosModelo;
     public final ListSelectionModel listaSeleccionModelo;
+    public final ListaSeleccion listaSeleccion;
     
     public AsientoView() {
         initComponents();
         
         this.tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
         this.listaSeleccionModelo = tabRegistros.getSelectionModel();
+        this.listaSeleccion = new ListaSeleccion(butEditarRegistro, butEliminarRegistro);
+        
+        this.listaSeleccionModelo.addListSelectionListener(this.listaSeleccion);
+        this.tabRegistros.setSelectionModel(this.listaSeleccionModelo);
         
         asiento.setRegistros(new ArrayList<>());     
         texfieFecha.setText(LocalDate.now().toString());
@@ -266,18 +271,18 @@ public class AsientoView extends javax.swing.JFrame {
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
     
     private void texfieFechaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieFechaFocusLost
-        if (!Pattern.matches("\\d{4}-\\d{2}-\\d{2}", texfieFecha.getText())) {
+        try {
+            LocalDate.parse(texfieFecha.getText());
+        } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(null, "Introduzca una fecha válida", 
-                    "Fecha Inválida", JOptionPane.ERROR_MESSAGE
+                    "Valor Incorrecto", JOptionPane.ERROR_MESSAGE
             );
             texfieFecha.setText(LocalDate.now().toString());
         }
     }//GEN-LAST:event_texfieFechaFocusLost
 
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
-        if (!listaSeleccionModelo.isSelectionEmpty()){
-            ListaSeleccion listaSeleccion = new ListaSeleccion(listaSeleccionModelo, butEditarRegistro);
-            listaSeleccionModelo.addListSelectionListener(listaSeleccion);
+        if (!listaSeleccionModelo.isSelectionEmpty()) {
 
             Integer filaRegistro = listaSeleccion.fila;
             Registro registroSeleccionado = asiento.getRegistros().get(filaRegistro);
@@ -308,9 +313,9 @@ public class AsientoView extends javax.swing.JFrame {
 
     private void butEliminarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEliminarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()){
-            ListaSeleccion listaSeleccion = new ListaSeleccion(listaSeleccionModelo, butEliminarRegistro);
             Integer filaRegistro = listaSeleccion.fila;
             tabRegistrosModelo.removeRow(filaRegistro);
+            asiento.getRegistros().remove(asiento.getRegistros().get(filaRegistro));
         } else {
             mostrarSeleccionVacia();
         }
@@ -318,16 +323,20 @@ public class AsientoView extends javax.swing.JFrame {
     
     public void mostrarSeleccionVacia(){
         JOptionPane.showMessageDialog(null, "Seleccione un registro en la tabla", 
-                    "Selección Vacía", JOptionPane.WARNING_MESSAGE
+                    "Selección Vacía", JOptionPane.INFORMATION_MESSAGE
             );
     }
     // Lista Seleccion
     public class ListaSeleccion implements ListSelectionListener {
         public Integer fila;
-        
-        public ListaSeleccion(ListSelectionModel listaSeleccionModelo, JButton opcion) {
-            ListSelectionModel lsm = listaSeleccionModelo;
-
+        private JButton editar;
+        private JButton eliminar;
+        public ListaSeleccion(JButton editar, JButton eliminar) {
+            this.editar = editar;
+            this.eliminar = eliminar;
+        }
+        public void valueChanged(ListSelectionEvent e) {
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
             if (!lsm.isSelectionEmpty()) {
                 int minIndex = lsm.getMinSelectionIndex();
                 int maxIndex = lsm.getMaxSelectionIndex();
@@ -336,12 +345,12 @@ public class AsientoView extends javax.swing.JFrame {
                         fila = i;
                     }
                 }
-                opcion.setEnabled(true);
+                editar.setEnabled(true);
+                eliminar.setEnabled(true);
+            } else {
+                editar.setEnabled(false);
+                eliminar.setEnabled(false);
             }
-        }
-        public void valueChanged(ListSelectionEvent e) {
-//            ListSelectionModel lsm = e.getSource();
-            
         }
         
     }
