@@ -197,7 +197,21 @@ public class ListaCuentasView extends javax.swing.JFrame {
         //seleccionando la cuenta
         /*int selectedRow = tblCuenta.getSelectedRow();
         System.out.println(selectedRow); */
-          
+        
+        int selectedRow = tblCuenta.getSelectedRow();
+
+        // Verificar si hay una fila seleccionada
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una cuenta para actualizar.");
+            return;
+    }
+        // Obtener los datos de la fila seleccionada
+        String id = tblCuenta.getValueAt(selectedRow, 0).toString();
+        String nombreActual = tblCuenta.getValueAt(selectedRow, 1).toString();
+        String subTipoCuentaActual = tblCuenta.getValueAt(selectedRow, 3).toString();
+
+        // Abrir el formulario de edición y pasar los datos
+        new EditarCuentaView(id, nombreActual, subTipoCuentaActual, tblCuenta, selectedRow).setVisible(true); 
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
