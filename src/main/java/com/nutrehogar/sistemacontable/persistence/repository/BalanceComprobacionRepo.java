@@ -70,15 +70,15 @@ public class BalanceComprobacionRepo {
             if (filters != null && !filters.isEmpty()) {
                 List<Predicate> predicates = new ArrayList<>();
 
-                filters.forEach(filter -> {
-                    if (filter instanceof BalanceComprobacionFilter.ByFechaRange byFechaRange) {
-                        predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
-                    } else if (filter instanceof BalanceComprobacionFilter.ByNombreCuenta byNombreCuenta) {
-                        predicates.add(cb.like(cb.lower(nombreCuentaPath), "%" + byNombreCuenta.getNombreCuenta().toLowerCase() + "%"));
-                    } else if (filter instanceof BalanceComprobacionFilter.ByCodigoCuenta byCodigoCuenta) {
-                        predicates.add(cb.like(cb.lower(codigoCuentaPath), "%" + byCodigoCuenta.getCodigoCuenta().toLowerCase() + "%"));
-                    }
-                });
+//                filters.forEach(filter -> {
+//                    if (filter instanceof BalanceComprobacionFilter.ByFechaRange byFechaRange) {
+//                        predicates.add(cb.between(fechaPath, byFechaRange.getStartDate(), byFechaRange.getEndDate()));
+//                    } else if (filter instanceof BalanceComprobacionFilter.ByNombreCuenta byNombreCuenta) {
+//                        predicates.add(cb.like(cb.lower(nombreCuentaPath), "%" + byNombreCuenta.getNombreCuenta().toLowerCase() + "%"));
+//                    } else if (filter instanceof BalanceComprobacionFilter.ByCodigoCuenta byCodigoCuenta) {
+//                        predicates.add(cb.like(cb.lower(codigoCuentaPath), "%" + byCodigoCuenta.getCodigoCuenta().toLowerCase() + "%"));
+//                    }
+//                });
 
                 Predicate predicate = cb.conjunction();
                 if (!predicates.isEmpty()) {

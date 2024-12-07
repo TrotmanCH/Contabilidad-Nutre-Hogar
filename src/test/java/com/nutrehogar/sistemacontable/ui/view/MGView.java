@@ -1,7 +1,7 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.nutrehogar.sistemacontable.ui.view.components.viewMayorGen;
+//import com.nutrehogar.sistemacontable.ui.view.components.viewMayorGen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +11,10 @@ public class MGView extends javax.swing.JFrame {
 
     public MGView() {
         initComponents();
-        var pane = new viewMayorGen();
+//        var pane = new viewMayorGen();
         conteiner.removeAll();
         conteiner.setLayout(new BorderLayout());  // Añade esta línea para restablecer el diseño del Content
-        conteiner.add(pane, BorderLayout.CENTER);
+//        conteiner.add(pane, BorderLayout.CENTER);
         conteiner.revalidate();
         conteiner.repaint();
     }
