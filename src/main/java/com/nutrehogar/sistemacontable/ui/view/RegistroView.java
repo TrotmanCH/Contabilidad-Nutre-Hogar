@@ -205,6 +205,7 @@ public class RegistroView extends javax.swing.JFrame {
                 //  Generación de excepciones
                 texfieNoCheque.getText().charAt(1);
                 texfieReferencia.getText().charAt(1);
+                
                 // Guardado
                 registro.setAsiento(asiento);
                 registro.setTipoDocumento(tipoDocumentoRepo.findById(
@@ -240,7 +241,7 @@ public class RegistroView extends javax.swing.JFrame {
 
                 dispose();
             } catch (IndexOutOfBoundsException e) {
-                mostrarCamposVacios();
+                mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
             } 
         }  
     }//GEN-LAST:event_butAnadirMouseClicked
@@ -269,26 +270,24 @@ public class RegistroView extends javax.swing.JFrame {
 
                 dispose();
             } catch (IndexOutOfBoundsException e) {
-                mostrarCamposVacios();
+                mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
             }
         }
     }//GEN-LAST:event_butEditarMouseClicked
-    private void mostrarCamposVacios(){
-        JOptionPane.showMessageDialog(null, "Uno o varios campos estan vacíos", 
-                    "Campos Vacíos", JOptionPane.ERROR_MESSAGE
-        );
-    }
     private void texfieMontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieMontoFocusLost
         try {
             BigDecimal.valueOf(Double.parseDouble(texfieMonto.getText()));
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Introduzca un número decimal válido", 
-                    "Valor Incorrecto", JOptionPane.ERROR_MESSAGE
-            );
+            mostrarError("Valor Incorrecto", "Introduzca un número decimal válido");
             texfieMonto.setText("");
         }
     }//GEN-LAST:event_texfieMontoFocusLost
-
+    
+    private void mostrarError(String titulo, String mensaje){
+        JOptionPane.showMessageDialog(null, mensaje, 
+                    titulo, JOptionPane.ERROR_MESSAGE
+        );
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAnadir;
     private javax.swing.JButton butEditar;

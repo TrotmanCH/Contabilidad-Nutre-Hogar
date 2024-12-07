@@ -275,15 +275,11 @@ public class AsientoView extends javax.swing.JFrame {
                 
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Este asiento no tiene registros", 
-                    "Sin Registros", JOptionPane.ERROR_MESSAGE
-                );
+                mostrarError("Sin Registros", "Este asiento no tiene registros");
             }
             
         } catch (IndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Uno o varios campos estan vacíos", 
-                    "Campos Vacíos", JOptionPane.ERROR_MESSAGE
-            );
+            mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
         }
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
     
@@ -291,9 +287,7 @@ public class AsientoView extends javax.swing.JFrame {
         try {
             LocalDate.parse(texfieFecha.getText());
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(null, "Introduzca una fecha válida", 
-                    "Valor Incorrecto", JOptionPane.ERROR_MESSAGE
-            );
+            mostrarError("Valor Incorrecto", "Introduzca una fecha válida");
             texfieFecha.setText(LocalDate.now().toString());
         }
     }//GEN-LAST:event_texfieFechaFocusLost
@@ -340,9 +334,13 @@ public class AsientoView extends javax.swing.JFrame {
     private void mostrarSeleccionVacia() {
         JOptionPane.showMessageDialog(null, "Seleccione un registro en la tabla", 
                     "Selección Vacía", JOptionPane.INFORMATION_MESSAGE
-            );
+        );
     }
-    
+    private void mostrarError(String titulo, String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, 
+                    titulo, JOptionPane.ERROR_MESSAGE
+        );
+    }
     // Lista Seleccion
     public class ListaSeleccion implements ListSelectionListener {
         public Integer fila;
@@ -362,6 +360,7 @@ public class AsientoView extends javax.swing.JFrame {
                         fila = i;
                     }
                 }
+                
                 editar.setEnabled(true);
                 eliminar.setEnabled(true);
             } else {
@@ -369,7 +368,6 @@ public class AsientoView extends javax.swing.JFrame {
                 eliminar.setEnabled(false);
             }
         }
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
