@@ -229,7 +229,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_bttFormularioActionPerformed
 
     private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
-        new viewCuentas().setVisible(true);
+        new ListaCuentasView().setVisible(true);
     }//GEN-LAST:event_jButton10MouseClicked
 
     public static void main(String args[]) {
