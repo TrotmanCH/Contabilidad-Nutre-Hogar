@@ -29,7 +29,7 @@ public class ListaCuentasView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)tblCuenta.getModel();
         for (Cuenta cuenta : ListaCuenta) {
             model.addRow(new Object[]{
-            cuenta.getId(),cuenta.getNombre(),cuenta.getSubTipoCuenta(),cuenta.getSubTipoCuenta().getTipoCuenta()
+            cuenta.getId(),cuenta.getNombre(),cuenta.getSubTipoCuenta().getNombre(),cuenta.getSubTipoCuenta().getTipoCuenta().getNombre()
         });
         }
 
@@ -46,36 +46,6 @@ public class ListaCuentasView extends javax.swing.JFrame {
         }
 
     }
-    
-//}
-
-    /*private void initComponents() {
-        // Inicializar los botones
-        btnCrear = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
-
-        // Acción de los botones
-        btnCrear.setText("Crear");
-        btnCrear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearActionPerformed(evt);
-            }
-        });
-
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });*/
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -211,7 +181,7 @@ public class ListaCuentasView extends javax.swing.JFrame {
         String subTipoCuentaActual = tblCuenta.getValueAt(selectedRow, 3).toString();
 
         // Abrir el formulario de edición y pasar los datos
-        new EditarCuentaView(id, nombreActual, subTipoCuentaActual, tblCuenta, selectedRow).setVisible(true); 
+        new EditarCuentaView(id, nombreActual, subTipoCuentaActual, (DefaultTableModel) tblCuenta.getModel(), selectedRow).setVisible(true);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -248,11 +218,7 @@ public class ListaCuentasView extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListaCuentasView().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new ListaCuentasView().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

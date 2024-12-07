@@ -4,6 +4,7 @@
  */
 package com.nutrehogar.sistemacontable.ui.view;
 
+import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.SubTipoCuentaRepo;
@@ -25,6 +26,9 @@ public class EditarCuentaView extends javax.swing.JFrame {
     private int selectedRow;
     private java.util.List<SubTipoCuenta> listaSubTipo = SubTipoCuentaRepo.getInstance().findAll();
 
+    public EditarCuentaView(){
+
+    }
     public EditarCuentaView(String id, String nombre, String subTipoCuenta, DefaultTableModel tblCuenta, int row) {
         this.cuentaId = id;
         this.tblCuentaModel = tblCuenta;
@@ -55,9 +59,19 @@ public class EditarCuentaView extends javax.swing.JFrame {
 
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         cboSubTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -118,13 +132,30 @@ public class EditarCuentaView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        editarCuenta();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     private void editarCuenta() {
         // Validar datos
         String nombre = txtNombre.getText().trim();
-        if (nombre.isEmpty()) {
+        if (nombre.isBlank()) {
             JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
             return;
         }
+
+        try{
+            int nu = Integer.parseInt(nombre);
+            JOptionPane.showMessageDialog(this, "El nombre no puede ser un numero");
+            return;
+        } catch (NumberFormatException e){
+            System.out.println("CuentaView.btnGuardarActionPerformed");
+        }
+
 
         String subtipoSeleccionado = cboSubTipoCuenta.getSelectedItem().toString();
         SubTipoCuenta subTipoCuenta = listaSubTipo.stream()
@@ -140,7 +171,8 @@ public class EditarCuentaView extends javax.swing.JFrame {
         try {
             // Actualizar en la base de datos
             CuentaRepo cuentaRepo = CuentaRepo.getInstance();
-            cuentaRepo.update(cuentaId, nombre, subTipoCuenta.getId());
+            var cuenta = Cuenta.builder().id(cuentaId).nombre(nombre).subTipoCuenta(subTipoCuenta).build();
+            cuentaRepo.update(cuenta);
 
             // Actualizar en la tabla
             tblCuentaModel.setValueAt(nombre, selectedRow, 1);
@@ -182,11 +214,7 @@ public class EditarCuentaView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditarCuentaView().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new EditarCuentaView().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
