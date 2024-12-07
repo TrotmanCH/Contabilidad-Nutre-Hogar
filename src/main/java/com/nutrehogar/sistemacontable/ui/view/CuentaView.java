@@ -14,6 +14,7 @@ import com.nutrehogar.sistemacontable.persistence.repository.TipoCuentaRepo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -138,6 +139,24 @@ public class CuentaView extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = txtId.getText();
         String nombre = txtNombre.getText();
+
+        if(id.length() != 6 ){
+            JOptionPane.showMessageDialog(this, "El id debe tener 6 caracteres, y formato: #.###");
+            return;
+        }
+        if(nombre.isBlank()){
+            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacio.");
+            return;
+        }
+
+        try{
+            int nu = Integer.parseInt(nombre);
+            JOptionPane.showMessageDialog(this, "El nombre no puede ser un numero");
+
+            return;
+        } catch (NumberFormatException e){
+            System.out.println("CuentaView.btnGuardarActionPerformed");
+        }
         
         String[] codigoSubtipo = {"vacio"};
         listaSubTipo.forEach((subTipoCuenta) -> {
