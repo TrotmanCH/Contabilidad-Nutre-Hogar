@@ -259,9 +259,11 @@ public class AsientoView extends javax.swing.JFrame {
     }//GEN-LAST:event_butAnadirRegistroMouseClicked
     private void butGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarAsientoMouseClicked
         try {
+            // Generación de excepciones
             texfieNombre.getText().charAt(1);
             texareConcepto.getText().charAt(1);
             
+            // Guardado
             asiento.setNombre(texfieNombre.getText());
             asiento.setConcepto(texareConcepto.getText());
             
@@ -298,7 +300,6 @@ public class AsientoView extends javax.swing.JFrame {
 
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()) {
-
             Integer filaRegistro = listaSeleccion.fila;
             Registro registroSeleccionado = asiento.getRegistros().get(filaRegistro);
             RegistroView registroView = new RegistroView(asiento, tabRegistrosModelo, 
@@ -336,11 +337,12 @@ public class AsientoView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_butEliminarRegistroMouseClicked
     
-    private void mostrarSeleccionVacia(){
+    private void mostrarSeleccionVacia() {
         JOptionPane.showMessageDialog(null, "Seleccione un registro en la tabla", 
                     "Selección Vacía", JOptionPane.INFORMATION_MESSAGE
             );
     }
+    
     // Lista Seleccion
     public class ListaSeleccion implements ListSelectionListener {
         public Integer fila;
