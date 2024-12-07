@@ -258,16 +258,31 @@ public class AsientoView extends javax.swing.JFrame {
                 "AÑADIR REGISTRO", null).setVisible(true);
     }//GEN-LAST:event_butAnadirRegistroMouseClicked
     private void butGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarAsientoMouseClicked
-        asiento.setFecha(LocalDate.parse(texfieFecha.getText()));
-        asiento.setNombre(texfieNombre.getText());
-        asiento.setConcepto(texareConcepto.getText());
- 
-        AsientoRepo asientoRepo = AsientoRepo.getInstance();
-        asientoRepo.save(asiento);
-        RegistroRepo registroRepo = RegistroRepo.getInstance();
-        registroRepo.save(asiento.getRegistros());
-        
-        dispose();
+        try {
+            texfieNombre.getText().charAt(1);
+            texareConcepto.getText().charAt(1);
+            
+            asiento.setNombre(texfieNombre.getText());
+            asiento.setConcepto(texareConcepto.getText());
+            
+            if (!asiento.getRegistros().isEmpty()) {
+                AsientoRepo asientoRepo = AsientoRepo.getInstance();
+                asientoRepo.save(asiento);
+                RegistroRepo registroRepo = RegistroRepo.getInstance();
+                registroRepo.save(asiento.getRegistros());
+                
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Este asiento no tiene registros", 
+                    "Sin Registros", JOptionPane.ERROR_MESSAGE
+                );
+            }
+            
+        } catch (IndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Uno o varios campos estan vacíos", 
+                    "Campos Vacíos", JOptionPane.ERROR_MESSAGE
+            );
+        }
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
     
     private void texfieFechaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieFechaFocusLost
@@ -321,7 +336,7 @@ public class AsientoView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_butEliminarRegistroMouseClicked
     
-    public void mostrarSeleccionVacia(){
+    private void mostrarSeleccionVacia(){
         JOptionPane.showMessageDialog(null, "Seleccione un registro en la tabla", 
                     "Selección Vacía", JOptionPane.INFORMATION_MESSAGE
             );

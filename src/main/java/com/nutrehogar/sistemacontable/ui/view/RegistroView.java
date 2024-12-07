@@ -2,9 +2,12 @@ package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
+import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
+import com.nutrehogar.sistemacontable.persistence.repository.RegistroRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoRepo;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -191,59 +194,76 @@ public class RegistroView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void butGuardarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarRegistroMouseClicked
-        registro.setAsiento(asiento);
-        registro.setTipoDocumento(tipoDocumentoRepo.findById(
-                comboxTipoDoc.getSelectedIndex() + 1
-        ));
-        registro.setComprobante(texfieNoCheque.getText());
-        registro.setReferencia(texfieReferencia.getText());
-        registro.setCuenta(cuentaRepo.findById(
-                comboxCuenta.getSelectedItem().toString().substring(0, 6)
-        ));
-        
-        BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(
-                texfieMonto.getText()
-        ));
-        
-        if (radbutDebito.isSelected()) {
-            registro.setDebe(monto);
-            registro.setHaber(BigDecimal.ZERO);
-        } else if (radbutCredito.isSelected()){
-            registro.setDebe(BigDecimal.ZERO);
-            registro.setHaber(monto);
+        try {
+            texfieNoCheque.getText().charAt(1);
+            texfieReferencia.getText().charAt(1);
+            registro.setAsiento(asiento);
+            registro.setTipoDocumento(tipoDocumentoRepo.findById(
+                    comboxTipoDoc.getSelectedIndex() + 1
+            ));
+            registro.setComprobante(texfieNoCheque.getText());
+            registro.setReferencia(texfieReferencia.getText());
+            registro.setCuenta(cuentaRepo.findById(
+                    comboxCuenta.getSelectedItem().toString().substring(0, 6)
+            ));
+
+            BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(
+                    texfieMonto.getText()
+            ));
+
+            if (radbutDebito.isSelected()) {
+                registro.setDebe(monto);
+                registro.setHaber(BigDecimal.ZERO);
+            } else if (radbutCredito.isSelected()){
+                registro.setDebe(BigDecimal.ZERO);
+                registro.setHaber(monto);
+            }
+
+            asiento.getRegistros().add(registro);
+            tabRegistrosModelo.addRow(new Object[] {
+                registro.getTipoDocumento().getNombre(), 
+                registro.getComprobante(), 
+                registro.getReferencia(),
+                registro.getCuenta().getId(),
+                registro.getDebe(),
+                registro.getHaber()
+            });
+
+            dispose();
+        } catch (IndexOutOfBoundsException e) {
+            mostrarCamposVacios();
         }
         
-        asiento.getRegistros().add(registro);
-        tabRegistrosModelo.addRow(new Object[] {
-            registro.getTipoDocumento().getNombre(), 
-            registro.getComprobante(), 
-            registro.getReferencia(),
-            registro.getCuenta().getId(),
-            registro.getDebe(),
-            registro.getHaber()
-        });
-        
-        dispose();
     }//GEN-LAST:event_butGuardarRegistroMouseClicked
 
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
-        tabRegistrosModelo.setValueAt(comboxTipoDoc.getSelectedItem(), filaRegistro, 0);
-        tabRegistrosModelo.setValueAt(texfieNoCheque.getText(), filaRegistro, 1);
-        tabRegistrosModelo.setValueAt(texfieReferencia.getText(), filaRegistro, 2);
-        tabRegistrosModelo.setValueAt(comboxCuenta.getSelectedItem().toString().substring(0, 6), filaRegistro, 3);
-        
-        if (radbutDebito.isSelected()) {
-            tabRegistrosModelo.setValueAt(texfieMonto.getText(), filaRegistro, 4);
-            tabRegistrosModelo.setValueAt(BigDecimal.ZERO, filaRegistro, 5);
-        } else if (radbutCredito.isSelected()){
-            registro.setDebe(BigDecimal.ZERO);
-            tabRegistrosModelo.setValueAt(BigDecimal.ZERO, filaRegistro, 4);
-            tabRegistrosModelo.setValueAt(texfieMonto.getText(), filaRegistro, 5);
-        }
-        
-        dispose();
-    }//GEN-LAST:event_butEditarRegistroMouseClicked
+        try {
+            texfieNoCheque.getText().charAt(1);
+            texfieReferencia.getText().charAt(1);
+            tabRegistrosModelo.setValueAt(comboxTipoDoc.getSelectedItem(), filaRegistro, 0);
+            tabRegistrosModelo.setValueAt(texfieNoCheque.getText(), filaRegistro, 1);
+            tabRegistrosModelo.setValueAt(texfieReferencia.getText(), filaRegistro, 2);
+            tabRegistrosModelo.setValueAt(comboxCuenta.getSelectedItem().toString().substring(0, 6), filaRegistro, 3);
 
+            if (radbutDebito.isSelected()) {
+                tabRegistrosModelo.setValueAt(texfieMonto.getText(), filaRegistro, 4);
+                tabRegistrosModelo.setValueAt(BigDecimal.ZERO, filaRegistro, 5);
+            } else if (radbutCredito.isSelected()){
+                registro.setDebe(BigDecimal.ZERO);
+                tabRegistrosModelo.setValueAt(BigDecimal.ZERO, filaRegistro, 4);
+                tabRegistrosModelo.setValueAt(texfieMonto.getText(), filaRegistro, 5);
+            }
+
+            dispose();
+        } catch (IndexOutOfBoundsException e) {
+            mostrarCamposVacios();
+        }
+    }//GEN-LAST:event_butEditarRegistroMouseClicked
+    private void mostrarCamposVacios(){
+        JOptionPane.showMessageDialog(null, "Uno o varios campos estan vacíos", 
+                    "Campos Vacíos", JOptionPane.ERROR_MESSAGE
+            );
+    }
     private void texfieMontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieMontoFocusLost
         try {
             BigDecimal.valueOf(Double.parseDouble(texfieMonto.getText()));
