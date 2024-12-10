@@ -1,24 +1,23 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
-import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoRepo;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class RegistroView extends javax.swing.JFrame {
-    private final Registro registro = Registro.builder().build();
-    private final Asiento asiento;
+    private final List<Registro> listaRegistro;
     private final DefaultTableModel tabRegistrosModelo;
     private Integer filaRegistro;
     
     TipoDocumentoRepo tipoDocumentoRepo = TipoDocumentoRepo.getInstance();
     CuentaRepo cuentaRepo = CuentaRepo.getInstance();
     
-    public RegistroView(Asiento asiento, DefaultTableModel tabRegistrosModelo, 
-            String titulo, Integer filaRegistro) {
+    public RegistroView(List<Registro> listaRegistro, DefaultTableModel tabRegistrosModelo, 
+                String titulo, Integer filaRegistro) {
         initComponents();
         labTitulo.setText(titulo);
         
@@ -30,7 +29,7 @@ public class RegistroView extends javax.swing.JFrame {
             butEditar.setEnabled(true);
         }
         
-        this.asiento = asiento;
+        this.listaRegistro = listaRegistro;
         this.tabRegistrosModelo = tabRegistrosModelo;
         this.filaRegistro = filaRegistro;
         
@@ -207,16 +206,17 @@ public class RegistroView extends javax.swing.JFrame {
                 texfieReferencia.getText().charAt(1);
                 
                 // Guardado
-                registro.setAsiento(asiento);
-                registro.setTipoDocumento(tipoDocumentoRepo.findById(
-                        comboxTipoDoc.getSelectedIndex() + 1
-                ));
-                registro.setComprobante(texfieNoCheque.getText());
-                registro.setReferencia(texfieReferencia.getText());
-                registro.setCuenta(cuentaRepo.findById(
-                        comboxCuenta.getSelectedItem().toString().substring(0, 6)
-                ));
-
+                Registro registro = Registro.builder()
+                        .tipoDocumento(tipoDocumentoRepo.findById(
+                            comboxTipoDoc.getSelectedIndex() + 1
+                        ))
+                        .comprobante(texfieNoCheque.getText())
+                        .referencia(texfieReferencia.getText())
+                        .cuenta(cuentaRepo.findById(
+                            comboxCuenta.getSelectedItem().toString().substring(0, 6)
+                        ))
+                        .build();
+                
                 BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(
                         texfieMonto.getText()
                 ));
@@ -229,7 +229,7 @@ public class RegistroView extends javax.swing.JFrame {
                     registro.setHaber(monto);
                 }
 
-                asiento.getRegistros().add(registro);
+                listaRegistro.add(registro);
                 tabRegistrosModelo.addRow(new Object[] {
                     registro.getTipoDocumento().getNombre(), 
                     registro.getComprobante(), 
@@ -242,7 +242,9 @@ public class RegistroView extends javax.swing.JFrame {
                 dispose();
             } catch (IndexOutOfBoundsException e) {
                 mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
-            } 
+            } catch (NumberFormatException e) {
+                mostrarError("Valor Incorrecto", "Introduzca un número decimal válido");
+            }
         }  
     }//GEN-LAST:event_butAnadirMouseClicked
 
@@ -262,8 +264,7 @@ public class RegistroView extends javax.swing.JFrame {
                 if (radbutDebito.isSelected()) {
                     tabRegistrosModelo.setValueAt(texfieMonto.getText(), filaRegistro, 4);
                     tabRegistrosModelo.setValueAt(BigDecimal.ZERO, filaRegistro, 5);
-                } else if (radbutCredito.isSelected()){
-                    registro.setDebe(BigDecimal.ZERO);
+                } else if (radbutCredito.isSelected()) {
                     tabRegistrosModelo.setValueAt(BigDecimal.ZERO, filaRegistro, 4);
                     tabRegistrosModelo.setValueAt(texfieMonto.getText(), filaRegistro, 5);
                 }
@@ -271,6 +272,8 @@ public class RegistroView extends javax.swing.JFrame {
                 dispose();
             } catch (IndexOutOfBoundsException e) {
                 mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
+            } catch (NumberFormatException e) {
+                mostrarError("Valor Incorrecto", "Introduzca un número decimal válido");
             }
         }
     }//GEN-LAST:event_butEditarMouseClicked

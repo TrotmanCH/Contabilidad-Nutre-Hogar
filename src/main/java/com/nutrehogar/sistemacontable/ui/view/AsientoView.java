@@ -3,11 +3,11 @@ package com.nutrehogar.sistemacontable.ui.view;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.RegistroRepo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -16,10 +16,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class AsientoView extends javax.swing.JFrame {
-    public final Asiento asiento = Asiento.builder().build();
-    public final DefaultTableModel tabRegistrosModelo;
-    public final ListSelectionModel listaSeleccionModelo;
-    public final ListaSeleccion listaSeleccion;
+    private final List<Registro> listaRegistro = new ArrayList<>();
+    private final DefaultTableModel tabRegistrosModelo;
+    private final ListSelectionModel listaSeleccionModelo;
+    private final ListaSeleccion listaSeleccion;
     
     public AsientoView() {
         initComponents();
@@ -31,7 +31,6 @@ public class AsientoView extends javax.swing.JFrame {
         this.listaSeleccionModelo.addListSelectionListener(this.listaSeleccion);
         this.tabRegistros.setSelectionModel(this.listaSeleccionModelo);
         
-        asiento.setRegistros(new ArrayList<>());     
         texfieFecha.setText(LocalDate.now().toString());
         butEditarRegistro.setEnabled(false);
         butEliminarRegistro.setEnabled(false);
@@ -254,7 +253,7 @@ public class AsientoView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void butAnadirRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirRegistroMouseClicked
-        new RegistroView(asiento, tabRegistrosModelo, 
+        new RegistroView(listaRegistro, tabRegistrosModelo, 
                 "AÑADIR REGISTRO", null).setVisible(true);
     }//GEN-LAST:event_butAnadirRegistroMouseClicked
     private void butGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarAsientoMouseClicked
@@ -264,20 +263,25 @@ public class AsientoView extends javax.swing.JFrame {
             texareConcepto.getText().charAt(1);
             
             // Guardado
-            asiento.setNombre(texfieNombre.getText());
-            asiento.setConcepto(texareConcepto.getText());
+            Asiento asiento = Asiento.builder()
+                    .fecha(LocalDate.parse(texfieFecha.getText()))
+                    .nombre(texfieNombre.getText())
+                    .concepto(texareConcepto.getText())
+                    .build();
+            
+            listaRegistro.forEach((registro) -> {
+                registro.setAsiento(asiento);
+            });
+            asiento.setRegistros(listaRegistro);
             
             if (!asiento.getRegistros().isEmpty()) {
                 AsientoRepo asientoRepo = AsientoRepo.getInstance();
                 asientoRepo.save(asiento);
-                RegistroRepo registroRepo = RegistroRepo.getInstance();
-                registroRepo.save(asiento.getRegistros());
                 
                 dispose();
             } else {
                 mostrarError("Sin Registros", "Este asiento no tiene registros");
             }
-            
         } catch (IndexOutOfBoundsException e) {
             mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
         }
@@ -295,26 +299,26 @@ public class AsientoView extends javax.swing.JFrame {
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()) {
             Integer filaRegistro = listaSeleccion.fila;
-            Registro registroSeleccionado = asiento.getRegistros().get(filaRegistro);
-            RegistroView registroView = new RegistroView(asiento, tabRegistrosModelo, 
+            
+            Registro registroSeleccionado = listaRegistro.get(filaRegistro);
+            RegistroView registroVista = new RegistroView(listaRegistro, tabRegistrosModelo, 
                     "EDITAR REGISTRO", filaRegistro);
-
-            registroView.comboxTipoDoc.setSelectedIndex(registroSeleccionado.getTipoDocumento().getId() - 1);
-            registroView.texfieNoCheque.setText(registroSeleccionado.getComprobante());
-            registroView.texfieReferencia.setText(registroSeleccionado.getReferencia());
+            registroVista.comboxTipoDoc.setSelectedIndex(registroSeleccionado.getTipoDocumento().getId() - 1);
+            registroVista.texfieNoCheque.setText(registroSeleccionado.getComprobante());
+            registroVista.texfieReferencia.setText(registroSeleccionado.getReferencia());
 
             Object cuentaRegistroSeleccionado = registroSeleccionado.getCuenta().getId()+ " | " + registroSeleccionado.getCuenta().getNombre();
-            registroView.comboxCuenta.setSelectedItem(cuentaRegistroSeleccionado);
+            registroVista.comboxCuenta.setSelectedItem(cuentaRegistroSeleccionado);
 
             if (registroSeleccionado.getDebe() != BigDecimal.ZERO && registroSeleccionado.getHaber() == BigDecimal.ZERO) {
-                registroView.radbutDebito.setSelected(true);
-                registroView.texfieMonto.setText(registroSeleccionado.getDebe().toString());
+                registroVista.radbutDebito.setSelected(true);
+                registroVista.texfieMonto.setText(registroSeleccionado.getDebe().toString());
             } else {
-                registroView.radbutCredito.setSelected(true);
-                registroView.texfieMonto.setText(registroSeleccionado.getHaber().toString());
+                registroVista.radbutCredito.setSelected(true);
+                registroVista.texfieMonto.setText(registroSeleccionado.getHaber().toString());
             }
 
-            registroView.setVisible(true);
+            registroVista.setVisible(true);
         } else {
             mostrarSeleccionVacia();
         }
@@ -325,7 +329,8 @@ public class AsientoView extends javax.swing.JFrame {
         if (!listaSeleccionModelo.isSelectionEmpty()){
             Integer filaRegistro = listaSeleccion.fila;
             tabRegistrosModelo.removeRow(filaRegistro);
-            asiento.getRegistros().remove(asiento.getRegistros().get(filaRegistro));
+
+            listaRegistro.remove(listaRegistro.get(filaRegistro));
         } else {
             mostrarSeleccionVacia();
         }
