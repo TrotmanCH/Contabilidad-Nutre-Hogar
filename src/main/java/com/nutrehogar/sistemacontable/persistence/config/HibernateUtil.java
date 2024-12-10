@@ -1,57 +1,29 @@
 package com.nutrehogar.sistemacontable.persistence.config;
 
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-/**
- * HibernateUtil es una clase de utilidad que gestiona la configuración de Hibernate
- * y proporciona una única instancia de SessionFactory y Session a lo largo de la vida de la aplicación.
- * Esta clase utiliza el patrón Singleton para asegurar que solo haya una sesión de Hibernate activa
- * en la aplicación de escritorio.
- *
- * <p>
- * Se recomienda cerrar la sesión y el SessionFactory al finalizar el uso de la aplicación.
- * </p>
- */
+@NoArgsConstructor
 public class HibernateUtil {
+    private static volatile SessionFactory sessionFactory; // Instancia de SessionFactory
+    private static Session session = null;
+    private static final Object lock = new Object();//Objeto que bloquea el bloque de codigo
 
-    @Getter
-    private static final SessionFactory sessionFactory = buildSessionFactory(); // Instancia de SessionFactory
-    private static Session session = null; // Instancia única de Session
-
-    /**
-     * Constructor protegido para evitar instanciación externa.
-     */
-    private HibernateUtil() {
+    public static void getSessionFactory() {
+        if (sessionFactory == null) {
+            synchronized (lock) {
+                if (sessionFactory == null) {
+                    sessionFactory = buildSessionFactory();
+                }
+            }
+        }
     }
 
-    /**
-     * Construye el SessionFactory utilizando la configuración especificada en hibernate.cfg.xml.
-     *
-     * @return SessionFactory construida
-     * @throws ExceptionInInitializerError si la configuración falla
-     */
     private static SessionFactory buildSessionFactory() {
-        try {
-//            Configuration configuration = new Configuration().configure(); // Configura Hibernate
-//            Properties settings = new Properties();
-//
-//            settings.put("hibernate.connection.url", "jdbc:sqlite:" + getProperty(ConfigLoader.Property.DB_NAME));
-//
-//            configuration.setProperties(settings);
-//
-//            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-//                    .applySettings(configuration.getProperties()).build();
-//            return new Configuration().configure().buildSessionFactory(serviceRegistry);
-
-            Configuration config = new Configuration().configure();
-            return config.buildSessionFactory();
-
-        } catch (Throwable ex) {
-            throw new ExceptionInInitializerError(ex); // Maneja errores en la construcción
-        }
+        System.out.println("HibernateUtil.buildSessionFactory");
+        return new Configuration().configure().buildSessionFactory();
     }
 
     /**
@@ -61,12 +33,19 @@ public class HibernateUtil {
      * @return la sesión activa de Hibernate
      */
     public static Session getSession() {
-        if (session == null || !session.isOpen()) {
-            session = sessionFactory.openSession(); // Crea una nueva sesión si es necesario
-        }
+        createSession();
         return session; // Devuelve la sesión activa
     }
 
+    public static void createSession() {
+        if (sessionFactory == null) {
+            getSessionFactory();
+        }
+        if (session == null || !session.isOpen()) {
+            session = sessionFactory.openSession(); // Crea una nueva sesión si es necesario
+            System.out.println("HibernateUtil.createSession: Session created");
+        }
+    }
 
     /**
      * Cierra la sesión de Hibernate y el SessionFactory.
@@ -76,6 +55,10 @@ public class HibernateUtil {
         if (session != null) {
             session.close(); // Cierra la sesión si está activa
         }
-        sessionFactory.close(); // Cierra el SessionFactory
+        if (sessionFactory != null) {
+            sessionFactory.close();
+        }
+        // Cierra el SessionFactory
+        System.out.println("HibernateUtil.shutdown");
     }
 }

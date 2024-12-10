@@ -346,7 +346,6 @@ public class MayorGenController {
 
         public void setData(List<MayorGenDTO> newData) {
             data = newData != null ? calcularSaldos(newData) : List.of();
-            System.out.println("MayorGenTableModel.setData: " + data);
             fireTableDataChanged();
         }
     }

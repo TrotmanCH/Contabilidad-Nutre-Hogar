@@ -28,6 +28,7 @@ import java.time.format.DateTimeFormatter;
 
 import static com.nutrehogar.sistemacontable.application.service.ConfigLoader.getBackupPath;
 import static com.nutrehogar.sistemacontable.application.service.Util.getDateFormat;
+
 /**
  * Servicio encargado de gestionar las operaciones de respaldo de la base de datos
  * utilizando Hibernate y herramientas de conexión a base de datos.
@@ -43,57 +44,57 @@ public class BackupService {
     /**
      * Sesión de Hibernate para la conexión con la base de datos.
      */
-     final Session session = HibernateUtil.getSession();
+    final Session session = HibernateUtil.getSession();
 
     /**
      * Instancia única de la clase, siguiendo el patrón Singleton.
      */
-     static BackupService instance;
+    static BackupService instance;
 
     /**
      * Diálogo modal que muestra la interfaz gráfica de respaldo.
      */
-     JDialog dialog;
+    JDialog dialog;
 
     /**
      * Panel principal que contiene los elementos de la interfaz gráfica.
      */
-     BackupPanel backupPanel;
+    BackupPanel backupPanel;
 
     /**
      * Tabla que muestra la lista de respaldos disponibles.
      */
-     JTable tableBackup;
+    JTable tableBackup;
 
     /**
      * Modelo de datos para la tabla de respaldos.
      */
-     BackupTableModel backupTableModel;
+    BackupTableModel backupTableModel;
 
     /**
      * Botón para cerrar la ventana de respaldo.
      */
-     JButton btnClose;
+    JButton btnClose;
 
     /**
      * Botón para crear un nuevo respaldo.
      */
-     JButton btnCreateBackup;
+    JButton btnCreateBackup;
 
     /**
      * Botón para restaurar un respaldo seleccionado.
      */
-     JButton btnRestarBackup;
+    JButton btnRestarBackup;
 
     /**
      * Lista de archivos de respaldo encontrados en el directorio configurado.
      */
-     File[] files;
+    File[] files;
 
     /**
      * Archivo seleccionado para la restauración.
      */
-     File selectedFile;
+    File selectedFile;
 
     /**
      * Obtiene la instancia única de {@code BackupService}.
@@ -285,6 +286,7 @@ public class BackupService {
 
     /**
      * Restablece los datos de la base de datos mediante una respaldo
+     *
      * @param fileName path de la base de datos de respaldo
      */
     public void restartBackup(String fileName) {
@@ -302,7 +304,7 @@ public class BackupService {
                 stmt.execute("DELETE FROM tipo_documento;");
 
                 // Adjunta la base de datos de respaldo
-                stmt.execute("ATTACH DATABASE '"+fileName+"' AS BACKUP;");
+                stmt.execute("ATTACH DATABASE '" + fileName + "' AS BACKUP;");
 
                 // Copia los datos del respaldo a las tablas principales
                 stmt.execute("INSERT INTO main.asiento SELECT * FROM BACKUP.asiento;");
@@ -335,8 +337,8 @@ public class BackupService {
      *
      * @return Ruta completa del archivo de respaldo.
      */
-    private @NotNull String createFilePathAndName( String fileName) {
-        return getBackupPath() + File.separator + fileName +".sqlite";
+    private @NotNull String createFilePathAndName(String fileName) {
+        return getBackupPath() + File.separator + fileName + ".sqlite";
     }
 
     /**

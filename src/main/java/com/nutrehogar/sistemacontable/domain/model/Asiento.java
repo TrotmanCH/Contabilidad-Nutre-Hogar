@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = "registros")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "asiento")
