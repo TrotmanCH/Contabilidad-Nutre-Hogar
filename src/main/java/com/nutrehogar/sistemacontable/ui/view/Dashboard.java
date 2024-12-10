@@ -22,12 +22,12 @@ import javax.swing.UIManager;
  * @author charl
  */
 public class Dashboard extends javax.swing.JFrame {
- private Formulario formulario;
+// private Formulario formulario;
     
     public Dashboard() {
         initComponents();
-        formulario = new Formulario();
-        showJPanel(formulario);
+//        formulario = new Formulario();
+//        showJPanel(formulario);
         ajustarImagenToggle();
         applyButtonStyles(btnform, "Formulario", "/Icon/formulario.png");
         applyButtonStyles(btnBalancec, "Balance de Comprobación", "/Icon/balance.png");
