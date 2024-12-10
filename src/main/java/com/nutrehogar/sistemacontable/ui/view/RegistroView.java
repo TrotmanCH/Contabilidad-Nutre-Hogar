@@ -260,15 +260,33 @@ public class RegistroView extends javax.swing.JFrame {
                 tabRegistrosModelo.setValueAt(texfieNoCheque.getText(), filaRegistro, 1);
                 tabRegistrosModelo.setValueAt(texfieReferencia.getText(), filaRegistro, 2);
                 tabRegistrosModelo.setValueAt(comboxCuenta.getSelectedItem().toString().substring(0, 6), filaRegistro, 3);
-
+                
+                Registro registroSeleccionado = listaRegistro.get(filaRegistro);
+                registroSeleccionado.setTipoDocumento(tipoDocumentoRepo.findById(
+                            comboxTipoDoc.getSelectedIndex() + 1
+                        ));
+                registroSeleccionado.setComprobante(texfieNoCheque.getText());
+                registroSeleccionado.setReferencia(texfieReferencia.getText());
+                registroSeleccionado.setCuenta(cuentaRepo.findById(
+                            comboxCuenta.getSelectedItem().toString().substring(0, 6)
+                        ));
+                
+                BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(
+                        texfieMonto.getText()
+                ));
                 if (radbutDebito.isSelected()) {
                     tabRegistrosModelo.setValueAt(texfieMonto.getText(), filaRegistro, 4);
                     tabRegistrosModelo.setValueAt(BigDecimal.ZERO, filaRegistro, 5);
+                    
+                    registroSeleccionado.setDebe(monto);
+                    registroSeleccionado.setHaber(BigDecimal.ZERO);
                 } else if (radbutCredito.isSelected()) {
                     tabRegistrosModelo.setValueAt(BigDecimal.ZERO, filaRegistro, 4);
                     tabRegistrosModelo.setValueAt(texfieMonto.getText(), filaRegistro, 5);
+                    
+                    registroSeleccionado.setDebe(BigDecimal.ZERO);
+                    registroSeleccionado.setHaber(monto);
                 }
-
                 dispose();
             } catch (IndexOutOfBoundsException e) {
                 mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");

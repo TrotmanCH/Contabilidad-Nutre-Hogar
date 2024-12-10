@@ -3,30 +3,28 @@ package com.nutrehogar.sistemacontable.ui.view;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
+import com.nutrehogar.sistemacontable.ui.view.components.CustomListSelectionListener;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class AsientoView extends javax.swing.JFrame {
     private final List<Registro> listaRegistro = new ArrayList<>();
     private final DefaultTableModel tabRegistrosModelo;
     private final ListSelectionModel listaSeleccionModelo;
-    private final ListaSeleccion listaSeleccion;
+    private final CustomListSelectionListener listaSeleccion;
     
     public AsientoView() {
         initComponents();
         
         this.tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
         this.listaSeleccionModelo = tabRegistros.getSelectionModel();
-        this.listaSeleccion = new ListaSeleccion(butEditarRegistro, butEliminarRegistro);
+        this.listaSeleccion = new CustomListSelectionListener(butEditarRegistro, butEliminarRegistro);
         
         this.listaSeleccionModelo.addListSelectionListener(this.listaSeleccion);
         this.tabRegistros.setSelectionModel(this.listaSeleccionModelo);
@@ -345,34 +343,6 @@ public class AsientoView extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, mensaje, 
                     titulo, JOptionPane.ERROR_MESSAGE
         );
-    }
-    // Lista Seleccion
-    public class ListaSeleccion implements ListSelectionListener {
-        public Integer fila;
-        private JButton editar;
-        private JButton eliminar;
-        public ListaSeleccion(JButton editar, JButton eliminar) {
-            this.editar = editar;
-            this.eliminar = eliminar;
-        }
-        public void valueChanged(ListSelectionEvent e) {
-            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-            if (!lsm.isSelectionEmpty()) {
-                int minIndex = lsm.getMinSelectionIndex();
-                int maxIndex = lsm.getMaxSelectionIndex();
-                for (int i = minIndex; i <= maxIndex; i++) {
-                    if (lsm.isSelectedIndex(i)) {
-                        fila = i;
-                    }
-                }
-                
-                editar.setEnabled(true);
-                eliminar.setEnabled(true);
-            } else {
-                editar.setEnabled(false);
-                eliminar.setEnabled(false);
-            }
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
