@@ -3,36 +3,36 @@ package com.nutrehogar.sistemacontable.ui.view;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.RegistroRepo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import javax.swing.JButton;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class AsientoView extends javax.swing.JFrame {
-    public final Asiento asiento = Asiento.builder().build();
-    public final DefaultTableModel tabRegistrosModelo;
-    public final ListSelectionModel listaSeleccionModelo;
-    public final ListaSeleccion listaSeleccion;
+    private final List<Registro> listaRegistro = new ArrayList<>();
+    private final DefaultTableModel tabRegistrosModelo;
+    private final ListSelectionModel listaSeleccionModelo;
+    private final CustomListSelectionListener listaSeleccionEscucha;
+    private final CustomTableModelListener tablaModeloEscucha;
     
     public AsientoView() {
         initComponents();
         
         this.tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
         this.listaSeleccionModelo = tabRegistros.getSelectionModel();
-        this.listaSeleccion = new ListaSeleccion(butEditarRegistro, butEliminarRegistro);
         
-        this.listaSeleccionModelo.addListSelectionListener(this.listaSeleccion);
+        this.listaSeleccionEscucha = new CustomListSelectionListener(butEditarRegistro, butEliminarRegistro);
+        this.tablaModeloEscucha = new CustomTableModelListener(texfieDebeTotal, texfieHaberTotal, texfieMonto);
+        
+        this.listaSeleccionModelo.addListSelectionListener(this.listaSeleccionEscucha);
+        this.tabRegistrosModelo.addTableModelListener(this.tablaModeloEscucha);
+        
         this.tabRegistros.setSelectionModel(this.listaSeleccionModelo);
         
-        asiento.setRegistros(new ArrayList<>());     
-        texfieFecha.setText(LocalDate.now().toString());
+        
         butEditarRegistro.setEnabled(false);
         butEliminarRegistro.setEnabled(false);
     }
@@ -44,22 +44,22 @@ public class AsientoView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         texfieNombre = new javax.swing.JTextField();
-        txtMonto = new javax.swing.JTextField();
+        texfieMonto = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabRegistros = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        texfieFecha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         texareConcepto = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         butAnadirRegistro = new javax.swing.JButton();
-        txtDebeTotal = new javax.swing.JTextField();
-        txtHaberTotal = new javax.swing.JTextField();
+        texfieDebeTotal = new javax.swing.JTextField();
+        texfieHaberTotal = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         butGuardarAsiento = new javax.swing.JButton();
         butEditarRegistro = new javax.swing.JButton();
         butEliminarRegistro = new javax.swing.JButton();
+        spiFecha = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -72,7 +72,7 @@ public class AsientoView extends javax.swing.JFrame {
 
         texfieNombre.setName("nombreField"); // NOI18N
 
-        txtMonto.setEditable(false);
+        texfieMonto.setEditable(false);
 
         tabRegistros.setAutoCreateRowSorter(true);
         tabRegistros.setModel(new javax.swing.table.DefaultTableModel(
@@ -101,12 +101,6 @@ public class AsientoView extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Fecha:");
 
-        texfieFecha.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                texfieFechaFocusLost(evt);
-            }
-        });
-
         jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 100));
 
         texareConcepto.setColumns(20);
@@ -125,9 +119,9 @@ public class AsientoView extends javax.swing.JFrame {
             }
         });
 
-        txtDebeTotal.setEditable(false);
+        texfieDebeTotal.setEditable(false);
 
-        txtHaberTotal.setEditable(false);
+        texfieHaberTotal.setEditable(false);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Total:");
@@ -139,7 +133,6 @@ public class AsientoView extends javax.swing.JFrame {
             }
         });
 
-        butEditarRegistro.setActionCommand("");
         butEditarRegistro.setLabel("Editar Registro");
         butEditarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -147,13 +140,14 @@ public class AsientoView extends javax.swing.JFrame {
             }
         });
 
-        butEliminarRegistro.setActionCommand("");
         butEliminarRegistro.setLabel("Eliminar Registro");
         butEliminarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 butEliminarRegistroMouseClicked(evt);
             }
         });
+
+        spiFecha.setModel(new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,11 +176,11 @@ public class AsientoView extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel8)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel7)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(texfieFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(19, 19, 19)
                                     .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -200,9 +194,9 @@ public class AsientoView extends javax.swing.JFrame {
                             .addGap(63, 63, 63)
                             .addComponent(jLabel11)
                             .addGap(26, 26, 26)
-                            .addComponent(txtDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texfieDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texfieHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(13, 13, 13))))
                 .addGap(71, 71, 71))
         );
@@ -222,13 +216,13 @@ public class AsientoView extends javax.swing.JFrame {
                                 .addGap(63, 63, 63)
                                 .addComponent(jLabel9))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel7)
-                                    .addComponent(texfieFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
@@ -239,8 +233,8 @@ public class AsientoView extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texfieDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texfieHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
                             .addComponent(butGuardarAsiento))
                         .addGap(18, 18, 18)))
@@ -254,120 +248,88 @@ public class AsientoView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void butAnadirRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirRegistroMouseClicked
-        new RegistroView(asiento, tabRegistrosModelo, 
+        new RegistroView(listaRegistro, tabRegistrosModelo, 
                 "AÑADIR REGISTRO", null).setVisible(true);
     }//GEN-LAST:event_butAnadirRegistroMouseClicked
     private void butGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarAsientoMouseClicked
         try {
+            // Generación de excepciones
             texfieNombre.getText().charAt(1);
             texareConcepto.getText().charAt(1);
             
-            asiento.setNombre(texfieNombre.getText());
-            asiento.setConcepto(texareConcepto.getText());
+            // Guardado
+            Asiento asiento = Asiento.builder()
+                    .fecha(LocalDate.parse(spiFecha.getValue().toString()))
+                    .nombre(texfieNombre.getText())
+                    .concepto(texareConcepto.getText())
+                    .build();
+            
+            listaRegistro.forEach((registro) -> {
+                registro.setAsiento(asiento);
+            });
+            asiento.setRegistros(listaRegistro);
             
             if (!asiento.getRegistros().isEmpty()) {
                 AsientoRepo asientoRepo = AsientoRepo.getInstance();
                 asientoRepo.save(asiento);
-                RegistroRepo registroRepo = RegistroRepo.getInstance();
-                registroRepo.save(asiento.getRegistros());
                 
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Este asiento no tiene registros", 
-                    "Sin Registros", JOptionPane.ERROR_MESSAGE
-                );
+                mostrarError("Sin Registros", "Este asiento no tiene registros");
             }
-            
         } catch (IndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Uno o varios campos estan vacíos", 
-                    "Campos Vacíos", JOptionPane.ERROR_MESSAGE
-            );
+            mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
         }
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
     
-    private void texfieFechaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieFechaFocusLost
-        try {
-            LocalDate.parse(texfieFecha.getText());
-        } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(null, "Introduzca una fecha válida", 
-                    "Valor Incorrecto", JOptionPane.ERROR_MESSAGE
-            );
-            texfieFecha.setText(LocalDate.now().toString());
-        }
-    }//GEN-LAST:event_texfieFechaFocusLost
-
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()) {
-
-            Integer filaRegistro = listaSeleccion.fila;
-            Registro registroSeleccionado = asiento.getRegistros().get(filaRegistro);
-            RegistroView registroView = new RegistroView(asiento, tabRegistrosModelo, 
+            Integer filaRegistro = listaSeleccionEscucha.fila;
+            
+            Registro registroSeleccionado = listaRegistro.get(filaRegistro);
+            RegistroView registroVista = new RegistroView(listaRegistro, tabRegistrosModelo, 
                     "EDITAR REGISTRO", filaRegistro);
-
-            registroView.comboxTipoDoc.setSelectedIndex(registroSeleccionado.getTipoDocumento().getId() - 1);
-            registroView.texfieNoCheque.setText(registroSeleccionado.getComprobante());
-            registroView.texfieReferencia.setText(registroSeleccionado.getReferencia());
+            registroVista.comboxTipoDoc.setSelectedIndex(registroSeleccionado.getTipoDocumento().getId() - 1);
+            registroVista.texfieNoCheque.setText(registroSeleccionado.getComprobante());
+            registroVista.texfieReferencia.setText(registroSeleccionado.getReferencia());
 
             Object cuentaRegistroSeleccionado = registroSeleccionado.getCuenta().getId()+ " | " + registroSeleccionado.getCuenta().getNombre();
-            registroView.comboxCuenta.setSelectedItem(cuentaRegistroSeleccionado);
+            registroVista.comboxCuenta.setSelectedItem(cuentaRegistroSeleccionado);
 
             if (registroSeleccionado.getDebe() != BigDecimal.ZERO && registroSeleccionado.getHaber() == BigDecimal.ZERO) {
-                registroView.radbutDebito.setSelected(true);
-                registroView.texfieMonto.setText(registroSeleccionado.getDebe().toString());
+                registroVista.radbutDebito.setSelected(true);
+                registroVista.texfieMonto.setText(registroSeleccionado.getDebe().toString());
             } else {
-                registroView.radbutCredito.setSelected(true);
-                registroView.texfieMonto.setText(registroSeleccionado.getHaber().toString());
+                registroVista.radbutCredito.setSelected(true);
+                registroVista.texfieMonto.setText(registroSeleccionado.getHaber().toString());
             }
 
-            registroView.setVisible(true);
+            registroVista.setVisible(true);
         } else {
             mostrarSeleccionVacia();
         }
-        
     }//GEN-LAST:event_butEditarRegistroMouseClicked
 
     private void butEliminarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEliminarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()){
-            Integer filaRegistro = listaSeleccion.fila;
+            Integer filaRegistro = listaSeleccionEscucha.fila;
             tabRegistrosModelo.removeRow(filaRegistro);
-            asiento.getRegistros().remove(asiento.getRegistros().get(filaRegistro));
+
+            listaRegistro.remove(listaRegistro.get(filaRegistro));
         } else {
             mostrarSeleccionVacia();
         }
     }//GEN-LAST:event_butEliminarRegistroMouseClicked
     
-    private void mostrarSeleccionVacia(){
+    private void mostrarSeleccionVacia() {
         JOptionPane.showMessageDialog(null, "Seleccione un registro en la tabla", 
                     "Selección Vacía", JOptionPane.INFORMATION_MESSAGE
-            );
+        );
     }
-    // Lista Seleccion
-    public class ListaSeleccion implements ListSelectionListener {
-        public Integer fila;
-        private JButton editar;
-        private JButton eliminar;
-        public ListaSeleccion(JButton editar, JButton eliminar) {
-            this.editar = editar;
-            this.eliminar = eliminar;
-        }
-        public void valueChanged(ListSelectionEvent e) {
-            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-            if (!lsm.isSelectionEmpty()) {
-                int minIndex = lsm.getMinSelectionIndex();
-                int maxIndex = lsm.getMaxSelectionIndex();
-                for (int i = minIndex; i <= maxIndex; i++) {
-                    if (lsm.isSelectedIndex(i)) {
-                        fila = i;
-                    }
-                }
-                editar.setEnabled(true);
-                eliminar.setEnabled(true);
-            } else {
-                editar.setEnabled(false);
-                eliminar.setEnabled(false);
-            }
-        }
-        
+    private void mostrarError(String titulo, String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, 
+                    titulo, JOptionPane.ERROR_MESSAGE
+        );
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -383,12 +345,12 @@ public class AsientoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
+    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFecha;
     public javax.swing.JTable tabRegistros;
     private javax.swing.JTextArea texareConcepto;
-    private javax.swing.JTextField texfieFecha;
+    private javax.swing.JTextField texfieDebeTotal;
+    private javax.swing.JTextField texfieHaberTotal;
+    private javax.swing.JTextField texfieMonto;
     private javax.swing.JTextField texfieNombre;
-    private javax.swing.JTextField txtDebeTotal;
-    private javax.swing.JTextField txtHaberTotal;
-    private javax.swing.JTextField txtMonto;
     // End of variables declaration//GEN-END:variables
 }
