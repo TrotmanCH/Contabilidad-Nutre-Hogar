@@ -3,10 +3,8 @@ package com.nutrehogar.sistemacontable.ui.view;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
-import com.nutrehogar.sistemacontable.ui.view.components.CustomListSelectionListener;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,17 +15,23 @@ public class AsientoView extends javax.swing.JFrame {
     private final List<Registro> listaRegistro = new ArrayList<>();
     private final DefaultTableModel tabRegistrosModelo;
     private final ListSelectionModel listaSeleccionModelo;
-    private final CustomListSelectionListener listaSeleccion;
+    private final CustomListSelectionListener listaSeleccionEscucha;
+    private final CustomTableModelListener tablaModeloEscucha;
     
     public AsientoView() {
         initComponents();
         
         this.tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
         this.listaSeleccionModelo = tabRegistros.getSelectionModel();
-        this.listaSeleccion = new CustomListSelectionListener(butEditarRegistro, butEliminarRegistro);
         
-        this.listaSeleccionModelo.addListSelectionListener(this.listaSeleccion);
+        this.listaSeleccionEscucha = new CustomListSelectionListener(butEditarRegistro, butEliminarRegistro);
+        this.tablaModeloEscucha = new CustomTableModelListener(texfieDebeTotal, texfieHaberTotal, texfieMonto);
+        
+        this.listaSeleccionModelo.addListSelectionListener(this.listaSeleccionEscucha);
+        this.tabRegistrosModelo.addTableModelListener(this.tablaModeloEscucha);
+        
         this.tabRegistros.setSelectionModel(this.listaSeleccionModelo);
+        
         
         butEditarRegistro.setEnabled(false);
         butEliminarRegistro.setEnabled(false);
@@ -40,7 +44,7 @@ public class AsientoView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         texfieNombre = new javax.swing.JTextField();
-        txtMonto = new javax.swing.JTextField();
+        texfieMonto = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabRegistros = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
@@ -49,8 +53,8 @@ public class AsientoView extends javax.swing.JFrame {
         texareConcepto = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         butAnadirRegistro = new javax.swing.JButton();
-        txtDebeTotal = new javax.swing.JTextField();
-        txtHaberTotal = new javax.swing.JTextField();
+        texfieDebeTotal = new javax.swing.JTextField();
+        texfieHaberTotal = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         butGuardarAsiento = new javax.swing.JButton();
         butEditarRegistro = new javax.swing.JButton();
@@ -68,7 +72,7 @@ public class AsientoView extends javax.swing.JFrame {
 
         texfieNombre.setName("nombreField"); // NOI18N
 
-        txtMonto.setEditable(false);
+        texfieMonto.setEditable(false);
 
         tabRegistros.setAutoCreateRowSorter(true);
         tabRegistros.setModel(new javax.swing.table.DefaultTableModel(
@@ -115,9 +119,9 @@ public class AsientoView extends javax.swing.JFrame {
             }
         });
 
-        txtDebeTotal.setEditable(false);
+        texfieDebeTotal.setEditable(false);
 
-        txtHaberTotal.setEditable(false);
+        texfieHaberTotal.setEditable(false);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Total:");
@@ -172,16 +176,15 @@ public class AsientoView extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel8)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel7)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(39, 39, 39))
+                                            .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(19, 19, 19)
-                                    .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(24, 24, 24))))
+                                    .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(39, 39, 39))
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel1)
@@ -191,9 +194,9 @@ public class AsientoView extends javax.swing.JFrame {
                             .addGap(63, 63, 63)
                             .addComponent(jLabel11)
                             .addGap(26, 26, 26)
-                            .addComponent(txtDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texfieDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texfieHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(13, 13, 13))))
                 .addGap(71, 71, 71))
         );
@@ -219,7 +222,7 @@ public class AsientoView extends javax.swing.JFrame {
                                     .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
@@ -230,8 +233,8 @@ public class AsientoView extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texfieDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texfieHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
                             .addComponent(butGuardarAsiento))
                         .addGap(18, 18, 18)))
@@ -281,7 +284,7 @@ public class AsientoView extends javax.swing.JFrame {
     
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()) {
-            Integer filaRegistro = listaSeleccion.fila;
+            Integer filaRegistro = listaSeleccionEscucha.fila;
             
             Registro registroSeleccionado = listaRegistro.get(filaRegistro);
             RegistroView registroVista = new RegistroView(listaRegistro, tabRegistrosModelo, 
@@ -309,7 +312,7 @@ public class AsientoView extends javax.swing.JFrame {
 
     private void butEliminarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEliminarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()){
-            Integer filaRegistro = listaSeleccion.fila;
+            Integer filaRegistro = listaSeleccionEscucha.fila;
             tabRegistrosModelo.removeRow(filaRegistro);
 
             listaRegistro.remove(listaRegistro.get(filaRegistro));
@@ -345,9 +348,9 @@ public class AsientoView extends javax.swing.JFrame {
     private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFecha;
     public javax.swing.JTable tabRegistros;
     private javax.swing.JTextArea texareConcepto;
+    private javax.swing.JTextField texfieDebeTotal;
+    private javax.swing.JTextField texfieHaberTotal;
+    private javax.swing.JTextField texfieMonto;
     private javax.swing.JTextField texfieNombre;
-    private javax.swing.JTextField txtDebeTotal;
-    private javax.swing.JTextField txtHaberTotal;
-    private javax.swing.JTextField txtMonto;
     // End of variables declaration//GEN-END:variables
 }

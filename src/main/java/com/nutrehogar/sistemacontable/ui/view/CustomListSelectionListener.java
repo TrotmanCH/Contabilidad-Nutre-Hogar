@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.view.components;
+package com.nutrehogar.sistemacontable.ui.view;
 
 import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
@@ -14,6 +14,8 @@ public class CustomListSelectionListener implements ListSelectionListener {
         this.editar = editar;
         this.eliminar = eliminar;
     }
+    
+    @Override
     public void valueChanged(ListSelectionEvent e) {
         ListSelectionModel lsm = (ListSelectionModel) e.getSource();
         if (!lsm.isSelectionEmpty()) {
