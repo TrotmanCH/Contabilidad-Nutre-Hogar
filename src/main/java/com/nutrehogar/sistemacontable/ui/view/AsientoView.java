@@ -29,7 +29,6 @@ public class AsientoView extends javax.swing.JFrame {
         this.listaSeleccionModelo.addListSelectionListener(this.listaSeleccion);
         this.tabRegistros.setSelectionModel(this.listaSeleccionModelo);
         
-        texfieFecha.setText(LocalDate.now().toString());
         butEditarRegistro.setEnabled(false);
         butEliminarRegistro.setEnabled(false);
     }
@@ -46,7 +45,6 @@ public class AsientoView extends javax.swing.JFrame {
         tabRegistros = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        texfieFecha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         texareConcepto = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -57,6 +55,7 @@ public class AsientoView extends javax.swing.JFrame {
         butGuardarAsiento = new javax.swing.JButton();
         butEditarRegistro = new javax.swing.JButton();
         butEliminarRegistro = new javax.swing.JButton();
+        spiFecha = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -98,12 +97,6 @@ public class AsientoView extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Fecha:");
 
-        texfieFecha.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                texfieFechaFocusLost(evt);
-            }
-        });
-
         jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 100));
 
         texareConcepto.setColumns(20);
@@ -136,7 +129,6 @@ public class AsientoView extends javax.swing.JFrame {
             }
         });
 
-        butEditarRegistro.setActionCommand("");
         butEditarRegistro.setLabel("Editar Registro");
         butEditarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -144,13 +136,14 @@ public class AsientoView extends javax.swing.JFrame {
             }
         });
 
-        butEliminarRegistro.setActionCommand("");
         butEliminarRegistro.setLabel("Eliminar Registro");
         butEliminarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 butEliminarRegistroMouseClicked(evt);
             }
         });
+
+        spiFecha.setModel(new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,11 +176,12 @@ public class AsientoView extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel7)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(texfieFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(39, 39, 39))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(19, 19, 19)
-                                    .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(39, 39, 39))
+                                    .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(24, 24, 24))))
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel1)
@@ -219,10 +213,10 @@ public class AsientoView extends javax.swing.JFrame {
                                 .addGap(63, 63, 63)
                                 .addComponent(jLabel9))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel7)
-                                    .addComponent(texfieFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,7 +256,7 @@ public class AsientoView extends javax.swing.JFrame {
             
             // Guardado
             Asiento asiento = Asiento.builder()
-                    .fecha(LocalDate.parse(texfieFecha.getText()))
+                    .fecha(LocalDate.parse(spiFecha.getValue().toString()))
                     .nombre(texfieNombre.getText())
                     .concepto(texareConcepto.getText())
                     .build();
@@ -285,15 +279,6 @@ public class AsientoView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
     
-    private void texfieFechaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieFechaFocusLost
-        try {
-            LocalDate.parse(texfieFecha.getText());
-        } catch (DateTimeParseException e) {
-            mostrarError("Valor Incorrecto", "Introduzca una fecha válida");
-            texfieFecha.setText(LocalDate.now().toString());
-        }
-    }//GEN-LAST:event_texfieFechaFocusLost
-
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()) {
             Integer filaRegistro = listaSeleccion.fila;
@@ -320,7 +305,6 @@ public class AsientoView extends javax.swing.JFrame {
         } else {
             mostrarSeleccionVacia();
         }
-        
     }//GEN-LAST:event_butEditarRegistroMouseClicked
 
     private void butEliminarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEliminarRegistroMouseClicked
@@ -358,9 +342,9 @@ public class AsientoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
+    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFecha;
     public javax.swing.JTable tabRegistros;
     private javax.swing.JTextArea texareConcepto;
-    private javax.swing.JTextField texfieFecha;
     private javax.swing.JTextField texfieNombre;
     private javax.swing.JTextField txtDebeTotal;
     private javax.swing.JTextField txtHaberTotal;
