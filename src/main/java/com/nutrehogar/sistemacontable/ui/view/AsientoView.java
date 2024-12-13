@@ -18,7 +18,7 @@ public class AsientoView extends javax.swing.JFrame {
     private final CustomListSelectionListener listaSeleccionEscucha;
     private final CustomTableModelListener tablaModeloEscucha;
     public javax.swing.JTable tabRegistros;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton butAnadirRegistro;
     private javax.swing.JButton butEditarRegistro;
     private javax.swing.JButton butEliminarRegistro;
@@ -291,8 +291,7 @@ public class AsientoView extends javax.swing.JFrame {
             asiento.setRegistros(listaRegistro);
 
             if (!asiento.getRegistros().isEmpty()) {
-                AsientoRepo asientoRepo = AsientoRepo.getInstance();
-                asientoRepo.save(asiento);
+                AsientoRepo.save(asiento);
 
                 dispose();
             } else {
@@ -353,5 +352,5 @@ public class AsientoView extends javax.swing.JFrame {
                 titulo, JOptionPane.ERROR_MESSAGE
         );
     }
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
