@@ -6,9 +6,7 @@ package com.nutrehogar.sistemacontable.ui.controller;
 
 import com.nutrehogar.sistemacontable.application.dto.BalanceComDTO;
 import com.nutrehogar.sistemacontable.application.service.Util;
-import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.BalanceComField;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
+import com.nutrehogar.sistemacontable.persistence.repository.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.repository.BalanceComRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.view.components.ViewBalanceCom;
@@ -51,9 +49,7 @@ public class BalanceComController {
         table = view.getBalanceComTabla();
         starDateSpinner = view.getStartSpinnerDate();
         endDateSpinner = view.getEndSpinnerDate();
-        view.getBtnFiltrar().addActionListener(e -> {
-            loadData();
-        });
+        view.getBtnFiltrar().addActionListener(e -> loadData());
         tableModel = new BalanceComTableModel();
         table.setModel(tableModel);
         table.setDefaultRenderer(BigDecimal.class, new Util.BigDecimalRenderer());
@@ -70,15 +66,15 @@ public class BalanceComController {
 
     public void loadData() {
         var data = BalanceComRepo.find(
-                BalanceComField.CUENTA_ID,
+                BalanceComRepo.Field.CUENTA_ID,
                 OrderDirection.ASCENDING,
-                new BalanceComFilter.ByFechaRange((LocalDate) starDateSpinner.getValue(), (LocalDate) endDateSpinner.getValue()));
+                new BalanceComRepo.Filter.ByFechaRange((LocalDate) starDateSpinner.getValue(), (LocalDate) endDateSpinner.getValue()));
         SwingUtilities.invokeLater(() -> {
             tableModel.setData(data);
         });
     }
 
-    public class BalanceComTableModel extends AbstractTableModel {
+    public static class BalanceComTableModel extends AbstractTableModel {
         private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
         /**
          * lista de datos a mostrar en la base de datos
@@ -136,12 +132,12 @@ public class BalanceComController {
 
         @Override
         public int getColumnCount() {
-            return BalanceComField.values().length;
+            return BalanceComRepo.Field.values().length;
         }
 
         @Override
         public String getColumnName(int column) {
-            return BalanceComField.values()[column].getFieldName();
+            return BalanceComRepo.Field.values()[column].getFieldName();
         }
 
         @Override

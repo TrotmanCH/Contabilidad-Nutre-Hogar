@@ -5,13 +5,11 @@ import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
-import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioField;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +26,7 @@ import java.util.List;
 public class LibroDiarioRepo {
     private static final Session session = HibernateUtil.getSession();
 
-    public static @NotNull List<LibroDiarioDTO> find(LibroDiarioField orderField, OrderDirection orderDirection, LibroDiarioFilter... filters) {
+    public static @NotNull List<LibroDiarioDTO> find(Field orderField, OrderDirection orderDirection, Filter... filters) {
         List<LibroDiarioDTO> libroDiarioDTOS = List.of();
         System.out.println(Arrays.toString(filters));
         if (filters == null || filters.length == 0) return libroDiarioDTOS;
@@ -63,15 +61,15 @@ public class LibroDiarioRepo {
                     haberPath));
 
             Predicate predicate = cb.conjunction();
-            for (LibroDiarioFilter filter : filters) {
+            for (Filter filter : filters) {
                 Predicate filterPredicate = switch (filter) {
-                    case LibroDiarioFilter.ByFechaRange fecha -> fecha.startDate() != null && fecha.endDate() != null
+                    case Filter.ByFechaRange fecha -> fecha.startDate() != null && fecha.endDate() != null
                             ? cb.between(fechaPath, fecha.startDate(), fecha.endDate())
                             : cb.conjunction();
-                    case LibroDiarioFilter.ByComprobante comprobante -> comprobante.value() != null
+                    case Filter.ByComprobante comprobante -> comprobante.value() != null
                             ? cb.like(cb.lower(comprobantePath), "%" + comprobante.value().toLowerCase() + "%")
                             : cb.conjunction();
-                    case LibroDiarioFilter.ByReferencia referencia -> referencia.value() != null
+                    case Filter.ByReferencia referencia -> referencia.value() != null
                             ? cb.like(cb.lower(referenciaPath), "%" + referencia.value().toLowerCase() + "%")
                             : cb.conjunction();
                 };
@@ -110,5 +108,56 @@ public class LibroDiarioRepo {
             e.printStackTrace();
         }
         return libroDiarioDTOS;
+    }
+
+    /**
+     * Clase sellada que define los criterios de filtrado para el Libro Diario.
+     * @author Calcifer1331
+     */
+    public sealed interface Filter {
+
+        /**
+         * Filtra el Libro Diario por un rango de fechas.
+         */
+        record ByFechaRange(LocalDate startDate,
+                            LocalDate endDate) implements Filter {
+        }
+
+        /**
+         * Filtra el Libro Diario por concepto.
+         */
+        record ByReferencia(String value) implements Filter {
+        }
+
+        /**
+         * Filtra el Libro Diario por comprobante.
+         */
+
+        record ByComprobante(String value) implements Filter {
+        }
+    }
+    /**
+     * Enum que define los campos por los cuales se puede ordenar el Libro Diario.
+     * @author Calcifer1331
+     */
+    @Getter
+    public enum Field {
+        ASIENTO_FECHA("Fecha"),
+        TIPO_DOCUMENTO_NOMBRE("Tipo Documento"),
+        CUENTA_ID("Codigo Cuenta"),
+        REGISTRO_COMPROBANTE("Comprobante"),
+        REGISTRO_REFERENCIA("Referencia"),
+        REGISTRO_DEBE("Debe"),
+        REGISTRO_HABER("Haber");
+        private final String fieldName;
+
+        /**
+         * Constructor de {@code LibroDiarioOrderField}.
+         *
+         * @param fieldName Nombre del campo en la entidad Transaccion.
+         */
+        Field(String fieldName) {
+            this.fieldName = fieldName;
+        }
     }
 }

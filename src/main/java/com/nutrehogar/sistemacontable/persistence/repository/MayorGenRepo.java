@@ -2,13 +2,11 @@ package com.nutrehogar.sistemacontable.persistence.repository;
 
 import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
 import com.nutrehogar.sistemacontable.domain.model.*;
-import com.nutrehogar.sistemacontable.domain.util.filter.MayorGenFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.MayorGenField;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
 import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +22,7 @@ import java.util.List;
 public class MayorGenRepo {
     private static final Session session = HibernateUtil.getSession();
 
-    public static @NotNull List<MayorGenDTO> find(MayorGenField orderField, OrderDirection orderDirection, MayorGenFilter... filters) {
+    public static @NotNull List<MayorGenDTO> find(Field orderField, OrderDirection orderDirection, Filter... filters) {
         List<MayorGenDTO> mayorGeneralDTOS = List.of();
         System.out.println(filters);
         if (filters == null || filters.length == 0) return mayorGeneralDTOS;
@@ -64,15 +62,15 @@ public class MayorGenRepo {
             ));
 
             Predicate predicate = cb.conjunction();
-            for (MayorGenFilter filter : filters) {
+            for (Filter filter : filters) {
                 Predicate filterPredicate = switch (filter) {
-                    case MayorGenFilter.ByFechaRange fecha -> fecha.startDate() != null && fecha.endDate() != null
+                    case Filter.ByFechaRange fecha -> fecha.startDate() != null && fecha.endDate() != null
                             ? cb.between(asientoFechaPath, fecha.startDate(), fecha.endDate())
                             : cb.conjunction();
-                    case MayorGenFilter.ByNombreCuenta nombre -> nombre.value() != null
+                    case Filter.ByNombreCuenta nombre -> nombre.value() != null
                             ? cb.like(cb.lower(cuentaNombrePath), "%" + nombre.value().toLowerCase() + "%")
                             : cb.conjunction();
-                    case MayorGenFilter.ByCuentaId cuentaId -> cuentaId.value() != null
+                    case Filter.ByCuentaId cuentaId -> cuentaId.value() != null
                             ? cb.like(cb.lower(cuentaIdPath), "%" + cuentaId.value().toLowerCase() + "%")
                             : cb.conjunction();
                 };
@@ -113,4 +111,54 @@ public class MayorGenRepo {
         }
         return mayorGeneralDTOS;
     }
+    /**
+     * Enum que define los campos por los cuales se puede ordenar el Mayor General.
+     */
+    @Getter
+    public enum Field {
+        ASIENTO_FECHA("Fecha"),
+        ASIENTO_NOMBRE("Nombre de Asiento"),
+        TIPO_DOCUMENTO_NOMBRE("Tipo Documento"),
+        CUENTA_ID("Código Cuenta"),
+        REGISTRO_REFERENCIA("Referencia"),
+        REGISTRO_DEBE("Debe"),
+        REGISTRO_HABER("Haber"),
+        SALDO("Saldo");
+
+        private final String fieldName;
+
+        /**
+         * Constructor de {@code MayorGeneralOrderField}.
+         *
+         * @param fieldName Nombre del campo en la entidad.
+         */
+        Field(String fieldName) {
+            this.fieldName = fieldName;
+        }
+
+    }
+    /**
+     * Clase sellada que define los criterios de filtrado para el Mayor General.
+     */
+    public sealed interface Filter {
+        /**
+         * Filtra el Mayor General por código de cuenta.
+         */
+        record ByCuentaId(String value) implements Filter {
+        }
+
+        /**
+         * Filtra el Mayor General por nombre de cuenta.
+         */
+        record ByNombreCuenta(String value) implements Filter {
+        }
+
+        /**
+         * Filtra el Mayor General por un rango de fechas.
+         */
+        record ByFechaRange(LocalDate startDate, LocalDate endDate) implements Filter {
+        }
+    }
+
+
 }

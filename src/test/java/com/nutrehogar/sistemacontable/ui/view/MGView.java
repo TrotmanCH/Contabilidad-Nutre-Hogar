@@ -7,7 +7,7 @@ import com.nutrehogar.sistemacontable.ui.controller.MayorGenController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.CountDownLatch;
+import java.lang.reflect.InvocationTargetException;
 
 public class MGView extends javax.swing.JFrame {
 
@@ -80,19 +80,16 @@ public class MGView extends javax.swing.JFrame {
 
         HibernateUtil.getSessionFactory();//para que se inicialice en el hilo princiapl
 //        Thread.startVirtualThread(HibernateUtil::createSession);// inicia una session en un hilo virtual
-        CountDownLatch latch = new CountDownLatch(1);
         //lo que se ejecute dentro, se ejecuta en el EDT
-        SwingUtilities.invokeLater(() -> {
-            splash.setVisible(false);  // Ocultar pantalla de carga
-
-            new MGView().setVisible(true);  // Mostrar la ventana principal
-            System.out.println("MGView.main: latch.countDown()");
-            latch.countDown(); // Señaliza que el EDT ha terminado su tarea
-        });
-        System.out.println("MGView.main:HOLA");
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                splash.setVisible(false);  // Ocultar pantalla de carga
+                new MGView().setVisible(true);  // Mostrar la ventana principal
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
         Thread.startVirtualThread(() -> {
-            try {
-                latch.await();// Espera a que termine el EDT
                 System.out.println("MGView.main: latch.await()");
                 HibernateUtil.createSession();
                 AsientoRepo.getInstance();
@@ -101,10 +98,6 @@ public class MGView extends javax.swing.JFrame {
                 SubTipoCuentaRepo.getInstance();
                 TipoDocumentoRepo.getInstance();
                 TipoCuentaRepo.getInstance();
-                System.out.println("MGView.main: final");
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         });
     }
 

@@ -6,8 +6,8 @@
         <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property>
 
         <!-- log SQL -->
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
+<!--        <property name="hibernate.show_sql">true</property>-->
+<!--        <property name="hibernate.format_sql">true</property>-->
 
         <!-- Configuración del esquema -->
         <property name="hibernate.hbm2ddl.auto">update</property>

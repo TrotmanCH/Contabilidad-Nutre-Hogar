@@ -3,11 +3,7 @@ package com.nutrehogar.sistemacontable.ui.controller;
 import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
-import com.nutrehogar.sistemacontable.domain.util.filter.MayorGenFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.MayorGenField;
-import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.MayorGenRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.SubTipoCuentaRepo;
 import com.nutrehogar.sistemacontable.persistence.repository.TipoCuentaRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel;
 import com.nutrehogar.sistemacontable.ui.view.components.ViewMayorGen;
@@ -121,8 +117,8 @@ public class MayorGenController {
         List<MayorGenDTO> data = MayorGenRepo.find(
                 null,
                 null,
-                new MayorGenFilter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
-                new MayorGenFilter.ByCuentaId(cuentaId));
+                new MayorGenRepo.Filter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
+                new MayorGenRepo.Filter.ByCuentaId(cuentaId));
         SwingUtilities.invokeLater(() -> {
             tableModel.setData(data);
         });
@@ -294,12 +290,12 @@ public class MayorGenController {
 
         @Override
         public int getColumnCount() {
-            return MayorGenField.values().length;
+            return MayorGenRepo.Field.values().length;
         }
 
         @Override
         public String getColumnName(int column) {
-            return MayorGenField.values()[column].getFieldName();
+            return MayorGenRepo.Field.values()[column].getFieldName();
         }
 
         @Override
