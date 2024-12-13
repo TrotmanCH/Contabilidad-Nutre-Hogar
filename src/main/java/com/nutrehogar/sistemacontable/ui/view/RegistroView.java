@@ -2,8 +2,8 @@ package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
-import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.TipoDocumentoRepo;
+import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
+import com.nutrehogar.sistemacontable.domain.repository.TipoDocumentoRepo;
 import java.math.BigDecimal;
 import javax.swing.table.DefaultTableModel;
 

@@ -6,10 +6,8 @@ package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
-import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
-import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.SubTipoCuentaRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.TipoCuentaRepo;
+import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
+import com.nutrehogar.sistemacontable.domain.repository.SubTipoCuentaRepo;
 
 import java.util.ArrayList;
 import java.util.List;

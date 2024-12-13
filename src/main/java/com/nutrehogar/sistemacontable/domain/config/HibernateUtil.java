@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.persistence.config;
+package com.nutrehogar.sistemacontable.domain.config;
 
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;

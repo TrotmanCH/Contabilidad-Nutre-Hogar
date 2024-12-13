@@ -2,8 +2,8 @@ package com.nutrehogar.sistemacontable.ui.controller;
 
 import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.application.service.Util;
-import com.nutrehogar.sistemacontable.persistence.repository.OrderDirection;
-import com.nutrehogar.sistemacontable.persistence.repository.LibroDiarioRepo;
+import com.nutrehogar.sistemacontable.domain.repository.OrderDirection;
+import com.nutrehogar.sistemacontable.domain.repository.LibroDiarioRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.view.components.ViewLibroDiario;
 import lombok.AccessLevel;

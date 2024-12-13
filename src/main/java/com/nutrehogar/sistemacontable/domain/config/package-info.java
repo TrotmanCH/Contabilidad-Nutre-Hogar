@@ -20,4 +20,4 @@
  * </ul>
  * </p>
  */
-package com.nutrehogar.sistemacontable.persistence.config;
+package com.nutrehogar.sistemacontable.domain.config;

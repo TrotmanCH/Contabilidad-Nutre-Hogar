@@ -1,7 +1,7 @@
-package com.nutrehogar.sistemacontable.persistence.repository;
+package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.Asiento;
-import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
+import com.nutrehogar.sistemacontable.domain.config.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,25 +9,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class AsientoRepo {
+public class TipoCuentaRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static AsientoRepo instance;
+    private static TipoCuentaRepo instance;
 
-    private AsientoRepo() {
+    private TipoCuentaRepo() {
     }
 
-    public static AsientoRepo getInstance() {
+    public static TipoCuentaRepo getInstance() {
         if (instance == null) {
-            instance = new AsientoRepo();
+            instance = new TipoCuentaRepo();
         }
         return instance;
     }
 
-    public List<Asiento> findAll() {
-        List<Asiento> Transaccions;
+    public List<TipoCuenta> findAll() {
+        List<TipoCuenta> Transaccions;
         try {
             session.beginTransaction();
-            Transaccions = session.createQuery("from Asiento", Asiento.class).list();
+            Transaccions = session.createQuery("from TipoCuenta", TipoCuenta.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -37,35 +37,35 @@ public class AsientoRepo {
         return Transaccions;
     }
 
-    public Asiento findById(Integer id) {
-        return session.find(Asiento.class, id);
+    public TipoCuenta findById(Integer id) {
+        return session.find(TipoCuenta.class, id);
     }
 
-    public void save(Asiento asiento) {
+    public void save(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
-            session.persist(asiento);
+            session.persist(tipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<Asiento> asientos) {
+    public void save(@NotNull List<TipoCuenta> tipoCuentas) {
         try {
             session.beginTransaction();
-            asientos.forEach(session::persist);
+            tipoCuentas.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(Asiento asiento) {
+    public void delete(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
 
-            session.remove(session.contains(asiento) ? asiento : session.merge(asiento));
+            session.remove(session.contains(tipoCuenta) ? tipoCuenta : session.merge(tipoCuenta));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class AsientoRepo {
         try {
             session.beginTransaction();
 
-            Optional.ofNullable(session.find(Asiento.class, id)).ifPresent(session::remove);
+            Optional.ofNullable(session.find(TipoCuenta.class, id)).ifPresent(session::remove);
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -87,10 +87,11 @@ public class AsientoRepo {
         }
     }
 
-    public void update(Asiento asiento) {
+
+    public void update(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
-            session.merge(asiento);
+            session.merge(tipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

@@ -1,8 +1,8 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
-import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.RegistroRepo;
+import com.nutrehogar.sistemacontable.domain.repository.AsientoRepo;
+import com.nutrehogar.sistemacontable.domain.repository.RegistroRepo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Pattern;

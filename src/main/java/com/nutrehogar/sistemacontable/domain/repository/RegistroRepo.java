@@ -1,7 +1,7 @@
-package com.nutrehogar.sistemacontable.persistence.repository;
+package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.Cuenta;
-import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.model.Registro;
+import com.nutrehogar.sistemacontable.domain.config.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,25 +9,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class CuentaRepo {
+public class RegistroRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static CuentaRepo instance;
+    private static RegistroRepo instance;
 
-    private CuentaRepo() {
+    private RegistroRepo() {
     }
 
-    public static CuentaRepo getInstance() {
+    public static RegistroRepo getInstance() {
         if (instance == null) {
-            instance = new CuentaRepo();
+            instance = new RegistroRepo();
         }
         return instance;
     }
 
-    public List<Cuenta> findAll() {
-        List<Cuenta> Transaccions;
+    public List<Registro> findAll() {
+        List<Registro> Transaccions;
         try {
             session.beginTransaction();
-            Transaccions = session.createQuery("from Cuenta", Cuenta.class).list();
+            Transaccions = session.createQuery("from Registro", Registro.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -37,35 +37,48 @@ public class CuentaRepo {
         return Transaccions;
     }
 
-    public Cuenta findById(String id) {
-        return session.find(Cuenta.class, id);
+    public Registro findById(Integer id) {
+        return session.find(Registro.class, id);
     }
 
-    public void save(Cuenta cuenta) {
+    public void save(Registro Registro) {
         try {
             session.beginTransaction();
-            session.persist(cuenta);
+            session.persist(Registro);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<Cuenta> cuentas) {
+    public void save(@NotNull List<Registro> registros) {
         try {
             session.beginTransaction();
-            cuentas.forEach(session::persist);
+            registros.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(Cuenta cuenta) {
+    public void delete(Registro registro) {
         try {
             session.beginTransaction();
 
-            session.remove(session.contains(cuenta) ? cuenta : session.merge(cuenta));
+            session.remove(session.contains(registro) ? registro : session.merge(registro));
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(Integer id) {
+        try {
+            session.beginTransaction();
+
+            Optional.ofNullable(findById(id)).ifPresent(session::remove);
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -74,21 +87,10 @@ public class CuentaRepo {
         }
     }
 
-    public void delete(String id) {
+    public void update(Registro registro) {
         try {
             session.beginTransaction();
-            Optional.ofNullable(session.find(Cuenta.class, id)).ifPresent(session::remove);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            e.printStackTrace();
-        }
-    }
-
-    public void update(Cuenta cuenta) {
-        try {
-            session.beginTransaction();
-            session.merge(cuenta);
+            session.merge(registro);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

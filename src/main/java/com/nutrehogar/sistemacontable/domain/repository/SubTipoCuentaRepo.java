@@ -1,7 +1,7 @@
-package com.nutrehogar.sistemacontable.persistence.repository;
+package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.Registro;
-import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
+import com.nutrehogar.sistemacontable.domain.config.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,25 +9,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class RegistroRepo {
+public class SubTipoCuentaRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static RegistroRepo instance;
+    private static SubTipoCuentaRepo instance;
 
-    private RegistroRepo() {
+    private SubTipoCuentaRepo() {
     }
 
-    public static RegistroRepo getInstance() {
+    public static SubTipoCuentaRepo getInstance() {
         if (instance == null) {
-            instance = new RegistroRepo();
+            instance = new SubTipoCuentaRepo();
         }
         return instance;
     }
 
-    public List<Registro> findAll() {
-        List<Registro> Transaccions;
+    public List<SubTipoCuenta> findAll() {
+        List<SubTipoCuenta> Transaccions;
         try {
             session.beginTransaction();
-            Transaccions = session.createQuery("from Registro", Registro.class).list();
+            Transaccions = session.createQuery("from SubTipoCuenta", SubTipoCuenta.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -37,35 +37,35 @@ public class RegistroRepo {
         return Transaccions;
     }
 
-    public Registro findById(Integer id) {
-        return session.find(Registro.class, id);
+    public SubTipoCuenta findById(String id) {
+        return session.find(SubTipoCuenta.class, id);
     }
 
-    public void save(Registro Registro) {
+    public void save(SubTipoCuenta subTipoCuenta) {
         try {
             session.beginTransaction();
-            session.persist(Registro);
+            session.persist(subTipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<Registro> registros) {
+    public void save(@NotNull List<SubTipoCuenta> subTipoCuentas) {
         try {
             session.beginTransaction();
-            registros.forEach(session::persist);
+            subTipoCuentas.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(Registro registro) {
+    public void delete(SubTipoCuenta subTipoCuenta) {
         try {
             session.beginTransaction();
 
-            session.remove(session.contains(registro) ? registro : session.merge(registro));
+            session.remove(session.contains(subTipoCuenta) ? subTipoCuenta : session.merge(subTipoCuenta));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -74,12 +74,11 @@ public class RegistroRepo {
         }
     }
 
-    public void delete(Integer id) {
+    public void delete(String id) {
         try {
             session.beginTransaction();
 
             Optional.ofNullable(findById(id)).ifPresent(session::remove);
-
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -87,10 +86,10 @@ public class RegistroRepo {
         }
     }
 
-    public void update(Registro registro) {
+    public void update(SubTipoCuenta subTipoCuenta) {
         try {
             session.beginTransaction();
-            session.merge(registro);
+            session.merge(subTipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

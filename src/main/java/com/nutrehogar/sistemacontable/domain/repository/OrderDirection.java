@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.persistence.repository;
+package com.nutrehogar.sistemacontable.domain.repository;
 
 /**
  * Enum que representa el tipo de ordenamiento.

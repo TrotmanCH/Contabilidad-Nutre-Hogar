@@ -1,7 +1,7 @@
-package com.nutrehogar.sistemacontable.persistence.repository;
+package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
-import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.model.Cuenta;
+import com.nutrehogar.sistemacontable.domain.config.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,25 +9,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class SubTipoCuentaRepo {
+public class CuentaRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static SubTipoCuentaRepo instance;
+    private static CuentaRepo instance;
 
-    private SubTipoCuentaRepo() {
+    private CuentaRepo() {
     }
 
-    public static SubTipoCuentaRepo getInstance() {
+    public static CuentaRepo getInstance() {
         if (instance == null) {
-            instance = new SubTipoCuentaRepo();
+            instance = new CuentaRepo();
         }
         return instance;
     }
 
-    public List<SubTipoCuenta> findAll() {
-        List<SubTipoCuenta> Transaccions;
+    public List<Cuenta> findAll() {
+        List<Cuenta> Transaccions;
         try {
             session.beginTransaction();
-            Transaccions = session.createQuery("from SubTipoCuenta", SubTipoCuenta.class).list();
+            Transaccions = session.createQuery("from Cuenta", Cuenta.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -37,35 +37,35 @@ public class SubTipoCuentaRepo {
         return Transaccions;
     }
 
-    public SubTipoCuenta findById(String id) {
-        return session.find(SubTipoCuenta.class, id);
+    public Cuenta findById(String id) {
+        return session.find(Cuenta.class, id);
     }
 
-    public void save(SubTipoCuenta subTipoCuenta) {
+    public void save(Cuenta cuenta) {
         try {
             session.beginTransaction();
-            session.persist(subTipoCuenta);
+            session.persist(cuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<SubTipoCuenta> subTipoCuentas) {
+    public void save(@NotNull List<Cuenta> cuentas) {
         try {
             session.beginTransaction();
-            subTipoCuentas.forEach(session::persist);
+            cuentas.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(SubTipoCuenta subTipoCuenta) {
+    public void delete(Cuenta cuenta) {
         try {
             session.beginTransaction();
 
-            session.remove(session.contains(subTipoCuenta) ? subTipoCuenta : session.merge(subTipoCuenta));
+            session.remove(session.contains(cuenta) ? cuenta : session.merge(cuenta));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -77,8 +77,7 @@ public class SubTipoCuentaRepo {
     public void delete(String id) {
         try {
             session.beginTransaction();
-
-            Optional.ofNullable(findById(id)).ifPresent(session::remove);
+            Optional.ofNullable(session.find(Cuenta.class, id)).ifPresent(session::remove);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -86,10 +85,10 @@ public class SubTipoCuentaRepo {
         }
     }
 
-    public void update(SubTipoCuenta subTipoCuenta) {
+    public void update(Cuenta cuenta) {
         try {
             session.beginTransaction();
-            session.merge(subTipoCuenta);
+            session.merge(cuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
