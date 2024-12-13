@@ -2,7 +2,8 @@ package com.nutrehogar.sistemacontable.application.service;
 
 import com.nutrehogar.sistemacontable.ui.view.PlantillaC;
 import com.nutrehogar.sistemacontable.ui.view.PlantillaF;
-import javax.swing.JTable;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class PDFService {
@@ -10,12 +11,12 @@ public class PDFService {
     /**
      * Realiza la operación de comprobante.
      *
-     * @param table Tabla principal que contiene los datos.
-     * @param txt_ncheque Texto del número de cheque.
-     * @param txt_fecha Texto de la fecha.
-     * @param txt_nodoc Texto del número de documento.
-     * @param txt_nombre Texto del nombre.
-     * @param txt_concepto Texto del concepto.
+     * @param table             Tabla principal que contiene los datos.
+     * @param txt_ncheque       Texto del número de cheque.
+     * @param txt_fecha         Texto de la fecha.
+     * @param txt_nodoc         Texto del número de documento.
+     * @param txt_nombre        Texto del nombre.
+     * @param txt_concepto      Texto del concepto.
      * @param ventanaPlantillaC Instancia de la ventana PlantillaC.
      */
     public static void operacionComprobante(
@@ -75,13 +76,13 @@ public class PDFService {
     /**
      * Realiza la operación de formulario.
      *
-     * @param table Tabla principal que contiene los datos.
-     * @param tablaex Tabla adicional para datos específicos.
-     * @param txt_ncheque Texto del número de cheque.
-     * @param txt_fecha Texto de la fecha.
-     * @param txt_nodoc Texto del número de documento.
-     * @param txt_nombre Texto del nombre.
-     * @param txt_concepto Texto del concepto.
+     * @param table             Tabla principal que contiene los datos.
+     * @param tablaex           Tabla adicional para datos específicos.
+     * @param txt_ncheque       Texto del número de cheque.
+     * @param txt_fecha         Texto de la fecha.
+     * @param txt_nodoc         Texto del número de documento.
+     * @param txt_nombre        Texto del nombre.
+     * @param txt_concepto      Texto del concepto.
      * @param ventanaPlantillaF Instancia de la ventana PlantillaF.
      */
     public static void operacionFormulario(

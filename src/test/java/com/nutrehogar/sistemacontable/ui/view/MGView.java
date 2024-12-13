@@ -2,11 +2,7 @@ package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.nutrehogar.sistemacontable.domain.HibernateUtil;
-import com.nutrehogar.sistemacontable.domain.repository.*;
-import com.nutrehogar.sistemacontable.ui.controller.BalanceComController;
-import com.nutrehogar.sistemacontable.ui.controller.LibroDiarioController;
 import com.nutrehogar.sistemacontable.ui.controller.MayorGenController;
-import com.nutrehogar.sistemacontable.ui.view.components.ViewMayorGen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +61,7 @@ public class MGView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, InvocationTargetException {
         Runtime.getRuntime().addShutdownHook(new Thread(HibernateUtil::shutdown));
 
         try {
@@ -84,23 +80,19 @@ public class MGView extends javax.swing.JFrame {
         HibernateUtil.getSessionFactory();//para que se inicialice en el hilo princiapl
 //        Thread.startVirtualThread(HibernateUtil::createSession);// inicia una session en un hilo virtual
         //lo que se ejecute dentro, se ejecuta en el EDT
-        try {
-            SwingUtilities.invokeAndWait(() -> {
-                splash.setVisible(false);  // Ocultar pantalla de carga
-                new MGView().setVisible(true);  // Mostrar la ventana principal
-            });
-        } catch (InterruptedException | InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
-        Thread.startVirtualThread(() -> {
-            System.out.println("MGView.main: latch.await()");
-            AsientoRepo.getInstance();
-            CuentaRepo.getInstance();
-            RegistroRepo.getInstance();
-            SubTipoCuentaRepo.getInstance();
-            TipoDocumentoRepo.getInstance();
-            TipoCuentaRepo.getInstance();
+        SwingUtilities.invokeAndWait(() -> {
+            splash.setVisible(false);  // Ocultar pantalla de carga
+            new MGView().setVisible(true);  // Mostrar la ventana principal
         });
+//        Thread.startVirtualThread(() -> {
+//            System.out.println("MGView.main: latch.await()");
+//            AsientoRepo.getInstance();
+//            CuentaRepo.getInstance();
+//            RegistroRepo.getInstance();
+//            SubTipoCuentaRepo.getInstance();
+//            TipoDocumentoRepo.getInstance();
+//            TipoCuentaRepo.getInstance();
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

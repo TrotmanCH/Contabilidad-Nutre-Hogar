@@ -25,44 +25,21 @@ public class ConfigLoader {
      * Propiedades del programa, son las que se cargan en el momento en que se arranca.
      */
     private static final Properties properties = new Properties();
+    @Getter
+    private static final String[] columnNames = {
+            "Propiedad", "Valor", "Key", "Default Value"
+    };
     /**
      * Propiedades que se editan al momento de manipular las propiedades, se debe llamar al metodo {@code persistProperties()}
      * para efectuar las modificaciones.
      */
     private static Properties config = null;
 
-    private ConfigLoader() {
-    }
-
-    /**
-     * Enum que define las claves y valores predeterminados de las propiedades del sistema.
-     */
-    @Getter
-    public enum Property {
-        PROGRAM_PATH("program.path", "SistemaContable", "Dirección del programa"),
-        DB_NAME("db.name", "srccontabilidad.db", "Nombre de Base de Datos"),
-        DB_BACKUP_PATH("db.backup", "backup", "Carpeta de las Copias de Seguridad de la Base de Datos"),
-        DB_PATH("db.path", System.getProperty("user.home") + File.separator + "db", "Dirección de la Base de Datos");
-
-        private final String key;
-        private final String defaultValue;
-        private final String name;
-
-        /**
-         * Constructor del enum Property.
-         *
-         * @param key          Clave de la propiedad.
-         * @param defaultValue Valor predeterminado de la propiedad.
-         */
-        Property(String key, String defaultValue, String name) {
-            this.key = key;
-            this.defaultValue = defaultValue;
-            this.name = name;
-        }
-    }
-
     static {
         initialize();
+    }
+
+    private ConfigLoader() {
     }
 
     /**
@@ -167,11 +144,6 @@ public class ConfigLoader {
         return properties.size();
     }
 
-    @Getter
-    private static final String[] columnNames = {
-            "Propiedad", "Valor", "Key", "Default Value"
-    };
-
     public static @Nullable Object getValues(int rowIndex, int columnIndex) {
         if (columnIndex < properties.size()) {
             Property property = Property.values()[rowIndex];
@@ -205,5 +177,32 @@ public class ConfigLoader {
      */
     public static @NotNull String getBackupPath() {
         return System.getProperty("user.home") + File.separator + properties.getProperty(Property.PROGRAM_PATH.key) + File.separator + properties.getProperty(Property.DB_BACKUP_PATH.key);
+    }
+
+    /**
+     * Enum que define las claves y valores predeterminados de las propiedades del sistema.
+     */
+    @Getter
+    public enum Property {
+        PROGRAM_PATH("program.path", "SistemaContable", "Dirección del programa"),
+        DB_NAME("db.name", "srccontabilidad.db", "Nombre de Base de Datos"),
+        DB_BACKUP_PATH("db.backup", "backup", "Carpeta de las Copias de Seguridad de la Base de Datos"),
+        DB_PATH("db.path", System.getProperty("user.home") + File.separator + "db", "Dirección de la Base de Datos");
+
+        private final String key;
+        private final String defaultValue;
+        private final String name;
+
+        /**
+         * Constructor del enum Property.
+         *
+         * @param key          Clave de la propiedad.
+         * @param defaultValue Valor predeterminado de la propiedad.
+         */
+        Property(String key, String defaultValue, String name) {
+            this.key = key;
+            this.defaultValue = defaultValue;
+            this.name = name;
+        }
     }
 }

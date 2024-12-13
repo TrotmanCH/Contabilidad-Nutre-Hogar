@@ -5,6 +5,7 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.nutrehogar.sistemacontable.ui.controller.MayorGenController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +28,7 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
 //        formulario = new Formulario();
-//        showJPanel(formulario);
+//        showJPanel();
         ajustarImagenToggle();
         applyButtonStyles(btnform, "Formulario", "/Icon/formulario.png");
         applyButtonStyles(btnBalancec, "Balance de Comprobación", "/Icon/balance.png");

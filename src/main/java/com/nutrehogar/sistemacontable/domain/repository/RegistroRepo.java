@@ -1,7 +1,7 @@
 package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.domain.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.model.Registro;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 

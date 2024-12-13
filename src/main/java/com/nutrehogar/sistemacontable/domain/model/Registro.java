@@ -24,11 +24,11 @@ public class Registro {
     @ManyToOne
     @JoinColumn(name = "id_asiento", nullable = false)
     Asiento asiento;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_tipo_documento", nullable = false)
     TipoDocumento tipoDocumento;
-    
+
     @Column(name = "comprobante", columnDefinition = "TEXT")
     String comprobante;
 
