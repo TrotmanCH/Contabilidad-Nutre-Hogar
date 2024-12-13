@@ -71,19 +71,20 @@ public enum TipoCuenta {
      */
     final int id;
 
-    /**
-     * Dependiendo del tipo de cuenta el saldo es el que suma es el haber o debe y vise versa con la resta
-     * @param saldo
-     * @param haber
-     * @param debe
-     * @return suma de {@code saldo} y el resultado de la resta o suma de {@code haber} y {@code debe}
-     */
-    public abstract BigDecimal getSaldo(BigDecimal saldo, BigDecimal haber, BigDecimal debe);
-
     public static TipoCuenta fromId(int id) {
         return Arrays.stream(TipoCuenta.values())
                 .filter(tipoCuenta -> tipoCuenta.getId() == id)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Invalid TipoCuenta id: " + id));
     }
+
+    /**
+     * Dependiendo del tipo de cuenta el saldo es el que suma es el haber o debe y vise versa con la resta
+     *
+     * @param saldo
+     * @param haber
+     * @param debe
+     * @return suma de {@code saldo} y el resultado de la resta o suma de {@code haber} y {@code debe}
+     */
+    public abstract BigDecimal getSaldo(BigDecimal saldo, BigDecimal haber, BigDecimal debe);
 }

@@ -1,43 +1,37 @@
 package com.nutrehogar.sistemacontable.ui.controller;
 
 import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
-import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
 import com.nutrehogar.sistemacontable.application.service.Util;
-import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
-import com.nutrehogar.sistemacontable.domain.util.filter.MayorGenFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioField;
-import com.nutrehogar.sistemacontable.persistence.repository.LibroDiarioRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.MayorGenRepo;
+import com.nutrehogar.sistemacontable.domain.OrderDirection;
+import com.nutrehogar.sistemacontable.domain.repository.LibroDiarioRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.view.components.ViewLibroDiario;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
 
 /**
  * @author Calcifer1331
  */
-@Setter
-@Getter
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class LibroDiarioController {
     static LibroDiarioController instance;
-    ViewLibroDiario viewLibroDiario;
-    JTable libroDiarioTable;
-    LibroDiarioTableModel libroDiarioTableModel;
-    LocalDateSpinner starDateSpinner;
-    LocalDateSpinner endDateSpinner;
-    LocalDate currentDate;
-    JButton btnFilter;
+    @Getter
+    ViewLibroDiario view;
+    final JTable libroDiarioTable;
+    final LibroDiarioTableModel libroDiarioTableModel;
+    final LocalDateSpinner starDateSpinner;
+    final LocalDateSpinner endDateSpinner;
+    final JButton btnFilter;
 
     public static LibroDiarioController getInstance() {
         if (instance == null) {
@@ -46,16 +40,12 @@ public class LibroDiarioController {
         return instance;
     }
 
-    {
-        currentDate = LocalDate.now();
-    }
-
     private LibroDiarioController() {
-        viewLibroDiario = new ViewLibroDiario();
-        libroDiarioTable = viewLibroDiario.getTableLibro();
-        starDateSpinner = viewLibroDiario.getStarDateSpinner();
-        endDateSpinner = viewLibroDiario.getEndDateSpinner();
-        btnFilter = viewLibroDiario.getBtnFilter();
+        view = new ViewLibroDiario();
+        libroDiarioTable = view.getTableLibro();
+        starDateSpinner = view.getStarDateSpinner();
+        endDateSpinner = view.getEndDateSpinner();
+        btnFilter = view.getBtnFilter();
         libroDiarioTableModel = new LibroDiarioTableModel();
         libroDiarioTable.setModel(libroDiarioTableModel);
         initialize();
@@ -67,34 +57,18 @@ public class LibroDiarioController {
         btnFilter.addActionListener(e -> {
             loadData();
         });
-        restarDateToSpinners();
+        restarDateToSpinners(starDateSpinner, endDateSpinner);
     }
 
     public void loadData() {
-        List<LibroDiarioDTO> data = LibroDiarioRepo.find(
-                null,
-                null,
-                new LibroDiarioFilter.ByFechaRange((LocalDate) starDateSpinner.getValue(), (LocalDate) endDateSpinner.getValue()));
+        var data = LibroDiarioRepo.find(
+                LibroDiarioRepo.Field.ASIENTO_FECHA,
+                OrderDirection.ASCENDING,
+                new LibroDiarioRepo.Filter.ByFechaRange((LocalDate) starDateSpinner.getValue(), (LocalDate) endDateSpinner.getValue()));
 
         SwingUtilities.invokeLater(() -> {
-            System.out.println("MayorGenController.loadData: " + data);
             libroDiarioTableModel.setData(data);
         });
-    }
-
-    public LocalDate getStartDateWithCurrentYear() {
-        assert currentDate != null;
-        return LocalDate.of(currentDate.getYear(), 1, 1);
-    }
-
-    public LocalDate getEndDateWithCurrentYear() {
-        assert currentDate != null;
-        return LocalDate.of(currentDate.getYear(), 12, 31);
-    }
-
-    public void restarDateToSpinners() {
-        this.starDateSpinner.setValue(getStartDateWithCurrentYear());
-        this.endDateSpinner.setValue(getEndDateWithCurrentYear());
     }
 
     public class LibroDiarioTableModel extends AbstractTableModel {
@@ -119,12 +93,12 @@ public class LibroDiarioController {
 
         @Override
         public int getColumnCount() {
-            return LibroDiarioField.values().length;
+            return LibroDiarioRepo.Field.values().length;
         }
 
         @Override
         public String getColumnName(int column) {
-            return LibroDiarioField.values()[column].getFieldName();
+            return LibroDiarioRepo.Field.values()[column].getFieldName();
         }
 
         @Override
@@ -160,7 +134,6 @@ public class LibroDiarioController {
 
         public void setData(List<LibroDiarioDTO> newData) {
             data = newData != null ? newData : List.of();
-            System.out.println("MayorGenTableModel.setData: " + data);
             fireTableDataChanged();
         }
     }

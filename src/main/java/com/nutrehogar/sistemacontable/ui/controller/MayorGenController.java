@@ -3,84 +3,82 @@ package com.nutrehogar.sistemacontable.ui.controller;
 import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
-import com.nutrehogar.sistemacontable.domain.util.filter.MayorGenFilter;
-import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.MayorGenRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.SubTipoCuentaRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.TipoCuentaRepo;
+import com.nutrehogar.sistemacontable.domain.repository.MayorGenRepo;
+import com.nutrehogar.sistemacontable.domain.repository.TipoCuentaRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel;
-import com.nutrehogar.sistemacontable.ui.view.components.MayorGenTableModel;
+import com.nutrehogar.sistemacontable.ui.view.components.ViewMayorGen;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
+import javax.swing.table.AbstractTableModel;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
 
 /**
  * Controlador de la vista del Mayor General
  *
  * @author Calcifer1331
  */
-@Getter
-@Setter
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MayorGenController {
+    static MayorGenController instance;
     final TipoCuentaRepo tipoCuentaRepo = TipoCuentaRepo.getInstance();
-    final SubTipoCuentaRepo subTipoCuentaRepo = SubTipoCuentaRepo.getInstance();
-    final CuentaRepo cuentaRepo = CuentaRepo.getInstance();
-
-    final MayorGenTableModel MGTableModel;
+    @Getter
+    final ViewMayorGen view;
+    final MayorGenTableModel tableModel;
     final LocalDateSpinnerModel starSpinnerModel;
     final LocalDateSpinnerModel endSpinnerModel;
     final SubTipoCuentaComboBoxModel subTipoCuentaComboModel;
     final TipoCuentaComboBoxModel tipoCuentaComboModel;
     final CuentaComboBoxModel cuentaComboModel;
-    final LocalDate currentDate;
     /**
      * Última cuenta seleccionada, se usará para la consulta
      */
     private String cuentaId;
 
-    {
-        currentDate = LocalDate.now();
-    }
-
-    public MayorGenController() {
-        this.MGTableModel = new MayorGenTableModel();
-        this.starSpinnerModel = new LocalDateSpinnerModel(getStartDateWithCurrentYear());
-        this.endSpinnerModel = new LocalDateSpinnerModel(getEndDateWithCurrentYear());
+    private MayorGenController() {
+        view = new ViewMayorGen();
+        this.tableModel = new MayorGenTableModel();
+        this.starSpinnerModel = view.getStarDateSpinner().getCustomModel();
+        this.endSpinnerModel = view.getEndDateSpinner().getCustomModel();
         this.tipoCuentaComboModel = new TipoCuentaComboBoxModel();
         this.subTipoCuentaComboModel = new SubTipoCuentaComboBoxModel(List.of());
         this.cuentaComboModel = new CuentaComboBoxModel(List.of());
         initComponents();
     }
 
+    public static MayorGenController getInstance() {
+        if (instance == null) {
+            instance = new MayorGenController();
+        }
+        return instance;
+    }
+
     private void initComponents() {
+        view.getMayorGenTable().setModel(tableModel);
+        view.getComTipoCuenta().setModel(tipoCuentaComboModel);
+        view.getComSubTipoCuenta().setModel(subTipoCuentaComboModel);
+        view.getComCuenta().setModel(cuentaComboModel);
+        view.getBtnFilter().addActionListener(e -> loadData());
+
+        restarDateToSpinners(starSpinnerModel, endSpinnerModel);
+
         defineModelListener();
         loadSubTipoCuentas();
         loadCuenta();
         loadData();
-    }
-
-    public LocalDate getStartDateWithCurrentYear() {
-        assert currentDate != null;
-        return LocalDate.of(currentDate.getYear(), 1, 1);
-    }
-
-    public LocalDate getEndDateWithCurrentYear() {
-        assert currentDate != null;
-        return LocalDate.of(currentDate.getYear(), 12, 31);
-    }
-
-    public void restarDateToSpinners() {
-        this.starSpinnerModel.setValue(getStartDateWithCurrentYear());
-        this.endSpinnerModel.setValue(getEndDateWithCurrentYear());
     }
 
     /**
@@ -119,15 +117,65 @@ public class MayorGenController {
         List<MayorGenDTO> data = MayorGenRepo.find(
                 null,
                 null,
-                new MayorGenFilter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
-                new MayorGenFilter.ByCuentaId(cuentaId));
-
-        System.out.println("MayorGenController.loadData: "+ starSpinnerModel.getValue());
-        System.out.println("MayorGenController.loadData: "+ endSpinnerModel.getValue());
-        System.out.println("MayorGenController.loadData: cuenta id: "+ cuentaId);
+                new MayorGenRepo.Filter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
+                new MayorGenRepo.Filter.ByCuentaId(cuentaId));
         SwingUtilities.invokeLater(() -> {
-            System.out.println("MayorGenController.loadData: " + data);
-            MGTableModel.setData(data);
+            tableModel.setData(data);
+        });
+    }
+
+    /**
+     * Se asigna los {@code contentsChanged} a los modelos de los combobox.
+     * <p>
+     * Define que se hará cuando se cambie el elemento seleccionado del combobox
+     */
+    private void defineModelListener() {
+        subTipoCuentaComboModel.addListDataListener(new ListDataListener() {
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+            }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                loadCuenta();
+            }
+        });
+        tipoCuentaComboModel.addListDataListener(new ListDataListener() {
+
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+            }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                loadSubTipoCuentas();
+            }
+        });
+        cuentaComboModel.addListDataListener(new ListDataListener() {
+
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+            }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                if (cuentaComboModel.getSelectedItem() instanceof Cuenta cuenta && cuenta.getId() != null) {
+                    cuentaId = cuenta.getId();
+                }
+                loadData();
+            }
         });
     }
 
@@ -188,60 +236,115 @@ public class MayorGenController {
     }
 
     /**
-     * Se asigna los {@code contentsChanged} a los modelos de los combobox.
-     * <p>
-     * Define que se hará cuando se cambie el elemento seleccionado del combobox
+     * Modelo para una table que muestra una lista de {@link MayorGenDTO}
+     *
+     * @author Calcifer1331
+     * @see
      */
-    private void defineModelListener() {
-        subTipoCuentaComboModel.addListDataListener(new ListDataListener() {
-            @Override
-            public void intervalAdded(ListDataEvent e) {
-            }
+    public static class MayorGenTableModel extends AbstractTableModel {
+        private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
+        /**
+         * lista de datos a mostrar en la base de datos
+         */
+        private List<MayorGenDTO> data;
 
-            @Override
-            public void intervalRemoved(ListDataEvent e) {
-            }
+        private BigDecimal saldo = BigDecimal.ZERO;
+        private BigDecimal sumDebe = BigDecimal.ZERO;
+        private BigDecimal sumHaber = BigDecimal.ZERO;
 
-            @Override
-            public void contentsChanged(ListDataEvent e) {
-                System.out.println("Change: " + subTipoCuentaComboModel.getSelectedItem().toString());
-                loadCuenta();
-            }
-        });
-        tipoCuentaComboModel.addListDataListener(new ListDataListener() {
+        public MayorGenTableModel() {
+            this.data = List.of();
+        }
 
-            @Override
-            public void intervalAdded(ListDataEvent e) {
-            }
+        public MayorGenTableModel(List<MayorGenDTO> data) {
+            this.data = data != null ? calcularSaldos(data) : List.of();
+        }
 
-            @Override
-            public void intervalRemoved(ListDataEvent e) {
+        /**
+         * Calcula la suma de {@code saldo}, de {@code Debe} y de {@code Haber}.
+         * <p>
+         * Dependiendo del tipo de cuenta que sea el del registro será el débito o el credito el que reste y sume
+         *
+         * @param data lista de datos a mostrar en la base de datos
+         * @return la misma lista, con el {@code saldo}, total de {@code Debe} y total de {@code Haber} sumado
+         */
+        @Contract("_ -> param1")
+        private List<MayorGenDTO> calcularSaldos(@NotNull List<MayorGenDTO> data) {
+            saldo = BigDecimal.ZERO;
+            sumDebe = BigDecimal.ZERO;
+            sumHaber = BigDecimal.ZERO;
+            for (MayorGenDTO dto : data) {
+                saldo = TipoCuenta.fromId(dto.getTipoCuentaId()).getSaldo(saldo, dto.getRegistroHaber(), dto.getRegistroDebe());
+                sumDebe = sumDebe.add(dto.getRegistroDebe(), MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
+                sumHaber = sumHaber.add(dto.getRegistroHaber(), MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
+                dto.setSaldo(saldo);
             }
+            return data;
+        }
 
-            @Override
-            public void contentsChanged(ListDataEvent e) {
-                System.out.println("change : " + tipoCuentaComboModel.getSelectedItem().toString());
-                loadSubTipoCuentas();
-            }
-        });
-        cuentaComboModel.addListDataListener(new ListDataListener() {
 
-            @Override
-            public void intervalAdded(ListDataEvent e) {
-            }
+        @Override
+        public int getRowCount() {
+            return data.size() + 1;
+        }
 
-            @Override
-            public void intervalRemoved(ListDataEvent e) {
-            }
+        @Override
+        public int getColumnCount() {
+            return MayorGenRepo.Field.values().length;
+        }
 
-            @Override
-            public void contentsChanged(ListDataEvent e) {
-                if (cuentaComboModel.getSelectedItem() instanceof Cuenta cuenta && cuenta.getId() != null) {
-                    cuentaId = cuenta.getId();
-                }
-                loadData();
-                System.out.printf("-------------------------------------------------- LOADDATA --------------------------------");
+        @Override
+        public String getColumnName(int column) {
+            return MayorGenRepo.Field.values()[column].getFieldName();
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            if (rowIndex < data.size()) {
+                MayorGenDTO dto = data.get(rowIndex);
+                return switch (columnIndex) {
+                    case 0 -> dto.getAsientoFecha();
+                    case 1 -> dto.getAsientoNombre();
+                    case 2 -> dto.getTipoDocumentoNombre();
+                    case 3 -> dto.getCuentaId();
+                    case 4 -> dto.getRegistroReferencia();
+                    case 5 -> dto.getRegistroDebe();
+                    case 6 -> dto.getRegistroHaber();
+                    case 7 -> dto.getSaldo();
+                    default -> null;
+                };
+            } else {
+                return switch (columnIndex) {
+                    case 4 -> "TOTAL:";
+                    case 5 -> sumDebe;
+                    case 6 -> sumHaber;
+                    case 7 -> saldo;
+                    default -> null;
+                };
             }
-        });
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return switch (columnIndex) {
+                case 0 -> LocalDate.class;
+                case 1, 2, 3, 4 -> String.class;
+                case 5, 6, 7 -> BigDecimal.class;
+                default -> Object.class;
+            };
+        }
+
+        /**
+         * Inserta los nuevos datos a la tabla y llama a {@code fireTableDataChanged()}, para que la tabla se vuelva a renderzar
+         *
+         * @param newData lista de datos a mostrar
+         */
+
+        public void setData(List<MayorGenDTO> newData) {
+            data = newData != null ? calcularSaldos(newData) : List.of();
+            System.out.println("MayorGenTableModel.setData: " + data);
+            fireTableDataChanged();
+        }
     }
+
 }
