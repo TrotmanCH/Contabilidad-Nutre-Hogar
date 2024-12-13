@@ -2,46 +2,36 @@ package com.nutrehogar.sistemacontable.domain.repository;
 
 import com.nutrehogar.sistemacontable.domain.HibernateUtil;
 import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TipoDocumentoRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static TipoDocumentoRepo instance;
 
-    private TipoDocumentoRepo() {
-    }
-
-    public static TipoDocumentoRepo getInstance() {
-        if (instance == null) {
-            instance = new TipoDocumentoRepo();
-        }
-        return instance;
-    }
-
-    public List<TipoDocumento> findAll() {
-        List<TipoDocumento> Transaccions;
+    public static List<TipoDocumento> findAll() {
+        List<TipoDocumento> transaccions = List.of();
         try {
             session.beginTransaction();
-            Transaccions = session.createQuery("from TipoDocumento", TipoDocumento.class).list();
+            transaccions = session.createQuery("from TipoDocumento", TipoDocumento.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            Transaccions = Collections.emptyList();
             e.printStackTrace();
         }
-        return Transaccions;
+        return transaccions;
     }
 
-    public TipoDocumento findById(Integer id) {
+    public static TipoDocumento findById(Integer id) {
         return session.find(TipoDocumento.class, id);
     }
 
-    public void save(TipoDocumento tipoDocumento) {
+    public static void save(TipoDocumento tipoDocumento) {
         try {
             session.beginTransaction();
             session.persist(tipoDocumento);
@@ -51,7 +41,7 @@ public class TipoDocumentoRepo {
         }
     }
 
-    public void save(@NotNull List<TipoDocumento> tipoDocumentos) {
+    public static void save(@NotNull List<TipoDocumento> tipoDocumentos) {
         try {
             session.beginTransaction();
             tipoDocumentos.forEach(session::persist);
@@ -61,7 +51,7 @@ public class TipoDocumentoRepo {
         }
     }
 
-    public void delete(TipoDocumento tipoDocumento) {
+    public static void delete(TipoDocumento tipoDocumento) {
         try {
             session.beginTransaction();
 
@@ -74,7 +64,7 @@ public class TipoDocumentoRepo {
         }
     }
 
-    public void delete(Integer id) {
+    public static void delete(Integer id) {
         try {
             session.beginTransaction();
 
@@ -86,7 +76,7 @@ public class TipoDocumentoRepo {
         }
     }
 
-    public void update(TipoDocumento tipoDocumento) {
+    public static void update(TipoDocumento tipoDocumento) {
         try {
             session.beginTransaction();
             session.merge(tipoDocumento);
