@@ -34,7 +34,6 @@ import static com.nutrehogar.sistemacontable.application.service.Util.restarDate
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MayorGenController {
     static MayorGenController instance;
-    final TipoCuentaRepo tipoCuentaRepo = TipoCuentaRepo.getInstance();
     @Getter
     final ViewMayorGen view;
     final MayorGenTableModel tableModel;
@@ -94,7 +93,7 @@ public class MayorGenController {
         if (tipoCuentaComboModel.getSelectedItem() instanceof TipoCuenta tipoCuentaEnum) {
             tipoCuentaId = tipoCuentaEnum.getId();
         }
-        var tipoCuenta = tipoCuentaRepo.findById(tipoCuentaId);
+        var tipoCuenta = TipoCuentaRepo.findById(tipoCuentaId);
         subTipoCuentaComboModel.setData(tipoCuenta.getSubTipoCuenta());
     }
 

@@ -36,8 +36,7 @@ import static com.nutrehogar.sistemacontable.application.service.Util.getDateFor
  *
  * @author Calcifer1331
  */
-@Getter
-@Setter
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BackupService {
 
