@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ListaCuentasView extends javax.swing.JFrame {
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnEliminar;
@@ -25,7 +25,7 @@ public class ListaCuentasView extends javax.swing.JFrame {
         btnActualizar.setEnabled(false);
 
 
-        List<Cuenta> ListaCuenta = CuentaRepo.getInstance().findAll();
+        List<Cuenta> ListaCuenta = CuentaRepo.findAll();
         DefaultTableModel model = (DefaultTableModel) tblCuenta.getModel();
         for (Cuenta cuenta : ListaCuenta) {
             model.addRow(new Object[]{
@@ -209,8 +209,8 @@ public class ListaCuentasView extends javax.swing.JFrame {
         String id = tblCuenta.getValueAt(selectedRow, 0).toString();
         try {
             // Llamar al repositorio para eliminar la cuenta
-            CuentaRepo cuentaRepo = CuentaRepo.getInstance();
-            cuentaRepo.delete(id);
+           // CuentaRepo cuentaRepo = CuentaRepo();
+            CuentaRepo.delete(id);
 
             // Eliminar la fila de la tabla
             ((DefaultTableModel) tblCuenta.getModel()).removeRow(selectedRow);
@@ -221,6 +221,6 @@ public class ListaCuentasView extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 
 }

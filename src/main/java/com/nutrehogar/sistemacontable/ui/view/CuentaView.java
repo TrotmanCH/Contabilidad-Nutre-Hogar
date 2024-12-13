@@ -19,9 +19,9 @@ import java.util.List;
  */
 public class CuentaView extends javax.swing.JFrame {
     List<SubTipoCuenta> listaSubTipo = new ArrayList<>();
-    SubTipoCuentaRepo subTipoCuentaRepo = SubTipoCuentaRepo.getInstance();
+    //SubTipoCuentaRepo subTipoCuentaRepo = SubTipoCuentaRepo();
     private DefaultTableModel tblCuenta;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cboSubTipoCuenta;
     private javax.swing.JLabel jLabel1;
@@ -35,7 +35,7 @@ public class CuentaView extends javax.swing.JFrame {
         this.tblCuenta = tblCuentaModelo;
 
         //busca todo lo que esta en subtipo cuenta con findAll, y con el foreach puedo hacer con cada cosa que esta en esta lista
-        subTipoCuentaRepo.findAll().forEach((subTipoCuenta) -> {
+        SubTipoCuentaRepo.findAll().forEach((subTipoCuenta) -> {
             cboSubTipoCuenta.addItem(subTipoCuenta.getNombre());
             listaSubTipo.add(subTipoCuenta);
         });
@@ -211,14 +211,14 @@ public class CuentaView extends javax.swing.JFrame {
                 codigoSubtipo[0] = subTipoCuenta.getId();
             }
         });
-        SubTipoCuenta subtipoCuenta = subTipoCuentaRepo.findById(codigoSubtipo[0]);
+        SubTipoCuenta subtipoCuenta = SubTipoCuentaRepo.findById(codigoSubtipo[0]);
 
         Cuenta cuenta = new Cuenta();
         cuenta.setId(id);
         cuenta.setNombre(nombre);
         cuenta.setSubTipoCuenta(subtipoCuenta);
-        CuentaRepo cuentaRepo = CuentaRepo.getInstance();
-        cuentaRepo.save(cuenta);
+        //CuentaRepo cuentaRepo = CuentaRepo;
+        CuentaRepo.save(cuenta);
         tblCuenta.addRow(new Object[]{
                 id, nombre, subtipoCuenta.getTipoCuenta().getNombre(), subtipoCuenta.getNombre()
         });
@@ -228,5 +228,5 @@ public class CuentaView extends javax.swing.JFrame {
     private void cboSubTipoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSubTipoCuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboSubTipoCuentaActionPerformed
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }

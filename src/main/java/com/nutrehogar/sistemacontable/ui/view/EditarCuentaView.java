@@ -19,8 +19,8 @@ public class EditarCuentaView extends javax.swing.JFrame {
     private String cuentaId;
     private DefaultTableModel tblCuentaModel;
     private int selectedRow;
-    private java.util.List<SubTipoCuenta> listaSubTipo = SubTipoCuentaRepo.getInstance().findAll();
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.util.List<SubTipoCuenta> listaSubTipo = SubTipoCuentaRepo.findAll();
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cboSubTipoCuenta;
@@ -203,9 +203,9 @@ public class EditarCuentaView extends javax.swing.JFrame {
 
         try {
             // Actualizar en la base de datos
-            CuentaRepo cuentaRepo = CuentaRepo.getInstance();
+            //CuentaRepo cuentaRepo = CuentaRepo();
             var cuenta = Cuenta.builder().id(cuentaId).nombre(nombre).subTipoCuenta(subTipoCuenta).build();
-            cuentaRepo.update(cuenta);
+            CuentaRepo.update(cuenta);
 
             // Actualizar en la tabla
             tblCuentaModel.setValueAt(nombre, selectedRow, 1);
@@ -218,5 +218,5 @@ public class EditarCuentaView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al actualizar la cuenta: " + e.getMessage());
         }
     }
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
