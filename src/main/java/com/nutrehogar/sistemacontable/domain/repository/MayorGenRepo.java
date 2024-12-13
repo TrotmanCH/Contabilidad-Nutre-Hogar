@@ -1,9 +1,9 @@
 package com.nutrehogar.sistemacontable.domain.repository;
 
 import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
-import com.nutrehogar.sistemacontable.domain.model.*;
-import com.nutrehogar.sistemacontable.domain.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.OrderDirection;
+import com.nutrehogar.sistemacontable.domain.model.*;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.AccessLevel;
@@ -112,6 +112,7 @@ public class MayorGenRepo {
         }
         return mayorGeneralDTOS;
     }
+
     /**
      * Enum que define los campos por los cuales se puede ordenar el Mayor General.
      */
@@ -144,6 +145,7 @@ public class MayorGenRepo {
         }
 
     }
+
     /**
      * Clase sellada que define los criterios de filtrado para el Mayor General.
      */

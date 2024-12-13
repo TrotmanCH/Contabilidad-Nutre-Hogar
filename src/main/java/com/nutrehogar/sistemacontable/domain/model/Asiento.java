@@ -24,7 +24,7 @@ public class Asiento {
 
     @Column(name = "fecha", nullable = false)
     LocalDate fecha;
-    
+
     @Column(name = "nombre", columnDefinition = "TEXT")
     String nombre;
 

@@ -5,7 +5,6 @@ import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -37,6 +36,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Util {
     public static LocalDate currentDate = LocalDate.now();
+
     /**
      * Formato por defecto de un {@link BigDecimal}
      *
@@ -57,6 +57,17 @@ public class Util {
     public static @NotNull DateTimeFormatter getDateFormat() {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
     }
+
+    public static void restarDateToSpinners(@NotNull LocalDateSpinnerModel star, @NotNull LocalDateSpinnerModel end) {
+        star.setValue(LocalDate.of(currentDate.getYear(), 1, 1));
+        end.setValue(LocalDate.of(currentDate.getYear(), 12, 31));
+    }
+
+    public static void restarDateToSpinners(@NotNull LocalDateSpinner star, @NotNull LocalDateSpinner end) {
+        star.setValue(LocalDate.of(currentDate.getYear(), 1, 1));
+        end.setValue(LocalDate.of(currentDate.getYear(), 12, 31));
+    }
+
     /**
      * Define como se debe renderizar una selda que contenga un tipo especifico de dato.
      * <p>
@@ -77,15 +88,6 @@ public class Util {
                 super.setValue(value);
             }
         }
-    }
-
-    public static void restarDateToSpinners(@NotNull LocalDateSpinnerModel star, @NotNull LocalDateSpinnerModel end) {
-        star.setValue(LocalDate.of(currentDate.getYear(), 1, 1));
-        end.setValue(LocalDate.of(currentDate.getYear(), 12, 31));
-    }
-    public static void restarDateToSpinners(@NotNull LocalDateSpinner star, @NotNull LocalDateSpinner end) {
-        star.setValue(LocalDate.of(currentDate.getYear(), 1, 1));
-        end.setValue(LocalDate.of(currentDate.getYear(), 12, 31));
     }
 
 }

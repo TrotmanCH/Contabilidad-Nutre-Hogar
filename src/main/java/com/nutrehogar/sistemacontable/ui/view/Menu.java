@@ -34,11 +34,7 @@ public class Menu extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Menu().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new Menu().setVisible(true));
     }
 
     @SuppressWarnings("unchecked")

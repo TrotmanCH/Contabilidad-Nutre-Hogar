@@ -1,9 +1,9 @@
 package com.nutrehogar.sistemacontable.domain.repository;
 
 import com.nutrehogar.sistemacontable.application.dto.BalanceComDTO;
-import com.nutrehogar.sistemacontable.domain.model.*;
-import com.nutrehogar.sistemacontable.domain.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.OrderDirection;
+import com.nutrehogar.sistemacontable.domain.model.*;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.AccessLevel;
@@ -66,18 +66,15 @@ public class BalanceComRepo {
             Predicate predicate = cb.conjunction();
             for (Filter filter : filters) {
                 Predicate filterPredicate = switch (filter) {
-                    case Filter.ByFechaRange fecha ->
-                        fecha.startDate() != null && fecha.endDate() != null
-                        ? cb.between(fechaPath, fecha.startDate(), fecha.endDate())
-                        : cb.conjunction();
-                    case Filter.ByNombreCuenta nombre ->
-                        nombre.value() != null
-                        ? cb.like(cb.lower(nombreCuentaPath), "%" + nombre.value().toLowerCase() + "%")
-                        : cb.conjunction();
-                    case Filter.ByCodigoCuenta codigo ->
-                        codigo.value() != null
-                        ? cb.like(cb.lower(codigoCuentaPath), "%" + codigo.value().toLowerCase() + "%")
-                        : cb.conjunction();
+                    case Filter.ByFechaRange fecha -> fecha.startDate() != null && fecha.endDate() != null
+                            ? cb.between(fechaPath, fecha.startDate(), fecha.endDate())
+                            : cb.conjunction();
+                    case Filter.ByNombreCuenta nombre -> nombre.value() != null
+                            ? cb.like(cb.lower(nombreCuentaPath), "%" + nombre.value().toLowerCase() + "%")
+                            : cb.conjunction();
+                    case Filter.ByCodigoCuenta codigo -> codigo.value() != null
+                            ? cb.like(cb.lower(codigoCuentaPath), "%" + codigo.value().toLowerCase() + "%")
+                            : cb.conjunction();
                 };
                 predicate = cb.and(predicate, filterPredicate);
             }
@@ -86,29 +83,20 @@ public class BalanceComRepo {
             // Aplicar orden
             if (orderField != null) {
                 Path<?> orderPath = switch (orderField) {
-                    case CUENTA_ID ->
-                        codigoCuentaPath;
-                    case CUENTA_NOMBRE ->
-                        nombreCuentaPath;
-                    case TIPO_DOCUMENTO_NOMBRE ->
-                        tipoDocumentoNombrePath;
-                    case REGISTRO_DEBE ->
-                        debePath;
-                    case REGISTRO_HABER ->
-                        haberPath;
-                    case ASIENTO_FECHA ->
-                        fechaPath;
-                    case REGISTRO_REFERENCIA ->
-                        referenciaPath;
+                    case CUENTA_ID -> codigoCuentaPath;
+                    case CUENTA_NOMBRE -> nombreCuentaPath;
+                    case TIPO_DOCUMENTO_NOMBRE -> tipoDocumentoNombrePath;
+                    case REGISTRO_DEBE -> debePath;
+                    case REGISTRO_HABER -> haberPath;
+                    case ASIENTO_FECHA -> fechaPath;
+                    case REGISTRO_REFERENCIA -> referenciaPath;
                     case SALDO -> null;
                 };
 
                 if (orderDirection != null) {
                     cq.orderBy(switch (orderDirection) {
-                        case ASCENDING ->
-                            cb.asc(orderPath);
-                        case DESCENDING ->
-                            cb.desc(orderPath);
+                        case ASCENDING -> cb.asc(orderPath);
+                        case DESCENDING -> cb.desc(orderPath);
                     });
                 }
             }
@@ -126,26 +114,7 @@ public class BalanceComRepo {
         }
         return BalanceComDTOS;
     }
-    /**
-     * Clase sellada que define los criterios de filtrado para el Balance de
-     * Comprobación.
-     *
-     * @author jayson
-     */
-    public sealed interface Filter {
 
-        record ByFechaRange(LocalDate startDate, LocalDate endDate) implements Filter {
-
-        }
-
-        record ByNombreCuenta(String value) implements Filter {
-
-        }
-
-        record ByCodigoCuenta(String value) implements Filter {
-
-        }
-    }
     /**
      * @author jayson
      * Enum que define los campos por los cuales se puede ordenar el
@@ -180,6 +149,27 @@ public class BalanceComRepo {
          */
         public String getFieldName() {
             return fieldName;
+        }
+    }
+
+    /**
+     * Clase sellada que define los criterios de filtrado para el Balance de
+     * Comprobación.
+     *
+     * @author jayson
+     */
+    public sealed interface Filter {
+
+        record ByFechaRange(LocalDate startDate, LocalDate endDate) implements Filter {
+
+        }
+
+        record ByNombreCuenta(String value) implements Filter {
+
+        }
+
+        record ByCodigoCuenta(String value) implements Filter {
+
         }
     }
 }

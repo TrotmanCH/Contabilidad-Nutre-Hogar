@@ -1,47 +1,37 @@
 package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
 import com.nutrehogar.sistemacontable.domain.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TipoCuentaRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static TipoCuentaRepo instance;
 
-    private TipoCuentaRepo() {
-    }
-
-    public static TipoCuentaRepo getInstance() {
-        if (instance == null) {
-            instance = new TipoCuentaRepo();
-        }
-        return instance;
-    }
-
-    public List<TipoCuenta> findAll() {
-        List<TipoCuenta> Transaccions;
+    public static List<TipoCuenta> findAll() {
+        List<TipoCuenta> Transaccions = List.of();
         try {
             session.beginTransaction();
             Transaccions = session.createQuery("from TipoCuenta", TipoCuenta.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            Transaccions = Collections.emptyList();
             e.printStackTrace();
         }
         return Transaccions;
     }
 
-    public TipoCuenta findById(Integer id) {
+    public static TipoCuenta findById(Integer id) {
         return session.find(TipoCuenta.class, id);
     }
 
-    public void save(TipoCuenta tipoCuenta) {
+    public static void save(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
             session.persist(tipoCuenta);
@@ -51,7 +41,7 @@ public class TipoCuentaRepo {
         }
     }
 
-    public void save(@NotNull List<TipoCuenta> tipoCuentas) {
+    public static void save(@NotNull List<TipoCuenta> tipoCuentas) {
         try {
             session.beginTransaction();
             tipoCuentas.forEach(session::persist);
@@ -61,7 +51,7 @@ public class TipoCuentaRepo {
         }
     }
 
-    public void delete(TipoCuenta tipoCuenta) {
+    public static void delete(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
 
@@ -74,7 +64,7 @@ public class TipoCuentaRepo {
         }
     }
 
-    public void delete(Integer id) {
+    public static void delete(Integer id) {
         try {
             session.beginTransaction();
 
@@ -88,7 +78,7 @@ public class TipoCuentaRepo {
     }
 
 
-    public void update(TipoCuenta tipoCuenta) {
+    public static void update(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
             session.merge(tipoCuenta);
