@@ -1,7 +1,7 @@
-package com.nutrehogar.sistemacontable.persistence.repository;
+package com.nutrehogar.sistemacontable.domain.repository;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
-import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,24 +1,19 @@
-package com.nutrehogar.sistemacontable.persistence.repository;
+package com.nutrehogar.sistemacontable.domain.repository;
 
 import com.nutrehogar.sistemacontable.application.dto.BalanceComDTO;
 import com.nutrehogar.sistemacontable.domain.model.*;
-import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.BalanceComField;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
-import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.OrderDirection;
+import com.nutrehogar.sistemacontable.domain.HibernateUtil;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.hibernate.Session;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -29,7 +24,7 @@ public class BalanceComRepo {
 
     private static final Session session = HibernateUtil.getSession();
 
-    public static List<BalanceComDTO> find(BalanceComField orderField, OrderDirection orderDirection, BalanceComFilter... filters) {
+    public static List<BalanceComDTO> find(Field orderField, OrderDirection orderDirection, Filter... filters) {
         List<BalanceComDTO> BalanceComDTOS = List.of();
         if (filters == null || filters.length == 0) return BalanceComDTOS;
         System.out.println("orderField: " + orderField);
@@ -69,17 +64,17 @@ public class BalanceComRepo {
                     haberPath));
 
             Predicate predicate = cb.conjunction();
-            for (BalanceComFilter filter : filters) {
+            for (Filter filter : filters) {
                 Predicate filterPredicate = switch (filter) {
-                    case BalanceComFilter.ByFechaRange fecha ->
+                    case Filter.ByFechaRange fecha ->
                         fecha.startDate() != null && fecha.endDate() != null
                         ? cb.between(fechaPath, fecha.startDate(), fecha.endDate())
                         : cb.conjunction();
-                    case BalanceComFilter.ByNombreCuenta nombre ->
+                    case Filter.ByNombreCuenta nombre ->
                         nombre.value() != null
                         ? cb.like(cb.lower(nombreCuentaPath), "%" + nombre.value().toLowerCase() + "%")
                         : cb.conjunction();
-                    case BalanceComFilter.ByCodigoCuenta codigo ->
+                    case Filter.ByCodigoCuenta codigo ->
                         codigo.value() != null
                         ? cb.like(cb.lower(codigoCuentaPath), "%" + codigo.value().toLowerCase() + "%")
                         : cb.conjunction();
@@ -130,5 +125,61 @@ public class BalanceComRepo {
             e.printStackTrace();
         }
         return BalanceComDTOS;
+    }
+    /**
+     * Clase sellada que define los criterios de filtrado para el Balance de
+     * Comprobación.
+     *
+     * @author jayson
+     */
+    public sealed interface Filter {
+
+        record ByFechaRange(LocalDate startDate, LocalDate endDate) implements Filter {
+
+        }
+
+        record ByNombreCuenta(String value) implements Filter {
+
+        }
+
+        record ByCodigoCuenta(String value) implements Filter {
+
+        }
+    }
+    /**
+     * @author jayson
+     * Enum que define los campos por los cuales se puede ordenar el
+     * Balance de Comprobación.
+     */
+    public enum Field {
+        ASIENTO_FECHA("Fecha"),
+        TIPO_DOCUMENTO_NOMBRE("Tipo Documento"),
+        CUENTA_ID("Codigo Cuenta"),
+        CUENTA_NOMBRE("Nombre Cuenta"),
+        REGISTRO_REFERENCIA("Referencia"),
+        REGISTRO_DEBE("Debe"),
+        REGISTRO_HABER("Haber"),
+        SALDO("Saldo");
+
+
+        private final String fieldName;
+
+        /**
+         * Constructor de {@code BalanceComprobacionOrderField}.
+         *
+         * @param fieldName Nombre del campo en la entidad Cuenta.
+         */
+        Field(String fieldName) {
+            this.fieldName = fieldName;
+        }
+
+        /**
+         * Obtiene el nombre del campo correspondiente en la entidad.
+         *
+         * @return Nombre del campo.
+         */
+        public String getFieldName() {
+            return fieldName;
+        }
     }
 }

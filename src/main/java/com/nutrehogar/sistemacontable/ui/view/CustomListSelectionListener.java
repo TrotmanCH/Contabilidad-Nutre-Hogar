@@ -1,7 +1,6 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
-import javax.swing.JButton;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -9,12 +8,12 @@ public class CustomListSelectionListener implements ListSelectionListener {
     public Integer fila;
     private JButton editar;
     private JButton eliminar;
-    
+
     public CustomListSelectionListener(JButton editar, JButton eliminar) {
         this.editar = editar;
         this.eliminar = eliminar;
     }
-    
+
     @Override
     public void valueChanged(ListSelectionEvent e) {
         ListSelectionModel lsm = (ListSelectionModel) e.getSource();

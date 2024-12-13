@@ -1,7 +1,7 @@
-package com.nutrehogar.sistemacontable.persistence.repository;
+package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
-import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
+import com.nutrehogar.sistemacontable.domain.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,25 +9,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class TipoCuentaRepo {
+public class SubTipoCuentaRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static TipoCuentaRepo instance;
+    private static SubTipoCuentaRepo instance;
 
-    private TipoCuentaRepo() {
+    private SubTipoCuentaRepo() {
     }
 
-    public static TipoCuentaRepo getInstance() {
+    public static SubTipoCuentaRepo getInstance() {
         if (instance == null) {
-            instance = new TipoCuentaRepo();
+            instance = new SubTipoCuentaRepo();
         }
         return instance;
     }
 
-    public List<TipoCuenta> findAll() {
-        List<TipoCuenta> Transaccions;
+    public List<SubTipoCuenta> findAll() {
+        List<SubTipoCuenta> Transaccions;
         try {
             session.beginTransaction();
-            Transaccions = session.createQuery("from TipoCuenta", TipoCuenta.class).list();
+            Transaccions = session.createQuery("from SubTipoCuenta", SubTipoCuenta.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -37,48 +37,35 @@ public class TipoCuentaRepo {
         return Transaccions;
     }
 
-    public TipoCuenta findById(Integer id) {
-        return session.find(TipoCuenta.class, id);
+    public SubTipoCuenta findById(String id) {
+        return session.find(SubTipoCuenta.class, id);
     }
 
-    public void save(TipoCuenta tipoCuenta) {
+    public void save(SubTipoCuenta subTipoCuenta) {
         try {
             session.beginTransaction();
-            session.persist(tipoCuenta);
+            session.persist(subTipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<TipoCuenta> tipoCuentas) {
+    public void save(@NotNull List<SubTipoCuenta> subTipoCuentas) {
         try {
             session.beginTransaction();
-            tipoCuentas.forEach(session::persist);
+            subTipoCuentas.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(TipoCuenta tipoCuenta) {
+    public void delete(SubTipoCuenta subTipoCuenta) {
         try {
             session.beginTransaction();
 
-            session.remove(session.contains(tipoCuenta) ? tipoCuenta : session.merge(tipoCuenta));
-
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            e.printStackTrace();
-        }
-    }
-
-    public void delete(Integer id) {
-        try {
-            session.beginTransaction();
-
-            Optional.ofNullable(session.find(TipoCuenta.class, id)).ifPresent(session::remove);
+            session.remove(session.contains(subTipoCuenta) ? subTipoCuenta : session.merge(subTipoCuenta));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -87,11 +74,22 @@ public class TipoCuentaRepo {
         }
     }
 
-
-    public void update(TipoCuenta tipoCuenta) {
+    public void delete(String id) {
         try {
             session.beginTransaction();
-            session.merge(tipoCuenta);
+
+            Optional.ofNullable(findById(id)).ifPresent(session::remove);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+    }
+
+    public void update(SubTipoCuenta subTipoCuenta) {
+        try {
+            session.beginTransaction();
+            session.merge(subTipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

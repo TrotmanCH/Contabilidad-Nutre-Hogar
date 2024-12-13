@@ -3,12 +3,8 @@ package com.nutrehogar.sistemacontable.ui.controller;
 import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
-import com.nutrehogar.sistemacontable.domain.util.filter.MayorGenFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.MayorGenField;
-import com.nutrehogar.sistemacontable.persistence.repository.CuentaRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.MayorGenRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.SubTipoCuentaRepo;
-import com.nutrehogar.sistemacontable.persistence.repository.TipoCuentaRepo;
+import com.nutrehogar.sistemacontable.domain.repository.MayorGenRepo;
+import com.nutrehogar.sistemacontable.domain.repository.TipoCuentaRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel;
 import com.nutrehogar.sistemacontable.ui.view.components.ViewMayorGen;
 import lombok.AccessLevel;
@@ -52,13 +48,6 @@ public class MayorGenController {
      */
     private String cuentaId;
 
-    public static MayorGenController getInstance() {
-        if (instance == null) {
-            instance = new MayorGenController();
-        }
-        return instance;
-    }
-
     private MayorGenController() {
         view = new ViewMayorGen();
         this.tableModel = new MayorGenTableModel();
@@ -70,12 +59,19 @@ public class MayorGenController {
         initComponents();
     }
 
+    public static MayorGenController getInstance() {
+        if (instance == null) {
+            instance = new MayorGenController();
+        }
+        return instance;
+    }
+
     private void initComponents() {
         view.getMayorGenTable().setModel(tableModel);
         view.getComTipoCuenta().setModel(tipoCuentaComboModel);
         view.getComSubTipoCuenta().setModel(subTipoCuentaComboModel);
         view.getComCuenta().setModel(cuentaComboModel);
-        view.getBtnFilter().addActionListener(e->loadData());
+        view.getBtnFilter().addActionListener(e -> loadData());
 
         restarDateToSpinners(starSpinnerModel, endSpinnerModel);
 
@@ -121,10 +117,65 @@ public class MayorGenController {
         List<MayorGenDTO> data = MayorGenRepo.find(
                 null,
                 null,
-                new MayorGenFilter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
-                new MayorGenFilter.ByCuentaId(cuentaId));
+                new MayorGenRepo.Filter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
+                new MayorGenRepo.Filter.ByCuentaId(cuentaId));
         SwingUtilities.invokeLater(() -> {
             tableModel.setData(data);
+        });
+    }
+
+    /**
+     * Se asigna los {@code contentsChanged} a los modelos de los combobox.
+     * <p>
+     * Define que se hará cuando se cambie el elemento seleccionado del combobox
+     */
+    private void defineModelListener() {
+        subTipoCuentaComboModel.addListDataListener(new ListDataListener() {
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+            }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                loadCuenta();
+            }
+        });
+        tipoCuentaComboModel.addListDataListener(new ListDataListener() {
+
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+            }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                loadSubTipoCuentas();
+            }
+        });
+        cuentaComboModel.addListDataListener(new ListDataListener() {
+
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+            }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                if (cuentaComboModel.getSelectedItem() instanceof Cuenta cuenta && cuenta.getId() != null) {
+                    cuentaId = cuenta.getId();
+                }
+                loadData();
+            }
         });
     }
 
@@ -185,61 +236,6 @@ public class MayorGenController {
     }
 
     /**
-     * Se asigna los {@code contentsChanged} a los modelos de los combobox.
-     * <p>
-     * Define que se hará cuando se cambie el elemento seleccionado del combobox
-     */
-    private void defineModelListener() {
-        subTipoCuentaComboModel.addListDataListener(new ListDataListener() {
-            @Override
-            public void intervalAdded(ListDataEvent e) {
-            }
-
-            @Override
-            public void intervalRemoved(ListDataEvent e) {
-            }
-
-            @Override
-            public void contentsChanged(ListDataEvent e) {
-                loadCuenta();
-            }
-        });
-        tipoCuentaComboModel.addListDataListener(new ListDataListener() {
-
-            @Override
-            public void intervalAdded(ListDataEvent e) {
-            }
-
-            @Override
-            public void intervalRemoved(ListDataEvent e) {
-            }
-
-            @Override
-            public void contentsChanged(ListDataEvent e) {
-                loadSubTipoCuentas();
-            }
-        });
-        cuentaComboModel.addListDataListener(new ListDataListener() {
-
-            @Override
-            public void intervalAdded(ListDataEvent e) {
-            }
-
-            @Override
-            public void intervalRemoved(ListDataEvent e) {
-            }
-
-            @Override
-            public void contentsChanged(ListDataEvent e) {
-                if (cuentaComboModel.getSelectedItem() instanceof Cuenta cuenta && cuenta.getId() != null) {
-                    cuentaId = cuenta.getId();
-                }
-                loadData();
-            }
-        });
-    }
-
-    /**
      * Modelo para una table que muestra una lista de {@link MayorGenDTO}
      *
      * @author Calcifer1331
@@ -294,12 +290,12 @@ public class MayorGenController {
 
         @Override
         public int getColumnCount() {
-            return MayorGenField.values().length;
+            return MayorGenRepo.Field.values().length;
         }
 
         @Override
         public String getColumnName(int column) {
-            return MayorGenField.values()[column].getFieldName();
+            return MayorGenRepo.Field.values()[column].getFieldName();
         }
 
         @Override

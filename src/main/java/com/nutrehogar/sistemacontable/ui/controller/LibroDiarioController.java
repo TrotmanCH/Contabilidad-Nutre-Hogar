@@ -2,10 +2,8 @@ package com.nutrehogar.sistemacontable.ui.controller;
 
 import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.application.service.Util;
-import com.nutrehogar.sistemacontable.domain.util.filter.LibroDiarioFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.LibroDiarioField;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
-import com.nutrehogar.sistemacontable.persistence.repository.LibroDiarioRepo;
+import com.nutrehogar.sistemacontable.domain.OrderDirection;
+import com.nutrehogar.sistemacontable.domain.repository.LibroDiarioRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.view.components.ViewLibroDiario;
 import lombok.AccessLevel;
@@ -64,9 +62,9 @@ public class LibroDiarioController {
 
     public void loadData() {
         var data = LibroDiarioRepo.find(
-                LibroDiarioField.ASIENTO_FECHA,
+                LibroDiarioRepo.Field.ASIENTO_FECHA,
                 OrderDirection.ASCENDING,
-                new LibroDiarioFilter.ByFechaRange((LocalDate) starDateSpinner.getValue(), (LocalDate) endDateSpinner.getValue()));
+                new LibroDiarioRepo.Filter.ByFechaRange((LocalDate) starDateSpinner.getValue(), (LocalDate) endDateSpinner.getValue()));
 
         SwingUtilities.invokeLater(() -> {
             libroDiarioTableModel.setData(data);
@@ -95,12 +93,12 @@ public class LibroDiarioController {
 
         @Override
         public int getColumnCount() {
-            return LibroDiarioField.values().length;
+            return LibroDiarioRepo.Field.values().length;
         }
 
         @Override
         public String getColumnName(int column) {
-            return LibroDiarioField.values()[column].getFieldName();
+            return LibroDiarioRepo.Field.values()[column].getFieldName();
         }
 
         @Override

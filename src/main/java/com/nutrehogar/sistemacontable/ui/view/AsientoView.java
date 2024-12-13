@@ -2,14 +2,14 @@ package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
-import com.nutrehogar.sistemacontable.persistence.repository.AsientoRepo;
+import com.nutrehogar.sistemacontable.domain.repository.AsientoRepo;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
 
 public class AsientoView extends javax.swing.JFrame {
     private final List<Registro> listaRegistro = new ArrayList<>();
@@ -17,26 +17,45 @@ public class AsientoView extends javax.swing.JFrame {
     private final ListSelectionModel listaSeleccionModelo;
     private final CustomListSelectionListener listaSeleccionEscucha;
     private final CustomTableModelListener tablaModeloEscucha;
-    
+    public javax.swing.JTable tabRegistros;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton butAnadirRegistro;
+    private javax.swing.JButton butEditarRegistro;
+    private javax.swing.JButton butEliminarRegistro;
+    private javax.swing.JButton butGuardarAsiento;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFecha;
+    private javax.swing.JTextArea texareConcepto;
+    private javax.swing.JTextField texfieDebeTotal;
+    private javax.swing.JTextField texfieHaberTotal;
+    private javax.swing.JTextField texfieMonto;
+    private javax.swing.JTextField texfieNombre;
     public AsientoView() {
         initComponents();
-        
+
         this.tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
         this.listaSeleccionModelo = tabRegistros.getSelectionModel();
-        
+
         this.listaSeleccionEscucha = new CustomListSelectionListener(butEditarRegistro, butEliminarRegistro);
         this.tablaModeloEscucha = new CustomTableModelListener(texfieDebeTotal, texfieHaberTotal, texfieMonto);
-        
+
         this.listaSeleccionModelo.addListSelectionListener(this.listaSeleccionEscucha);
         this.tabRegistrosModelo.addTableModelListener(this.tablaModeloEscucha);
-        
+
         this.tabRegistros.setSelectionModel(this.listaSeleccionModelo);
-        
-        
+
+
         butEditarRegistro.setEnabled(false);
         butEliminarRegistro.setEnabled(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -76,19 +95,19 @@ public class AsientoView extends javax.swing.JFrame {
 
         tabRegistros.setAutoCreateRowSorter(true);
         tabRegistros.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Tipo de Doc.", "No. Cheque o Comp.", "Referencia", "Código", "Debe", "Haber"
-            }
+                },
+                new String[]{
+                        "Tipo de Doc.", "No. Cheque o Comp.", "Referencia", "Código", "Debe", "Haber"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false
+            boolean[] canEdit = new boolean[]{
+                    true, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         tabRegistros.setAutoscrolls(false);
@@ -152,127 +171,129 @@ public class AsientoView extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(butAnadirRegistro)
-                        .addGap(15, 15, 15)
-                        .addComponent(butEditarRegistro)
-                        .addGap(18, 18, 18)
-                        .addComponent(butEliminarRegistro))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel9)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addContainerGap(82, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel8)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel7)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(19, 19, 19)
-                                    .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(39, 39, 39))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(279, 279, 279))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(butGuardarAsiento)
-                            .addGap(63, 63, 63)
-                            .addComponent(jLabel11)
-                            .addGap(26, 26, 26)
-                            .addComponent(texfieDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(texfieHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(13, 13, 13))))
-                .addGap(71, 71, 71))
+                                                .addComponent(butAnadirRegistro)
+                                                .addGap(15, 15, 15)
+                                                .addComponent(butEditarRegistro)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(butEliminarRegistro))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(jLabel9)
+                                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addGap(18, 18, 18)
+                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(layout.createSequentialGroup()
+                                                                                        .addComponent(jLabel8)
+                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(layout.createSequentialGroup()
+                                                                                        .addComponent(jLabel7)
+                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                        .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addGap(19, 19, 19)
+                                                                        .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addGap(39, 39, 39))
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                        .addComponent(jLabel1)
+                                                        .addGap(279, 279, 279))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                        .addComponent(butGuardarAsiento)
+                                                        .addGap(63, 63, 63)
+                                                        .addComponent(jLabel11)
+                                                        .addGap(26, 26, 26)
+                                                        .addComponent(texfieDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(texfieHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(13, 13, 13))))
+                                .addGap(71, 71, 71))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(63, 63, 63)
-                                .addComponent(jLabel9))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
+                                .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(texfieDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(texfieHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)
-                            .addComponent(butGuardarAsiento))
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(butAnadirRegistro)
-                    .addComponent(butEditarRegistro)
-                    .addComponent(butEliminarRegistro))
-                .addContainerGap(23, Short.MAX_VALUE))
+                                        .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(63, 63, 63)
+                                                                .addComponent(jLabel9))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(34, 34, 34)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                        .addComponent(jLabel7)
+                                                                        .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(18, 18, 18)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                        .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jLabel8)))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(20, 20, 20)
+                                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(30, 30, 30)
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(66, 66, 66))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(texfieDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(texfieHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel11)
+                                                        .addComponent(butGuardarAsiento))
+                                                .addGap(18, 18, 18)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(butAnadirRegistro)
+                                        .addComponent(butEditarRegistro)
+                                        .addComponent(butEliminarRegistro))
+                                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     private void butAnadirRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirRegistroMouseClicked
-        new RegistroView(listaRegistro, tabRegistrosModelo, 
+        new RegistroView(listaRegistro, tabRegistrosModelo,
                 "AÑADIR REGISTRO", null).setVisible(true);
     }//GEN-LAST:event_butAnadirRegistroMouseClicked
+
     private void butGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarAsientoMouseClicked
         try {
             // Generación de excepciones
             texfieNombre.getText().charAt(1);
             texareConcepto.getText().charAt(1);
-            
+
             // Guardado
             Asiento asiento = Asiento.builder()
                     .fecha(LocalDate.parse(spiFecha.getValue().toString()))
                     .nombre(texfieNombre.getText())
                     .concepto(texareConcepto.getText())
                     .build();
-            
+
             listaRegistro.forEach((registro) -> {
                 registro.setAsiento(asiento);
             });
             asiento.setRegistros(listaRegistro);
-            
+
             if (!asiento.getRegistros().isEmpty()) {
                 AsientoRepo asientoRepo = AsientoRepo.getInstance();
                 asientoRepo.save(asiento);
-                
+
                 dispose();
             } else {
                 mostrarError("Sin Registros", "Este asiento no tiene registros");
@@ -281,19 +302,19 @@ public class AsientoView extends javax.swing.JFrame {
             mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
         }
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
-    
+
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()) {
             Integer filaRegistro = listaSeleccionEscucha.fila;
-            
+
             Registro registroSeleccionado = listaRegistro.get(filaRegistro);
-            RegistroView registroVista = new RegistroView(listaRegistro, tabRegistrosModelo, 
+            RegistroView registroVista = new RegistroView(listaRegistro, tabRegistrosModelo,
                     "EDITAR REGISTRO", filaRegistro);
             registroVista.comboxTipoDoc.setSelectedIndex(registroSeleccionado.getTipoDocumento().getId() - 1);
             registroVista.texfieNoCheque.setText(registroSeleccionado.getComprobante());
             registroVista.texfieReferencia.setText(registroSeleccionado.getReferencia());
 
-            Object cuentaRegistroSeleccionado = registroSeleccionado.getCuenta().getId()+ " | " + registroSeleccionado.getCuenta().getNombre();
+            Object cuentaRegistroSeleccionado = registroSeleccionado.getCuenta().getId() + " | " + registroSeleccionado.getCuenta().getNombre();
             registroVista.comboxCuenta.setSelectedItem(cuentaRegistroSeleccionado);
 
             if (registroSeleccionado.getDebe() != BigDecimal.ZERO && registroSeleccionado.getHaber() == BigDecimal.ZERO) {
@@ -311,7 +332,7 @@ public class AsientoView extends javax.swing.JFrame {
     }//GEN-LAST:event_butEditarRegistroMouseClicked
 
     private void butEliminarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEliminarRegistroMouseClicked
-        if (!listaSeleccionModelo.isSelectionEmpty()){
+        if (!listaSeleccionModelo.isSelectionEmpty()) {
             Integer filaRegistro = listaSeleccionEscucha.fila;
             tabRegistrosModelo.removeRow(filaRegistro);
 
@@ -320,37 +341,17 @@ public class AsientoView extends javax.swing.JFrame {
             mostrarSeleccionVacia();
         }
     }//GEN-LAST:event_butEliminarRegistroMouseClicked
-    
+
     private void mostrarSeleccionVacia() {
-        JOptionPane.showMessageDialog(null, "Seleccione un registro en la tabla", 
-                    "Selección Vacía", JOptionPane.INFORMATION_MESSAGE
-        );
-    }
-    private void mostrarError(String titulo, String mensaje) {
-        JOptionPane.showMessageDialog(null, mensaje, 
-                    titulo, JOptionPane.ERROR_MESSAGE
+        JOptionPane.showMessageDialog(null, "Seleccione un registro en la tabla",
+                "Selección Vacía", JOptionPane.INFORMATION_MESSAGE
         );
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton butAnadirRegistro;
-    private javax.swing.JButton butEditarRegistro;
-    private javax.swing.JButton butEliminarRegistro;
-    private javax.swing.JButton butGuardarAsiento;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFecha;
-    public javax.swing.JTable tabRegistros;
-    private javax.swing.JTextArea texareConcepto;
-    private javax.swing.JTextField texfieDebeTotal;
-    private javax.swing.JTextField texfieHaberTotal;
-    private javax.swing.JTextField texfieMonto;
-    private javax.swing.JTextField texfieNombre;
+    private void mostrarError(String titulo, String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje,
+                titulo, JOptionPane.ERROR_MESSAGE
+        );
+    }
     // End of variables declaration//GEN-END:variables
 }

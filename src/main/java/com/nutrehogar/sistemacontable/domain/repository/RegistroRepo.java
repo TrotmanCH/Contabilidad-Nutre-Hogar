@@ -1,7 +1,7 @@
-package com.nutrehogar.sistemacontable.persistence.repository;
+package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
-import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.model.Registro;
+import com.nutrehogar.sistemacontable.domain.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,25 +9,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class SubTipoCuentaRepo {
+public class RegistroRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static SubTipoCuentaRepo instance;
+    private static RegistroRepo instance;
 
-    private SubTipoCuentaRepo() {
+    private RegistroRepo() {
     }
 
-    public static SubTipoCuentaRepo getInstance() {
+    public static RegistroRepo getInstance() {
         if (instance == null) {
-            instance = new SubTipoCuentaRepo();
+            instance = new RegistroRepo();
         }
         return instance;
     }
 
-    public List<SubTipoCuenta> findAll() {
-        List<SubTipoCuenta> Transaccions;
+    public List<Registro> findAll() {
+        List<Registro> Transaccions;
         try {
             session.beginTransaction();
-            Transaccions = session.createQuery("from SubTipoCuenta", SubTipoCuenta.class).list();
+            Transaccions = session.createQuery("from Registro", Registro.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -37,35 +37,35 @@ public class SubTipoCuentaRepo {
         return Transaccions;
     }
 
-    public SubTipoCuenta findById(String id) {
-        return session.find(SubTipoCuenta.class, id);
+    public Registro findById(Integer id) {
+        return session.find(Registro.class, id);
     }
 
-    public void save(SubTipoCuenta subTipoCuenta) {
+    public void save(Registro Registro) {
         try {
             session.beginTransaction();
-            session.persist(subTipoCuenta);
+            session.persist(Registro);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<SubTipoCuenta> subTipoCuentas) {
+    public void save(@NotNull List<Registro> registros) {
         try {
             session.beginTransaction();
-            subTipoCuentas.forEach(session::persist);
+            registros.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(SubTipoCuenta subTipoCuenta) {
+    public void delete(Registro registro) {
         try {
             session.beginTransaction();
 
-            session.remove(session.contains(subTipoCuenta) ? subTipoCuenta : session.merge(subTipoCuenta));
+            session.remove(session.contains(registro) ? registro : session.merge(registro));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -74,11 +74,12 @@ public class SubTipoCuentaRepo {
         }
     }
 
-    public void delete(String id) {
+    public void delete(Integer id) {
         try {
             session.beginTransaction();
 
             Optional.ofNullable(findById(id)).ifPresent(session::remove);
+
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -86,10 +87,10 @@ public class SubTipoCuentaRepo {
         }
     }
 
-    public void update(SubTipoCuenta subTipoCuenta) {
+    public void update(Registro registro) {
         try {
             session.beginTransaction();
-            session.merge(subTipoCuenta);
+            session.merge(registro);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

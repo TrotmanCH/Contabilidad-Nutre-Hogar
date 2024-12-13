@@ -6,10 +6,8 @@ package com.nutrehogar.sistemacontable.ui.controller;
 
 import com.nutrehogar.sistemacontable.application.dto.BalanceComDTO;
 import com.nutrehogar.sistemacontable.application.service.Util;
-import com.nutrehogar.sistemacontable.domain.util.filter.BalanceComFilter;
-import com.nutrehogar.sistemacontable.domain.util.order.BalanceComField;
-import com.nutrehogar.sistemacontable.domain.util.order.OrderDirection;
-import com.nutrehogar.sistemacontable.persistence.repository.BalanceComRepo;
+import com.nutrehogar.sistemacontable.domain.OrderDirection;
+import com.nutrehogar.sistemacontable.domain.repository.BalanceComRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.view.components.ViewBalanceCom;
 import lombok.AccessLevel;
@@ -70,9 +68,9 @@ public class BalanceComController {
 
     public void loadData() {
         var data = BalanceComRepo.find(
-                BalanceComField.CUENTA_ID,
+                BalanceComRepo.Field.CUENTA_ID,
                 OrderDirection.ASCENDING,
-                new BalanceComFilter.ByFechaRange((LocalDate) starDateSpinner.getValue(), (LocalDate) endDateSpinner.getValue()));
+                new BalanceComRepo.Filter.ByFechaRange((LocalDate) starDateSpinner.getValue(), (LocalDate) endDateSpinner.getValue()));
         SwingUtilities.invokeLater(() -> {
             tableModel.setData(data);
         });
@@ -136,12 +134,12 @@ public class BalanceComController {
 
         @Override
         public int getColumnCount() {
-            return BalanceComField.values().length;
+            return BalanceComRepo.Field.values().length;
         }
 
         @Override
         public String getColumnName(int column) {
-            return BalanceComField.values()[column].getFieldName();
+            return BalanceComRepo.Field.values()[column].getFieldName();
         }
 
         @Override
