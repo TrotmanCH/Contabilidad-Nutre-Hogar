@@ -1,6 +1,8 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.nutrehogar.sistemacontable.domain.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.repository.*;
 import com.nutrehogar.sistemacontable.ui.controller.BalanceComController;
 import com.nutrehogar.sistemacontable.ui.controller.LibroDiarioController;
 import com.nutrehogar.sistemacontable.ui.controller.MayorGenController;
@@ -8,6 +10,7 @@ import com.nutrehogar.sistemacontable.ui.view.components.ViewMayorGen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 
 public class MGView extends javax.swing.JFrame {
 
@@ -63,15 +66,41 @@ public class MGView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String[] args) {
+        Runtime.getRuntime().addShutdownHook(new Thread(HibernateUtil::shutdown));
+
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MGView().setVisible(true));
+        // Mostrar ventana de carga con JWindow
+        JWindow splash = new JWindow();
+        splash.getContentPane().add(new JLabel("Cargando..."), BorderLayout.CENTER);
+        splash.setSize(300, 100);
+        splash.setLocationRelativeTo(null); // Centrado en la pantalla
+        splash.setVisible(true);
+
+        HibernateUtil.getSessionFactory();//para que se inicialice en el hilo princiapl
+//        Thread.startVirtualThread(HibernateUtil::createSession);// inicia una session en un hilo virtual
+        //lo que se ejecute dentro, se ejecuta en el EDT
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                splash.setVisible(false);  // Ocultar pantalla de carga
+                new MGView().setVisible(true);  // Mostrar la ventana principal
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+        Thread.startVirtualThread(() -> {
+            System.out.println("MGView.main: latch.await()");
+            AsientoRepo.getInstance();
+            CuentaRepo.getInstance();
+            RegistroRepo.getInstance();
+            SubTipoCuentaRepo.getInstance();
+            TipoDocumentoRepo.getInstance();
+            TipoCuentaRepo.getInstance();
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

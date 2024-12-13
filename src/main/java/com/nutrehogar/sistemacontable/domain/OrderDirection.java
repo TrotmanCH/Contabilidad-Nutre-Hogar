@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.domain.util.order;
+package com.nutrehogar.sistemacontable.domain;
 
 /**
  * Enum que representa el tipo de ordenamiento.

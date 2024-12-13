@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.persistence.config;
+package com.nutrehogar.sistemacontable.domain;
 
 import lombok.Getter;
 import org.hibernate.Session;
@@ -35,17 +35,6 @@ public class HibernateUtil {
      */
     private static SessionFactory buildSessionFactory() {
         try {
-//            Configuration configuration = new Configuration().configure(); // Configura Hibernate
-//            Properties settings = new Properties();
-//
-//            settings.put("hibernate.connection.url", "jdbc:sqlite:" + getProperty(ConfigLoader.Property.DB_NAME));
-//
-//            configuration.setProperties(settings);
-//
-//            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-//                    .applySettings(configuration.getProperties()).build();
-//            return new Configuration().configure().buildSessionFactory(serviceRegistry);
-
             Configuration config = new Configuration().configure();
             return config.buildSessionFactory();
 

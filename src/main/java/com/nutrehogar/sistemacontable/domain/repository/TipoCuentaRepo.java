@@ -1,7 +1,7 @@
-package com.nutrehogar.sistemacontable.persistence.repository;
+package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
-import com.nutrehogar.sistemacontable.persistence.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
+import com.nutrehogar.sistemacontable.domain.HibernateUtil;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,25 +9,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class TipoDocumentoRepo {
+public class TipoCuentaRepo {
     private static final Session session = HibernateUtil.getSession();
-    private static TipoDocumentoRepo instance;
+    private static TipoCuentaRepo instance;
 
-    private TipoDocumentoRepo() {
+    private TipoCuentaRepo() {
     }
 
-    public static TipoDocumentoRepo getInstance() {
+    public static TipoCuentaRepo getInstance() {
         if (instance == null) {
-            instance = new TipoDocumentoRepo();
+            instance = new TipoCuentaRepo();
         }
         return instance;
     }
 
-    public List<TipoDocumento> findAll() {
-        List<TipoDocumento> Transaccions;
+    public List<TipoCuenta> findAll() {
+        List<TipoCuenta> Transaccions;
         try {
             session.beginTransaction();
-            Transaccions = session.createQuery("from TipoDocumento", TipoDocumento.class).list();
+            Transaccions = session.createQuery("from TipoCuenta", TipoCuenta.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -37,35 +37,35 @@ public class TipoDocumentoRepo {
         return Transaccions;
     }
 
-    public TipoDocumento findById(Integer id) {
-        return session.find(TipoDocumento.class, id);
+    public TipoCuenta findById(Integer id) {
+        return session.find(TipoCuenta.class, id);
     }
 
-    public void save(TipoDocumento tipoDocumento) {
+    public void save(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
-            session.persist(tipoDocumento);
+            session.persist(tipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void save(@NotNull List<TipoDocumento> tipoDocumentos) {
+    public void save(@NotNull List<TipoCuenta> tipoCuentas) {
         try {
             session.beginTransaction();
-            tipoDocumentos.forEach(session::persist);
+            tipoCuentas.forEach(session::persist);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
     }
 
-    public void delete(TipoDocumento tipoDocumento) {
+    public void delete(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
 
-            session.remove(session.contains(tipoDocumento) ? tipoDocumento : session.merge(tipoDocumento));
+            session.remove(session.contains(tipoCuenta) ? tipoCuenta : session.merge(tipoCuenta));
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -78,7 +78,8 @@ public class TipoDocumentoRepo {
         try {
             session.beginTransaction();
 
-            Optional.ofNullable(findById(id)).ifPresent(session::remove);
+            Optional.ofNullable(session.find(TipoCuenta.class, id)).ifPresent(session::remove);
+
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -86,10 +87,11 @@ public class TipoDocumentoRepo {
         }
     }
 
-    public void update(TipoDocumento tipoDocumento) {
+
+    public void update(TipoCuenta tipoCuenta) {
         try {
             session.beginTransaction();
-            session.merge(tipoDocumento);
+            session.merge(tipoCuenta);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
