@@ -19,10 +19,8 @@ public class RegistroView extends javax.swing.JFrame {
     public javax.swing.JTextField texfieMonto;
     public javax.swing.JTextField texfieNoCheque;
     public javax.swing.JTextField texfieReferencia;
-    TipoDocumentoRepo tipoDocumentoRepo = TipoDocumentoRepo.getInstance();
-    CuentaRepo cuentaRepo = CuentaRepo.getInstance();
     private Integer filaRegistro;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton butAnadir;
     private javax.swing.JButton butEditar;
     private javax.swing.ButtonGroup butgroTipoRegistro;
@@ -50,10 +48,10 @@ public class RegistroView extends javax.swing.JFrame {
         this.tabRegistrosModelo = tabRegistrosModelo;
         this.filaRegistro = filaRegistro;
 
-        tipoDocumentoRepo.findAll().forEach((tipoDocumento) -> {
+        TipoDocumentoRepo.findAll().forEach((tipoDocumento) -> {
             comboxTipoDoc.addItem(tipoDocumento.getNombre());
         });
-        cuentaRepo.findAll().forEach((cuenta) -> {
+        CuentaRepo.findAll().forEach((cuenta) -> {
             comboxCuenta.addItem(cuenta.getId() + " | " + cuenta.getNombre());
         });
     }
@@ -226,12 +224,12 @@ public class RegistroView extends javax.swing.JFrame {
 
                 // Guardado
                 Registro registro = Registro.builder()
-                        .tipoDocumento(tipoDocumentoRepo.findById(
+                        .tipoDocumento(TipoDocumentoRepo.findById(
                                 comboxTipoDoc.getSelectedIndex() + 1
                         ))
                         .comprobante(texfieNoCheque.getText())
                         .referencia(texfieReferencia.getText())
-                        .cuenta(cuentaRepo.findById(
+                        .cuenta(CuentaRepo.findById(
                                 comboxCuenta.getSelectedItem().toString().substring(0, 6)
                         ))
                         .build();
@@ -281,12 +279,12 @@ public class RegistroView extends javax.swing.JFrame {
                 tabRegistrosModelo.setValueAt(comboxCuenta.getSelectedItem().toString().substring(0, 6), filaRegistro, 3);
 
                 Registro registroSeleccionado = listaRegistro.get(filaRegistro);
-                registroSeleccionado.setTipoDocumento(tipoDocumentoRepo.findById(
+                registroSeleccionado.setTipoDocumento(TipoDocumentoRepo.findById(
                         comboxTipoDoc.getSelectedIndex() + 1
                 ));
                 registroSeleccionado.setComprobante(texfieNoCheque.getText());
                 registroSeleccionado.setReferencia(texfieReferencia.getText());
-                registroSeleccionado.setCuenta(cuentaRepo.findById(
+                registroSeleccionado.setCuenta(CuentaRepo.findById(
                         comboxCuenta.getSelectedItem().toString().substring(0, 6)
                 ));
 
@@ -329,5 +327,5 @@ public class RegistroView extends javax.swing.JFrame {
                 titulo, JOptionPane.ERROR_MESSAGE
         );
     }
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
