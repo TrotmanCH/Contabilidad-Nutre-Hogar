@@ -5,64 +5,43 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.nutrehogar.sistemacontable.ui.controller.MayorGenController;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 /**
+ *
  * @author charl
  */
 public class Dashboard extends javax.swing.JFrame {
 // private Formulario formulario;
-
-    private static javax.swing.JPanel content;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBalancec;
-    private javax.swing.JButton btnDiario;
-    private javax.swing.JButton btnMayor;
-    private javax.swing.JLabel btnT;
-    private javax.swing.JButton btnform;
-    private javax.swing.JPanel menup;
-
+    
     public Dashboard() {
         initComponents();
 //        formulario = new Formulario();
-//        showJPanel();
+//        showJPanel(formulario);
         ajustarImagenToggle();
         applyButtonStyles(btnform, "Formulario", "/Icon/formulario.png");
         applyButtonStyles(btnBalancec, "Balance de Comprobación", "/Icon/balance.png");
         applyButtonStyles(btnDiario, "Libro Diario", "/Icon/book.png");
         applyButtonStyles(btnMayor, "Mayor General", "/Icon/mayor.png");
     }
-
-    public static void showJPanel(JPanel p) {
-        content.removeAll();
-        content.setLayout(new BorderLayout());
-        content.add(p, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
-
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Failed to initialize LaF");
-        }
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Dashboard().setVisible(true);
-            }
-        });
-    }
-
+ public static void showJPanel(JPanel p){
+ content.removeAll();
+ content.setLayout(new BorderLayout());
+ content.add(p, BorderLayout.CENTER);
+ content.revalidate();
+ content.repaint();
+ 
+ }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,24 +67,24 @@ public class Dashboard extends javax.swing.JFrame {
         javax.swing.GroupLayout menupLayout = new javax.swing.GroupLayout(menup);
         menup.setLayout(menupLayout);
         menupLayout.setHorizontalGroup(
-                menupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnform, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                        .addComponent(btnDiario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBalancec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMayor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            menupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnform, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+            .addComponent(btnDiario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnBalancec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnMayor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         menupLayout.setVerticalGroup(
-                menupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(menupLayout.createSequentialGroup()
-                                .addGap(169, 169, 169)
-                                .addComponent(btnform, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBalancec, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnMayor, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(247, Short.MAX_VALUE))
+            menupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menupLayout.createSequentialGroup()
+                .addGap(169, 169, 169)
+                .addComponent(btnform, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBalancec, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMayor, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
         content.setBackground(new java.awt.Color(255, 102, 102));
@@ -113,12 +92,12 @@ public class Dashboard extends javax.swing.JFrame {
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
-                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 864, Short.MAX_VALUE)
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 864, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
-                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 614, Short.MAX_VALUE)
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 614, Short.MAX_VALUE)
         );
 
         btnT.setText("jLabel1");
@@ -126,42 +105,40 @@ public class Dashboard extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(menup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnT, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(42, 42, 42))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(menup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnT, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(menup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(238, 238, 238)
-                                .addComponent(btnT, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(menup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(238, 238, 238)
+                .addComponent(btnT, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ajustarImagenToggle() {
-        ImageIcon originalIcon = new ImageIcon("C:\\Users\\charl\\OneDrive\\I SEMESTRE\\Documentos\\Contabilidad-Nutre-Hogar\\src\\main\\resources\\Icon\\regresa2.png");
-// Obtener el tamaño del botón
-        int buttonWidth = btnT.getWidth();
-        int buttonHeight = btnT.getHeight(); // Redimensionar la imagen para que se ajuste al tamaño del botón
-        Image scaledImage = originalIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
-// Establecer la imagen redimensionada en el botón
-        btnT.setIcon(new ImageIcon(scaledImage));
-    }
-
-    private void applyButtonStyles(JButton button, String text, String iconPath) {
+private void ajustarImagenToggle() {
+  ImageIcon originalIcon = new ImageIcon("C:\\Users\\charl\\OneDrive\\I SEMESTRE\\Documentos\\Contabilidad-Nutre-Hogar\\src\\main\\resources\\Icon\\regresa2.png"); 
+// Obtener el tamaño del botón 
+int buttonWidth = btnT.getWidth(); 
+int buttonHeight = btnT.getHeight(); // Redimensionar la imagen para que se ajuste al tamaño del botón
+Image scaledImage = originalIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH); 
+// Establecer la imagen redimensionada en el botón 
+btnT.setIcon(new ImageIcon(scaledImage));
+}
+ private void applyButtonStyles(JButton button, String text, String iconPath) {
         button.setText("<html><center><span style='text-decoration: underline;'>" + text + "</span></center></html>");
         button.setIcon(new ImageIcon(getClass().getResource(iconPath)));
         button.setHorizontalTextPosition(SwingConstants.RIGHT);
@@ -190,16 +167,39 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
     }
+public ImageIcon setSVG(String filePath, int width, int height) { ImageIcon imageIcon = new ImageIcon(filePath); 
+// Cargar la imagen 
+Image image = imageIcon.getImage(); 
+// Obtener la imagen 
+Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); 
+// Redimensionar la imagen 
+return new ImageIcon(resizedImage);} // Devolver la nueva imagen redimensionada }
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+         try {
+           UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch(Exception ex) {
+            System.err.println("Failed to initialize LaF");
+        }
 
-    public ImageIcon setSVG(String filePath, int width, int height) {
-        ImageIcon imageIcon = new ImageIcon(filePath);
-// Cargar la imagen
-        Image image = imageIcon.getImage();
-// Obtener la imagen
-        Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-// Redimensionar la imagen
-        return new ImageIcon(resizedImage);
-    } // Devolver la nueva imagen redimensionada }
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Dashboard().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBalancec;
+    private javax.swing.JButton btnDiario;
+    private javax.swing.JButton btnMayor;
+    private javax.swing.JLabel btnT;
+    private javax.swing.JButton btnform;
+    private static javax.swing.JPanel content;
+    private javax.swing.JPanel menup;
     // End of variables declaration//GEN-END:variables
 
 
