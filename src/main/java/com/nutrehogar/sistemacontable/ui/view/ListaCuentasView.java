@@ -1,23 +1,22 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
+import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
-
-import javax.swing.*;
+import com.nutrehogar.sistemacontable.ui.view.CuentaView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import java.util.List;
+import javax.swing.table.TableModel;
 
 public class ListaCuentasView extends javax.swing.JFrame {
-
-    // Variables declaration - do not modify                     
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnCrear;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JFrame jFrame1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblCuenta;
 
     public ListaCuentasView() {
         initComponents();
@@ -26,18 +25,13 @@ public class ListaCuentasView extends javax.swing.JFrame {
 
 
         List<Cuenta> ListaCuenta = CuentaRepo.findAll();
-        DefaultTableModel model = (DefaultTableModel) tblCuenta.getModel();
+        DefaultTableModel model = (DefaultTableModel)tblCuenta.getModel();
         for (Cuenta cuenta : ListaCuenta) {
             model.addRow(new Object[]{
-                    cuenta.getId(), cuenta.getNombre(), cuenta.getSubTipoCuenta().getNombre(), cuenta.getSubTipoCuenta().getTipoCuenta().getNombre()
-            });
+            cuenta.getId(),cuenta.getNombre(),cuenta.getSubTipoCuenta().getNombre(),cuenta.getSubTipoCuenta().getTipoCuenta().getNombre()
+        });
         }
 
-    }
-
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(() -> new ListaCuentasView().setVisible(true));
     }
 
     public void isSelectRow(ListSelectionEvent e) {
@@ -51,7 +45,6 @@ public class ListaCuentasView extends javax.swing.JFrame {
         }
 
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -67,12 +60,12 @@ public class ListaCuentasView extends javax.swing.JFrame {
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
-                jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 400, Short.MAX_VALUE)
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         jFrame1Layout.setVerticalGroup(
-                jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 300, Short.MAX_VALUE)
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -82,19 +75,19 @@ public class ListaCuentasView extends javax.swing.JFrame {
         jLabel1.setText("NUTRE HOGAR BOCAS");
 
         tblCuenta.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
+            new Object [][] {
 
-                },
-                new String[]{
-                        "ID", "NOMBRE", "TIPO CUENTA", "SUBTIPO CUENTA"
-                }
+            },
+            new String [] {
+                "ID", "NOMBRE", "TIPO CUENTA", "SUBTIPO CUENTA"
+            }
         ) {
-            Class[] types = new Class[]{
-                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
+                return types [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblCuenta);
@@ -126,37 +119,37 @@ public class ListaCuentasView extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(96, 96, 96)
-                                                .addComponent(btnCrear)
-                                                .addGap(120, 120, 120)
-                                                .addComponent(btnActualizar)
-                                                .addGap(116, 116, 116)
-                                                .addComponent(btnEliminar))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(237, 237, 237)
-                                                .addComponent(jLabel1)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(btnCrear)
+                        .addGap(120, 120, 120)
+                        .addComponent(btnActualizar)
+                        .addGap(116, 116, 116)
+                        .addComponent(btnEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jLabel1)
-                                .addGap(43, 43, 43)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnCrear)
-                                        .addComponent(btnActualizar)
-                                        .addComponent(btnEliminar))
-                                .addContainerGap(20, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCrear)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnEliminar))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,14 +166,14 @@ public class ListaCuentasView extends javax.swing.JFrame {
         //seleccionando la cuenta
         /*int selectedRow = tblCuenta.getSelectedRow();
         System.out.println(selectedRow); */
-
+        
         int selectedRow = tblCuenta.getSelectedRow();
 
         // Verificar si hay una fila seleccionada
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione una cuenta para actualizar.");
             return;
-        }
+    }
         // Obtener los datos de la fila seleccionada
         String id = tblCuenta.getValueAt(selectedRow, 0).toString();
         String nombreActual = tblCuenta.getValueAt(selectedRow, 1).toString();
@@ -208,19 +201,32 @@ public class ListaCuentasView extends javax.swing.JFrame {
 
         String id = tblCuenta.getValueAt(selectedRow, 0).toString();
         try {
-            // Llamar al repositorio para eliminar la cuenta
-           // CuentaRepo cuentaRepo = CuentaRepo();
-            CuentaRepo.delete(id);
+        // Llamar al repositorio para eliminar la cuenta
+        CuentaRepo.delete(id);
 
-            // Eliminar la fila de la tabla
-            ((DefaultTableModel) tblCuenta.getModel()).removeRow(selectedRow);
+        // Eliminar la fila de la tabla
+        ((DefaultTableModel) tblCuenta.getModel()).removeRow(selectedRow);
 
-            JOptionPane.showMessageDialog(this, "Cuenta eliminada exitosamente.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error al eliminar la cuenta: " + e.getMessage());
-            e.printStackTrace();
-        }
+        JOptionPane.showMessageDialog(this, "Cuenta eliminada exitosamente.");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Ocurrió un error al eliminar la cuenta: " + e.getMessage());
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_btnEliminarActionPerformed
-    // End of variables declaration                   
+
+    public static void main(String args[]) {
+
+        java.awt.EventQueue.invokeLater(() -> new ListaCuentasView().setVisible(true));
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JFrame jFrame1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblCuenta;
+    // End of variables declaration//GEN-END:variables
 
 }
