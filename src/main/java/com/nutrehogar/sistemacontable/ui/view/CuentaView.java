@@ -9,6 +9,11 @@ import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.domain.repository.SubTipoCuentaRepo;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +31,8 @@ public class CuentaView extends javax.swing.JFrame {
 
     public CuentaView(DefaultTableModel tblCuentaModelo) {
         initComponents();
+        estilizarBoton(btnGuardar, 120, 50);
+             this.getContentPane().setBackground(Color.decode("#F1F8FF"));
         this.tblCuenta = tblCuentaModelo;
         
         //busca todo lo que esta en subtipo cuenta con findAll, y con el foreach puedo hacer con cada cosa que esta en esta lista
@@ -72,6 +79,7 @@ public class CuentaView extends javax.swing.JFrame {
         });
 
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +140,38 @@ public class CuentaView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private void estilizarBoton(JButton boton, int ancho, int alto) {
+    
+    boton.setPreferredSize(new Dimension(ancho, alto));
 
+   
+    boton.setContentAreaFilled(false); 
+    boton.setFocusPainted(false);      
+    boton.setBorderPainted(false);    
+
+    
+    boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+        @Override
+        public void paint(Graphics g, JComponent c) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            
+        g2d.setColor(Color.decode("#1E88E5")); 
+
+            g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
+
+           
+            g2d.setColor(new Color(30, 144, 255)); 
+            g2d.drawRoundRect(0, 0, c.getWidth() - 1, c.getHeight() - 1, 25, 25);
+
+            g2d.dispose();
+
+         
+            super.paint(g, c);
+        }
+    });
+}
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         String id = txtId.getText();

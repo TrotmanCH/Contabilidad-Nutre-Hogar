@@ -133,13 +133,12 @@ public class ViewBalanceCom extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 private void customizeTable() {
-    // Cambiar el estilo del encabezado
+   
     JTableHeader header = BalanceComTabla.getTableHeader();
     header.setFont(new Font("Arial", Font.BOLD, 16));
     header.setBackground(Color.decode("#1E88E5"));
     header.setForeground(Color.WHITE);
 
-    // Renderizador para aplicar estilos en todas las filas
     DefaultTableCellRenderer rowRenderer = new DefaultTableCellRenderer() {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value,
@@ -149,56 +148,54 @@ private void customizeTable() {
 
             // Alternar colores de las filas
             if (!isSelected) {
-                setBackground(row % 2 == 0 ? new Color(224, 255, 255) : Color.WHITE); // Alterna entre celeste claro y blanco
+                setBackground(row % 2 == 0 ? new Color(224, 255, 255) : Color.WHITE); 
                 setForeground(Color.BLACK);
             } else {
-                setBackground(new Color(30, 144, 255)); // Azul al seleccionar
+                setBackground(new Color(30, 144, 255)); 
                 setForeground(Color.WHITE);
             }
             return cell;
         }
     };
 
-    // Asignar el renderizador a todas las columnas de la tabla
+    
     for (int i = 0; i < BalanceComTabla.getColumnCount(); i++) {
         BalanceComTabla.getColumnModel().getColumn(i).setCellRenderer(rowRenderer);
     }
 
-    // Ajustar tamaño de texto y altura de las filas
+  
     BalanceComTabla.setFont(new Font("Arial", Font.PLAIN, 14));
     BalanceComTabla.setRowHeight(25);
 
-    // Ajustar el ancho de la columna ID si es necesario
  
 }
 private void estilizarBoton(JButton boton, int ancho, int alto) {
-    // Cambiar tamaño del botón
+
     boton.setPreferredSize(new Dimension(ancho, alto));
 
-    // Configuración básica para eliminar estilos predeterminados
-    boton.setContentAreaFilled(false); // Elimina el fondo predeterminado
-    boton.setFocusPainted(false);      // Elimina el borde de enfoque predeterminado
-    boton.setBorderPainted(false);     // Elimina el borde predeterminado
+    boton.setContentAreaFilled(false); 
+    boton.setFocusPainted(false);      
+    boton.setBorderPainted(false);    
 
-    // Estilo personalizado del botón
+  
     boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
         @Override
         public void paint(Graphics g, JComponent c) {
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-            // Dibujar el fondo con bordes redondeados
-        g2d.setColor(Color.decode("#1E88E5")); // Color de fondo
- // Color de fondo
-            g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); // Bordes redondeados
+      
+        g2d.setColor(Color.decode("#1E88E5")); 
+ 
+            g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
 
-            // Dibujar el borde
-            g2d.setColor(new Color(30, 144, 255)); // Color del borde
+            
+            g2d.setColor(new Color(30, 144, 255));
             g2d.drawRoundRect(0, 0, c.getWidth() - 1, c.getHeight() - 1, 25, 25);
 
             g2d.dispose();
 
-            // Llamar al renderizador predeterminado para pintar el texto y el ícono
+           
             super.paint(g, c);
         }
     });

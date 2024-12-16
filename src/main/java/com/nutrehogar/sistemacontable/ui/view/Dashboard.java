@@ -44,6 +44,7 @@ public class Dashboard extends javax.swing.JFrame {
     ViewMayorGen mayorg = MayorGenController.getInstance().getView();
     public Dashboard() {
         initComponents(); 
+        
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         listac = new ListaCuenta();
         formulario = new Formulario();
@@ -53,6 +54,7 @@ public class Dashboard extends javax.swing.JFrame {
         applyButtonStyles(btnBalancec, "Balance de Comprobación", "/Icon/balance.png");
         applyButtonStyles(btnDiario, "Libro Diario", "/Icon/book.png");
         applyButtonStyles(btnMayor, "Mayor General", "/Icon/mayor.png");
+         applyButtonStyles(btnList, "Lista de Cuentas", "/Icon/lista.png");
         
           this.getContentPane().setBackground(Color.decode("#F1F8FF"));
          logoic.addComponentListener(new ComponentAdapter() {
@@ -97,6 +99,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnBalancec = new javax.swing.JButton();
         btnMayor = new javax.swing.JButton();
         logoic = new javax.swing.JLabel();
+        btnList = new javax.swing.JButton();
         content = new javax.swing.JPanel();
         btnOc = new javax.swing.JLabel();
 
@@ -135,18 +138,26 @@ public class Dashboard extends javax.swing.JFrame {
 
         logoic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo_big.png"))); // NOI18N
 
+        btnList.setBackground(new java.awt.Color(30, 136, 229));
+        btnList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menupLayout = new javax.swing.GroupLayout(menup);
         menup.setLayout(menupLayout);
         menupLayout.setHorizontalGroup(
             menupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menupLayout.createSequentialGroup()
+            .addGroup(menupLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(menupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnMayor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBalancec, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDiario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnform, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(logoic, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                .addGroup(menupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMayor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBalancec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDiario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnform, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(logoic, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(btnList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         menupLayout.setVerticalGroup(
@@ -162,7 +173,9 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(btnBalancec, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMayor, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnList, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(153, Short.MAX_VALUE))
         );
 
         content.setBackground(new java.awt.Color(255, 102, 102));
@@ -211,15 +224,9 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiarioActionPerformed
-         // Asegúrate de tener una instancia de ListaCuenta
-
-    // Limpiar el contenido del panel 'content'
+         
     content.removeAll();
-
-    // Agregar el panel ListaCuenta al panel content
     content.add(librodiario);
-
-    // Ajustar el layout y actualizar la vista
     content.revalidate();
     content.repaint();
     }//GEN-LAST:event_btnDiarioActionPerformed
@@ -230,101 +237,90 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void btnformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnformActionPerformed
         
-        content.removeAll();
-
-    // Agregar el panel ListaCuenta al panel content
+    content.removeAll();
     content.add(formularioc);
-
-    // Ajustar el layout y actualizar la vista
     content.revalidate();
     content.repaint();
     }//GEN-LAST:event_btnformActionPerformed
 
     private void btnBalancecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBalancecActionPerformed
-     // Limpiar el contenido del panel 'content'
+  
     content.removeAll();
-
-    // Agregar el panel ListaCuenta al panel content
     content.add(balancec);
-
-    // Ajustar el layout y actualizar la vista
     content.revalidate();
     content.repaint();
     }//GEN-LAST:event_btnBalancecActionPerformed
 
     private void btnMayorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMayorActionPerformed
-         content.removeAll();
-
-    // Agregar el panel ListaCuenta al panel content
+    content.removeAll();
     content.add(mayorg);
-
-    // Ajustar el layout y actualizar la vista
     content.revalidate();
     content.repaint();
     }//GEN-LAST:event_btnMayorActionPerformed
 
     private void btnOcMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOcMouseClicked
-                // Cambiar la visibilidad del menú
+     
     menup.setVisible(!menup.isVisible());
-
-    // Cambiar el icono en función del estado de visibilidad del menú
    
   if (menup.isVisible()) {
-        // Cargar icono usando ruta relativa
-        btnOc.setIcon(new ImageIcon(getClass().getResource("/Icon/regresa2.png"))); // Ruta relativa a recursos
+        
+        btnOc.setIcon(new ImageIcon(getClass().getResource("/Icon/regresa2.png"))); 
     } else {
-        btnOc.setIcon(new ImageIcon(getClass().getResource("/Icon/regresa.png"))); // Ruta relativa a recursos
+        btnOc.setIcon(new ImageIcon(getClass().getResource("/Icon/regresa.png")));
     }
-    // Actualizar la interfaz
     revalidate();
     repaint();
     }//GEN-LAST:event_btnOcMouseClicked
+
+    private void btnListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListActionPerformed
+          content.removeAll();
+    content.add(listaCuenta);
+    content.revalidate();
+    content.repaint();
+    }//GEN-LAST:event_btnListActionPerformed
 private void ajustarImagenToggle() {
  
 
 }
    private void applyButtonStyles(JButton button, String text, String iconPath) {
-    // Establece el texto con un estilo centrado y subrayado
+   
     button.setText("<html><center><span style='text-decoration: none;'>" + text + "</span></center></html>");
 
-    // Establece el ícono desde la ruta proporcionada
+  
     button.setIcon(new ImageIcon(getClass().getResource(iconPath)));
 
-    // Configura la posición del texto y del ícono
-    button.setHorizontalTextPosition(SwingConstants.RIGHT); // Texto a la derecha del ícono
-    button.setVerticalTextPosition(SwingConstants.CENTER);  // Centrado verticalmente
-    button.setHorizontalAlignment(SwingConstants.LEFT);     // Ícono y texto alineados a la izquierda
-
-    // Estiliza el botón
+    button.setHorizontalTextPosition(SwingConstants.RIGHT); 
+    button.setVerticalTextPosition(SwingConstants.CENTER);  
+    button.setHorizontalAlignment(SwingConstants.LEFT);    
+   
     button.setFocusPainted(false);
     button.setFont(new Font("Arial", Font.BOLD, 16));
     button.setForeground(Color.WHITE);
     
-    // Añadir un borde para el subrayado (línea gruesa debajo del texto y el icono)
-    button.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));  // Borde grueso (subrayado)
+  
+    button.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));  
 
-    // Añadir el efecto de sombreado al presionar el botón
     button.addMouseListener(new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent e) {
-            button.setBackground(Color.decode("#2E4156"));  // Color de fondo al presionar
+            button.setBackground(Color.decode("#2E4156"));  
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            button.setBackground(null);  // Restaurar el fondo original cuando se suelta el botón
+            button.setBackground(null);  
         }
     });
 }
 
 
 public ImageIcon setSVG(String filePath, int width, int height) { ImageIcon imageIcon = new ImageIcon(filePath); 
-// Cargar la imagen 
+
 Image image = imageIcon.getImage(); 
-// Obtener la imagen 
+
 Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); 
-// Redimensionar la imagen 
-return new ImageIcon(resizedImage);} // Devolver la nueva imagen redimensionada }
+
+return new ImageIcon(resizedImage);} 
     /**
      * @param args the command line arguments
      */
@@ -346,6 +342,7 @@ return new ImageIcon(resizedImage);} // Devolver la nueva imagen redimensionada 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBalancec;
     private javax.swing.JButton btnDiario;
+    private javax.swing.JButton btnList;
     private javax.swing.JButton btnMayor;
     private javax.swing.JLabel btnOc;
     private javax.swing.JButton btnform;

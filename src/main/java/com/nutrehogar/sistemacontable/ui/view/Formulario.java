@@ -381,7 +381,7 @@ private void customizeTable() {
         tabRegistros.getColumnModel().getColumn(i).setCellRenderer(rowRenderer);
     }
 
-    // Ajustar tamaño de texto y altura de las filas
+   
     tabRegistros.setFont(new Font("Arial", Font.PLAIN, 14));
     tabRegistros.setRowHeight(25);
 
