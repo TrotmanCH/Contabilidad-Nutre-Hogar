@@ -1,10 +1,21 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Registro;
+
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoDocumentoRepo;
+
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
 import java.math.BigDecimal;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +28,9 @@ public class RegistroView extends javax.swing.JFrame {
     public RegistroView(List<Registro> listaRegistro, DefaultTableModel tabRegistrosModelo, 
                 String titulo, Integer filaRegistro) {
         initComponents();
+           this.getContentPane().setBackground(Color.decode("#F1F8FF"));
+             estilizarBoton(butAnadir, 120, 50);  
+             estilizarBoton(butEditar, 120, 50);  
         labTitulo.setText(titulo);
         
         if (titulo == "AÑADIR REGISTRO") {
@@ -95,6 +109,9 @@ public class RegistroView extends javax.swing.JFrame {
             }
         });
 
+        butAnadir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        butAnadir.setForeground(new java.awt.Color(255, 255, 255));
+        butAnadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/archivo-de-texto-agregar-boton-de-interfaz-contorneado.png"))); // NOI18N
         butAnadir.setText("Añadir");
         butAnadir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -105,6 +122,9 @@ public class RegistroView extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Tipo de Doc:");
 
+        butEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        butEditar.setForeground(new java.awt.Color(255, 255, 255));
+        butEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/escritura.png"))); // NOI18N
         butEditar.setText("Editar");
         butEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -116,46 +136,48 @@ public class RegistroView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labTitulo)
-                        .addGap(195, 195, 195))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboxCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(texfieReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(texfieNoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(26, 26, 26)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(texfieNoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
                                 .addComponent(radbutDebito)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radbutCredito))
+                                .addComponent(radbutCredito)))
+                        .addGap(113, 113, 113))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(54, 54, 54)
+                                .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(butAnadir)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(18, 18, 18)
                                     .addComponent(butEditar))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(63, 63, 63))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(31, 31, 31)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(comboxCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(texfieReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(16, 16, 16))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(169, 169, 169)
+                .addComponent(labTitulo))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +213,7 @@ public class RegistroView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butEditar)
                     .addComponent(butAnadir))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -245,7 +267,38 @@ public class RegistroView extends javax.swing.JFrame {
             }
         }  
     }//GEN-LAST:event_butAnadirMouseClicked
+private void estilizarBoton(JButton boton, int ancho, int alto) {
+    // Cambiar tamaño del botón
+    boton.setPreferredSize(new Dimension(ancho, alto));
 
+    // Configuración básica para eliminar estilos predeterminados
+    boton.setContentAreaFilled(false); // Elimina el fondo predeterminado
+    boton.setFocusPainted(false);      // Elimina el borde de enfoque predeterminado
+    boton.setBorderPainted(false);     // Elimina el borde predeterminado
+
+    // Estilo personalizado del botón
+    boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+        @Override
+        public void paint(Graphics g, JComponent c) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Dibujar el fondo con bordes redondeados
+        g2d.setColor(Color.decode("#1E88E5")); // Color de fondo
+ // Color de fondo
+            g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); // Bordes redondeados
+
+            // Dibujar el borde
+            g2d.setColor(new Color(30, 144, 255)); // Color del borde
+            g2d.drawRoundRect(0, 0, c.getWidth() - 1, c.getHeight() - 1, 25, 25);
+
+            g2d.dispose();
+
+            // Llamar al renderizador predeterminado para pintar el texto y el ícono
+            super.paint(g, c);
+        }
+    });
+}
     private void butEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarMouseClicked
         if (butEditar.isEnabled()) {
             try {
