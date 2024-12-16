@@ -5,14 +5,27 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.nutrehogar.sistemacontable.ui.controller.BalanceComController;
+import com.nutrehogar.sistemacontable.ui.controller.LibroDiarioController;
+import com.nutrehogar.sistemacontable.ui.controller.MayorGenController;
+import com.nutrehogar.sistemacontable.ui.view.components.ViewBalanceCom;
+import com.nutrehogar.sistemacontable.ui.view.components.ViewLibroDiario;
+import com.nutrehogar.sistemacontable.ui.view.components.ViewMayorGen;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -22,18 +35,45 @@ import javax.swing.UIManager;
  * @author charl
  */
 public class Dashboard extends javax.swing.JFrame {
-// private Formulario formulario;
-    
+ private Formulario formulario;
+  private ListaCuenta listac;  
+  Formulario formularioc = new Formulario();
+   ListaCuenta listaCuenta = new ListaCuenta();
+    ViewLibroDiario librodiario = LibroDiarioController.getInstance().getView();
+    ViewBalanceCom balancec = BalanceComController.getInstance().getView();
+    ViewMayorGen mayorg = MayorGenController.getInstance().getView();
     public Dashboard() {
-        initComponents();
-//        formulario = new Formulario();
-//        showJPanel(formulario);
+        initComponents(); 
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        listac = new ListaCuenta();
+        formulario = new Formulario();
+        showJPanel(formulario);
         ajustarImagenToggle();
-        applyButtonStyles(btnform, "Formulario", "/Icon/formulario.png");
+       applyButtonStyles(btnform, "Formulario", "/Icon/formulario.png");
         applyButtonStyles(btnBalancec, "Balance de Comprobación", "/Icon/balance.png");
         applyButtonStyles(btnDiario, "Libro Diario", "/Icon/book.png");
         applyButtonStyles(btnMayor, "Mayor General", "/Icon/mayor.png");
+        
+          this.getContentPane().setBackground(Color.decode("#F1F8FF"));
+         logoic.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                Icon icon = logoic.getIcon();
+                if (icon instanceof ImageIcon) {
+                    ImageIcon originalImage = (ImageIcon) icon;
+                    resizeImage(logoic, originalImage);
+                }
+            }
+        });
+        
     }
+    
+    private void resizeImage(JLabel label, ImageIcon originalImage) {
+        Image img = originalImage.getImage();
+        Image scaledImage = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+        label.setIcon(new ImageIcon(scaledImage));
+    }
+    
  public static void showJPanel(JPanel p){
  content.removeAll();
  content.setLayout(new BorderLayout());
@@ -56,27 +96,65 @@ public class Dashboard extends javax.swing.JFrame {
         btnDiario = new javax.swing.JButton();
         btnBalancec = new javax.swing.JButton();
         btnMayor = new javax.swing.JButton();
+        logoic = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
-        btnT = new javax.swing.JLabel();
+        btnOc = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(153, 255, 255));
+        setBackground(new java.awt.Color(241, 248, 255));
 
-        menup.setBackground(new java.awt.Color(51, 204, 255));
+        menup.setBackground(new java.awt.Color(30, 136, 229));
+
+        btnform.setBackground(new java.awt.Color(30, 136, 229));
+        btnform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnformActionPerformed(evt);
+            }
+        });
+
+        btnDiario.setBackground(new java.awt.Color(30, 136, 229));
+        btnDiario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDiarioActionPerformed(evt);
+            }
+        });
+
+        btnBalancec.setBackground(new java.awt.Color(30, 136, 229));
+        btnBalancec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBalancecActionPerformed(evt);
+            }
+        });
+
+        btnMayor.setBackground(new java.awt.Color(30, 136, 229));
+        btnMayor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMayorActionPerformed(evt);
+            }
+        });
+
+        logoic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo_big.png"))); // NOI18N
 
         javax.swing.GroupLayout menupLayout = new javax.swing.GroupLayout(menup);
         menup.setLayout(menupLayout);
         menupLayout.setHorizontalGroup(
             menupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnform, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-            .addComponent(btnDiario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnBalancec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnMayor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menupLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(menupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnMayor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBalancec, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDiario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnform, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(logoic, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                .addContainerGap())
         );
         menupLayout.setVerticalGroup(
             menupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menupLayout.createSequentialGroup()
-                .addGap(169, 169, 169)
+                .addContainerGap()
+                .addComponent(logoic)
+                .addGap(9, 9, 9)
                 .addComponent(btnform, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -84,7 +162,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(btnBalancec, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMayor, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
 
         content.setBackground(new java.awt.Color(255, 102, 102));
@@ -93,14 +171,19 @@ public class Dashboard extends javax.swing.JFrame {
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 864, Short.MAX_VALUE)
+            .addGap(0, 904, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 614, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        btnT.setText("jLabel1");
+        btnOc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/regresa2.png"))); // NOI18N
+        btnOc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOcMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,65 +191,133 @@ public class Dashboard extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(menup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnT, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(4, 4, 4)
+                .addComponent(btnOc)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(42, 42, 42))
+                .addGap(1, 1, 1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(238, 238, 238)
-                .addComponent(btnT, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(270, 270, 270)
+                .addComponent(btnOc)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void ajustarImagenToggle() {
-  ImageIcon originalIcon = new ImageIcon("C:\\Users\\charl\\OneDrive\\I SEMESTRE\\Documentos\\Contabilidad-Nutre-Hogar\\src\\main\\resources\\Icon\\regresa2.png"); 
-// Obtener el tamaño del botón 
-int buttonWidth = btnT.getWidth(); 
-int buttonHeight = btnT.getHeight(); // Redimensionar la imagen para que se ajuste al tamaño del botón
-Image scaledImage = originalIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH); 
-// Establecer la imagen redimensionada en el botón 
-btnT.setIcon(new ImageIcon(scaledImage));
-}
- private void applyButtonStyles(JButton button, String text, String iconPath) {
-        button.setText("<html><center><span style='text-decoration: underline;'>" + text + "</span></center></html>");
-        button.setIcon(new ImageIcon(getClass().getResource(iconPath)));
-        button.setHorizontalTextPosition(SwingConstants.RIGHT);
-        button.setVerticalTextPosition(SwingConstants.CENTER);
-        button.setFocusPainted(false);
 
-        button.setFont(new Font("Arial", Font.BOLD, 14));
-        button.setForeground(Color.BLACK);
+    private void btnDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiarioActionPerformed
+         // Asegúrate de tener una instancia de ListaCuenta
 
-        button.setOpaque(false);
-        button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
+    // Limpiar el contenido del panel 'content'
+    content.removeAll();
 
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(220, 220, 220));
-                button.setOpaque(true);
-                button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            }
+    // Agregar el panel ListaCuenta al panel content
+    content.add(librodiario);
 
-            @Override
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(0, 0, 0, 0));
-                button.setOpaque(false);
-            }
-        });
+    // Ajustar el layout y actualizar la vista
+    content.revalidate();
+    content.repaint();
+    }//GEN-LAST:event_btnDiarioActionPerformed
+
+    private void btnDiarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDiarioMouseClicked
+    
+    }//GEN-LAST:event_btnDiarioMouseClicked
+
+    private void btnformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnformActionPerformed
+        
+        content.removeAll();
+
+    // Agregar el panel ListaCuenta al panel content
+    content.add(formularioc);
+
+    // Ajustar el layout y actualizar la vista
+    content.revalidate();
+    content.repaint();
+    }//GEN-LAST:event_btnformActionPerformed
+
+    private void btnBalancecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBalancecActionPerformed
+     // Limpiar el contenido del panel 'content'
+    content.removeAll();
+
+    // Agregar el panel ListaCuenta al panel content
+    content.add(balancec);
+
+    // Ajustar el layout y actualizar la vista
+    content.revalidate();
+    content.repaint();
+    }//GEN-LAST:event_btnBalancecActionPerformed
+
+    private void btnMayorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMayorActionPerformed
+         content.removeAll();
+
+    // Agregar el panel ListaCuenta al panel content
+    content.add(mayorg);
+
+    // Ajustar el layout y actualizar la vista
+    content.revalidate();
+    content.repaint();
+    }//GEN-LAST:event_btnMayorActionPerformed
+
+    private void btnOcMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOcMouseClicked
+                // Cambiar la visibilidad del menú
+    menup.setVisible(!menup.isVisible());
+
+    // Cambiar el icono en función del estado de visibilidad del menú
+   
+  if (menup.isVisible()) {
+        // Cargar icono usando ruta relativa
+        btnOc.setIcon(new ImageIcon(getClass().getResource("/Icon/regresa2.png"))); // Ruta relativa a recursos
+    } else {
+        btnOc.setIcon(new ImageIcon(getClass().getResource("/Icon/regresa.png"))); // Ruta relativa a recursos
     }
+    // Actualizar la interfaz
+    revalidate();
+    repaint();
+    }//GEN-LAST:event_btnOcMouseClicked
+private void ajustarImagenToggle() {
+ 
+
+}
+   private void applyButtonStyles(JButton button, String text, String iconPath) {
+    // Establece el texto con un estilo centrado y subrayado
+    button.setText("<html><center><span style='text-decoration: none;'>" + text + "</span></center></html>");
+
+    // Establece el ícono desde la ruta proporcionada
+    button.setIcon(new ImageIcon(getClass().getResource(iconPath)));
+
+    // Configura la posición del texto y del ícono
+    button.setHorizontalTextPosition(SwingConstants.RIGHT); // Texto a la derecha del ícono
+    button.setVerticalTextPosition(SwingConstants.CENTER);  // Centrado verticalmente
+    button.setHorizontalAlignment(SwingConstants.LEFT);     // Ícono y texto alineados a la izquierda
+
+    // Estiliza el botón
+    button.setFocusPainted(false);
+    button.setFont(new Font("Arial", Font.BOLD, 16));
+    button.setForeground(Color.WHITE);
+    
+    // Añadir un borde para el subrayado (línea gruesa debajo del texto y el icono)
+    button.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));  // Borde grueso (subrayado)
+
+    // Añadir el efecto de sombreado al presionar el botón
+    button.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            button.setBackground(Color.decode("#2E4156"));  // Color de fondo al presionar
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            button.setBackground(null);  // Restaurar el fondo original cuando se suelta el botón
+        }
+    });
+}
+
+
 public ImageIcon setSVG(String filePath, int width, int height) { ImageIcon imageIcon = new ImageIcon(filePath); 
 // Cargar la imagen 
 Image image = imageIcon.getImage(); 
@@ -196,9 +347,10 @@ return new ImageIcon(resizedImage);} // Devolver la nueva imagen redimensionada 
     private javax.swing.JButton btnBalancec;
     private javax.swing.JButton btnDiario;
     private javax.swing.JButton btnMayor;
-    private javax.swing.JLabel btnT;
+    private javax.swing.JLabel btnOc;
     private javax.swing.JButton btnform;
     private static javax.swing.JPanel content;
+    private javax.swing.JLabel logoic;
     private javax.swing.JPanel menup;
     // End of variables declaration//GEN-END:variables
 
