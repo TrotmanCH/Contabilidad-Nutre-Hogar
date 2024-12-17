@@ -1,207 +1,176 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
+import java.awt.Color;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.image.BufferedImage;
+import java.io.FileOutputStream;
+import javax.imageio.ImageIO;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
 public class PlantillaC extends javax.swing.JFrame {
     private JTable tabla;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField lab_ncheque;
-    private javax.swing.JTextArea lab_nconcepto;
-    private javax.swing.JTextField lab_ndoc;
-    private javax.swing.JTextField lab_nfecha;
-    private javax.swing.JTextField lab_nmonto;
-    private javax.swing.JTextField lab_nnombre;
-    public PlantillaC() {
-        initComponents();
-        getContentPane().setBackground(Color.WHITE);
-        setSize(612, 792);
-        setLocationRelativeTo(null); // Centrar en pantalla
-        setLayout(null);
-
-        // Crear el modelo de la tabla
-        DefaultTableModel modelo = new DefaultTableModel(new String[]{"Referencia", "Código", "Debe", "Haber"}, 0);
-
-        // Crear la tabla con el modelo
-        tabla = new JTable(modelo);
-        tabla.setRowHeight(16); // Ajustar la altura de las filas
-        tabla.setEnabled(false); // Deshabilitar edición si es necesario
-
-        // Configurar el ancho de las columnas
-        tabla.getColumnModel().getColumn(0).setPreferredWidth(130); // Referencia
-        tabla.getColumnModel().getColumn(1).setPreferredWidth(50); // Código
-        tabla.getColumnModel().getColumn(2).setPreferredWidth(65); // Debe
-        tabla.getColumnModel().getColumn(3).setPreferredWidth(65); // Haber
-
-        // Crear un renderizador personalizado para combinar alineación y formato
-        DefaultTableCellRenderer customRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                // Alineación condicional
-                switch (column) {
-                    case 0:
-                        // Alinear la última celda de la columna "Referencia" a la derecha
-                        setHorizontalAlignment(row == table.getRowCount() - 1 ? SwingConstants.RIGHT : SwingConstants.LEFT);
-                        break;
-                    case 1:
-                        // Alinear "Código" al centro
-                        setHorizontalAlignment(SwingConstants.CENTER);
-                        break;
-                    default:
-                        // Alinear "Debe" y "Haber" a la derecha
-                        setHorizontalAlignment(SwingConstants.RIGHT);
-                        break;
-                }
-
-                // Aplicar negrita a la última fila
-                if (row == table.getRowCount() - 1) {
-                    comp.setFont(comp.getFont().deriveFont(Font.BOLD));
-                } else {
-                    comp.setFont(comp.getFont().deriveFont(Font.PLAIN));
-                }
-
-                return comp;
-            }
-        };
-
-        // Asignar el renderizador a todas las columnas
-        for (int i = 0; i < tabla.getColumnCount(); i++) {
-            tabla.getColumnModel().getColumn(i).setCellRenderer(customRenderer);
-        }
-
-        // Agregar la tabla dentro de un JScrollPane
-        JScrollPane scrollPane = new JScrollPane(tabla);
-        scrollPane.setBounds(260, 215, 299, 326); // Coordenadas y tamaño
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-
-        // Agregar el JScrollPane al JFrame
-        add(scrollPane);
-    }
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PlantillaC().setVisible(true);
-            }
-        });
-    }
-
     public void setLabelsText(String cheque, String fecha, String noDoc, String nombre, String concepto, String sumaHaber) {
-        lab_ncheque.setText(cheque);
-        lab_nfecha.setText(fecha);
-        lab_ndoc.setText(noDoc);
-        lab_nnombre.setText(nombre);
-        lab_nconcepto.setText(concepto);
-        lab_nmonto.setText(sumaHaber);
-    }
+    lab_ncheque.setText(cheque);
+    lab_nfecha.setText(fecha);
+    lab_ndoc.setText(noDoc);
+    lab_nnombre.setText(nombre);
+    lab_nconcepto.setText(concepto);
+    lab_nmonto.setText(sumaHaber);
+}
 
     public void exportarPantallaAPDF() {
-        try {
-            // Obtener el tamaño de la interfaz (sin bordes)
-            Dimension dimension = getSize();
-            BufferedImage imagen = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = imagen.createGraphics();
+    try {
+        // Obtener el tamaño de la interfaz (sin bordes)
+        Dimension dimension = getSize();
+        BufferedImage imagen = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = imagen.createGraphics();
+        
+        // Cambiar el color de fondo (si es necesario)
+        g2d.setColor(getBackground());
+        g2d.fillRect(0, 0, dimension.width, dimension.height);
 
-            // Cambiar el color de fondo (si es necesario)
-            g2d.setColor(getBackground());
-            g2d.fillRect(0, 0, dimension.width, dimension.height);
+        // Pintar la interfaz en el BufferedImage
+        paint(g2d);
+        g2d.dispose();
 
-            // Pintar la interfaz en el BufferedImage
-            paint(g2d);
-            g2d.dispose();
+        // Guardar la imagen temporalmente en el sistema de archivos
+        ImageIO.write(imagen, "png", new java.io.File("captura.png"));
+        setVisible(false);
 
-            // Guardar la imagen temporalmente en el sistema de archivos
-            ImageIO.write(imagen, "png", new java.io.File("captura.png"));
-            setVisible(false);
+        // Usar JFileChooser para seleccionar ubicación
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar como PDF");
+        
+        // Crear un formato de fecha para el nombre del archivo
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); // Formato de fecha (AñoMesDía)
+        String fechaFormateada = sdf.format(new Date());
 
-            // Usar JFileChooser para seleccionar ubicación
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Guardar como PDF");
-
-            // Crear un formato de fecha para el nombre del archivo
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); // Formato de fecha (AñoMesDía)
-            String fechaFormateada = sdf.format(new Date());
-
-            //Configurar el nombre del archivo con la palabra "comprobante" y la fecha
-            fileChooser.setSelectedFile(new java.io.File("comprobante_" + fechaFormateada + ".pdf"));
-
-            int userSelection = fileChooser.showSaveDialog(this);
-
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                java.io.File fileToSave = fileChooser.getSelectedFile();
-
-                // Verificar si el archivo ya existe y mostrar advertencia
-                if (fileToSave.exists()) {
-                    int response = JOptionPane.showConfirmDialog(this,
-                            "El archivo ya existe. ¿Deseas reemplazarlo?",
-                            "Confirmar Sobrescritura",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.WARNING_MESSAGE);
-
-                    if (response != JOptionPane.YES_OPTION) {
-                        return; // Salir del método sin guardar
-                    }
+        //Configurar el nombre del archivo con la palabra "comprobante" y la fecha
+        fileChooser.setSelectedFile(new java.io.File("comprobante_" + fechaFormateada + ".pdf"));
+        
+        int userSelection = fileChooser.showSaveDialog(this);
+        
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            java.io.File fileToSave = fileChooser.getSelectedFile();
+            
+            // Verificar si el archivo ya existe y mostrar advertencia
+            if (fileToSave.exists()) {
+                int response = JOptionPane.showConfirmDialog(this, 
+                        "El archivo ya existe. ¿Deseas reemplazarlo?", 
+                        "Confirmar Sobrescritura", 
+                        JOptionPane.YES_NO_OPTION, 
+                        JOptionPane.WARNING_MESSAGE);
+                
+                if (response != JOptionPane.YES_OPTION) {
+                    return; // Salir del método sin guardar
                 }
-
-                // Crear el documento PDF con tamaño Letter (8.5"x11")
-                Document documento = new Document(PageSize.LETTER);
-                PdfWriter.getInstance(documento, new FileOutputStream(fileToSave));
-                documento.open();
-
-                // Añadir la imagen al documento PDF y posicionarla en la parte superior
-                Image imagenPDF = Image.getInstance("captura.png");
-                imagenPDF.scaleToFit(PageSize.LETTER.getWidth(), PageSize.LETTER.getHeight());
-                imagenPDF.setAbsolutePosition(0, PageSize.LETTER.getHeight() - imagenPDF.getScaledHeight()); // Posicionar en la parte superior
-                documento.add(imagenPDF);
-
-                // Cerrar el documento
-                documento.close();
-
-                JOptionPane.showMessageDialog(this, "PDF guardado exitosamente en " + fileToSave.getAbsolutePath());
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al guardar el PDF: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            
+            // Crear el documento PDF con tamaño Letter (8.5"x11")
+            Document documento = new Document(PageSize.LETTER);
+            PdfWriter.getInstance(documento, new FileOutputStream(fileToSave));
+            documento.open();
+
+            // Añadir la imagen al documento PDF y posicionarla en la parte superior
+            Image imagenPDF = Image.getInstance("captura.png");
+            imagenPDF.scaleToFit(PageSize.LETTER.getWidth(), PageSize.LETTER.getHeight());
+            imagenPDF.setAbsolutePosition(0, PageSize.LETTER.getHeight() - imagenPDF.getScaledHeight()); // Posicionar en la parte superior
+            documento.add(imagenPDF);
+
+            // Cerrar el documento
+            documento.close();
+
+            JOptionPane.showMessageDialog(this, "PDF guardado exitosamente en " + fileToSave.getAbsolutePath());
         }
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al guardar el PDF: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-
+}
+    
     public DefaultTableModel getTableModel() {
-        return (DefaultTableModel) tabla.getModel();
+    return (DefaultTableModel) tabla.getModel(); 
+}
+    
+    public PlantillaC() {
+    initComponents();
+    getContentPane().setBackground(Color.WHITE);
+    setSize(612, 792);
+    setLocationRelativeTo(null); // Centrar en pantalla
+    setLayout(null);
+
+    // Crear el modelo de la tabla
+    DefaultTableModel modelo = new DefaultTableModel(new String[]{"Referencia", "Código", "Debe", "Haber"}, 0);
+
+    // Crear la tabla con el modelo
+    tabla = new JTable(modelo);
+    tabla.setRowHeight(16); // Ajustar la altura de las filas
+    tabla.setEnabled(false); // Deshabilitar edición si es necesario
+
+    // Configurar el ancho de las columnas
+    tabla.getColumnModel().getColumn(0).setPreferredWidth(130); // Referencia
+    tabla.getColumnModel().getColumn(1).setPreferredWidth(50); // Código
+    tabla.getColumnModel().getColumn(2).setPreferredWidth(65); // Debe
+    tabla.getColumnModel().getColumn(3).setPreferredWidth(65); // Haber
+
+    // Crear un renderizador personalizado para combinar alineación y formato
+    DefaultTableCellRenderer customRenderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            // Alineación condicional
+            switch (column) {
+                case 0:
+                    // Alinear la última celda de la columna "Referencia" a la derecha
+                    setHorizontalAlignment(row == table.getRowCount() - 1 ? SwingConstants.RIGHT : SwingConstants.LEFT);
+                    break;
+                case 1:
+                    // Alinear "Código" al centro
+                    setHorizontalAlignment(SwingConstants.CENTER);
+                    break;
+                default:
+                    // Alinear "Debe" y "Haber" a la derecha
+                    setHorizontalAlignment(SwingConstants.RIGHT);
+                    break;
+            }
+
+            // Aplicar negrita a la última fila
+            if (row == table.getRowCount() - 1) {
+                comp.setFont(comp.getFont().deriveFont(Font.BOLD));
+            } else {
+                comp.setFont(comp.getFont().deriveFont(Font.PLAIN));
+            }
+
+            return comp;
+        }
+    };
+
+    // Asignar el renderizador a todas las columnas
+    for (int i = 0; i < tabla.getColumnCount(); i++) {
+        tabla.getColumnModel().getColumn(i).setCellRenderer(customRenderer);
     }
 
+    // Agregar la tabla dentro de un JScrollPane
+    JScrollPane scrollPane = new JScrollPane(tabla);
+    scrollPane.setBounds(260, 215, 299, 326); // Coordenadas y tamaño
+    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+
+    // Agregar el JScrollPane al JFrame
+    add(scrollPane);
+}
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -410,6 +379,38 @@ public class PlantillaC extends javax.swing.JFrame {
     private void lab_nnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lab_nnombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lab_nnombreActionPerformed
+
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new PlantillaC().setVisible(true);
+            }});
+    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField lab_ncheque;
+    private javax.swing.JTextArea lab_nconcepto;
+    private javax.swing.JTextField lab_ndoc;
+    private javax.swing.JTextField lab_nfecha;
+    private javax.swing.JTextField lab_nmonto;
+    private javax.swing.JTextField lab_nnombre;
     // End of variables declaration//GEN-END:variables
 
 }
