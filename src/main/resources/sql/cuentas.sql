@@ -81,7 +81,7 @@ INSERT INTO cuenta VALUES ("4.1003", "Ingresos - Donaciones Fijas", "4");
 INSERT INTO cuenta VALUES ("4.1004", "Ingresos - Donaciones", "4");
 INSERT INTO cuenta VALUES ("4.1005", "Ingresos - Subsidio del Municipio", "4");
 INSERT INTO cuenta VALUES ("4.1006", "Ingresos - Subsidio del MIDES", "4");
-INSERT INTO cuenta VALUES ("4.1007", "Ingresos - Subsidio del Lotería", "4");
+INSERT INTO cuenta VALUES ("4.1007", "Ingresos - Subsidio de la Lotería", "4");
 INSERT INTO cuenta VALUES ("4.1008", "Ingresos - Dividendo de Nutre Hogar Rifa", "4");
 INSERT INTO cuenta VALUES ("4.1009", "Ingresos - NHN - Apoyo Cuota Patronal", "4");
 INSERT INTO cuenta VALUES ("4.1010", "Ingresos - Ventas", "4");
@@ -148,7 +148,3 @@ INSERT INTO cuenta VALUES ("5.2003", "Donación - Medicamentos", "5.2");
 INSERT INTO cuenta VALUES ("5.2004", "Donación - Bolsa de Alimentos", "5.2");
 INSERT INTO cuenta VALUES ("5.2005", "Productos Vencidos o Dañados", "5.2");
 INSERT INTO cuenta VALUES ("5.2006", "Donación - Otros", "5.2");
-
-
-
-
