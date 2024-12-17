@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
 public class AsientoView extends javax.swing.JFrame {
     private final List<Registro> listaRegistro = new ArrayList<>();
     private final DefaultTableModel tabRegistrosModelo;
     private final ListSelectionModel listaSeleccionModelo;
-    private final CustomListSelectionListener listaSeleccionEscucha;
     private final CustomTableModelListener tablaModeloEscucha;
     
     public AsientoView() {
@@ -24,10 +24,9 @@ public class AsientoView extends javax.swing.JFrame {
         this.tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
         this.listaSeleccionModelo = tabRegistros.getSelectionModel();
         
-        this.listaSeleccionEscucha = new CustomListSelectionListener(butEditarRegistro, butEliminarRegistro);
         this.tablaModeloEscucha = new CustomTableModelListener(texfieDebeTotal, texfieHaberTotal, texfieMonto);
         
-        this.listaSeleccionModelo.addListSelectionListener(this.listaSeleccionEscucha);
+        this.listaSeleccionModelo.addListSelectionListener(this::listaEscucha);
         this.tabRegistrosModelo.addTableModelListener(this.tablaModeloEscucha);
         
         this.tabRegistros.setSelectionModel(this.listaSeleccionModelo);
@@ -36,7 +35,17 @@ public class AsientoView extends javax.swing.JFrame {
         butEditarRegistro.setEnabled(false);
         butEliminarRegistro.setEnabled(false);
     }
-    
+    private void listaEscucha(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) {
+            if (tabRegistros.getSelectedRow() != -1) {
+                butEditarRegistro.setEnabled(true);
+                butEliminarRegistro.setEnabled(true);
+            } else {
+                butEditarRegistro.setEnabled(false);
+                butEliminarRegistro.setEnabled(false);
+            }
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -283,7 +292,7 @@ public class AsientoView extends javax.swing.JFrame {
     
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()) {
-            Integer filaRegistro = listaSeleccionEscucha.fila;
+            Integer filaRegistro = tabRegistros.getSelectedRow();
             
             Registro registroSeleccionado = listaRegistro.get(filaRegistro);
             RegistroView registroVista = new RegistroView(listaRegistro, tabRegistrosModelo, 
@@ -311,7 +320,8 @@ public class AsientoView extends javax.swing.JFrame {
 
     private void butEliminarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEliminarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()){
-            Integer filaRegistro = listaSeleccionEscucha.fila;
+//            Integer filaRegistro = listaSeleccionEscucha.fila;
+            Integer filaRegistro = tabRegistros.getSelectedRow();
             tabRegistrosModelo.removeRow(filaRegistro);
 
             listaRegistro.remove(listaRegistro.get(filaRegistro));
