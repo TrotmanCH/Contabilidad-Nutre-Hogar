@@ -81,16 +81,15 @@ INSERT INTO cuenta VALUES ("4.1003", "Ingresos - Donaciones Fijas", "4");
 INSERT INTO cuenta VALUES ("4.1004", "Ingresos - Donaciones", "4");
 INSERT INTO cuenta VALUES ("4.1005", "Ingresos - Subsidio del Municipio", "4");
 INSERT INTO cuenta VALUES ("4.1006", "Ingresos - Subsidio del MIDES", "4");
-INSERT INTO cuenta VALUES ("4.1007", "Ingresos - Subsidio del Loteria", "4");
-INSERT INTO cuenta VALUES ("4.1008", "Ingresos - Dividiendo de Nutre Hogar Rifa", "4");
+INSERT INTO cuenta VALUES ("4.1007", "Ingresos - Subsidio del Lotería", "4");
+INSERT INTO cuenta VALUES ("4.1008", "Ingresos - Dividendo de Nutre Hogar Rifa", "4");
 INSERT INTO cuenta VALUES ("4.1009", "Ingresos - NHN - Apoyo Cuota Patronal", "4");
 INSERT INTO cuenta VALUES ("4.1010", "Ingresos - Ventas", "4");
 INSERT INTO cuenta VALUES ("4.1011", "Ingresos - Alquiler", "4");
 INSERT INTO cuenta VALUES ("4.1012", "Ingresos - Otros", "4");
-
 -- INGRESOS POR DONACION
 INSERT INTO cuenta VALUES ("4.2001", "Ing. Donacion - Alimentos", "4.2");
-INSERT INTO cuenta VALUES ("4.2002", "Ing. Donacion - Utiles Aseo y Limpieza", "4.2");
+INSERT INTO cuenta VALUES ("4.2002", "Ing. Donacion - Útiles Aseo y Limpieza", "4.2");
 INSERT INTO cuenta VALUES ("4.2003", "Ing. Donacion - Enseres", "4.2");
 INSERT INTO cuenta VALUES ("4.2004", "Ing. Donacion - Ropa de los Niños", "4.2");
 INSERT INTO cuenta VALUES ("4.2005", "Ing. Donacion - Juguetes", "4.2");
@@ -101,7 +100,8 @@ INSERT INTO cuenta VALUES ("4.2007", "Ing. Donacion - Otros", "4.2");
 INSERT INTO cuenta VALUES ("5.1000", "Gastos - Actividades", "5");
 INSERT INTO cuenta VALUES ("5.1001", "Gastos - Planilla", "5");
 INSERT INTO cuenta VALUES ("5.1002", "Gastos - Vacaciones", "5");
-INSERT INTO cuenta VALUES ("5.1004", "Gastos - Décimo Tercer mes", "5");
+INSERT INTO cuenta VALUES ("5.1003", "Gastos - Décimo Tercer mes", "5");
+INSERT INTO cuenta VALUES ("5.1004", "Gastos - Prima de Antigüedad", "5");
 INSERT INTO cuenta VALUES ("5.1005", "Gastos - Indemnizacion", "5");
 INSERT INTO cuenta VALUES ("5.1006", "Gastos - Pre-Aviso", "5");
 INSERT INTO cuenta VALUES ("5.1007", "Gastos - Teléfono", "5");
@@ -116,7 +116,7 @@ INSERT INTO cuenta VALUES ("5.1015", "Gastos - Medicamentos", "5");
 INSERT INTO cuenta VALUES ("5.1016", "Gastos - Útiles de Oficina y Papelería", "5");
 INSERT INTO cuenta VALUES ("5.1017", "Gastos - Chequera", "5");
 INSERT INTO cuenta VALUES ("5.1018", "Gastos - Transporte de la Oficina", "5");
-INSERT INTO cuenta VALUES ("5.1019", "Gastos - Trasporte de la Enfermeria", "5");
+INSERT INTO cuenta VALUES ("5.1019", "Gastos - Transporte de la Enfermería", "5");
 INSERT INTO cuenta VALUES ("5.1020", "Gastos - Flete y Acarreo", "5");
 INSERT INTO cuenta VALUES ("5.1021", "Gastos - Junta Directiva", "5");
 INSERT INTO cuenta VALUES ("5.1022", "Gastos - Capacitación", "5");
@@ -131,23 +131,22 @@ INSERT INTO cuenta VALUES ("5.1030", "Mant. Y Reparación de Edificio", "5");
 INSERT INTO cuenta VALUES ("5.1031", "Mant. Y Reparación de Equipo", "5");
 INSERT INTO cuenta VALUES ("5.1032", "Mant. Y Reparación de Equipo de Oficina", "5");
 INSERT INTO cuenta VALUES ("5.1033", "Mant. Y Reparación de E. Lavand. Y Cocina", "5");
-INSERT INTO cuenta VALUES ("5.1034", "Gastos - Útilis de Cocina", "5");
+INSERT INTO cuenta VALUES ("5.1034", "Gastos - Útiles de Cocina", "5");
 INSERT INTO cuenta VALUES ("5.1035", "Gastos - Ropa de los Niños", "5");
 INSERT INTO cuenta VALUES ("5.1036", "Gastos - Ropa de Cama, Toallas y Otros", "5");
 INSERT INTO cuenta VALUES ("5.1037", "Gastos - Uniforme del Personal", "5");
 INSERT INTO cuenta VALUES ("5.1038", "Gastos - Escolar", "5");
 INSERT INTO cuenta VALUES ("5.1039", "Gastos - Misceláneos", "5");
-INSERT INTO cuenta VALUES ("5.1040", "Gastos - Servicios Profecionales", "5");
+INSERT INTO cuenta VALUES ("5.1040", "Gastos - Servicios Profesionales", "5");
 INSERT INTO cuenta VALUES ("5.1041", "Gastos - Cuota Patronal", "5");
 INSERT INTO cuenta VALUES ("5.1042", "Gastos - Otros", "5");
-
 -- GASTOS OTROS/DONACIONES
-INSERT INTO cuenta VALUES ("5.2000", "Consumo de Alimentos ", "5.2");
+INSERT INTO cuenta VALUES ("5.2000", "Consumo de Alimentos", "5.2");
 INSERT INTO cuenta VALUES ("5.2001", "Donación - Limpieza y Aseo", "5.2");
 INSERT INTO cuenta VALUES ("5.2002", "Donación - Enseres", "5.2");
 INSERT INTO cuenta VALUES ("5.2003", "Donación - Medicamentos", "5.2");
 INSERT INTO cuenta VALUES ("5.2004", "Donación - Bolsa de Alimentos", "5.2");
-INSERT INTO cuenta VALUES ("5.2005", "Producros Vencidos o Dañados", "5.2");
+INSERT INTO cuenta VALUES ("5.2005", "Productos Vencidos o Dañados", "5.2");
 INSERT INTO cuenta VALUES ("5.2006", "Donación - Otros", "5.2");
 
 
