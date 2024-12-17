@@ -5,7 +5,7 @@ import com.nutrehogar.sistemacontable.application.service.Util;
 import com.nutrehogar.sistemacontable.domain.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.repository.LibroDiarioRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
-import com.nutrehogar.sistemacontable.ui.view.components.ViewLibroDiario;
+import com.nutrehogar.sistemacontable.ui.view.LibroDiarioView;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -26,7 +26,7 @@ import static com.nutrehogar.sistemacontable.application.service.Util.restarDate
 public class LibroDiarioController {
     static LibroDiarioController instance;
     @Getter
-    ViewLibroDiario view;
+    LibroDiarioView view;
     final JTable libroDiarioTable;
     final LibroDiarioTableModel libroDiarioTableModel;
     final LocalDateSpinner starDateSpinner;
@@ -41,7 +41,7 @@ public class LibroDiarioController {
     }
 
     private LibroDiarioController() {
-        view = new ViewLibroDiario();
+        view = new LibroDiarioView();
         libroDiarioTable = view.getTableLibro();
         starDateSpinner = view.getStarDateSpinner();
         endDateSpinner = view.getEndDateSpinner();

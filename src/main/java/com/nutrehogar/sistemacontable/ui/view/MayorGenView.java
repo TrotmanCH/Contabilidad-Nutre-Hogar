@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.view.components;
+package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
@@ -24,9 +24,9 @@ import lombok.Setter;
 /**
  * @author Calcifer1331
  */
-public class ViewMayorGen extends javax.swing.JPanel {
+public class MayorGenView extends javax.swing.JPanel {
 
-    public ViewMayorGen() {
+    public MayorGenView() {
         initComponents();
         customizeTable();
         estilizarBoton(btnFilter, 120, 50);
