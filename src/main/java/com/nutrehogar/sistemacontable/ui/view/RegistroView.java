@@ -242,11 +242,11 @@ public class RegistroView extends javax.swing.JFrame {
                 ));
 
                 if (radbutDebito.isSelected()) {
-                    registro.setDebe(monto);
+                    registro.setDebe(monto.setScale(2));
                     registro.setHaber(BigDecimal.ZERO);
                 } else if (radbutCredito.isSelected()){
                     registro.setDebe(BigDecimal.ZERO);
-                    registro.setHaber(monto);
+                    registro.setHaber(monto.setScale(2));
                 }
 
                 listaRegistro.add(registro);

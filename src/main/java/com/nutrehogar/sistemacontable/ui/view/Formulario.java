@@ -71,14 +71,14 @@ public class Formulario extends javax.swing.JPanel {
             Double debeValor = Double.valueOf(tabRegistrosModelo.getValueAt(i, 4).toString());
             Double haberValor = Double.valueOf(tabRegistrosModelo.getValueAt(i, 5).toString());
             
-            debeTotal = debeTotal.add(BigDecimal.valueOf(debeValor));
-            haberTotal = haberTotal.add(BigDecimal.valueOf(haberValor));
+            debeTotal = debeTotal.add(BigDecimal.valueOf(debeValor)).setScale(2);
+            haberTotal = haberTotal.add(BigDecimal.valueOf(haberValor)).setScale(2);
         }
         
-        if (debeTotal == haberTotal) {
+        montoValor = debeTotal.subtract(haberTotal);
+        if (montoValor.compareTo(BigDecimal.ZERO) == 0) {
             texfieMonto.setText(debeTotal.toString());
         } else {
-            montoValor = debeTotal.subtract(haberTotal);
             texfieMonto.setText(montoValor.toString());
         }
         
@@ -403,11 +403,16 @@ public class Formulario extends javax.swing.JPanel {
             });
             asiento.setRegistros(listaRegistro);
             
-            if (!asiento.getRegistros().isEmpty()) {
+            if (texfieDebe.getText().equals(texfieHaber.getText())) {
+                if (!asiento.getRegistros().isEmpty()) {
                 AsientoRepo.save(asiento);   
+                } else {
+                    mostrarError("Sin Registros", "Este asiento no tiene registros");
+                }
             } else {
-                mostrarError("Sin Registros", "Este asiento no tiene registros");
+                mostrarError("Asiento Inválido", "El asiento no está balanceado");
             }
+            
         } catch (IndexOutOfBoundsException e) {
             mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
         }
@@ -418,7 +423,7 @@ public class Formulario extends javax.swing.JPanel {
             Integer filaRegistro = tabRegistros.getSelectedRow();
 
             Registro registroSeleccionado = listaRegistro.get(filaRegistro);
-            RegistroView registroVista = new RegistroView(listaRegistro, tabRegistrosModelo, "EDITAR REGISTRO", null); 
+            RegistroView registroVista = new RegistroView(listaRegistro, tabRegistrosModelo, "EDITAR REGISTRO", filaRegistro); 
             registroVista.comboxTipoDoc.setSelectedIndex(registroSeleccionado.getTipoDocumento().getId() - 1);
             registroVista.texfieNoCheque.setText(registroSeleccionado.getComprobante());
             registroVista.texfieReferencia.setText(registroSeleccionado.getReferencia());
