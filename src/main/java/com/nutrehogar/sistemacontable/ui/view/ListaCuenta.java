@@ -1,27 +1,18 @@
-
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
-import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Insets;
 import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -29,129 +20,105 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
-/**
- *
- * @author charl
- */
 public class ListaCuenta extends javax.swing.JPanel {
- List<SubTipoCuenta> listaSubTipo = new ArrayList<>();
 
     public ListaCuenta() {
         initComponents();
     
-       
         this.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblCuenta.clearSelection();
             }
         });
+        
         estilizarBoton(btnCrear, 120, 50);      
-estilizarBoton(btnActualizar, 120, 50); 
-estilizarBoton(btnEliminar, 120, 50);  
+        estilizarBoton(btnActualizar, 120, 50); 
+        estilizarBoton(btnEliminar, 120, 50);  
 
-       customizeTable();
+        customizeTable();
         tblCuenta.getSelectionModel().addListSelectionListener(this::isSelectRow);
         btnActualizar.setEnabled(false);
-
 
         List<Cuenta> ListaCuenta = CuentaRepo.findAll();
         DefaultTableModel model = (DefaultTableModel)tblCuenta.getModel();
         for (Cuenta cuenta : ListaCuenta) {
-            model.addRow(new Object[]{
-            cuenta.getId(),cuenta.getNombre(),cuenta.getSubTipoCuenta().getNombre(),cuenta.getSubTipoCuenta().getTipoCuenta().getNombre()
-        });
+            model.addRow(new Object[] {
+                cuenta.getId(),cuenta.getNombre(),
+                cuenta.getSubTipoCuenta().getNombre(),
+                cuenta.getSubTipoCuenta().getTipoCuenta().getNombre()
+            });
         }
         
 
 
     }
+    
     private void estilizarBoton(JButton boton, int ancho, int alto) {
-   
-    boton.setPreferredSize(new Dimension(ancho, alto));
-
-    
-    boton.setContentAreaFilled(false); 
-    boton.setFocusPainted(false);      
-    boton.setBorderPainted(false);     
-
- 
-    boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
-        @Override
-        public void paint(Graphics g, JComponent c) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-          
-            g2d.setColor(Color.decode("#1E88E5")); 
-            g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
-
-            
-            g2d.setColor(new Color(30, 144, 255)); 
-            g2d.drawRoundRect(0, 0, c.getWidth() - 1, c.getHeight() - 1, 25, 25);
-
-            g2d.dispose();
-
-            
-            super.paint(g, c);
-        }
-    });
-}
+        boton.setPreferredSize(new Dimension(ancho, alto));
+        boton.setContentAreaFilled(false); 
+        boton.setFocusPainted(false);      
+        boton.setBorderPainted(false);     
+        boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 
-private void customizeTable() {
- 
-    JTableHeader header = tblCuenta.getTableHeader();
-    header.setFont(new Font("Arial", Font.BOLD, 16));
-    header.setBackground(Color.decode("#1E88E5"));
-    header.setForeground(Color.WHITE);
+                g2d.setColor(Color.decode("#1E88E5")); 
+                g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
 
-  
-    DefaultTableCellRenderer rowRenderer = new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                                                       boolean isSelected, boolean hasFocus,
-                                                       int row, int column) {
-            Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-        
-            if (!isSelected) {
-                if (row % 2 == 0) {
-                    cell.setBackground(Color.decode("#F1F8FF"));
-                } else {
-                    cell.setBackground(Color.WHITE); 
-                }
-            } else {
-                cell.setBackground(Color.decode("#BBDEFB")); 
+                g2d.setColor(new Color(30, 144, 255)); 
+                g2d.drawRoundRect(0, 0, c.getWidth() - 1, c.getHeight() - 1, 25, 25);
+
+                g2d.dispose();
+
+
+                super.paint(g, c);
             }
-            return cell;
-        }
-    };
-
-   
-    for (int i = 0; i < tblCuenta.getColumnCount(); i++) {
-        tblCuenta.getColumnModel().getColumn(i).setCellRenderer(rowRenderer);
+        });
     }
 
+    private void customizeTable() {
+        JTableHeader header = tblCuenta.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 16));
+        header.setBackground(Color.decode("#1E88E5"));
+        header.setForeground(Color.WHITE);
 
-    tblCuenta.setFont(new Font("Arial", Font.PLAIN, 14));
-    tblCuenta.setRowHeight(25);
+        DefaultTableCellRenderer rowRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
+                if (!isSelected) {
+                    if (row % 2 == 0) {
+                        cell.setBackground(Color.decode("#F1F8FF"));
+                    } else {
+                        cell.setBackground(Color.WHITE); 
+                    }
+                } else {
+                    cell.setBackground(Color.decode("#BBDEFB")); 
+                }
+                return cell;
+            }
+        };
+
+        for (int i = 0; i < tblCuenta.getColumnCount(); i++) {
+            tblCuenta.getColumnModel().getColumn(i).setCellRenderer(rowRenderer);
+        }
+
+        tblCuenta.setFont(new Font("Arial", Font.PLAIN, 14));
+        tblCuenta.setRowHeight(25);
+
+        TableColumnModel columnModel = tblCuenta.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(80);
+        columnModel.getColumn(0).setMaxWidth(80);
+        columnModel.getColumn(0).setMinWidth(80);
+    }
     
-    TableColumnModel columnModel = tblCuenta.getColumnModel();
-    columnModel.getColumn(0).setPreferredWidth(80);
-    columnModel.getColumn(0).setMaxWidth(80);
-    columnModel.getColumn(0).setMinWidth(80);
-
-}
-
-
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -278,7 +245,7 @@ private void customizeTable() {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
- public void isSelectRow(ListSelectionEvent e) {
+    public void isSelectRow(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
             int selectRow = tblCuenta.getSelectedRow();
             if (selectRow != -1) {
@@ -287,10 +254,8 @@ private void customizeTable() {
                 btnActualizar.setEnabled(false);
             }
         }
-
     }
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-
         DefaultTableModel tblCuentaModelo = (DefaultTableModel) tblCuenta.getModel(); 
         CuentaView cuentaView = new CuentaView(tblCuentaModelo); 
         cuentaView.setLocationRelativeTo(null); 
@@ -298,24 +263,23 @@ private void customizeTable() {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        int selectedRow = tblCuenta.getSelectedRow();
 
-         int selectedRow = tblCuenta.getSelectedRow();
+        // Verificar si hay una fila seleccionada
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una cuenta para actualizar.");
+            return;
+        }
 
-    // Verificar si hay una fila seleccionada
-    if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Seleccione una cuenta para actualizar.");
-        return;
-    }
-    
-    // Obtener los datos de la fila seleccionada
-    String id = tblCuenta.getValueAt(selectedRow, 0).toString();
-    String nombreActual = tblCuenta.getValueAt(selectedRow, 1).toString();
-    String subTipoCuentaActual = tblCuenta.getValueAt(selectedRow, 3).toString();
+        // Obtener los datos de la fila seleccionada
+        String id = tblCuenta.getValueAt(selectedRow, 0).toString();
+        String nombreActual = tblCuenta.getValueAt(selectedRow, 1).toString();
+        String subTipoCuentaActual = tblCuenta.getValueAt(selectedRow, 3).toString();
 
-    // Abrir el formulario de edición y pasar los datos
-    EditarCuentaView editarCuentaView = new EditarCuentaView(id, nombreActual, subTipoCuentaActual, (DefaultTableModel) tblCuenta.getModel(), selectedRow);
-    editarCuentaView.setLocationRelativeTo(null); // Centrar la ventana
-    editarCuentaView.setVisible(true);
+        // Abrir el formulario de edición y pasar los datos
+        EditarCuentaView editarCuentaView = new EditarCuentaView(id, nombreActual, subTipoCuentaActual, (DefaultTableModel) tblCuenta.getModel(), selectedRow);
+        editarCuentaView.setLocationRelativeTo(null); // Centrar la ventana
+        editarCuentaView.setVisible(true);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -348,7 +312,6 @@ private void customizeTable() {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;

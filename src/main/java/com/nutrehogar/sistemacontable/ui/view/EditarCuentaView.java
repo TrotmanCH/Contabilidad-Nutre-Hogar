@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
@@ -13,43 +9,33 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ADVN01
- */
 public class EditarCuentaView extends javax.swing.JFrame {
     private String cuentaId;
     private DefaultTableModel tblCuentaModel;
     private int selectedRow;
     private java.util.List<SubTipoCuenta> listaSubTipo = SubTipoCuentaRepo.findAll();
 
-    public EditarCuentaView(){
-
-    }
     public EditarCuentaView(String id, String nombre, String subTipoCuenta, DefaultTableModel tblCuenta, int row) {
+        initComponents();
+        
         this.cuentaId = id;
         this.tblCuentaModel = tblCuenta;
         this.selectedRow = row;
         
-        initComponents();
         estilizarBoton(btnGuardar, 120,50);
-         estilizarBoton(btnCancelar, 120,50);
-           this.getContentPane().setBackground(Color.decode("#F1F8FF"));
+        estilizarBoton(btnCancelar, 120,50);
+        
+        this.getContentPane().setBackground(Color.decode("#F1F8FF"));
         // Prellenar los campos con los datos actuales
         txtNombre.setText(nombre);
         listaSubTipo.forEach(subTipo -> cboSubTipoCuenta.addItem(subTipo.getNombre()));
         cboSubTipoCuenta.setSelectedItem(subTipoCuenta); 
     }
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -152,38 +138,25 @@ public class EditarCuentaView extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-private void estilizarBoton(JButton boton, int ancho, int alto) {
-    
-    boton.setPreferredSize(new Dimension(ancho, alto));
-
-   
-    boton.setContentAreaFilled(false); 
-    boton.setFocusPainted(false);      
-    boton.setBorderPainted(false);    
-
-    
-    boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
-        @Override
-        public void paint(Graphics g, JComponent c) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-            
-        g2d.setColor(Color.decode("#1E88E5")); 
-
-            g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
-
-           
-            g2d.setColor(new Color(30, 144, 255)); 
-            g2d.drawRoundRect(0, 0, c.getWidth() - 1, c.getHeight() - 1, 25, 25);
-
-            g2d.dispose();
-
-         
-            super.paint(g, c);
-        }
-    });
-}
+    private void estilizarBoton(JButton boton, int ancho, int alto) {
+        boton.setPreferredSize(new Dimension(ancho, alto));
+        boton.setContentAreaFilled(false); 
+        boton.setFocusPainted(false);      
+        boton.setBorderPainted(false);    
+        boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setColor(Color.decode("#1E88E5")); 
+                g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
+                g2d.setColor(new Color(30, 144, 255)); 
+                g2d.drawRoundRect(0, 0, c.getWidth() - 1, c.getHeight() - 1, 25, 25);
+                g2d.dispose();
+                super.paint(g, c);
+            }
+        });
+    }
     private void editarCuenta() {
         // Validar datos
         String nombre = txtNombre.getText().trim();
@@ -227,37 +200,6 @@ private void estilizarBoton(JButton boton, int ancho, int alto) {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al actualizar la cuenta: " + e.getMessage());
         }
-    }
-        
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditarCuentaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditarCuentaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditarCuentaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditarCuentaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new EditarCuentaView().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
