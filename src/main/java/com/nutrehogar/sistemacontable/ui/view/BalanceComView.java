@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.nutrehogar.sistemacontable.ui.view.components;
+package com.nutrehogar.sistemacontable.ui.view;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -25,8 +25,8 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class ViewBalanceCom extends javax.swing.JPanel {
-    public ViewBalanceCom() {
+public class BalanceComView extends javax.swing.JPanel {
+    public BalanceComView() {
         initComponents();
         
         customizeTable();

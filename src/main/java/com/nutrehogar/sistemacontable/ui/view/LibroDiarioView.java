@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.view.components;
+package com.nutrehogar.sistemacontable.ui.view;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -20,9 +20,9 @@ import lombok.Setter;
 /**
  * @author Calcifer1331
  */
-public class ViewLibroDiario extends javax.swing.JPanel {
+public class LibroDiarioView extends javax.swing.JPanel {
 
-    public ViewLibroDiario() {
+    public LibroDiarioView() {
         initComponents();
         customizeTable();
         estilizarBoton(btnFilter, 120, 50);

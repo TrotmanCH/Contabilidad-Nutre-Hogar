@@ -8,9 +8,6 @@ import com.formdev.flatlaf.FlatLightLaf;
 import com.nutrehogar.sistemacontable.ui.controller.BalanceComController;
 import com.nutrehogar.sistemacontable.ui.controller.LibroDiarioController;
 import com.nutrehogar.sistemacontable.ui.controller.MayorGenController;
-import com.nutrehogar.sistemacontable.ui.view.components.ViewBalanceCom;
-import com.nutrehogar.sistemacontable.ui.view.components.ViewLibroDiario;
-import com.nutrehogar.sistemacontable.ui.view.components.ViewMayorGen;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -39,9 +36,9 @@ public class Dashboard extends javax.swing.JFrame {
   private ListaCuenta listac;  
   Formulario formularioc = new Formulario();
    ListaCuenta listaCuenta = new ListaCuenta();
-    ViewLibroDiario librodiario = LibroDiarioController.getInstance().getView();
-    ViewBalanceCom balancec = BalanceComController.getInstance().getView();
-    ViewMayorGen mayorg = MayorGenController.getInstance().getView();
+    LibroDiarioView librodiario = LibroDiarioController.getInstance().getView();
+    BalanceComView balancec = BalanceComController.getInstance().getView();
+    MayorGenView mayorg = MayorGenController.getInstance().getView();
     public Dashboard() {
         initComponents(); 
         

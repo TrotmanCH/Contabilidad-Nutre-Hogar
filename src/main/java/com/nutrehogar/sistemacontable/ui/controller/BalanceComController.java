@@ -9,7 +9,7 @@ import com.nutrehogar.sistemacontable.application.service.Util;
 import com.nutrehogar.sistemacontable.domain.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.repository.BalanceComRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
-import com.nutrehogar.sistemacontable.ui.view.components.ViewBalanceCom;
+import com.nutrehogar.sistemacontable.ui.view.BalanceComView;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -37,7 +37,7 @@ import static com.nutrehogar.sistemacontable.application.service.Util.restarDate
 public class BalanceComController {
     static BalanceComController instance;
     @Getter
-    final ViewBalanceCom view;
+    final BalanceComView view;
     final JTable table;
     final BalanceComTableModel tableModel;
 
@@ -45,7 +45,7 @@ public class BalanceComController {
     final LocalDateSpinner endDateSpinner;
 
     private BalanceComController() {
-        view = new ViewBalanceCom();
+        view = new BalanceComView();
         table = view.getBalanceComTabla();
         starDateSpinner = view.getStartSpinnerDate();
         endDateSpinner = view.getEndSpinnerDate();

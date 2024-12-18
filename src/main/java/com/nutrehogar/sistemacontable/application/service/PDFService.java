@@ -1,7 +1,7 @@
 package com.nutrehogar.sistemacontable.application.service;
 
-import com.nutrehogar.sistemacontable.ui.view.PlantillaC;
-import com.nutrehogar.sistemacontable.ui.view.PlantillaF;
+import com.nutrehogar.sistemacontable.ui.view.services.ComprobantePago;
+import com.nutrehogar.sistemacontable.ui.view.services.FormularioRegistro;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -17,7 +17,7 @@ public class PDFService {
      * @param txt_nodoc         Texto del número de documento.
      * @param txt_nombre        Texto del nombre.
      * @param txt_concepto      Texto del concepto.
-     * @param ventanaPlantillaC Instancia de la ventana PlantillaC.
+     * @param ventanaPlantillaC Instancia de la ventana ComprobantePago.
      */
     public static void operacionComprobante(
             JTable table,
@@ -26,7 +26,7 @@ public class PDFService {
             String txt_nodoc,
             String txt_nombre,
             String txt_concepto,
-            PlantillaC ventanaPlantillaC) {
+            ComprobantePago ventanaPlantillaC) {
 
         if (table.isEditing()) {
             table.getCellEditor().stopCellEditing();
@@ -83,7 +83,7 @@ public class PDFService {
      * @param txt_nodoc         Texto del número de documento.
      * @param txt_nombre        Texto del nombre.
      * @param txt_concepto      Texto del concepto.
-     * @param ventanaPlantillaF Instancia de la ventana PlantillaF.
+     * @param ventanaPlantillaF Instancia de la ventana FormularioRegistro.
      */
     public static void operacionFormulario(
             JTable table,
@@ -93,7 +93,7 @@ public class PDFService {
             String txt_nodoc,
             String txt_nombre,
             String txt_concepto,
-            PlantillaF ventanaPlantillaF) {
+            FormularioRegistro ventanaPlantillaF) {
         if (table.isEditing()) {
             table.getCellEditor().stopCellEditing();
         }

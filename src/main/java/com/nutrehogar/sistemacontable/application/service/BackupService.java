@@ -1,7 +1,7 @@
 package com.nutrehogar.sistemacontable.application.service;
 
 import com.nutrehogar.sistemacontable.domain.HibernateUtil;
-import com.nutrehogar.sistemacontable.ui.view.components.BackupPanel;
+import com.nutrehogar.sistemacontable.ui.view.services.BackupPanel;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

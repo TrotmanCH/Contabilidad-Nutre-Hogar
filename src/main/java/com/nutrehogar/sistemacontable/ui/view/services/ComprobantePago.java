@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.view;
+package com.nutrehogar.sistemacontable.ui.view.services;
 
 import java.awt.Color;
 import javax.swing.*;
@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class PlantillaC extends javax.swing.JFrame {
+public class ComprobantePago extends javax.swing.JFrame {
     private JTable tabla;
     public void setLabelsText(String cheque, String fecha, String noDoc, String nombre, String concepto, String sumaHaber) {
     lab_ncheque.setText(cheque);
@@ -102,7 +102,7 @@ public class PlantillaC extends javax.swing.JFrame {
     return (DefaultTableModel) tabla.getModel(); 
 }
     
-    public PlantillaC() {
+    public ComprobantePago() {
     initComponents();
     getContentPane().setBackground(Color.WHITE);
     setSize(612, 792);
@@ -240,7 +240,7 @@ public class PlantillaC extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lab_ncheque);
-        lab_ncheque.setBounds(540, 30, 64, 30);
+        lab_ncheque.setBounds(540, 30, 10, 30);
 
         lab_nfecha.setEditable(false);
         lab_nfecha.setBackground(new java.awt.Color(255, 255, 255));
@@ -291,7 +291,7 @@ public class PlantillaC extends javax.swing.JFrame {
         getContentPane().add(lab_ndoc);
         lab_ndoc.setBounds(520, 170, 60, 22);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/Icon/sprite2.png")))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testp/sprite2.png"))); // NOI18N
         getContentPane().add(jLabel6);
         jLabel6.setBounds(350, 0, 100, 70);
 
@@ -339,15 +339,15 @@ public class PlantillaC extends javax.swing.JFrame {
 
         jLabel14.setText("______________________________");
         getContentPane().add(jLabel14);
-        jLabel14.setBounds(10, 460, 230, 16);
+        jLabel14.setBounds(10, 460, 230, 15);
 
         jLabel15.setText("______________________________");
         getContentPane().add(jLabel15);
-        jLabel15.setBounds(10, 300, 240, 16);
+        jLabel15.setBounds(10, 300, 240, 15);
 
         jLabel16.setText("______________________________");
         getContentPane().add(jLabel16);
-        jLabel16.setBounds(20, 390, 230, 16);
+        jLabel16.setBounds(20, 390, 230, 15);
 
         lab_nconcepto.setColumns(20);
         lab_nconcepto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -383,7 +383,7 @@ public class PlantillaC extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PlantillaC().setVisible(true);
+                new ComprobantePago().setVisible(true);
             }});
     }
     

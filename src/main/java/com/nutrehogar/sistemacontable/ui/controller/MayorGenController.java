@@ -6,7 +6,7 @@ import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.MayorGenRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoCuentaRepo;
 import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel;
-import com.nutrehogar.sistemacontable.ui.view.components.ViewMayorGen;
+import com.nutrehogar.sistemacontable.ui.view.MayorGenView;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -35,7 +35,7 @@ import static com.nutrehogar.sistemacontable.application.service.Util.restarDate
 public class MayorGenController {
     static MayorGenController instance;
     @Getter
-    final ViewMayorGen view;
+    final MayorGenView view;
     final MayorGenTableModel tableModel;
     final LocalDateSpinnerModel starSpinnerModel;
     final LocalDateSpinnerModel endSpinnerModel;
@@ -48,7 +48,7 @@ public class MayorGenController {
     private String cuentaId;
 
     private MayorGenController() {
-        view = new ViewMayorGen();
+        view = new MayorGenView();
         this.tableModel = new MayorGenTableModel();
         this.starSpinnerModel = view.getStarDateSpinner().getCustomModel();
         this.endSpinnerModel = view.getEndDateSpinner().getCustomModel();

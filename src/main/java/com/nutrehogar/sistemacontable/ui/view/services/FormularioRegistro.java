@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.nutrehogar.sistemacontable.ui.view;
+package com.nutrehogar.sistemacontable.ui.view.services;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public class PlantillaF extends javax.swing.JFrame {
+public class FormularioRegistro extends javax.swing.JFrame {
     private JTable tabla;
     private JTable tablaex;
     private JTable tablacom;
@@ -118,7 +118,7 @@ public class PlantillaF extends javax.swing.JFrame {
     return (DefaultTableModel) tablacom.getModel();
 }
     
-  public PlantillaF() {
+  public FormularioRegistro() {
     initComponents();
     getContentPane().setBackground(Color.WHITE);
     setSize(612, 792);
@@ -317,7 +317,7 @@ public class PlantillaF extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lab_ncheque);
-        lab_ncheque.setBounds(540, 30, 64, 30);
+        lab_ncheque.setBounds(540, 30, 10, 30);
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Fecha:");
@@ -419,15 +419,15 @@ public class PlantillaF extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(250, 580, 110, 23);
+        jButton1.setBounds(250, 580, 110, 25);
 
         jButton2.setText("REGISTRO");
         getContentPane().add(jButton2);
-        jButton2.setBounds(420, 580, 130, 23);
+        jButton2.setBounds(420, 580, 130, 25);
 
         jLabel15.setText("______________________________");
         getContentPane().add(jLabel15);
-        jLabel15.setBounds(270, 670, 230, 16);
+        jLabel15.setBounds(270, 670, 230, 15);
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel13.setText("Aprobado por:");
@@ -436,7 +436,7 @@ public class PlantillaF extends javax.swing.JFrame {
 
         jLabel16.setText("______________________________");
         getContentPane().add(jLabel16);
-        jLabel16.setBounds(10, 580, 230, 16);
+        jLabel16.setBounds(10, 580, 230, 15);
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel14.setText("Solicitado por: Licdo. Julio C. Guerra");
@@ -450,7 +450,7 @@ public class PlantillaF extends javax.swing.JFrame {
 
         jLabel18.setText("______________________________");
         getContentPane().add(jLabel18);
-        jLabel18.setBounds(10, 670, 230, 16);
+        jLabel18.setBounds(10, 670, 230, 15);
 
         jLabel11.setFont(new java.awt.Font("Bahnschrift", 1, 16)); // NOI18N
         jLabel11.setText("Autorizado:");
@@ -497,21 +497,23 @@ public class PlantillaF extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PlantillaF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PlantillaF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PlantillaF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PlantillaF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PlantillaF().setVisible(true);
+                new FormularioRegistro().setVisible(true);
             }
         });
     }
