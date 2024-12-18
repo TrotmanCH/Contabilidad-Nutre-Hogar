@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
@@ -24,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -32,7 +29,6 @@ public class Formulario extends javax.swing.JPanel {
     private final List<Registro> listaRegistro = new ArrayList<>();
     private final DefaultTableModel tabRegistrosModelo;
     private final ListSelectionModel listaSeleccionModelo;
-    private final CustomTableModelListener tablaModeloEscucha;
     
     public Formulario() {
         initComponents();
@@ -40,12 +36,11 @@ public class Formulario extends javax.swing.JPanel {
         this.tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
         this.listaSeleccionModelo = tabRegistros.getSelectionModel();
         
-        this.tablaModeloEscucha = new CustomTableModelListener(texfieDebeTotal, texfieHaberTotal, texfieMonto);
-        
         this.listaSeleccionModelo.addListSelectionListener(this::listaEscucha);
-        this.tabRegistrosModelo.addTableModelListener(this.tablaModeloEscucha);
+        this.tabRegistrosModelo.addTableModelListener(this::tablaEscucha);
         
         this.tabRegistros.setSelectionModel(this.listaSeleccionModelo);
+        this.tabRegistros.setModel(this.tabRegistrosModelo);
                 
         butEditarRegistro.setEnabled(false);
         butEliminarRegistro.setEnabled(false);
@@ -67,13 +62,36 @@ public class Formulario extends javax.swing.JPanel {
             }
         }
     }
+    private void tablaEscucha(TableModelEvent e) {
+        BigDecimal debeTotal = BigDecimal.ZERO;
+        BigDecimal haberTotal = BigDecimal.ZERO;
+        BigDecimal montoValor;
+        
+        for (Integer i = 0; i < tabRegistrosModelo.getRowCount(); i++) {
+            Double debeValor = Double.valueOf(tabRegistrosModelo.getValueAt(i, 4).toString());
+            Double haberValor = Double.valueOf(tabRegistrosModelo.getValueAt(i, 5).toString());
+            
+            debeTotal = debeTotal.add(BigDecimal.valueOf(debeValor));
+            haberTotal = haberTotal.add(BigDecimal.valueOf(haberValor));
+        }
+        
+        if (debeTotal == haberTotal) {
+            texfieMonto.setText(debeTotal.toString());
+        } else {
+            montoValor = debeTotal.subtract(haberTotal);
+            texfieMonto.setText(montoValor.toString());
+        }
+        
+        texfieDebe.setText(debeTotal.toString());
+        texfieHaber.setText(haberTotal.toString());
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         texfieNombre = new javax.swing.JTextField();
-        texfieHaberTotal = new javax.swing.JTextField();
+        texfieHaber = new javax.swing.JTextField();
         texfieMonto = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -86,7 +104,7 @@ public class Formulario extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        texfieDebeTotal = new javax.swing.JTextField();
+        texfieDebe = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         butAnadirRegistro = new javax.swing.JButton();
         butEditarRegistro = new javax.swing.JButton();
@@ -97,8 +115,8 @@ public class Formulario extends javax.swing.JPanel {
 
         texfieNombre.setName("nombreField"); // NOI18N
 
-        texfieHaberTotal.setEditable(false);
-        texfieHaberTotal.setBackground(new java.awt.Color(255, 255, 255));
+        texfieHaber.setEditable(false);
+        texfieHaber.setBackground(new java.awt.Color(255, 255, 255));
 
         texfieMonto.setEditable(false);
         texfieMonto.setBackground(new java.awt.Color(255, 255, 255));
@@ -152,8 +170,8 @@ public class Formulario extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Concepto:");
 
-        texfieDebeTotal.setEditable(false);
-        texfieDebeTotal.setBackground(new java.awt.Color(255, 255, 255));
+        texfieDebe.setEditable(false);
+        texfieDebe.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(241, 248, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
@@ -254,9 +272,9 @@ public class Formulario extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel11)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(texfieDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(texfieDebe, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(texfieHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(texfieHaber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(14, 14, 14)))
                                 .addGap(18, 18, 18)))
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,8 +326,8 @@ public class Formulario extends javax.swing.JPanel {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(texfieDebeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(texfieHaberTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texfieDebe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texfieHaber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
                         .addGap(59, 59, 59))
                     .addGroup(layout.createSequentialGroup()
@@ -466,8 +484,8 @@ public class Formulario extends javax.swing.JPanel {
     private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFecha;
     public javax.swing.JTable tabRegistros;
     private javax.swing.JTextArea texareConcepto;
-    private javax.swing.JTextField texfieDebeTotal;
-    private javax.swing.JTextField texfieHaberTotal;
+    private javax.swing.JTextField texfieDebe;
+    private javax.swing.JTextField texfieHaber;
     private javax.swing.JTextField texfieMonto;
     private javax.swing.JTextField texfieNombre;
     // End of variables declaration//GEN-END:variables

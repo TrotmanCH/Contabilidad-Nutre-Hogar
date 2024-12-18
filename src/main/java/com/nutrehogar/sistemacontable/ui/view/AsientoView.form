@@ -75,9 +75,9 @@
                           <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="texfieDebeTotal" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="texfieDebe" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="texfieHaberTotal" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="texfieHaber" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -127,8 +127,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="texfieDebeTotal" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="texfieHaberTotal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="texfieDebe" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="texfieHaber" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="butGuardarAsiento" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -294,12 +294,12 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="butAnadirRegistroMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="texfieDebeTotal">
+    <Component class="javax.swing.JTextField" name="texfieDebe">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="texfieHaberTotal">
+    <Component class="javax.swing.JTextField" name="texfieHaber">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
