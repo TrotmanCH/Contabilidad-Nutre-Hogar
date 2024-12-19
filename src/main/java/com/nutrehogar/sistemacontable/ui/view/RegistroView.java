@@ -1,18 +1,11 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Registro;
-
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoDocumentoRepo;
-
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
+import java.awt.*;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -20,26 +13,13 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class RegistroView extends javax.swing.JFrame {
-    private final List<Registro> listaRegistro;
-    private final DefaultTableModel tabRegistrosModelo;
-    private Integer filaRegistro;
-   
+    List<Registro> listaRegistro;
+    DefaultTableModel tabRegistrosModelo;
+    Integer filaRegistro;
     
     public RegistroView(List<Registro> listaRegistro, DefaultTableModel tabRegistrosModelo, 
                 String titulo, Integer filaRegistro) {
         initComponents();
-           this.getContentPane().setBackground(Color.decode("#F1F8FF"));
-             estilizarBoton(butAnadir, 120, 50);  
-             estilizarBoton(butEditar, 120, 50);  
-        labTitulo.setText(titulo);
-        
-        if (titulo == "AÑADIR REGISTRO") {
-            butAnadir.setEnabled(true);
-            butEditar.setEnabled(false);
-        } else if (titulo == "EDITAR REGISTRO") {
-            butAnadir.setEnabled(false);
-            butEditar.setEnabled(true);
-        }
         
         this.listaRegistro = listaRegistro;
         this.tabRegistrosModelo = tabRegistrosModelo;
@@ -51,7 +31,21 @@ public class RegistroView extends javax.swing.JFrame {
         CuentaRepo.findAll().forEach((cuenta) -> {
             comboxCuenta.addItem(cuenta.getId()+ " | " + cuenta.getNombre());
         });
+                
+        if (filaRegistro == null) {
+            butAnadir.setEnabled(true);
+            butEditar.setEnabled(false);
+        } else {
+            butAnadir.setEnabled(false);
+            butEditar.setEnabled(true);
+            
+            llenarCampos();
+        }
+        
+        labTitulo.setText(titulo);
+        estilizarBotones(butAnadir, butEditar);
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -75,6 +69,7 @@ public class RegistroView extends javax.swing.JFrame {
         butEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(Color.decode("#F1F8FF"));
         setResizable(false);
 
         labTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -163,8 +158,9 @@ public class RegistroView extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addGap(54, 54, 54)
                                 .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(35, 35, 35)
                                     .addComponent(butAnadir)
                                     .addGap(18, 18, 18)
                                     .addComponent(butEditar))
@@ -176,7 +172,7 @@ public class RegistroView extends javax.swing.JFrame {
                                         .addComponent(texfieReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(16, 16, 16))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(169, 169, 169)
+                .addGap(178, 178, 178)
                 .addComponent(labTitulo))
         );
         layout.setVerticalGroup(
@@ -218,10 +214,56 @@ public class RegistroView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    // Estilo de los botones
+    private void estilizarBotones(JButton... botones) {
+        Arrays.asList(botones).forEach((boton) -> {
+            boton.setPreferredSize(new Dimension(120, 50));
+            boton.setContentAreaFilled(false);
+            boton.setFocusPainted(false);
+            boton.setBorderPainted(false);
+
+            boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+                @Override
+                public void paint(Graphics g, JComponent c) {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(Color.decode("#1E88E5"));
+                    g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
+                    g2d.dispose();
+
+                    super.paint(g, c);
+                }
+            }); 
+        });
+    }
+    
+    // Llenado de campos al actualizar un registro
+    private void llenarCampos() {
+        Registro registroSeleccionado = listaRegistro.get(filaRegistro);
+        comboxTipoDoc.setSelectedIndex(registroSeleccionado.getTipoDocumento().getId() - 1);
+        texfieNoCheque.setText(registroSeleccionado.getComprobante());
+        texfieReferencia.setText(registroSeleccionado.getReferencia());
+
+        Object cuentaRegistroSeleccionado = registroSeleccionado.getCuenta().getId() +
+                " | " + registroSeleccionado.getCuenta().getNombre();
+        comboxCuenta.setSelectedItem(cuentaRegistroSeleccionado);
+
+        if (registroSeleccionado.getDebe() != BigDecimal.ZERO 
+                && registroSeleccionado.getHaber() == BigDecimal.ZERO) {
+            radbutDebito.setSelected(true);
+            texfieMonto.setText(registroSeleccionado.getDebe().toString());
+        } else {
+            radbutCredito.setSelected(true);
+            texfieMonto.setText(registroSeleccionado.getHaber().toString());
+        }
+    }
+    
+    // Escuchas de los botones
     private void butAnadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirMouseClicked
         if (butAnadir.isEnabled()) {
-           try {
-                //  Generación de excepciones
+            try {
+                // Verificando si los campos estan vacíos
                 texfieNoCheque.getText().charAt(1);
                 texfieReferencia.getText().charAt(1);
                 
@@ -237,16 +279,12 @@ public class RegistroView extends javax.swing.JFrame {
                         ))
                         .build();
                 
-                BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(
-                        texfieMonto.getText()
-                ));
-
                 if (radbutDebito.isSelected()) {
-                    registro.setDebe(monto.setScale(2));
-                    registro.setHaber(BigDecimal.ZERO);
+                    registro.setDebe(new BigDecimal(texfieMonto.getText()).setScale(2));
+                    registro.setHaber(BigDecimal.ZERO.setScale(2));
                 } else if (radbutCredito.isSelected()){
-                    registro.setDebe(BigDecimal.ZERO);
-                    registro.setHaber(monto.setScale(2));
+                    registro.setDebe(BigDecimal.ZERO.setScale(2));
+                    registro.setHaber(new BigDecimal(texfieMonto.getText()).setScale(2));
                 }
 
                 listaRegistro.add(registro);
@@ -261,44 +299,12 @@ public class RegistroView extends javax.swing.JFrame {
 
                 dispose();
             } catch (IndexOutOfBoundsException e) {
-                mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
+                JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos");
             } catch (NumberFormatException e) {
-                mostrarError("Valor Incorrecto", "Introduzca un número decimal válido");
+                JOptionPane.showMessageDialog(this, "Introduzca un número decimal válido");
             }
         }  
     }//GEN-LAST:event_butAnadirMouseClicked
-private void estilizarBoton(JButton boton, int ancho, int alto) {
-    // Cambiar tamaño del botón
-    boton.setPreferredSize(new Dimension(ancho, alto));
-
-    // Configuración básica para eliminar estilos predeterminados
-    boton.setContentAreaFilled(false); // Elimina el fondo predeterminado
-    boton.setFocusPainted(false);      // Elimina el borde de enfoque predeterminado
-    boton.setBorderPainted(false);     // Elimina el borde predeterminado
-
-    // Estilo personalizado del botón
-    boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
-        @Override
-        public void paint(Graphics g, JComponent c) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-            // Dibujar el fondo con bordes redondeados
-        g2d.setColor(Color.decode("#1E88E5")); // Color de fondo
- // Color de fondo
-            g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); // Bordes redondeados
-
-            // Dibujar el borde
-            g2d.setColor(new Color(30, 144, 255)); // Color del borde
-            g2d.drawRoundRect(0, 0, c.getWidth() - 1, c.getHeight() - 1, 25, 25);
-
-            g2d.dispose();
-
-            // Llamar al renderizador predeterminado para pintar el texto y el ícono
-            super.paint(g, c);
-        }
-    });
-}
     private void butEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarMouseClicked
         if (butEditar.isEnabled()) {
             try {
@@ -322,50 +328,45 @@ private void estilizarBoton(JButton boton, int ancho, int alto) {
                             comboxCuenta.getSelectedItem().toString().substring(0, 6)
                         ));
                 
-                BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(
-                        texfieMonto.getText()
-                ));
                 if (radbutDebito.isSelected()) {
-                    tabRegistrosModelo.setValueAt(texfieMonto.getText(), filaRegistro, 4);
-                    tabRegistrosModelo.setValueAt(BigDecimal.ZERO, filaRegistro, 5);
+                    tabRegistrosModelo.setValueAt(new BigDecimal(texfieMonto.getText()).setScale(2), filaRegistro, 4);
+                    tabRegistrosModelo.setValueAt(BigDecimal.ZERO.setScale(2), filaRegistro, 5);
                     
-                    registroSeleccionado.setDebe(monto);
-                    registroSeleccionado.setHaber(BigDecimal.ZERO);
+                    registroSeleccionado.setDebe(new BigDecimal(texfieMonto.getText()).setScale(2));
+                    registroSeleccionado.setHaber(BigDecimal.ZERO.setScale(2));
                 } else if (radbutCredito.isSelected()) {
-                    tabRegistrosModelo.setValueAt(BigDecimal.ZERO, filaRegistro, 4);
-                    tabRegistrosModelo.setValueAt(texfieMonto.getText(), filaRegistro, 5);
+                    tabRegistrosModelo.setValueAt(BigDecimal.ZERO.setScale(2), filaRegistro, 4);
+                    tabRegistrosModelo.setValueAt(new BigDecimal(texfieMonto.getText()).setScale(2), filaRegistro, 5);
                     
-                    registroSeleccionado.setDebe(BigDecimal.ZERO);
-                    registroSeleccionado.setHaber(monto);
+                    registroSeleccionado.setDebe(BigDecimal.ZERO.setScale(2));
+                    registroSeleccionado.setHaber(new BigDecimal(texfieMonto.getText()).setScale(2));
                 }
+                
                 dispose();
             } catch (IndexOutOfBoundsException e) {
-                mostrarError("Campos Vacíos", "Uno o varios campos estan vacíos");
+                JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos");
             } catch (NumberFormatException e) {
-                mostrarError("Valor Incorrecto", "Introduzca un número decimal válido");
+                JOptionPane.showMessageDialog(this, "Introduzca un número decimal válido");
             }
         }
     }//GEN-LAST:event_butEditarMouseClicked
+    
+    // Escucha de texfieMonto
     private void texfieMontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieMontoFocusLost
         try {
             BigDecimal.valueOf(Double.parseDouble(texfieMonto.getText()));
         } catch (NumberFormatException e) {
-            mostrarError("Valor Incorrecto", "Introduzca un número decimal válido");
+            JOptionPane.showMessageDialog(this, "Introduzca un número decimal válido");
             texfieMonto.setText("");
         }
     }//GEN-LAST:event_texfieMontoFocusLost
     
-    private void mostrarError(String titulo, String mensaje){
-        JOptionPane.showMessageDialog(null, mensaje, 
-                    titulo, JOptionPane.ERROR_MESSAGE
-        );
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAnadir;
     private javax.swing.JButton butEditar;
     private javax.swing.ButtonGroup butgroTipoRegistro;
-    public javax.swing.JComboBox<String> comboxCuenta;
-    public javax.swing.JComboBox<String> comboxTipoDoc;
+    private javax.swing.JComboBox<String> comboxCuenta;
+    private javax.swing.JComboBox<String> comboxTipoDoc;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -373,10 +374,10 @@ private void estilizarBoton(JButton boton, int ancho, int alto) {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel labTitulo;
-    public javax.swing.JRadioButton radbutCredito;
-    public javax.swing.JRadioButton radbutDebito;
-    public javax.swing.JTextField texfieMonto;
-    public javax.swing.JTextField texfieNoCheque;
-    public javax.swing.JTextField texfieReferencia;
+    private javax.swing.JRadioButton radbutCredito;
+    private javax.swing.JRadioButton radbutDebito;
+    private javax.swing.JTextField texfieMonto;
+    private javax.swing.JTextField texfieNoCheque;
+    private javax.swing.JTextField texfieReferencia;
     // End of variables declaration//GEN-END:variables
 }
