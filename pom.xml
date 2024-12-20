@@ -44,6 +44,23 @@
             </properties>
         </developer>
         <developer>
+            <id>cadltop</id>
+            <name>César De La Cruz</name>
+            <email>caesarfromthecross.808@gmail.com</email>
+            <url>https://github.com/cadltop</url>
+            <roles>
+                <role>Full Stack Developer</role>
+            </roles>
+            <organization>
+                Universidad Tecnológica de Panamá
+                Centro Regional de Bocas del Toro
+            </organization>
+            <organizationUrl>https://bt.utp.ac.pa/</organizationUrl>
+            <properties>
+                <organizationEmail>cesar.delacruz@utp.ac.pa</organizationEmail>
+            </properties>
+        </developer>
+        <developer>
             <id>JaysonG05 </id>
             <name>Jayson Grant</name>
             <email>jaysonc-09@outlook.es</email>

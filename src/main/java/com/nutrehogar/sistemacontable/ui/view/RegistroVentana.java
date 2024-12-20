@@ -12,12 +12,12 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class RegistroView extends javax.swing.JFrame {
+public class RegistroVentana extends javax.swing.JFrame {
     List<Registro> listaRegistro;
     DefaultTableModel tabRegistrosModelo;
     Integer filaRegistro;
     
-    public RegistroView(List<Registro> listaRegistro, DefaultTableModel tabRegistrosModelo, 
+    public RegistroVentana(List<Registro> listaRegistro, DefaultTableModel tabRegistrosModelo, 
                 String titulo, Integer filaRegistro) {
         initComponents();
         
