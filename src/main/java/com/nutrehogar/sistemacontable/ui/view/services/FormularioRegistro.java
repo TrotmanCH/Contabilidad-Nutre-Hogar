@@ -291,18 +291,19 @@ public class FormularioRegistro extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         jLabel1.setText("<html> <div style=\"text-align: center;\">     <span style=\"font-size: 12px;\">Asociación Nacional Pro-Nutrición Infantil<br>NUTRE HOGAR BOCAS</span><br>     <span style=\"font-size: 10px;\">RUC: 1424-02-5701      DV: 43</span><br>     <span style=\"font-size: 10px;\">No. Teléfono 758-6506 &nbsp;&nbsp;&nbsp; E-Mail: nutrebocas@gmail.com</span> </div> </html>");
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(6, 6, 340, 80);
+        jLabel1.setBounds(40, 40, 340, 80);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testp/sprite2.png"))); // NOI18N
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(340, 10, 100, 70);
+        jLabel6.setBounds(330, 130, 75, 75);
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("<html>No.<br>Cheque</html>");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(450, 20, 76, 52);
+        jLabel2.setBounds(410, 50, 70, 40);
 
         lab_ncheque.setEditable(false);
         lab_ncheque.setBackground(new java.awt.Color(255, 255, 255));
@@ -317,12 +318,12 @@ public class FormularioRegistro extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lab_ncheque);
-        lab_ncheque.setBounds(540, 30, 10, 30);
+        lab_ncheque.setBounds(490, 70, 70, 19);
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Fecha:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(410, 80, 55, 17);
+        jLabel3.setBounds(420, 100, 55, 17);
 
         lab_nfecha.setEditable(false);
         lab_nfecha.setBackground(new java.awt.Color(255, 255, 255));
@@ -337,12 +338,12 @@ public class FormularioRegistro extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lab_nfecha);
-        lab_nfecha.setBounds(490, 80, 86, 14);
+        lab_nfecha.setBounds(490, 100, 60, 20);
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setText("Monto");
+        jLabel4.setText("Monto:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(450, 110, 53, 17);
+        jLabel4.setBounds(420, 130, 53, 17);
 
         lab_nmonto.setEditable(false);
         lab_nmonto.setBackground(new java.awt.Color(255, 255, 255));
@@ -352,12 +353,12 @@ public class FormularioRegistro extends javax.swing.JFrame {
         lab_nmonto.setBorder(null);
         lab_nmonto.setMaximumSize(new java.awt.Dimension(64, 23));
         getContentPane().add(lab_nmonto);
-        lab_nmonto.setBounds(510, 110, 70, 17);
+        lab_nmonto.setBounds(490, 130, 70, 17);
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel5.setText("No. Doc.");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(450, 160, 65, 28);
+        jLabel5.setBounds(420, 160, 65, 28);
 
         lab_ndoc.setEditable(false);
         lab_ndoc.setBackground(new java.awt.Color(255, 255, 255));
@@ -371,17 +372,17 @@ public class FormularioRegistro extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lab_ndoc);
-        lab_ndoc.setBounds(520, 170, 60, 22);
+        lab_ndoc.setBounds(490, 160, 70, 22);
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel7.setText("FORMULARIO DE REGISTRO");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(27, 88, 290, 26);
+        jLabel7.setBounds(40, 160, 280, 20);
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel10.setText("Nombre:");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(30, 120, 68, 20);
+        jLabel10.setBounds(50, 220, 68, 20);
 
         lab_nnombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lab_nnombre.setText("0");
@@ -393,12 +394,12 @@ public class FormularioRegistro extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lab_nnombre);
-        lab_nnombre.setBounds(110, 120, 320, 17);
+        lab_nnombre.setBounds(140, 220, 320, 17);
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel8.setText("Concepto:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(10, 170, 90, 20);
+        jLabel8.setBounds(50, 270, 90, 20);
 
         lab_nconcepto.setColumns(20);
         lab_nconcepto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -410,7 +411,7 @@ public class FormularioRegistro extends javax.swing.JFrame {
         jScrollPane2.setViewportView(lab_nconcepto);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(110, 140, 320, 70);
+        jScrollPane2.setBounds(140, 250, 320, 70);
 
         jButton1.setText("IR A DATOS");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -419,43 +420,43 @@ public class FormularioRegistro extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(250, 580, 110, 25);
+        jButton1.setBounds(280, 630, 110, 25);
 
         jButton2.setText("REGISTRO");
         getContentPane().add(jButton2);
-        jButton2.setBounds(420, 580, 130, 25);
+        jButton2.setBounds(420, 630, 130, 25);
 
         jLabel15.setText("______________________________");
         getContentPane().add(jLabel15);
-        jLabel15.setBounds(270, 670, 230, 15);
+        jLabel15.setBounds(360, 720, 200, 15);
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel13.setText("Aprobado por:");
         getContentPane().add(jLabel13);
-        jLabel13.setBounds(360, 690, 70, 20);
+        jLabel13.setBounds(420, 740, 80, 20);
 
         jLabel16.setText("______________________________");
         getContentPane().add(jLabel16);
-        jLabel16.setBounds(10, 580, 230, 15);
+        jLabel16.setBounds(40, 630, 200, 15);
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel14.setText("Solicitado por: Licdo. Julio C. Guerra");
         getContentPane().add(jLabel14);
-        jLabel14.setBounds(10, 600, 180, 20);
+        jLabel14.setBounds(40, 650, 190, 20);
 
         jLabel17.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel17.setText("Revisado por:");
         getContentPane().add(jLabel17);
-        jLabel17.setBounds(70, 690, 70, 20);
+        jLabel17.setBounds(100, 740, 70, 20);
 
         jLabel18.setText("______________________________");
         getContentPane().add(jLabel18);
-        jLabel18.setBounds(10, 670, 230, 15);
+        jLabel18.setBounds(40, 720, 200, 15);
 
         jLabel11.setFont(new java.awt.Font("Bahnschrift", 1, 16)); // NOI18N
         jLabel11.setText("Autorizado:");
         getContentPane().add(jLabel11);
-        jLabel11.setBounds(260, 630, 90, 20);
+        jLabel11.setBounds(250, 690, 90, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
