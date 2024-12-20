@@ -16,22 +16,23 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import javax.swing.table.TableCellRenderer;
 
 public class ComprobantePago extends javax.swing.JFrame {
     private JTable tabla;
     public void setLabelsText(String cheque, String fecha, String noDoc, String nombre, String concepto, String sumaHaber) {
-    lab_ncheque.setText(cheque);
-    lab_nfecha.setText(fecha);
-    lab_ndoc.setText(noDoc);
-    lab_nnombre.setText(nombre);
-    lab_nconcepto.setText(concepto);
-    lab_nmonto.setText(sumaHaber);
+    texfieNoCheque.setText(cheque);
+    texfieFecha.setText(fecha);
+    texfieNoDoc.setText(noDoc);
+    texfieNombre.setText(nombre);
+    texareConcepto.setText(concepto);
+    texfieMonto.setText(sumaHaber);
 }
 
     public void exportarPantallaAPDF() {
     try {
         // Obtener el tamaño de la interfaz (sin bordes)
-        Dimension dimension = getSize();
+        Dimension dimension = getBounds().getSize();
         BufferedImage imagen = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = imagen.createGraphics();
         
@@ -116,15 +117,18 @@ public class ComprobantePago extends javax.swing.JFrame {
     tabla = new JTable(modelo);
     tabla.setRowHeight(16); // Ajustar la altura de las filas
     tabla.setEnabled(false); // Deshabilitar edición si es necesario
-
+    
+    // Colorear lineas de la tabla
+    tabla.setShowGrid(true);
+    tabla.setGridColor(Color.BLACK);
     // Configurar el ancho de las columnas
     tabla.getColumnModel().getColumn(0).setPreferredWidth(130); // Referencia
     tabla.getColumnModel().getColumn(1).setPreferredWidth(50); // Código
     tabla.getColumnModel().getColumn(2).setPreferredWidth(65); // Debe
     tabla.getColumnModel().getColumn(3).setPreferredWidth(65); // Haber
 
-    // Crear un renderizador personalizado para combinar alineación y formato
-    DefaultTableCellRenderer customRenderer = new DefaultTableCellRenderer() {
+    // Crear un renderizador personalizado para el contenido
+    DefaultTableCellRenderer contentRenderer = new DefaultTableCellRenderer() {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -151,22 +155,40 @@ public class ComprobantePago extends javax.swing.JFrame {
             } else {
                 comp.setFont(comp.getFont().deriveFont(Font.PLAIN));
             }
+            
+            return comp;
+        }
+    };
+    
+    // Crear un renderizador personalizado para el encabezado
+    DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            setHorizontalAlignment(SwingConstants.CENTER);
+            if (column == table.getColumnCount() - 1) {
+                setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK));
+            } else {
+                setBorder(BorderFactory.createMatteBorder(0,0,1,1,Color.BLACK));
+            }
 
             return comp;
         }
     };
-
+                
     // Asignar el renderizador a todas las columnas
     for (int i = 0; i < tabla.getColumnCount(); i++) {
-        tabla.getColumnModel().getColumn(i).setCellRenderer(customRenderer);
+        tabla.getColumnModel().getColumn(i).setCellRenderer(contentRenderer);
+        tabla.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
     }
 
     // Agregar la tabla dentro de un JScrollPane
     JScrollPane scrollPane = new JScrollPane(tabla);
-    scrollPane.setBounds(260, 215, 299, 326); // Coordenadas y tamaño
+    scrollPane.setBounds(260, 350, 299, 326); // Coordenadas y tamaño
     scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-
+    scrollPane.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.BLACK));
     // Agregar el JScrollPane al JFrame
     add(scrollPane);
 }
@@ -175,242 +197,204 @@ public class ComprobantePago extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        lab_ncheque = new javax.swing.JTextField();
-        lab_nfecha = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        lab_nmonto = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        lab_ndoc = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        lab_nnombre = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        lab_nconcepto = new javax.swing.JTextArea();
+        labEncabezado = new javax.swing.JLabel();
+        labNoCheque = new javax.swing.JLabel();
+        labComprobantePago = new javax.swing.JLabel();
+        labFecha = new javax.swing.JLabel();
+        texfieNoCheque = new javax.swing.JTextField();
+        texfieFecha = new javax.swing.JTextField();
+        labMonto = new javax.swing.JLabel();
+        texfieMonto = new javax.swing.JTextField();
+        labNoDoc = new javax.swing.JLabel();
+        texfieNoDoc = new javax.swing.JTextField();
+        labLogo = new javax.swing.JLabel();
+        labConcepto = new javax.swing.JLabel();
+        texfieNombre = new javax.swing.JTextField();
+        labFirma = new javax.swing.JLabel();
+        labNombre = new javax.swing.JLabel();
+        labEntregado = new javax.swing.JLabel();
+        labRecibido = new javax.swing.JLabel();
+        labNoCedula = new javax.swing.JLabel();
+        labLineaNoCedula = new javax.swing.JLabel();
+        labLineaFirma = new javax.swing.JLabel();
+        labLineaRecibido = new javax.swing.JLabel();
+        scrpanConcepto = new javax.swing.JScrollPane();
+        texareConcepto = new javax.swing.JTextArea();
 
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(null);
 
-        jLabel5.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("<html> <div style=\"text-align: center;\">     <span style=\"font-size: 12px;\">Asociación Nacional Pro-Nutrición Infantil<br>NUTRE HOGAR BOCAS</span><br>     <span style=\"font-size: 10px;\">RUC: 1424-02-5701      DV: 43</span><br>     <span style=\"font-size: 10px;\">No. Teléfono 758-6506 &nbsp;&nbsp;&nbsp; E-Mail: nutrebocas@gmail.com</span> </div> </html>");
-        jLabel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(40, 40, 340, 80);
+        labEncabezado.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        labEncabezado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labEncabezado.setText("<html> <div style=\"text-align: center;\">     <span style=\"font-size: 12px;\">Asociación Nacional Pro-Nutrición Infantil<br>NUTRE HOGAR BOCAS</span><br>     <span style=\"font-size: 10px;\">RUC: 1424-02-5701      DV: 43</span><br>     <span style=\"font-size: 10px;\">No. Teléfono 758-6506 &nbsp;&nbsp;&nbsp; E-Mail: nutrebocas@gmail.com</span> </div> </html>");
+        labEncabezado.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        getContentPane().add(labEncabezado);
+        labEncabezado.setBounds(40, 40, 340, 80);
 
-        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("<html>No.<br>Cheque</html>");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(410, 50, 70, 40);
+        labNoCheque.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        labNoCheque.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labNoCheque.setText("<html>No.<br>Cheque</html>");
+        getContentPane().add(labNoCheque);
+        labNoCheque.setBounds(410, 50, 70, 40);
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jLabel7.setText("COMPROBANTE DE PAGO");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(40, 160, 260, 20);
+        labComprobantePago.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        labComprobantePago.setText("COMPROBANTE DE PAGO");
+        getContentPane().add(labComprobantePago);
+        labComprobantePago.setBounds(40, 160, 260, 20);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setText("Fecha:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(420, 100, 55, 17);
+        labFecha.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labFecha.setText("Fecha:");
+        getContentPane().add(labFecha);
+        labFecha.setBounds(420, 100, 55, 17);
 
-        lab_ncheque.setEditable(false);
-        lab_ncheque.setBackground(new java.awt.Color(255, 255, 255));
-        lab_ncheque.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        lab_ncheque.setText("0");
-        lab_ncheque.setActionCommand("<Not Set>");
-        lab_ncheque.setBorder(null);
-        lab_ncheque.setMaximumSize(new java.awt.Dimension(64, 23));
-        lab_ncheque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lab_nchequeActionPerformed(evt);
-            }
-        });
-        getContentPane().add(lab_ncheque);
-        lab_ncheque.setBounds(490, 70, 70, 20);
+        texfieNoCheque.setEditable(false);
+        texfieNoCheque.setBackground(new java.awt.Color(255, 255, 255));
+        texfieNoCheque.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        texfieNoCheque.setText("0");
+        texfieNoCheque.setActionCommand("<Not Set>");
+        texfieNoCheque.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY)
+        );
+        texfieNoCheque.setMaximumSize(new java.awt.Dimension(64, 23));
+        getContentPane().add(texfieNoCheque);
+        texfieNoCheque.setBounds(490, 70, 70, 20);
 
-        lab_nfecha.setEditable(false);
-        lab_nfecha.setBackground(new java.awt.Color(255, 255, 255));
-        lab_nfecha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lab_nfecha.setText("01/00/1900");
-        lab_nfecha.setBorder(null);
-        lab_nfecha.setMaximumSize(new java.awt.Dimension(77, 20));
-        lab_nfecha.setMinimumSize(new java.awt.Dimension(77, 20));
-        lab_nfecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lab_nfechaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(lab_nfecha);
-        lab_nfecha.setBounds(490, 100, 60, 20);
+        texfieFecha.setEditable(false);
+        texfieFecha.setBackground(new java.awt.Color(255, 255, 255));
+        texfieFecha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        texfieFecha.setText("2024-01-01");
+        texfieFecha.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY)
+        );
+        texfieFecha.setMaximumSize(new java.awt.Dimension(77, 20));
+        texfieFecha.setMinimumSize(new java.awt.Dimension(77, 20));
+        getContentPane().add(texfieFecha);
+        texfieFecha.setBounds(490, 100, 70, 20);
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setText("Monto:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(420, 130, 53, 17);
+        labMonto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labMonto.setText("Monto:");
+        getContentPane().add(labMonto);
+        labMonto.setBounds(420, 130, 53, 17);
 
-        lab_nmonto.setEditable(false);
-        lab_nmonto.setBackground(new java.awt.Color(255, 255, 255));
-        lab_nmonto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lab_nmonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        lab_nmonto.setText("0.00");
-        lab_nmonto.setBorder(null);
-        lab_nmonto.setMaximumSize(new java.awt.Dimension(64, 23));
-        getContentPane().add(lab_nmonto);
-        lab_nmonto.setBounds(490, 130, 70, 17);
+        texfieMonto.setEditable(false);
+        texfieMonto.setBackground(new java.awt.Color(255, 255, 255));
+        texfieMonto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texfieMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        texfieMonto.setText("0.00");
+        texfieMonto.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY)
+        );
+        texfieMonto.setMaximumSize(new java.awt.Dimension(64, 23));
+        getContentPane().add(texfieMonto);
+        texfieMonto.setBounds(490, 130, 70, 21);
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel4.setText("No. Doc.");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(420, 160, 65, 28);
+        labNoDoc.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        labNoDoc.setText("No. Doc.");
+        getContentPane().add(labNoDoc);
+        labNoDoc.setBounds(420, 160, 65, 28);
 
-        lab_ndoc.setEditable(false);
-        lab_ndoc.setBackground(new java.awt.Color(255, 255, 255));
-        lab_ndoc.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lab_ndoc.setText("000");
-        lab_ndoc.setBorder(null);
-        lab_ndoc.setMaximumSize(new java.awt.Dimension(64, 28));
-        lab_ndoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lab_ndocActionPerformed(evt);
-            }
-        });
-        getContentPane().add(lab_ndoc);
-        lab_ndoc.setBounds(490, 160, 70, 22);
+        texfieNoDoc.setEditable(false);
+        texfieNoDoc.setBackground(new java.awt.Color(255, 255, 255));
+        texfieNoDoc.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        texfieNoDoc.setText("000");
+        texfieNoDoc.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY)
+        );
+        texfieNoDoc.setMaximumSize(new java.awt.Dimension(64, 28));
+        getContentPane().add(texfieNoDoc);
+        texfieNoDoc.setBounds(490, 160, 70, 26);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testp/sprite2.png"))); // NOI18N
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(310, 130, 75, 75);
+        labLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/sprite2.png"))); // NOI18N
+        getContentPane().add(labLogo);
+        labLogo.setBounds(310, 130, 75, 75);
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel8.setText("Concepto:");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(50, 270, 90, 20);
+        labConcepto.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        labConcepto.setText("Concepto:");
+        getContentPane().add(labConcepto);
+        labConcepto.setBounds(50, 270, 80, 20);
 
-        lab_nnombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lab_nnombre.setText("0");
-        lab_nnombre.setBorder(null);
-        lab_nnombre.setName("lab_nnombre"); // NOI18N
-        lab_nnombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lab_nnombreActionPerformed(evt);
-            }
-        });
-        getContentPane().add(lab_nnombre);
-        lab_nnombre.setBounds(140, 220, 320, 17);
+        texfieNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texfieNombre.setText("0");
+        texfieNombre.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY)
+        );
+        texfieNombre.setName("texfieNombre"); // NOI18N
+        getContentPane().add(texfieNombre);
+        texfieNombre.setBounds(140, 220, 350, 21);
 
-        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel9.setText("Firma del personal que entrega:");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(60, 410, 190, 20);
+        labFirma.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        labFirma.setText("Firma del personal que entrega:");
+        getContentPane().add(labFirma);
+        labFirma.setBounds(50, 410, 190, 20);
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel10.setText("Nombre:");
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(50, 220, 68, 20);
+        labNombre.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        labNombre.setText("Nombre:");
+        getContentPane().add(labNombre);
+        labNombre.setBounds(50, 220, 68, 20);
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel11.setText("Entregado por:");
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(90, 340, 90, 20);
+        labEntregado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        labEntregado.setText("Entregado por:");
+        getContentPane().add(labEntregado);
+        labEntregado.setBounds(90, 340, 90, 20);
 
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel12.setText("Recibido por:");
-        getContentPane().add(jLabel12);
-        jLabel12.setBounds(100, 490, 80, 20);
+        labRecibido.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        labRecibido.setText("Recibido por:");
+        getContentPane().add(labRecibido);
+        labRecibido.setBounds(90, 490, 80, 20);
 
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel13.setText("No. De Cédula:");
-        getContentPane().add(jLabel13);
-        jLabel13.setBounds(100, 560, 90, 20);
+        labNoCedula.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        labNoCedula.setText("No. De Cédula:");
+        getContentPane().add(labNoCedula);
+        labNoCedula.setBounds(90, 560, 90, 20);
 
-        jLabel14.setText("______________________________");
-        getContentPane().add(jLabel14);
-        jLabel14.setBounds(50, 540, 200, 15);
+        labLineaNoCedula.setText("______________________________");
+        getContentPane().add(labLineaNoCedula);
+        labLineaNoCedula.setBounds(50, 540, 200, 15);
 
-        jLabel15.setText("______________________________");
-        getContentPane().add(jLabel15);
-        jLabel15.setBounds(50, 390, 200, 15);
+        labLineaFirma.setText("______________________________");
+        getContentPane().add(labLineaFirma);
+        labLineaFirma.setBounds(50, 390, 200, 15);
 
-        jLabel16.setText("______________________________");
-        getContentPane().add(jLabel16);
-        jLabel16.setBounds(50, 470, 200, 15);
+        labLineaRecibido.setText("______________________________");
+        getContentPane().add(labLineaRecibido);
+        labLineaRecibido.setBounds(50, 470, 200, 15);
 
-        lab_nconcepto.setColumns(20);
-        lab_nconcepto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lab_nconcepto.setLineWrap(true);
-        lab_nconcepto.setRows(4);
-        lab_nconcepto.setWrapStyleWord(true);
-        lab_nconcepto.setMaximumSize(new java.awt.Dimension(232, 32));
-        lab_nconcepto.setPreferredSize(new java.awt.Dimension(232, 32));
-        jScrollPane2.setViewportView(lab_nconcepto);
+        scrpanConcepto.setBorder(BorderFactory.createMatteBorder(1,1,1,1, Color.GRAY));
 
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(140, 250, 320, 70);
+        texareConcepto.setColumns(20);
+        texareConcepto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        texareConcepto.setLineWrap(true);
+        texareConcepto.setRows(4);
+        texareConcepto.setWrapStyleWord(true);
+        texareConcepto.setMaximumSize(new java.awt.Dimension(232, 32));
+        scrpanConcepto.setViewportView(texareConcepto);
+
+        getContentPane().add(scrpanConcepto);
+        scrpanConcepto.setBounds(140, 250, 350, 70);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lab_nchequeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lab_nchequeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lab_nchequeActionPerformed
-
-    private void lab_nfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lab_nfechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lab_nfechaActionPerformed
-
-    private void lab_ndocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lab_ndocActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lab_ndocActionPerformed
-
-    private void lab_nnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lab_nnombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lab_nnombreActionPerformed
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ComprobantePago().setVisible(true);
-            }});
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField lab_ncheque;
-    private javax.swing.JTextArea lab_nconcepto;
-    private javax.swing.JTextField lab_ndoc;
-    private javax.swing.JTextField lab_nfecha;
-    private javax.swing.JTextField lab_nmonto;
-    private javax.swing.JTextField lab_nnombre;
+    private javax.swing.JLabel labComprobantePago;
+    private javax.swing.JLabel labConcepto;
+    private javax.swing.JLabel labEncabezado;
+    private javax.swing.JLabel labEntregado;
+    private javax.swing.JLabel labFecha;
+    private javax.swing.JLabel labFirma;
+    private javax.swing.JLabel labLineaFirma;
+    private javax.swing.JLabel labLineaNoCedula;
+    private javax.swing.JLabel labLineaRecibido;
+    private javax.swing.JLabel labLogo;
+    private javax.swing.JLabel labMonto;
+    private javax.swing.JLabel labNoCedula;
+    private javax.swing.JLabel labNoCheque;
+    private javax.swing.JLabel labNoDoc;
+    private javax.swing.JLabel labNombre;
+    private javax.swing.JLabel labRecibido;
+    private javax.swing.JScrollPane scrpanConcepto;
+    private javax.swing.JTextArea texareConcepto;
+    private javax.swing.JTextField texfieFecha;
+    private javax.swing.JTextField texfieMonto;
+    private javax.swing.JTextField texfieNoCheque;
+    private javax.swing.JTextField texfieNoDoc;
+    private javax.swing.JTextField texfieNombre;
     // End of variables declaration//GEN-END:variables
-
 }
