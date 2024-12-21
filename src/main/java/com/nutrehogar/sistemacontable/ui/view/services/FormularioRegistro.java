@@ -13,12 +13,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 
 public class FormularioRegistro extends javax.swing.JFrame {
     private JTable tabla;
-    private JTable tablaex;
-    private JTable tablacom;
     
     public void setLabelsText(String cheque, String fecha, String noDoc, String nombre, String concepto, String sumaHaber) {
         texfieNoCheque.setText(cheque);
@@ -86,7 +83,7 @@ public class FormularioRegistro extends javax.swing.JFrame {
                 // Añadir la imagen al documento PDF y posicionarla en la parte superior
                 Image imagenPDF = Image.getInstance("captura.png");
                 imagenPDF.scaleToFit(PageSize.LETTER.getWidth(), PageSize.LETTER.getHeight());
-                imagenPDF.setAbsolutePosition(0, PageSize.LETTER.getHeight() - imagenPDF.getScaledHeight()); // Posicionar en la parte superior
+                imagenPDF.setAbsolutePosition(0, 32); // Posicionar en la parte superior omitiendo las opciones de ventana
                 documento.add(imagenPDF);
 
                 // Cerrar el documento
@@ -100,52 +97,53 @@ public class FormularioRegistro extends javax.swing.JFrame {
         }
     };
     
-    public DefaultTableModel getTablaexModel() {
-        return (DefaultTableModel) tablaex.getModel();
-    }
     
-    public DefaultTableModel getTablacomModel() {
-        return (DefaultTableModel) tablacom.getModel();
+    public DefaultTableModel getTablaModel() {
+        return (DefaultTableModel) tabla.getModel();
     }
     
     public FormularioRegistro() {
         initComponents();
         getContentPane().setBackground(Color.WHITE);
-        setSize(612, 792);
+        setSize(612, 824);
         setLocationRelativeTo(null); // Centrar en pantalla
         setLayout(null);
 
         // Crear el modelo de la tabla original sin filas iniciales
-        DefaultTableModel modelo = new DefaultTableModel(new String[]{"Referencia", "Código", "Debe", "Haber"}, 0);
+        DefaultTableModel modelo = new DefaultTableModel(new String[]{
+                "Tipo de Doc.", "No. Cheque o Comp.", "Referencia",
+                "Código", "Debe", "Haber"}, 0);
 
         // Crear la tabla original con el modelo
         tabla = new JTable(modelo);
         tabla.setRowHeight(16); // Ajustar la altura de las filas
         tabla.setEnabled(false); // Deshabilitar edición si es necesario
-
-        // Ajustar la altura del encabezado de la tabla
-        JTableHeader header = tabla.getTableHeader();
-        header.setPreferredSize(new Dimension(header.getWidth(), 32));
+        
+        // Colorear lineas de la tabla
+        tabla.setShowGrid(true);
+        tabla.setGridColor(Color.BLACK);
 
         // Configurar el ancho de las columnas de la tabla original
-        tabla.getColumnModel().getColumn(0).setPreferredWidth(130); // Referencia
-        tabla.getColumnModel().getColumn(1).setPreferredWidth(50);  // Código
-        tabla.getColumnModel().getColumn(2).setPreferredWidth(50);  // Debe
-        tabla.getColumnModel().getColumn(3).setPreferredWidth(50);  // Haber
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(60); // Tipo de doc
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(92); // Comp
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(130); // Referencia
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(50);  // Código
+        tabla.getColumnModel().getColumn(4).setPreferredWidth(50);  // Debe
+        tabla.getColumnModel().getColumn(5).setPreferredWidth(50);  // Haber
 
-        // Crear un renderizador personalizado para combinar alineación y formato
-        DefaultTableCellRenderer customRenderer = new DefaultTableCellRenderer() {
+        // Crear un renderizador personalizado para el contenido
+        DefaultTableCellRenderer contentRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
                 // Alineación condicional
                 switch (column) {
-                    case 0:
+                    case 2:
                         // Alinear la última celda de la columna "Referencia" a la derecha
                         setHorizontalAlignment(row == table.getRowCount() - 1 ? SwingConstants.RIGHT : SwingConstants.LEFT);
                         break;
-                    case 1:
+                    case 3:
                         // Alinear "Código" al centro
                         setHorizontalAlignment(SwingConstants.CENTER);
                         break;
@@ -165,82 +163,38 @@ public class FormularioRegistro extends javax.swing.JFrame {
                 return comp;
             }
         };
+        
+        // Crear un renderizador personalizado para el encabezado
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                setHorizontalAlignment(SwingConstants.CENTER);
+                if (column == table.getColumnCount() - 1) {
+                    setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK));
+                } else {
+                    setBorder(BorderFactory.createMatteBorder(0,0,1,1,Color.BLACK));
+                }
+
+                return comp;
+            }
+        };
     
         // Asignar el renderizador a todas las columnas
         for (int i = 0; i < tabla.getColumnCount(); i++) {
-            tabla.getColumnModel().getColumn(i).setCellRenderer(customRenderer);
+            tabla.getColumnModel().getColumn(i).setCellRenderer(contentRenderer);
+            tabla.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
 
         // Crear un JScrollPane para la tabla original
         JScrollPane scrollPane = new JScrollPane(tabla);
-        scrollPane.setBounds(304, 215, 269, 338); // Ajustar posición y tamaño
+        scrollPane.setBounds(40, 350, 532, 250); // Ajustar posición y tamaño
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-
-        // Crear el modelo para la tabla "tablacom"
-        DefaultTableModel modeloCom = new DefaultTableModel(new String[]{"No. Cheque o Comp."}, 0);
-
-        // Crear la tabla "tablacom" con el modelo
-        tablacom = new JTable(modeloCom);
-        tablacom.setRowHeight(16); // Ajustar la altura de las filas
-        tablacom.setEnabled(false); // Deshabilitar edición si es necesario
-        tablacom.getColumnModel().getColumn(0).setPreferredWidth(80); // Ajustar ancho de la columna
-
-        // Crear un renderizador personalizado para la segunda tabla
-        DefaultTableCellRenderer customRenderer2 = new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            setHorizontalAlignment(row == table.getRowCount() - 1 ? SwingConstants.RIGHT : SwingConstants.LEFT);
-
-            // Aplicar negrita a la última fila
-            if (row == table.getRowCount() - 1) {
-                comp.setFont(comp.getFont().deriveFont(Font.BOLD));
-            } else {
-                comp.setFont(comp.getFont().deriveFont(Font.PLAIN));
-            }
-
-            return comp;
-            }
-        };
-
-        // Asignar el renderizador a la única columna de la segunda tabla
-        tablacom.getColumnModel().getColumn(0).setCellRenderer(customRenderer2);
-
-        // Ajustar la altura del encabezado de la tabla "tablacom"
-        JTableHeader header2 = tablacom.getTableHeader();
-        header2.setPreferredSize(new Dimension(header2.getWidth(), 32));
-
-        // Crear un JScrollPane para la tabla "tablacom"
-        JScrollPane scrollPaneCom = new JScrollPane(tablacom);
-        scrollPaneCom.setBounds(224, 215, 80, 338); // Ajustar posición y tamaño
-        scrollPaneCom.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPaneCom.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-
-        // Crear el modelo para la nueva tabla "tablaex"
-        DefaultTableModel modeloEx = new DefaultTableModel(new String[]{"Fecha", "No. Doc", "Tipo de Doc."}, 0);
-
-        // Crear la nueva tabla "tablaex" con el modelo
-        tablaex = new JTable(modeloEx);
-        tablaex.setRowHeight(16); // Ajustar la altura de las filas
-        tablaex.setEnabled(false); // Deshabilitar edición si es necesario
-        tablaex.getColumnModel().getColumn(0).setPreferredWidth(65); // Ajustar ancho de la columna
-        tablaex.getColumnModel().getColumn(2).setPreferredWidth(85); // Ajustar ancho de la columna
-
-        // Ajustar la altura del encabezado de la tabla "tablaex"
-        JTableHeader header3 = tablaex.getTableHeader();
-        header3.setPreferredSize(new Dimension(header3.getWidth(), 32));
-
-        // Crear un JScrollPane para la tabla "tablaex"
-        JScrollPane scrollPaneEx = new JScrollPane(tablaex);
-        scrollPaneEx.setBounds(24, 215, 200, 322); // Ajustar posición y tamaño
-        scrollPaneEx.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPaneEx.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-
-        // Agregar los JScrollPane al JFrame
-        add(scrollPaneEx); // Tabla a la izquierda
-        add(scrollPaneCom); // Tabla al centro
-        add(scrollPane);    // Tabla a la derecha
+        scrollPane.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+        // Agregar el JScrollPane al JFrame
+        add(scrollPane);
     }  
     
     public DefaultTableModel getTableModel() {
@@ -275,6 +229,8 @@ public class FormularioRegistro extends javax.swing.JFrame {
         labLineaRevisado = new javax.swing.JLabel();
         labAutorizado = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setSize(new java.awt.Dimension(612, 824));
         getContentPane().setLayout(null);
 
         labEncabezado.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
@@ -301,7 +257,7 @@ public class FormularioRegistro extends javax.swing.JFrame {
         texfieNoCheque.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY));
         texfieNoCheque.setMaximumSize(new java.awt.Dimension(64, 23));
         getContentPane().add(texfieNoCheque);
-        texfieNoCheque.setBounds(490, 70, 70, 23);
+        texfieNoCheque.setBounds(490, 70, 80, 20);
 
         labFecha.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         labFecha.setText("Fecha:");
@@ -316,7 +272,7 @@ public class FormularioRegistro extends javax.swing.JFrame {
         texfieFecha.setMaximumSize(new java.awt.Dimension(77, 20));
         texfieFecha.setMinimumSize(new java.awt.Dimension(77, 20));
         getContentPane().add(texfieFecha);
-        texfieFecha.setBounds(490, 100, 70, 20);
+        texfieFecha.setBounds(490, 100, 80, 20);
 
         labMonto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         labMonto.setText("Monto:");
@@ -331,7 +287,7 @@ public class FormularioRegistro extends javax.swing.JFrame {
         texfieMonto.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY));
         texfieMonto.setMaximumSize(new java.awt.Dimension(64, 23));
         getContentPane().add(texfieMonto);
-        texfieMonto.setBounds(490, 130, 70, 21);
+        texfieMonto.setBounds(490, 130, 80, 21);
 
         labNoDoc.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         labNoDoc.setText("No. Doc.");
@@ -345,7 +301,7 @@ public class FormularioRegistro extends javax.swing.JFrame {
         texfieNoDoc.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY));
         texfieNoDoc.setMaximumSize(new java.awt.Dimension(64, 28));
         getContentPane().add(texfieNoDoc);
-        texfieNoDoc.setBounds(490, 160, 70, 26);
+        texfieNoDoc.setBounds(490, 160, 80, 26);
 
         labFormularioRegistro.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         labFormularioRegistro.setText("FORMULARIO DE REGISTRO");
@@ -385,35 +341,35 @@ public class FormularioRegistro extends javax.swing.JFrame {
 
         labLineaAprobado.setText("______________________________");
         getContentPane().add(labLineaAprobado);
-        labLineaAprobado.setBounds(360, 720, 200, 15);
+        labLineaAprobado.setBounds(390, 740, 200, 15);
 
         labAprobado.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         labAprobado.setText("Aprobado por:");
         getContentPane().add(labAprobado);
-        labAprobado.setBounds(420, 740, 80, 20);
+        labAprobado.setBounds(430, 760, 80, 20);
 
         labLineaSolicitado.setText("______________________________");
         getContentPane().add(labLineaSolicitado);
-        labLineaSolicitado.setBounds(200, 630, 190, 15);
+        labLineaSolicitado.setBounds(230, 650, 190, 15);
 
         labSolicitado.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         labSolicitado.setText("Solicitado por: Licdo. Julio C. Guerra");
         getContentPane().add(labSolicitado);
-        labSolicitado.setBounds(200, 650, 190, 20);
+        labSolicitado.setBounds(220, 670, 190, 20);
 
         labRevisado.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         labRevisado.setText("Revisado por:");
         getContentPane().add(labRevisado);
-        labRevisado.setBounds(100, 740, 70, 20);
+        labRevisado.setBounds(110, 760, 70, 20);
 
         labLineaRevisado.setText("______________________________");
         getContentPane().add(labLineaRevisado);
-        labLineaRevisado.setBounds(40, 720, 200, 15);
+        labLineaRevisado.setBounds(70, 740, 200, 15);
 
         labAutorizado.setFont(new java.awt.Font("Bahnschrift", 1, 16)); // NOI18N
         labAutorizado.setText("Autorizado:");
         getContentPane().add(labAutorizado);
-        labAutorizado.setBounds(250, 690, 90, 20);
+        labAutorizado.setBounds(260, 710, 90, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

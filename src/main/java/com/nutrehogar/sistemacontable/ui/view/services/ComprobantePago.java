@@ -15,183 +15,181 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
-import javax.swing.table.TableCellRenderer;
 
 public class ComprobantePago extends javax.swing.JFrame {
     private JTable tabla;
     public void setLabelsText(String cheque, String fecha, String noDoc, String nombre, String concepto, String sumaHaber) {
-    texfieNoCheque.setText(cheque);
-    texfieFecha.setText(fecha);
-    texfieNoDoc.setText(noDoc);
-    texfieNombre.setText(nombre);
-    texareConcepto.setText(concepto);
-    texfieMonto.setText(sumaHaber);
-}
+        texfieNoCheque.setText(cheque);
+        texfieFecha.setText(fecha);
+        texfieNoDoc.setText(noDoc);
+        texfieNombre.setText(nombre);
+        texareConcepto.setText(concepto);
+        texfieMonto.setText(sumaHaber);
+    }
 
     public void exportarPantallaAPDF() {
-    try {
-        // Obtener el tamaño de la interfaz (sin bordes)
-        Dimension dimension = getBounds().getSize();
-        BufferedImage imagen = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = imagen.createGraphics();
-        
-        // Cambiar el color de fondo (si es necesario)
-        g2d.setColor(getBackground());
-        g2d.fillRect(0, 0, dimension.width, dimension.height);
+        try {
+            // Obtener el tamaño de la interfaz (sin bordes)
+            Dimension dimension = getSize();
+            BufferedImage imagen = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = imagen.createGraphics();
 
-        // Pintar la interfaz en el BufferedImage
-        paint(g2d);
-        g2d.dispose();
+            // Cambiar el color de fondo (si es necesario)
+            g2d.setColor(getBackground());
+            g2d.fillRect(0, 0, dimension.width, dimension.height);
 
-        // Guardar la imagen temporalmente en el sistema de archivos
-        ImageIO.write(imagen, "png", new java.io.File("captura.png"));
-        setVisible(false);
+            // Pintar la interfaz en el BufferedImage
+            paint(g2d);
+            g2d.dispose();
 
-        // Usar JFileChooser para seleccionar ubicación
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Guardar como PDF");
-        
-        // Crear un formato de fecha para el nombre del archivo
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); // Formato de fecha (AñoMesDía)
-        String fechaFormateada = sdf.format(new Date());
+            // Guardar la imagen temporalmente en el sistema de archivos
+            ImageIO.write(imagen, "png", new java.io.File("captura.png"));
+            setVisible(false);
 
-        //Configurar el nombre del archivo con la palabra "comprobante" y la fecha
-        fileChooser.setSelectedFile(new java.io.File("comprobante_" + fechaFormateada + ".pdf"));
-        
-        int userSelection = fileChooser.showSaveDialog(this);
-        
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            java.io.File fileToSave = fileChooser.getSelectedFile();
-            
-            // Verificar si el archivo ya existe y mostrar advertencia
-            if (fileToSave.exists()) {
-                int response = JOptionPane.showConfirmDialog(this, 
-                        "El archivo ya existe. ¿Deseas reemplazarlo?", 
-                        "Confirmar Sobrescritura", 
-                        JOptionPane.YES_NO_OPTION, 
-                        JOptionPane.WARNING_MESSAGE);
-                
-                if (response != JOptionPane.YES_OPTION) {
-                    return; // Salir del método sin guardar
+            // Usar JFileChooser para seleccionar ubicación
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar como PDF");
+
+            // Crear un formato de fecha para el nombre del archivo
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); // Formato de fecha (AñoMesDía)
+            String fechaFormateada = sdf.format(new Date());
+
+            //Configurar el nombre del archivo con la palabra "comprobante" y la fecha
+            fileChooser.setSelectedFile(new java.io.File("comprobante_" + fechaFormateada + ".pdf"));
+
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                java.io.File fileToSave = fileChooser.getSelectedFile();
+
+                // Verificar si el archivo ya existe y mostrar advertencia
+                if (fileToSave.exists()) {
+                    int response = JOptionPane.showConfirmDialog(this, 
+                            "El archivo ya existe. ¿Deseas reemplazarlo?", 
+                            "Confirmar Sobrescritura", 
+                            JOptionPane.YES_NO_OPTION, 
+                            JOptionPane.WARNING_MESSAGE);
+
+                    if (response != JOptionPane.YES_OPTION) {
+                        return; // Salir del método sin guardar
+                    }
                 }
+
+                // Crear el documento PDF con tamaño Letter (8.5"x11")
+                Document documento = new Document(PageSize.LETTER);
+                PdfWriter.getInstance(documento, new FileOutputStream(fileToSave));
+                documento.open();
+
+                // Añadir la imagen al documento PDF y posicionarla en la parte superior
+                Image imagenPDF = Image.getInstance("captura.png");
+                imagenPDF.scaleToFit(PageSize.LETTER.getWidth(), PageSize.LETTER.getHeight());
+                imagenPDF.setAbsolutePosition(0, 32); // Posicionar en la parte superior omitiendo las las opciones de ventana
+                documento.add(imagenPDF);
+
+                // Cerrar el documento
+                documento.close();
+
+                JOptionPane.showMessageDialog(this, "PDF guardado exitosamente en " + fileToSave.getAbsolutePath());
             }
-            
-            // Crear el documento PDF con tamaño Letter (8.5"x11")
-            Document documento = new Document(PageSize.LETTER);
-            PdfWriter.getInstance(documento, new FileOutputStream(fileToSave));
-            documento.open();
-
-            // Añadir la imagen al documento PDF y posicionarla en la parte superior
-            Image imagenPDF = Image.getInstance("captura.png");
-            imagenPDF.scaleToFit(PageSize.LETTER.getWidth(), PageSize.LETTER.getHeight());
-            imagenPDF.setAbsolutePosition(0, PageSize.LETTER.getHeight() - imagenPDF.getScaledHeight()); // Posicionar en la parte superior
-            documento.add(imagenPDF);
-
-            // Cerrar el documento
-            documento.close();
-
-            JOptionPane.showMessageDialog(this, "PDF guardado exitosamente en " + fileToSave.getAbsolutePath());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al guardar el PDF: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al guardar el PDF: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
     
     public DefaultTableModel getTableModel() {
-    return (DefaultTableModel) tabla.getModel(); 
-}
+        return (DefaultTableModel) tabla.getModel(); 
+    }
     
     public ComprobantePago() {
-    initComponents();
-    getContentPane().setBackground(Color.WHITE);
-    setSize(612, 792);
-    setLocationRelativeTo(null); // Centrar en pantalla
-    setLayout(null);
+        initComponents();
+        getContentPane().setBackground(Color.WHITE);
+        setSize(612, 824);
+        setLocationRelativeTo(null); // Centrar en pantalla
+        setLayout(null);
 
-    // Crear el modelo de la tabla
-    DefaultTableModel modelo = new DefaultTableModel(new String[]{"Referencia", "Código", "Debe", "Haber"}, 0);
+        // Crear el modelo de la tabla
+        DefaultTableModel modelo = new DefaultTableModel(new String[]{"Referencia", "Código", "Debe", "Haber"}, 0);
 
-    // Crear la tabla con el modelo
-    tabla = new JTable(modelo);
-    tabla.setRowHeight(16); // Ajustar la altura de las filas
-    tabla.setEnabled(false); // Deshabilitar edición si es necesario
-    
-    // Colorear lineas de la tabla
-    tabla.setShowGrid(true);
-    tabla.setGridColor(Color.BLACK);
-    // Configurar el ancho de las columnas
-    tabla.getColumnModel().getColumn(0).setPreferredWidth(130); // Referencia
-    tabla.getColumnModel().getColumn(1).setPreferredWidth(50); // Código
-    tabla.getColumnModel().getColumn(2).setPreferredWidth(65); // Debe
-    tabla.getColumnModel().getColumn(3).setPreferredWidth(65); // Haber
+        // Crear la tabla con el modelo
+        tabla = new JTable(modelo);
+        tabla.setRowHeight(16); // Ajustar la altura de las filas
+        tabla.setEnabled(false); // Deshabilitar edición si es necesario
 
-    // Crear un renderizador personalizado para el contenido
-    DefaultTableCellRenderer contentRenderer = new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        // Colorear lineas de la tabla
+        tabla.setShowGrid(true);
+        tabla.setGridColor(Color.BLACK);
+        // Configurar el ancho de las columnas
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(130); // Referencia
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(50); // Código
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(65); // Debe
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(65); // Haber
 
-            // Alineación condicional
-            switch (column) {
-                case 0:
-                    // Alinear la última celda de la columna "Referencia" a la derecha
-                    setHorizontalAlignment(row == table.getRowCount() - 1 ? SwingConstants.RIGHT : SwingConstants.LEFT);
-                    break;
-                case 1:
-                    // Alinear "Código" al centro
-                    setHorizontalAlignment(SwingConstants.CENTER);
-                    break;
-                default:
-                    // Alinear "Debe" y "Haber" a la derecha
-                    setHorizontalAlignment(SwingConstants.RIGHT);
-                    break;
+        // Crear un renderizador personalizado para el contenido
+        DefaultTableCellRenderer contentRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Alineación condicional
+                switch (column) {
+                    case 0:
+                        // Alinear la última celda de la columna "Referencia" a la derecha
+                        setHorizontalAlignment(row == table.getRowCount() - 1 ? SwingConstants.RIGHT : SwingConstants.LEFT);
+                        break;
+                    case 1:
+                        // Alinear "Código" al centro
+                        setHorizontalAlignment(SwingConstants.CENTER);
+                        break;
+                    default:
+                        // Alinear "Debe" y "Haber" a la derecha
+                        setHorizontalAlignment(SwingConstants.RIGHT);
+                        break;
+                }
+
+                // Aplicar negrita a la última fila
+                if (row == table.getRowCount() - 1) {
+                    comp.setFont(comp.getFont().deriveFont(Font.BOLD));
+                } else {
+                    comp.setFont(comp.getFont().deriveFont(Font.PLAIN));
+                }
+
+                return comp;
             }
+        };
 
-            // Aplicar negrita a la última fila
-            if (row == table.getRowCount() - 1) {
-                comp.setFont(comp.getFont().deriveFont(Font.BOLD));
-            } else {
-                comp.setFont(comp.getFont().deriveFont(Font.PLAIN));
+        // Crear un renderizador personalizado para el encabezado
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                setHorizontalAlignment(SwingConstants.CENTER);
+                if (column == table.getColumnCount() - 1) {
+                    setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK));
+                } else {
+                    setBorder(BorderFactory.createMatteBorder(0,0,1,1,Color.BLACK));
+                }
+
+                return comp;
             }
-            
-            return comp;
+        };
+
+        // Asignar el renderizador a todas las columnas
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(contentRenderer);
+            tabla.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
-    };
-    
-    // Crear un renderizador personalizado para el encabezado
-    DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            setHorizontalAlignment(SwingConstants.CENTER);
-            if (column == table.getColumnCount() - 1) {
-                setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK));
-            } else {
-                setBorder(BorderFactory.createMatteBorder(0,0,1,1,Color.BLACK));
-            }
-
-            return comp;
-        }
-    };
-                
-    // Asignar el renderizador a todas las columnas
-    for (int i = 0; i < tabla.getColumnCount(); i++) {
-        tabla.getColumnModel().getColumn(i).setCellRenderer(contentRenderer);
-        tabla.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        // Agregar la tabla dentro de un JScrollPane
+        JScrollPane scrollPane = new JScrollPane(tabla);
+        scrollPane.setBounds(260, 350, 300, 250); // Coordenadas y tamaño
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.BLACK));
+        // Agregar el JScrollPane al JFrame
+        add(scrollPane);
     }
-
-    // Agregar la tabla dentro de un JScrollPane
-    JScrollPane scrollPane = new JScrollPane(tabla);
-    scrollPane.setBounds(260, 350, 299, 326); // Coordenadas y tamaño
-    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-    scrollPane.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.BLACK));
-    // Agregar el JScrollPane al JFrame
-    add(scrollPane);
-}
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -224,6 +222,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setSize(new java.awt.Dimension(612, 824));
         getContentPane().setLayout(null);
 
         labEncabezado.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
@@ -258,7 +257,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         );
         texfieNoCheque.setMaximumSize(new java.awt.Dimension(64, 23));
         getContentPane().add(texfieNoCheque);
-        texfieNoCheque.setBounds(490, 70, 70, 20);
+        texfieNoCheque.setBounds(490, 70, 80, 20);
 
         texfieFecha.setEditable(false);
         texfieFecha.setBackground(new java.awt.Color(255, 255, 255));
@@ -269,7 +268,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         texfieFecha.setMaximumSize(new java.awt.Dimension(77, 20));
         texfieFecha.setMinimumSize(new java.awt.Dimension(77, 20));
         getContentPane().add(texfieFecha);
-        texfieFecha.setBounds(490, 100, 70, 20);
+        texfieFecha.setBounds(490, 100, 80, 20);
 
         labMonto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         labMonto.setText("Monto:");
@@ -285,7 +284,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         );
         texfieMonto.setMaximumSize(new java.awt.Dimension(64, 23));
         getContentPane().add(texfieMonto);
-        texfieMonto.setBounds(490, 130, 70, 21);
+        texfieMonto.setBounds(490, 130, 80, 21);
 
         labNoDoc.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         labNoDoc.setText("No. Doc.");
@@ -300,7 +299,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         );
         texfieNoDoc.setMaximumSize(new java.awt.Dimension(64, 28));
         getContentPane().add(texfieNoDoc);
-        texfieNoDoc.setBounds(490, 160, 70, 26);
+        texfieNoDoc.setBounds(490, 160, 80, 26);
 
         labLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/sprite2.png"))); // NOI18N
         getContentPane().add(labLogo);
@@ -322,7 +321,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         labFirma.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         labFirma.setText("Firma del personal que entrega:");
         getContentPane().add(labFirma);
-        labFirma.setBounds(50, 410, 190, 20);
+        labFirma.setBounds(50, 420, 190, 20);
 
         labNombre.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         labNombre.setText("Nombre:");
@@ -332,29 +331,29 @@ public class ComprobantePago extends javax.swing.JFrame {
         labEntregado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         labEntregado.setText("Entregado por:");
         getContentPane().add(labEntregado);
-        labEntregado.setBounds(90, 340, 90, 20);
+        labEntregado.setBounds(90, 350, 90, 20);
 
         labRecibido.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         labRecibido.setText("Recibido por:");
         getContentPane().add(labRecibido);
-        labRecibido.setBounds(90, 490, 80, 20);
+        labRecibido.setBounds(90, 500, 80, 20);
 
         labNoCedula.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         labNoCedula.setText("No. De Cédula:");
         getContentPane().add(labNoCedula);
-        labNoCedula.setBounds(90, 560, 90, 20);
+        labNoCedula.setBounds(90, 570, 90, 20);
 
         labLineaNoCedula.setText("______________________________");
         getContentPane().add(labLineaNoCedula);
-        labLineaNoCedula.setBounds(50, 540, 200, 15);
+        labLineaNoCedula.setBounds(50, 550, 200, 15);
 
         labLineaFirma.setText("______________________________");
         getContentPane().add(labLineaFirma);
-        labLineaFirma.setBounds(50, 390, 200, 15);
+        labLineaFirma.setBounds(50, 400, 200, 15);
 
         labLineaRecibido.setText("______________________________");
         getContentPane().add(labLineaRecibido);
-        labLineaRecibido.setBounds(50, 470, 200, 15);
+        labLineaRecibido.setBounds(50, 480, 200, 15);
 
         scrpanConcepto.setBorder(BorderFactory.createMatteBorder(1,1,1,1, Color.GRAY));
 

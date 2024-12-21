@@ -7,18 +7,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class PDFService {
-
-    /**
-     * Realiza la operación de comprobante.
-     *
-     * @param table             Tabla principal que contiene los datos.
-     * @param txt_ncheque       Texto del número de cheque.
-     * @param txt_fecha         Texto de la fecha.
-     * @param txt_nodoc         Texto del número de documento.
-     * @param txt_nombre        Texto del nombre.
-     * @param txt_concepto      Texto del concepto.
-     * @param ventanaPlantillaC Instancia de la ventana ComprobantePago.
-     */
     public static void operacionComprobante(
             JTable table,
             String txt_ncheque,
@@ -72,22 +60,8 @@ public class PDFService {
         ventanaPlantillaC.setVisible(true);
         ventanaPlantillaC.exportarPantallaAPDF();
     }
-
-    /**
-     * Realiza la operación de formulario.
-     *
-     * @param table             Tabla principal que contiene los datos.
-     * @param tablaex           Tabla adicional para datos específicos.
-     * @param txt_ncheque       Texto del número de cheque.
-     * @param txt_fecha         Texto de la fecha.
-     * @param txt_nodoc         Texto del número de documento.
-     * @param txt_nombre        Texto del nombre.
-     * @param txt_concepto      Texto del concepto.
-     * @param ventanaPlantillaF Instancia de la ventana FormularioRegistro.
-     */
     public static void operacionFormulario(
             JTable table,
-            JTable tablaex,
             String txt_ncheque,
             String txt_fecha,
             String txt_nodoc,
@@ -98,15 +72,9 @@ public class PDFService {
             table.getCellEditor().stopCellEditing();
         }
         table.clearSelection();
-        if (tablaex.isEditing()) {
-            tablaex.getCellEditor().stopCellEditing();
-        }
-        tablaex.clearSelection();
 
         DefaultTableModel modeloMain = (DefaultTableModel) table.getModel();
         DefaultTableModel modeloPlantillaF = ventanaPlantillaF.getTableModel();
-        DefaultTableModel modeloPlantillaFCom = ventanaPlantillaF.getTablacomModel();
-        DefaultTableModel modeloPlantillaFEx = ventanaPlantillaF.getTablaexModel();
 
         modeloPlantillaF.setRowCount(0);
         double sumaDebe = 0.0;
@@ -142,28 +110,28 @@ public class PDFService {
         modeloPlantillaF.addRow(new Object[]{"", "Total", String.format("%.2f", sumaDebe), String.format("%.2f", sumaHaber)});
         ventanaPlantillaF.setLabelsText(txt_ncheque, txt_fecha, txt_nodoc, txt_nombre, txt_concepto, String.format("%.2f", sumaHaber));
 
-        for (int i = 0; i < tablaex.getRowCount(); i++) {
-            Object valorCheque = tablaex.getValueAt(i, 1);
-            modeloPlantillaFCom.addRow(new Object[]{valorCheque});
+        for (int i = 0; i < table.getRowCount(); i++) {
+            Object valorCheque = table.getValueAt(i, 1);
+            modeloPlantillaF.addRow(new Object[]{valorCheque});
         }
 
-        modeloPlantillaFCom.addRow(new Object[]{"0.00"});
+        modeloPlantillaF.addRow(new Object[]{"0.00"});
 
-        for (int i = 0; i < tablaex.getRowCount(); i++) {
-            Object valorCheque = tablaex.getValueAt(i, 0);
-            Object[] nuevaFila = new Object[modeloPlantillaFEx.getColumnCount()];
+        for (int i = 0; i < table.getRowCount(); i++) {
+            Object valorCheque = table.getValueAt(i, 0);
+            Object[] nuevaFila = new Object[modeloPlantillaF.getColumnCount()];
 
             nuevaFila[2] = valorCheque;
 
             if (valorCheque != null && !valorCheque.toString().isEmpty()) {
-                if (modeloPlantillaFEx.getColumnCount() > 0) {
+                if (modeloPlantillaF.getColumnCount() > 0) {
                     nuevaFila[0] = txt_fecha;
                 }
-                if (modeloPlantillaFEx.getColumnCount() > 1) {
+                if (modeloPlantillaF.getColumnCount() > 1) {
                     nuevaFila[1] = txt_nodoc;
                 }
             }
-            modeloPlantillaFEx.addRow(nuevaFila);
+            modeloPlantillaF.addRow(nuevaFila);
         }
 
         ventanaPlantillaF.setVisible(true);
