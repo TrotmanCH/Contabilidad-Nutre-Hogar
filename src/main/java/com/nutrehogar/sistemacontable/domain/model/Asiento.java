@@ -21,7 +21,10 @@ public class Asiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Integer id;
-
+    
+    @Column(name = "numero_cheque", columnDefinition = "TEXT")
+    String numeroCheque;
+    
     @Column(name = "fecha", nullable = false)
     LocalDate fecha;
 
