@@ -249,11 +249,12 @@ public class RegistroVentana extends javax.swing.JFrame {
                 " | " + registroSeleccionado.getCuenta().getNombre();
         comboxCuenta.setSelectedItem(cuentaRegistroSeleccionado);
 
-        if (registroSeleccionado.getDebe() != BigDecimal.ZERO 
-                && registroSeleccionado.getHaber() == BigDecimal.ZERO) {
+        if (!registroSeleccionado.getDebe().equals(BigDecimal.ZERO.setScale(2))  
+                && registroSeleccionado.getHaber().equals(BigDecimal.ZERO.setScale(2))) {
             radbutDebito.setSelected(true);
             texfieMonto.setText(registroSeleccionado.getDebe().toString());
         } else {
+            System.out.println(registroSeleccionado.getHaber().toString());
             radbutCredito.setSelected(true);
             texfieMonto.setText(registroSeleccionado.getHaber().toString());
         }
