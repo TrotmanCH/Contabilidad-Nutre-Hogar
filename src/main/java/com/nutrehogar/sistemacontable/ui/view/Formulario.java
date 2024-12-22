@@ -63,9 +63,11 @@ public class Formulario extends javax.swing.JPanel {
         butGuardarAsiento = new javax.swing.JButton();
         butEliminarRegistro = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        texfienoCheque = new javax.swing.JTextField();
+        texfieNoCheque = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         texfieMonto = new javax.swing.JTextField();
+        texfieDiferencia = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(241, 248, 255));
 
@@ -210,6 +212,12 @@ public class Formulario extends javax.swing.JPanel {
         texfieMonto.setEditable(false);
         texfieMonto.setBackground(new java.awt.Color(255, 255, 255));
 
+        texfieDiferencia.setEditable(false);
+        texfieDiferencia.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel13.setText("Diferencia:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -240,15 +248,20 @@ public class Formulario extends javax.swing.JPanel {
                                 .addGap(21, 21, 21)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(texfienoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(texfieNoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(texfieNoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel7)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(22, 22, 22)
-                                .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(texfieDiferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(texfieDebe, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,7 +287,7 @@ public class Formulario extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
-                                .addComponent(texfienoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(texfieNoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,7 +318,10 @@ public class Formulario extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(texfieDebe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(texfieHaber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))))
+                            .addComponent(jLabel11)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(texfieDiferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel13)))))
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -357,7 +373,7 @@ public class Formulario extends javax.swing.JPanel {
     private void tablaModeloEscucha(TableModelEvent e) {
         BigDecimal debeTotal = BigDecimal.ZERO.setScale(2);
         BigDecimal haberTotal = BigDecimal.ZERO.setScale(2);
-        BigDecimal montoValor;
+        BigDecimal diferencia;
         
         for (Integer i = 0; i < tabRegistrosModelo.getRowCount(); i++) {
             debeTotal = debeTotal.add(new BigDecimal(tabRegistrosModelo.getValueAt(i, 4).toString()));
@@ -365,10 +381,11 @@ public class Formulario extends javax.swing.JPanel {
         }
         
         if (debeTotal.equals(haberTotal)) {
-            texfieNoDoc.setText(debeTotal.toString());
+            texfieMonto.setText(debeTotal.toString());
+            texfieDiferencia.setText("0.00");
         } else {
-            montoValor = debeTotal.subtract(haberTotal);
-            texfieNoDoc.setText(montoValor.toString());
+            diferencia = debeTotal.subtract(haberTotal);
+            texfieDiferencia.setText(diferencia.toString());
         }
         
         texfieDebe.setText(debeTotal.toString());
@@ -410,6 +427,7 @@ public class Formulario extends javax.swing.JPanel {
             // Guardado
             Asiento asiento = Asiento.builder()
                     .fecha(LocalDate.parse(spiFecha.getValue().toString()))
+                    .numeroCheque(texfieNoCheque.getText())
                     .nombre(texfieNombre.getText())
                     .concepto(texareConcepto.getText())
                     .build();
@@ -442,6 +460,7 @@ public class Formulario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -453,10 +472,11 @@ public class Formulario extends javax.swing.JPanel {
     private javax.swing.JTable tabRegistros;
     private javax.swing.JTextArea texareConcepto;
     private javax.swing.JTextField texfieDebe;
+    private javax.swing.JTextField texfieDiferencia;
     private javax.swing.JTextField texfieHaber;
     private javax.swing.JTextField texfieMonto;
+    private javax.swing.JTextField texfieNoCheque;
     private javax.swing.JTextField texfieNoDoc;
     private javax.swing.JTextField texfieNombre;
-    private javax.swing.JTextField texfienoCheque;
     // End of variables declaration//GEN-END:variables
 }
