@@ -239,7 +239,7 @@ public class FormularioRegistro extends javax.swing.JFrame {
         getContentPane().add(labEncabezado);
         labEncabezado.setBounds(40, 40, 340, 80);
 
-        labLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/sprite2.png"))); // NOI18N
+        labLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo_small.png"))); // NOI18N
         getContentPane().add(labLogo);
         labLogo.setBounds(330, 130, 75, 75);
 
