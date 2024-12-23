@@ -16,7 +16,11 @@ import java.util.concurrent.atomic.AtomicReference;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AsientoRepo {
     private static final Session session = HibernateUtil.getSession();
-
+    
+    public static Integer count() {
+        return session.createQuery("from Asiento", Asiento.class).list().size();
+    }
+    
     public static @NotNull @Unmodifiable List<Asiento> findAll() {
         List<Asiento> transaccions = List.of();
             try {
