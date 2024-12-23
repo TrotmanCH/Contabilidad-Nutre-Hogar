@@ -49,29 +49,29 @@ public class Formulario extends javax.swing.JPanel {
         texfieNombre = new javax.swing.JTextField();
         texfieHaber = new javax.swing.JTextField();
         texfieNoDoc = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        labTotal = new javax.swing.JLabel();
+        scrpanRegistros = new javax.swing.JScrollPane();
         tabRegistros = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        labNombre = new javax.swing.JLabel();
+        labNoDoc = new javax.swing.JLabel();
         spiFecha = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrpanConcepto = new javax.swing.JScrollPane();
         texareConcepto = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        labFormulario = new javax.swing.JLabel();
+        labMonto = new javax.swing.JLabel();
+        labConcepto = new javax.swing.JLabel();
         texfieDebe = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        panAcciones = new javax.swing.JPanel();
         butAnadirRegistro = new javax.swing.JButton();
         butEditarRegistro = new javax.swing.JButton();
         butGuardarAsiento = new javax.swing.JButton();
         butEliminarRegistro = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
+        labFecha = new javax.swing.JLabel();
         texfieNoCheque = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
+        labNoCheque = new javax.swing.JLabel();
         texfieMonto = new javax.swing.JTextField();
         texfieDiferencia = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
+        labDiferencia = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(241, 248, 255));
 
@@ -83,8 +83,8 @@ public class Formulario extends javax.swing.JPanel {
         texfieNoDoc.setEditable(false);
         texfieNoDoc.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel11.setText("Total:");
+        labTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labTotal.setText("Total:");
 
         tabRegistros.setAutoCreateRowSorter(true);
         tabRegistros.setModel(new javax.swing.table.DefaultTableModel(
@@ -104,39 +104,39 @@ public class Formulario extends javax.swing.JPanel {
             }
         });
         tabRegistros.setAutoscrolls(false);
-        jScrollPane3.setViewportView(tabRegistros);
+        scrpanRegistros.setViewportView(tabRegistros);
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Nombre:");
-        jLabel5.setName(""); // NOI18N
+        labNombre.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labNombre.setText("Nombre:");
+        labNombre.setName(""); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("No. Doc.");
+        labNoDoc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labNoDoc.setText("No. Doc.");
 
         spiFecha.setModel(new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel());
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 100));
+        scrpanConcepto.setPreferredSize(new java.awt.Dimension(400, 100));
 
         texareConcepto.setColumns(20);
         texareConcepto.setRows(5);
         texareConcepto.setMinimumSize(new java.awt.Dimension(400, 100));
-        jScrollPane1.setViewportView(texareConcepto);
+        scrpanConcepto.setViewportView(texareConcepto);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("NUEVO ASIENTO");
-        jLabel1.setName(" tituloFormulario"); // NOI18N
+        labFormulario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labFormulario.setText("Formulario");
+        labFormulario.setName(" tituloFormulario"); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setText("Monto:");
+        labMonto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labMonto.setText("Monto:");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setText("Concepto:");
+        labConcepto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labConcepto.setText("Concepto:");
 
         texfieDebe.setEditable(false);
         texfieDebe.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(241, 248, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
+        panAcciones.setBackground(new java.awt.Color(241, 248, 255));
+        panAcciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
 
         butAnadirRegistro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butAnadirRegistro.setForeground(new java.awt.Color(255, 255, 255));
@@ -180,22 +180,22 @@ public class Formulario extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panAccionesLayout = new javax.swing.GroupLayout(panAcciones);
+        panAcciones.setLayout(panAccionesLayout);
+        panAccionesLayout.setHorizontalGroup(
+            panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAccionesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(butAnadirRegistro)
                     .addComponent(butEliminarRegistro)
                     .addComponent(butGuardarAsiento)
                     .addComponent(butEditarRegistro))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panAccionesLayout.setVerticalGroup(
+            panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAccionesLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(butAnadirRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -207,11 +207,11 @@ public class Formulario extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setText("Fecha:");
+        labFecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labFecha.setText("Fecha:");
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel12.setText("<html>No.<br>Cheque</html>");
+        labNoCheque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labNoCheque.setText("<html>No.<br>Cheque</html>");
 
         texfieMonto.setEditable(false);
         texfieMonto.setBackground(new java.awt.Color(255, 255, 255));
@@ -219,8 +219,8 @@ public class Formulario extends javax.swing.JPanel {
         texfieDiferencia.setEditable(false);
         texfieDiferencia.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel13.setText("Diferencia:");
+        labDiferencia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labDiferencia.setText("Diferencia:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -228,7 +228,7 @@ public class Formulario extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(labFormulario)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
@@ -236,56 +236,56 @@ public class Formulario extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addComponent(labNombre)
                                 .addGap(18, 18, 18)
                                 .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
+                                .addComponent(labConcepto)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(scrpanConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(labFecha)
+                                    .addComponent(labNoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(21, 21, 21)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(texfieNoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(texfieNoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel7)
+                            .addComponent(labNoDoc)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addComponent(labMonto)
                                 .addGap(22, 22, 22)
                                 .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel13)
+                        .addComponent(labDiferencia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(texfieDiferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel11)
+                        .addComponent(labTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(texfieDebe, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(texfieHaber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(scrpanRegistros, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(20, 20, 20)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jLabel1)
+                .addComponent(labFormulario)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,38 +295,38 @@ public class Formulario extends javax.swing.JPanel {
                                 .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(spiFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10)))
+                                    .addComponent(labFecha)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel8)
+                                        .addComponent(labMonto)
                                         .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel7)
+                                        .addComponent(labNoDoc)
                                         .addComponent(texfieNoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(labNombre)
+                                        .addComponent(labNoCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(scrpanConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(37, 37, 37)
-                                            .addComponent(jLabel9))))))
+                                            .addComponent(labConcepto))))))
                         .addGap(20, 20, 20)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(scrpanRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(texfieDiferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13))
+                                .addComponent(labDiferencia))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(texfieDebe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(texfieHaber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11)))))
+                                .addComponent(labTotal)))))
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -461,18 +461,18 @@ public class Formulario extends javax.swing.JPanel {
     private javax.swing.JButton butEditarRegistro;
     private javax.swing.JButton butEliminarRegistro;
     private javax.swing.JButton butGuardarAsiento;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel labConcepto;
+    private javax.swing.JLabel labDiferencia;
+    private javax.swing.JLabel labFecha;
+    private javax.swing.JLabel labFormulario;
+    private javax.swing.JLabel labMonto;
+    private javax.swing.JLabel labNoCheque;
+    private javax.swing.JLabel labNoDoc;
+    private javax.swing.JLabel labNombre;
+    private javax.swing.JLabel labTotal;
+    private javax.swing.JPanel panAcciones;
+    private javax.swing.JScrollPane scrpanConcepto;
+    private javax.swing.JScrollPane scrpanRegistros;
     private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFecha;
     private javax.swing.JTable tabRegistros;
     private javax.swing.JTextArea texareConcepto;
