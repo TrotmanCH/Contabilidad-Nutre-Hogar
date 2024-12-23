@@ -17,33 +17,30 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class PDFService {
-    public void exportarComprobantePago(
-            String noCheque,
-            String fecha,
-            String monto, 
-            String noDoc,
-            String nombre,
-            String concepto,
-            String debe,
-            String haber,
-            JTable tabRegistros) {
-        
+    public String noCheque;
+    public String fecha;
+    public String monto;
+    public String noDoc;
+    public String nombre;
+    public String concepto;
+    public String debe;
+    public String haber;
+    public DefaultTableModel registros;
+    
+    public void exportarComprobante() {
         ComprobantePago cp = new ComprobantePago();
-        
         cp.texfieNoCheque.setText(noCheque);
         cp.texfieFecha.setText(fecha);
         cp.texfieNoDoc.setText(noDoc);
         cp.texfieNombre.setText(nombre);
         cp.texareConcepto.setText(concepto);
         cp.texfieMonto.setText(monto);
-        
         DefaultTableModel cpRegistros = (DefaultTableModel) cp.tabRegistros.getModel();
-        DefaultTableModel fRegistros = (DefaultTableModel) tabRegistros.getModel();
         
-        for (Integer fila = 0; fila < fRegistros.getRowCount(); fila++) {
+        for (Integer fila = 0; fila < registros.getRowCount(); fila++) {
             Object[] columnas = new Object[cpRegistros.getColumnCount()];
-            for (Integer columna = 2; columna < fRegistros.getColumnCount(); columna++) {
-                Object valor = fRegistros.getValueAt(fila, columna);
+            for (Integer columna = 2; columna < registros.getColumnCount(); columna++) {
+                Object valor = registros.getValueAt(fila, columna);
                 columnas[columna - 2] = valor;
             }
             cpRegistros.addRow(columnas);
@@ -54,33 +51,20 @@ public class PDFService {
         cp.setVisible(true);
         exportarPDF(cp);
     }
-    public void exportarFormularioRegistro(
-            String noCheque,
-            String fecha,
-            String monto, 
-            String noDoc,
-            String nombre,
-            String concepto,
-            String debe,
-            String haber,
-            JTable tabRegistros) {
-        
+    public void exportarFormulario() {
         FormularioRegistro fr = new FormularioRegistro();
-        
         fr.texfieNoCheque.setText(noCheque);
         fr.texfieFecha.setText(fecha);
         fr.texfieNoDoc.setText(noDoc);
         fr.texfieNombre.setText(nombre);
         fr.texareConcepto.setText(concepto);
         fr.texfieMonto.setText(monto);
-        
         DefaultTableModel frRegistros = (DefaultTableModel) fr.tabRegistros.getModel();
-        DefaultTableModel fRegistros = (DefaultTableModel) tabRegistros.getModel();
         
-        for (Integer fila = 0; fila < fRegistros.getRowCount(); fila++) {
+        for (Integer fila = 0; fila < registros.getRowCount(); fila++) {
             Object[] columnas = new Object[frRegistros.getColumnCount()];
-            for (Integer columna = 0; columna < fRegistros.getColumnCount(); columna++) {
-                Object valor = fRegistros.getValueAt(fila, columna);
+            for (Integer columna = 0; columna < registros.getColumnCount(); columna++) {
+                Object valor = registros.getValueAt(fila, columna);
                 columnas[columna] = valor;
             }
             frRegistros.addRow(columnas);

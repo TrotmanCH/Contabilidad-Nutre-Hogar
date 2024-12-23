@@ -306,6 +306,7 @@ public class RegistroVentana extends javax.swing.JFrame {
             }
         }  
     }//GEN-LAST:event_butAnadirMouseClicked
+    
     private void butEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarMouseClicked
         if (butEditar.isEnabled()) {
             try {
