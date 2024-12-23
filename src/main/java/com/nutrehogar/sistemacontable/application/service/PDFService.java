@@ -1,140 +1,169 @@
 package com.nutrehogar.sistemacontable.application.service;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.nutrehogar.sistemacontable.ui.view.services.ComprobantePago;
 import com.nutrehogar.sistemacontable.ui.view.services.FormularioRegistro;
-
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class PDFService {
-    public static void operacionComprobante(
-            JTable table,
-            String txt_ncheque,
-            String txt_fecha,
-            String txt_nodoc,
-            String txt_nombre,
-            String txt_concepto,
-            ComprobantePago ventanaPlantillaC) {
-
-        if (table.isEditing()) {
-            table.getCellEditor().stopCellEditing();
-        }
-        table.clearSelection();
-
-        DefaultTableModel modeloMain = (DefaultTableModel) table.getModel();
-        DefaultTableModel modeloPlantillaC = ventanaPlantillaC.getTableModel();
-
-        modeloPlantillaC.setRowCount(0);
-        double sumaDebe = 0.0;
-        double sumaHaber = 0.0;
-
-        for (int i = 0; i < modeloMain.getRowCount(); i++) {
-            Object[] fila = new Object[modeloMain.getColumnCount()];
-            for (int j = 0; j < modeloMain.getColumnCount(); j++) {
-                Object valorOriginal = modeloMain.getValueAt(i, j);
-
-                if (j == 2 || j == 3) {
-                    try {
-                        if (valorOriginal != null && !valorOriginal.toString().isEmpty()) {
-                            double valorDecimal = Double.parseDouble(valorOriginal.toString());
-                            fila[j] = String.format("%.2f", valorDecimal);
-
-                            if (j == 2) {
-                                sumaDebe += valorDecimal;
-                            } else if (j == 3) {
-                                sumaHaber += valorDecimal;
-                            }
-                        }
-                    } catch (NumberFormatException | NullPointerException ex) {
-                        // Ignorar errores de formato
-                    }
-                } else {
-                    fila[j] = valorOriginal;
-                }
+    public void exportarComprobantePago(
+            String noCheque,
+            String fecha,
+            String monto, 
+            String noDoc,
+            String nombre,
+            String concepto,
+            String debe,
+            String haber,
+            JTable tabRegistros) {
+        
+        ComprobantePago cp = new ComprobantePago();
+        
+        cp.texfieNoCheque.setText(noCheque);
+        cp.texfieFecha.setText(fecha);
+        cp.texfieNoDoc.setText(noDoc);
+        cp.texfieNombre.setText(nombre);
+        cp.texareConcepto.setText(concepto);
+        cp.texfieMonto.setText(monto);
+        
+        DefaultTableModel cpRegistros = (DefaultTableModel) cp.tabRegistros.getModel();
+        DefaultTableModel fRegistros = (DefaultTableModel) tabRegistros.getModel();
+        
+        for (Integer fila = 0; fila < fRegistros.getRowCount(); fila++) {
+            Object[] columnas = new Object[cpRegistros.getColumnCount()];
+            for (Integer columna = 2; columna < fRegistros.getColumnCount(); columna++) {
+                Object valor = fRegistros.getValueAt(fila, columna);
+                columnas[columna - 2] = valor;
             }
-            modeloPlantillaC.addRow(fila);
+            cpRegistros.addRow(columnas);
         }
 
-        modeloPlantillaC.addRow(new Object[]{"0.00", "Total", String.format("%.2f", sumaDebe), String.format("%.2f", sumaHaber)});
-        ventanaPlantillaC.setLabelsText(txt_ncheque, txt_fecha, txt_nodoc, txt_nombre, txt_concepto, String.format("%.2f", sumaHaber));
-        ventanaPlantillaC.setVisible(true);
-        ventanaPlantillaC.exportarPantallaAPDF();
+        cpRegistros.addRow(new Object[]{"", "Total:", debe, haber});
+
+        cp.setVisible(true);
+        exportarPDF(cp);
     }
-    public static void operacionFormulario(
-            JTable table,
-            String txt_ncheque,
-            String txt_fecha,
-            String txt_nodoc,
-            String txt_nombre,
-            String txt_concepto,
-            FormularioRegistro ventanaPlantillaF) {
-        if (table.isEditing()) {
-            table.getCellEditor().stopCellEditing();
+    public void exportarFormularioRegistro(
+            String noCheque,
+            String fecha,
+            String monto, 
+            String noDoc,
+            String nombre,
+            String concepto,
+            String debe,
+            String haber,
+            JTable tabRegistros) {
+        
+        FormularioRegistro fr = new FormularioRegistro();
+        
+        fr.texfieNoCheque.setText(noCheque);
+        fr.texfieFecha.setText(fecha);
+        fr.texfieNoDoc.setText(noDoc);
+        fr.texfieNombre.setText(nombre);
+        fr.texareConcepto.setText(concepto);
+        fr.texfieMonto.setText(monto);
+        
+        DefaultTableModel frRegistros = (DefaultTableModel) fr.tabRegistros.getModel();
+        DefaultTableModel fRegistros = (DefaultTableModel) tabRegistros.getModel();
+        
+        for (Integer fila = 0; fila < fRegistros.getRowCount(); fila++) {
+            Object[] columnas = new Object[frRegistros.getColumnCount()];
+            for (Integer columna = 0; columna < fRegistros.getColumnCount(); columna++) {
+                Object valor = fRegistros.getValueAt(fila, columna);
+                columnas[columna] = valor;
+            }
+            frRegistros.addRow(columnas);
         }
-        table.clearSelection();
 
-        DefaultTableModel modeloMain = (DefaultTableModel) table.getModel();
-        DefaultTableModel modeloPlantillaF = ventanaPlantillaF.getTableModel();
+        frRegistros.addRow(new Object[]{"","","", "Total:", debe, haber});
 
-        modeloPlantillaF.setRowCount(0);
-        double sumaDebe = 0.0;
-        double sumaHaber = 0.0;
+        fr.setVisible(true);
+        exportarPDF(fr);
+    }
+    
+    private void exportarPDF(JFrame ventana) {
+        try {
+            // Obtener el tamaño de la interfaz (sin bordes)
+            Dimension dimension = ventana.getSize();
+            
+            BufferedImage imagen = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = imagen.createGraphics();
 
-        for (int i = 0; i < modeloMain.getRowCount(); i++) {
-            Object[] fila = new Object[modeloMain.getColumnCount()];
-            for (int j = 0; j < modeloMain.getColumnCount(); j++) {
-                Object valorOriginal = modeloMain.getValueAt(i, j);
+            // Cambiar el color de fondo (si es necesario)
+            g2d.setColor(ventana.getBackground());
+            g2d.fillRect(0, 0, dimension.width, dimension.height);
 
-                if (j == 2 || j == 3) {
-                    try {
-                        if (valorOriginal != null && !valorOriginal.toString().isEmpty()) {
-                            double valorDecimal = Double.parseDouble(valorOriginal.toString());
-                            fila[j] = String.format("%.2f", valorDecimal);
+            // Pintar la interfaz en el BufferedImage
+            ventana.paint(g2d);
+            g2d.dispose();
 
-                            if (j == 2) {
-                                sumaDebe += valorDecimal;
-                            } else if (j == 3) {
-                                sumaHaber += valorDecimal;
-                            }
-                        }
-                    } catch (NumberFormatException | NullPointerException ex) {
-                        // Ignorar errores de formato
+            // Guardar la imagen temporalmente en el sistema de archivos
+            ImageIO.write(imagen, "png", new java.io.File(ventana.getTitle() + ".png"));
+            ventana.setVisible(false);
+
+            // Usar JFileChooser para seleccionar ubicación
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar como PDF");
+
+            // Crear un formato de fecha para el nombre del archivo
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato de fecha (AñoMesDía)
+            String fechaFormateada = sdf.format(new Date());
+
+            //Configurar el nombre del archivo con el titulo de la ventana y la fecha
+            fileChooser.setSelectedFile(new java.io.File(ventana.getTitle()+ "_" + fechaFormateada + ".pdf"));
+
+            Integer userSelection = fileChooser.showSaveDialog(ventana);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                java.io.File fileToSave = fileChooser.getSelectedFile();
+
+                // Verificar si el archivo ya existe y mostrar advertencia
+                if (fileToSave.exists()) {
+                    Integer response = JOptionPane.showConfirmDialog(ventana, 
+                            "El archivo ya existe. ¿Deseas reemplazarlo?", 
+                            "Confirmar Sobrescritura", 
+                            JOptionPane.YES_NO_OPTION, 
+                            JOptionPane.WARNING_MESSAGE);
+                    
+                    // Salir del método sin guardar
+                    if (response != JOptionPane.YES_OPTION) {
+                        return; 
                     }
-                } else {
-                    fila[j] = valorOriginal;
                 }
+
+                // Crear el documento PDF con tamaño Letter (8.5"x11")
+                Document documento = new Document(PageSize.LETTER);
+                PdfWriter.getInstance(documento, new FileOutputStream(fileToSave));
+                documento.open();
+
+                // Añadir la imagen al documento PDF y posicionarla en la parte superior
+                Image imagenPDF = Image.getInstance(ventana.getTitle() + ".png");
+                imagenPDF.scaleToFit(PageSize.LETTER.getWidth(), PageSize.LETTER.getHeight());
+                imagenPDF.setAbsolutePosition(0, 32);
+                documento.add(imagenPDF);
+
+                // Cerrar el documento
+                documento.close();
+
+                JOptionPane.showMessageDialog(ventana, "PDF guardado exitosamente en " + fileToSave.getAbsolutePath());
             }
-            modeloPlantillaF.addRow(fila);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    ventana, "Error al guardar el PDF: " + ex.getMessage(), 
+                    "Error", JOptionPane.ERROR_MESSAGE
+            );
         }
-
-        modeloPlantillaF.addRow(new Object[]{"", "Total", String.format("%.2f", sumaDebe), String.format("%.2f", sumaHaber)});
-        ventanaPlantillaF.setLabelsText(txt_ncheque, txt_fecha, txt_nodoc, txt_nombre, txt_concepto, String.format("%.2f", sumaHaber));
-
-        for (int i = 0; i < table.getRowCount(); i++) {
-            Object valorCheque = table.getValueAt(i, 1);
-            modeloPlantillaF.addRow(new Object[]{valorCheque});
-        }
-
-        modeloPlantillaF.addRow(new Object[]{"0.00"});
-
-        for (int i = 0; i < table.getRowCount(); i++) {
-            Object valorCheque = table.getValueAt(i, 0);
-            Object[] nuevaFila = new Object[modeloPlantillaF.getColumnCount()];
-
-            nuevaFila[2] = valorCheque;
-
-            if (valorCheque != null && !valorCheque.toString().isEmpty()) {
-                if (modeloPlantillaF.getColumnCount() > 0) {
-                    nuevaFila[0] = txt_fecha;
-                }
-                if (modeloPlantillaF.getColumnCount() > 1) {
-                    nuevaFila[1] = txt_nodoc;
-                }
-            }
-            modeloPlantillaF.addRow(nuevaFila);
-        }
-
-        ventanaPlantillaF.setVisible(true);
-        ventanaPlantillaF.exportarPantallaAPDF();
     }
 }

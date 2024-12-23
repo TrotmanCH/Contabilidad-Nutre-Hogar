@@ -5,126 +5,55 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
-import javax.imageio.ImageIO;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfWriter;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ComprobantePago extends javax.swing.JFrame {
-    private JTable tabla;
-    public void setLabelsText(String cheque, String fecha, String noDoc, String nombre, String concepto, String sumaHaber) {
-        texfieNoCheque.setText(cheque);
-        texfieFecha.setText(fecha);
-        texfieNoDoc.setText(noDoc);
-        texfieNombre.setText(nombre);
-        texareConcepto.setText(concepto);
-        texfieMonto.setText(sumaHaber);
-    }
-
-    public void exportarPantallaAPDF() {
-        try {
-            // Obtener el tamaño de la interfaz (sin bordes)
-            Dimension dimension = getSize();
-            BufferedImage imagen = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = imagen.createGraphics();
-
-            // Cambiar el color de fondo (si es necesario)
-            g2d.setColor(getBackground());
-            g2d.fillRect(0, 0, dimension.width, dimension.height);
-
-            // Pintar la interfaz en el BufferedImage
-            paint(g2d);
-            g2d.dispose();
-
-            // Guardar la imagen temporalmente en el sistema de archivos
-            ImageIO.write(imagen, "png", new java.io.File("captura.png"));
-            setVisible(false);
-
-            // Usar JFileChooser para seleccionar ubicación
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Guardar como PDF");
-
-            // Crear un formato de fecha para el nombre del archivo
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); // Formato de fecha (AñoMesDía)
-            String fechaFormateada = sdf.format(new Date());
-
-            //Configurar el nombre del archivo con la palabra "comprobante" y la fecha
-            fileChooser.setSelectedFile(new java.io.File("comprobante_" + fechaFormateada + ".pdf"));
-
-            int userSelection = fileChooser.showSaveDialog(this);
-
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                java.io.File fileToSave = fileChooser.getSelectedFile();
-
-                // Verificar si el archivo ya existe y mostrar advertencia
-                if (fileToSave.exists()) {
-                    int response = JOptionPane.showConfirmDialog(this, 
-                            "El archivo ya existe. ¿Deseas reemplazarlo?", 
-                            "Confirmar Sobrescritura", 
-                            JOptionPane.YES_NO_OPTION, 
-                            JOptionPane.WARNING_MESSAGE);
-
-                    if (response != JOptionPane.YES_OPTION) {
-                        return; // Salir del método sin guardar
-                    }
-                }
-
-                // Crear el documento PDF con tamaño Letter (8.5"x11")
-                Document documento = new Document(PageSize.LETTER);
-                PdfWriter.getInstance(documento, new FileOutputStream(fileToSave));
-                documento.open();
-
-                // Añadir la imagen al documento PDF y posicionarla en la parte superior
-                Image imagenPDF = Image.getInstance("captura.png");
-                imagenPDF.scaleToFit(PageSize.LETTER.getWidth(), PageSize.LETTER.getHeight());
-                imagenPDF.setAbsolutePosition(0, 32); // Posicionar en la parte superior omitiendo las las opciones de ventana
-                documento.add(imagenPDF);
-
-                // Cerrar el documento
-                documento.close();
-
-                JOptionPane.showMessageDialog(this, "PDF guardado exitosamente en " + fileToSave.getAbsolutePath());
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al guardar el PDF: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    public DefaultTableModel getTableModel() {
-        return (DefaultTableModel) tabla.getModel(); 
-    }
+    public JTable tabRegistros;
     
     public ComprobantePago() {
         initComponents();
+        
         getContentPane().setBackground(Color.WHITE);
         setSize(612, 824);
-        setLocationRelativeTo(null); // Centrar en pantalla
+        setLocationRelativeTo(null);
         setLayout(null);
 
-        // Crear el modelo de la tabla
-        DefaultTableModel modelo = new DefaultTableModel(new String[]{"Referencia", "Código", "Debe", "Haber"}, 0);
+        // Crear el modelo de la tabRegistros
+        DefaultTableModel modelo = new DefaultTableModel(new String[]{
+            "Referencia", "Código", "Debe", "Haber"}, 0);
 
-        // Crear la tabla con el modelo
-        tabla = new JTable(modelo);
-        tabla.setRowHeight(16); // Ajustar la altura de las filas
-        tabla.setEnabled(false); // Deshabilitar edición si es necesario
+        // Crear la tabRegistros con el modelo
+        tabRegistros = new JTable(modelo);
+        tabRegistros.setRowHeight(16);
+        tabRegistros.setEnabled(false);
 
-        // Colorear lineas de la tabla
-        tabla.setShowGrid(true);
-        tabla.setGridColor(Color.BLACK);
+        // Colorear lineas de la tabRegistros
+        tabRegistros.setShowGrid(true);
+        tabRegistros.setGridColor(Color.BLACK);
+        
         // Configurar el ancho de las columnas
-        tabla.getColumnModel().getColumn(0).setPreferredWidth(130); // Referencia
-        tabla.getColumnModel().getColumn(1).setPreferredWidth(50); // Código
-        tabla.getColumnModel().getColumn(2).setPreferredWidth(65); // Debe
-        tabla.getColumnModel().getColumn(3).setPreferredWidth(65); // Haber
-
+        tabRegistros.getColumnModel().getColumn(0).setPreferredWidth(130); // Referencia
+        tabRegistros.getColumnModel().getColumn(1).setPreferredWidth(50); // Código
+        tabRegistros.getColumnModel().getColumn(2).setPreferredWidth(65); // Debe
+        tabRegistros.getColumnModel().getColumn(3).setPreferredWidth(65); // Haber
+        
+        // Crear un renderizador personalizado para el encabezado
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                
+                comp.setFont(comp.getFont().deriveFont(Font.BOLD));
+                setHorizontalAlignment(SwingConstants.CENTER);
+                
+                if (column == table.getColumnCount() - 1) {
+                    setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK));
+                } else {
+                    setBorder(BorderFactory.createMatteBorder(0,0,1,1,Color.BLACK));
+                }
+                
+                return comp;
+            }
+        };
         // Crear un renderizador personalizado para el contenido
         DefaultTableCellRenderer contentRenderer = new DefaultTableCellRenderer() {
             @Override
@@ -134,8 +63,8 @@ public class ComprobantePago extends javax.swing.JFrame {
                 // Alineación condicional
                 switch (column) {
                     case 0:
-                        // Alinear la última celda de la columna "Referencia" a la derecha
-                        setHorizontalAlignment(row == table.getRowCount() - 1 ? SwingConstants.RIGHT : SwingConstants.LEFT);
+                        // Alinear "Referencia" a la izquierda
+                        setHorizontalAlignment(SwingConstants.LEFT);
                         break;
                     case 1:
                         // Alinear "Código" al centro
@@ -150,25 +79,6 @@ public class ComprobantePago extends javax.swing.JFrame {
                 // Aplicar negrita a la última fila
                 if (row == table.getRowCount() - 1) {
                     comp.setFont(comp.getFont().deriveFont(Font.BOLD));
-                } else {
-                    comp.setFont(comp.getFont().deriveFont(Font.PLAIN));
-                }
-
-                return comp;
-            }
-        };
-
-        // Crear un renderizador personalizado para el encabezado
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                setHorizontalAlignment(SwingConstants.CENTER);
-                if (column == table.getColumnCount() - 1) {
-                    setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK));
-                } else {
-                    setBorder(BorderFactory.createMatteBorder(0,0,1,1,Color.BLACK));
                 }
 
                 return comp;
@@ -176,18 +86,17 @@ public class ComprobantePago extends javax.swing.JFrame {
         };
 
         // Asignar el renderizador a todas las columnas
-        for (int i = 0; i < tabla.getColumnCount(); i++) {
-            tabla.getColumnModel().getColumn(i).setCellRenderer(contentRenderer);
-            tabla.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        for (int i = 0; i < tabRegistros.getColumnCount(); i++) {
+            tabRegistros.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+            tabRegistros.getColumnModel().getColumn(i).setCellRenderer(contentRenderer);
         }
 
-        // Agregar la tabla dentro de un JScrollPane
-        JScrollPane scrollPane = new JScrollPane(tabla);
-        scrollPane.setBounds(260, 350, 300, 250); // Coordenadas y tamaño
+        // Agregar la tabRegistros dentro de un JScrollPane
+        JScrollPane scrollPane = new JScrollPane(tabRegistros);
+        scrollPane.setBounds(260, 350, 300, 250);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.BLACK));
-        // Agregar el JScrollPane al JFrame
         add(scrollPane);
     }
     
@@ -219,6 +128,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         scrpanConcepto = new javax.swing.JScrollPane();
         texareConcepto = new javax.swing.JTextArea();
 
+        setTitle("ComprobantePago");
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -251,6 +161,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         texfieNoCheque.setEditable(false);
         texfieNoCheque.setBackground(new java.awt.Color(255, 255, 255));
         texfieNoCheque.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        texfieNoCheque.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         texfieNoCheque.setText("0");
         texfieNoCheque.setActionCommand("<Not Set>");
         texfieNoCheque.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY)
@@ -262,6 +173,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         texfieFecha.setEditable(false);
         texfieFecha.setBackground(new java.awt.Color(255, 255, 255));
         texfieFecha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        texfieFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         texfieFecha.setText("2024-01-01");
         texfieFecha.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY)
         );
@@ -278,7 +190,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         texfieMonto.setEditable(false);
         texfieMonto.setBackground(new java.awt.Color(255, 255, 255));
         texfieMonto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        texfieMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        texfieMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         texfieMonto.setText("0.00");
         texfieMonto.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY)
         );
@@ -294,6 +206,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         texfieNoDoc.setEditable(false);
         texfieNoDoc.setBackground(new java.awt.Color(255, 255, 255));
         texfieNoDoc.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        texfieNoDoc.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         texfieNoDoc.setText("000");
         texfieNoDoc.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY)
         );
@@ -311,6 +224,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         labConcepto.setBounds(50, 270, 80, 20);
 
         texfieNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texfieNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         texfieNombre.setText("0");
         texfieNombre.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.GRAY)
         );
@@ -389,11 +303,11 @@ public class ComprobantePago extends javax.swing.JFrame {
     private javax.swing.JLabel labNombre;
     private javax.swing.JLabel labRecibido;
     private javax.swing.JScrollPane scrpanConcepto;
-    private javax.swing.JTextArea texareConcepto;
-    private javax.swing.JTextField texfieFecha;
-    private javax.swing.JTextField texfieMonto;
-    private javax.swing.JTextField texfieNoCheque;
-    private javax.swing.JTextField texfieNoDoc;
-    private javax.swing.JTextField texfieNombre;
+    public javax.swing.JTextArea texareConcepto;
+    public javax.swing.JTextField texfieFecha;
+    public javax.swing.JTextField texfieMonto;
+    public javax.swing.JTextField texfieNoCheque;
+    public javax.swing.JTextField texfieNoDoc;
+    public javax.swing.JTextField texfieNombre;
     // End of variables declaration//GEN-END:variables
 }
