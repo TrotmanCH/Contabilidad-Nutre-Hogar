@@ -33,11 +33,11 @@ public class RegistroVentana extends javax.swing.JFrame {
         });
                 
         if (filaRegistro == null) {
-            butAnadir.setEnabled(true);
-            butEditar.setEnabled(false);
+            butAnadir.setVisible(true);
+            butEditar.setVisible(false);
         } else {
-            butAnadir.setEnabled(false);
-            butEditar.setEnabled(true);
+            butAnadir.setVisible(false);
+            butEditar.setVisible(true);
             
             llenarCampos();
         }
