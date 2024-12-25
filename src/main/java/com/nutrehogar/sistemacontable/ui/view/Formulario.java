@@ -518,6 +518,7 @@ public class Formulario extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
     
+    // Validador de datos
     private Boolean validarDatos() {
         if (texfieNombre.getText().isBlank() || texareConcepto.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos");
