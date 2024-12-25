@@ -21,6 +21,7 @@ public class ListaCuenta extends javax.swing.JPanel {
                 tabCuentas.clearSelection();
             }
         });
+        
         tabCuentasModelo = (DefaultTableModel) tabCuentas.getModel();
         listaSeleccionModelo = tabCuentas.getSelectionModel();
         

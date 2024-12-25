@@ -145,13 +145,12 @@ public class CuentaVentana extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(butCrear)
-                .addGap(32, 32, 32)
-                .addComponent(butEditar)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labTitulo)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(butCrear)
+                        .addGap(32, 32, 32)
+                        .addComponent(butEditar))
+                    .addComponent(labTitulo))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -219,7 +218,7 @@ public class CuentaVentana extends javax.swing.JFrame {
         });
     }
     
-    // Llenado de campos del registro a acutalizar
+    // Llenado de campos de la cuenta a acutalizar
     private void llenarCampos() {
         texfieCodigo.setText(cuenta.getId());
         texfieNombre.setText(cuenta.getNombre());
@@ -311,14 +310,14 @@ public class CuentaVentana extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butCrear;
     private javax.swing.JButton butEditar;
-    public javax.swing.JComboBox<String> comboxSubtipoCuenta;
+    private javax.swing.JComboBox<String> comboxSubtipoCuenta;
     private javax.swing.JLabel labCodigo;
     private javax.swing.JLabel labNombre;
     private javax.swing.JLabel labSubtipoCuenta;
     private javax.swing.JLabel labTipoCuenta;
     private javax.swing.JLabel labTitulo;
-    public javax.swing.JTextField texfieCodigo;
-    public javax.swing.JTextField texfieNombre;
-    public javax.swing.JTextField texfieTipoCuenta;
+    private javax.swing.JTextField texfieCodigo;
+    private javax.swing.JTextField texfieNombre;
+    private javax.swing.JTextField texfieTipoCuenta;
     // End of variables declaration//GEN-END:variables
 }
