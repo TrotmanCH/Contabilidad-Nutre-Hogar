@@ -1,6 +1,8 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
+import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
+import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoDocumentoRepo;
 import java.awt.*;
@@ -29,7 +31,7 @@ public class RegistroVentana extends javax.swing.JFrame {
             comboxTipoDoc.addItem(tipoDocumento.getNombre());
         });
         CuentaRepo.findAll().forEach((cuenta) -> {
-            comboxCuenta.addItem(cuenta.getId()+ " | " + cuenta.getNombre());
+            comboxCuenta.addItem(cuenta.getId()+ " " + cuenta.getNombre());
         });
                 
         if (filaRegistro == null) {
@@ -52,29 +54,33 @@ public class RegistroVentana extends javax.swing.JFrame {
 
         butgroTipoRegistro = new javax.swing.ButtonGroup();
         labTitulo = new javax.swing.JLabel();
-        texfieNoComp = new javax.swing.JTextField();
+        labTipoDoc = new javax.swing.JLabel();
+        comboxTipoDoc = new javax.swing.JComboBox<>();
         labNoComp = new javax.swing.JLabel();
+        texfieNoComp = new javax.swing.JTextField();
         labReferencia = new javax.swing.JLabel();
         texfieReferencia = new javax.swing.JTextField();
         labCuenta = new javax.swing.JLabel();
+        comboxCuenta = new javax.swing.JComboBox<>();
         labTipoRegistro = new javax.swing.JLabel();
         radbutDebito = new javax.swing.JRadioButton();
         radbutCredito = new javax.swing.JRadioButton();
         labMonto = new javax.swing.JLabel();
         texfieMonto = new javax.swing.JTextField();
         butAnadir = new javax.swing.JButton();
-        comboxCuenta = new javax.swing.JComboBox<>();
-        labTipoDoc = new javax.swing.JLabel();
-        comboxTipoDoc = new javax.swing.JComboBox<>();
         butEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(Color.decode("#F1F8FF"));
         setResizable(false);
 
-        labTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labTitulo.setText("Titulo");
         labTitulo.setName(" tituloFormulario"); // NOI18N
+
+        labTipoDoc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labTipoDoc.setText("Tipo de Doc:");
 
         labNoComp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labNoComp.setText("No. Comp:");
@@ -98,15 +104,8 @@ public class RegistroVentana extends javax.swing.JFrame {
         labMonto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labMonto.setText("Monto:");
 
-        texfieMonto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                texfieMontoFocusLost(evt);
-            }
-        });
-
         butAnadir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         butAnadir.setForeground(new java.awt.Color(255, 255, 255));
-        butAnadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/archivo-de-texto-agregar-boton-de-interfaz-contorneado.png"))); // NOI18N
         butAnadir.setText("Añadir");
         butAnadir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -114,12 +113,8 @@ public class RegistroVentana extends javax.swing.JFrame {
             }
         });
 
-        labTipoDoc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        labTipoDoc.setText("Tipo de Doc:");
-
         butEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         butEditar.setForeground(new java.awt.Color(255, 255, 255));
-        butEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/escritura.png"))); // NOI18N
         butEditar.setText("Editar");
         butEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -131,54 +126,45 @@ public class RegistroVentana extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(butAnadir)
+                .addGap(18, 18, 18)
+                .addComponent(butEditar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labMonto)
+                            .addComponent(labNoComp)
+                            .addComponent(labReferencia)
                             .addComponent(labCuenta)
+                            .addComponent(labTipoRegistro)
+                            .addComponent(labTipoDoc))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(texfieNoComp, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(comboxCuenta, 0, 249, Short.MAX_VALUE)
+                                .addComponent(texfieReferencia))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labTipoDoc)
-                                    .addComponent(labNoComp))
-                                .addGap(26, 26, 26)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(texfieNoComp, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labTipoRegistro)
-                                .addGap(18, 18, 18)
                                 .addComponent(radbutDebito)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radbutCredito)))
-                        .addGap(113, 113, 113))
+                                .addComponent(radbutCredito))
+                            .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labMonto)
-                                .addGap(54, 54, 54)
-                                .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGap(35, 35, 35)
-                                    .addComponent(butAnadir)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(butEditar))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(labReferencia)
-                                    .addGap(31, 31, 31)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(comboxCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(texfieReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(16, 16, 16))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(178, 178, 178)
-                .addComponent(labTitulo))
+                        .addContainerGap(153, Short.MAX_VALUE)
+                        .addComponent(labTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(labTitulo)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -209,7 +195,7 @@ public class RegistroVentana extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butEditar)
                     .addComponent(butAnadir))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -238,131 +224,136 @@ public class RegistroVentana extends javax.swing.JFrame {
         });
     }
     
-    // Llenado de campos al actualizar un registro
+    // Llenado de campos del registro a acutalizar
     private void llenarCampos() {
         Registro registroSeleccionado = listaRegistro.get(filaRegistro);
+        
         comboxTipoDoc.setSelectedIndex(registroSeleccionado.getTipoDocumento().getId() - 1);
         texfieNoComp.setText(registroSeleccionado.getComprobante());
         texfieReferencia.setText(registroSeleccionado.getReferencia());
-
-        Object cuentaRegistroSeleccionado = registroSeleccionado.getCuenta().getId() +
-                " | " + registroSeleccionado.getCuenta().getNombre();
-        comboxCuenta.setSelectedItem(cuentaRegistroSeleccionado);
+        comboxCuenta.setSelectedItem(registroSeleccionado.getCuenta().getId() +
+                " " + registroSeleccionado.getCuenta().getNombre()
+        );
 
         if (!registroSeleccionado.getDebe().equals(BigDecimal.ZERO.setScale(2))  
                 && registroSeleccionado.getHaber().equals(BigDecimal.ZERO.setScale(2))) {
             radbutDebito.setSelected(true);
             texfieMonto.setText(registroSeleccionado.getDebe().toString());
         } else {
-            System.out.println(registroSeleccionado.getHaber().toString());
             radbutCredito.setSelected(true);
             texfieMonto.setText(registroSeleccionado.getHaber().toString());
         }
     }
     
-    // Escuchas de los botones
+    // Escuchadores de los botones
     private void butAnadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirMouseClicked
-        if (butAnadir.isEnabled()) {
-            try {
-                // Verificando si los campos estan vacíos
-                texfieNoComp.getText().charAt(1);
-                texfieReferencia.getText().charAt(1);
-                
-                // Guardado
-                Registro registro = Registro.builder()
-                        .tipoDocumento(TipoDocumentoRepo.findById(
-                            comboxTipoDoc.getSelectedIndex() + 1
-                        ))
-                        .comprobante(texfieNoComp.getText())
-                        .referencia(texfieReferencia.getText())
-                        .cuenta(CuentaRepo.findById(
-                            comboxCuenta.getSelectedItem().toString().substring(0, 6)
-                        ))
-                        .build();
-                
-                if (radbutDebito.isSelected()) {
-                    registro.setDebe(new BigDecimal(texfieMonto.getText()).setScale(2));
-                    registro.setHaber(BigDecimal.ZERO.setScale(2));
-                } else if (radbutCredito.isSelected()){
-                    registro.setDebe(BigDecimal.ZERO.setScale(2));
-                    registro.setHaber(new BigDecimal(texfieMonto.getText()).setScale(2));
-                }
+        if (validarDatos()) {
+            TipoDocumento tipoDocumento = TipoDocumentoRepo.findById(
+                    comboxTipoDoc.getSelectedIndex() + 1
+            );
+            
+            String comprobante = texfieNoComp.getText();
+            String referencia = texfieReferencia.getText();
+            
+            Cuenta cuenta = CuentaRepo.findById(
+                    comboxCuenta.getSelectedItem().toString().substring(0, 6)
+            );
+            
+            BigDecimal monto = new BigDecimal(texfieMonto.getText()).setScale(2);
+            
+            BigDecimal debe = null;
+            BigDecimal haber = null;
 
-                listaRegistro.add(registro);
-                tabRegistrosModelo.addRow(new Object[] {
-                    registro.getTipoDocumento().getNombre(), 
-                    registro.getComprobante(), 
-                    registro.getReferencia(),
-                    registro.getCuenta().getId(),
-                    registro.getDebe(),
-                    registro.getHaber()
-                });
-
-                dispose();
-            } catch (IndexOutOfBoundsException e) {
-                JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos");
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Introduzca un número decimal válido");
+            if (radbutDebito.isSelected()) {
+                debe = monto;
+                haber = BigDecimal.ZERO.setScale(2);
+            } else if (radbutCredito.isSelected()){
+                haber = monto;
+                debe = BigDecimal.ZERO.setScale(2);
             }
-        }  
+
+            Registro registro = Registro.builder()
+                    .tipoDocumento(tipoDocumento)
+                    .comprobante(comprobante)
+                    .referencia(referencia)
+                    .cuenta(cuenta)
+                    .debe(debe)
+                    .haber(haber)
+                    .build();
+            listaRegistro.add(registro);
+            tabRegistrosModelo.addRow(new Object[] {
+                    tipoDocumento.getNombre(), comprobante, 
+                    referencia, cuenta.getId(),
+                    debe, haber    
+            });
+
+            dispose();
+        }
     }//GEN-LAST:event_butAnadirMouseClicked
     
     private void butEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarMouseClicked
-        if (butEditar.isEnabled()) {
-            try {
-                // Generación de excepciones
-                texfieNoComp.getText().charAt(1);
-                texfieReferencia.getText().charAt(1);
-                
-                // Editado
-                tabRegistrosModelo.setValueAt(comboxTipoDoc.getSelectedItem(), filaRegistro, 0);
-                tabRegistrosModelo.setValueAt(texfieNoComp.getText(), filaRegistro, 1);
-                tabRegistrosModelo.setValueAt(texfieReferencia.getText(), filaRegistro, 2);
-                tabRegistrosModelo.setValueAt(comboxCuenta.getSelectedItem().toString().substring(0, 6), filaRegistro, 3);
-                
-                Registro registroSeleccionado = listaRegistro.get(filaRegistro);
-                registroSeleccionado.setTipoDocumento(TipoDocumentoRepo.findById(
-                            comboxTipoDoc.getSelectedIndex() + 1
-                        ));
-                registroSeleccionado.setComprobante(texfieNoComp.getText());
-                registroSeleccionado.setReferencia(texfieReferencia.getText());
-                registroSeleccionado.setCuenta(CuentaRepo.findById(
-                            comboxCuenta.getSelectedItem().toString().substring(0, 6)
-                        ));
-                
-                if (radbutDebito.isSelected()) {
-                    tabRegistrosModelo.setValueAt(new BigDecimal(texfieMonto.getText()).setScale(2), filaRegistro, 4);
-                    tabRegistrosModelo.setValueAt(BigDecimal.ZERO.setScale(2), filaRegistro, 5);
-                    
-                    registroSeleccionado.setDebe(new BigDecimal(texfieMonto.getText()).setScale(2));
-                    registroSeleccionado.setHaber(BigDecimal.ZERO.setScale(2));
-                } else if (radbutCredito.isSelected()) {
-                    tabRegistrosModelo.setValueAt(BigDecimal.ZERO.setScale(2), filaRegistro, 4);
-                    tabRegistrosModelo.setValueAt(new BigDecimal(texfieMonto.getText()).setScale(2), filaRegistro, 5);
-                    
-                    registroSeleccionado.setDebe(BigDecimal.ZERO.setScale(2));
-                    registroSeleccionado.setHaber(new BigDecimal(texfieMonto.getText()).setScale(2));
-                }
-                
-                dispose();
-            } catch (IndexOutOfBoundsException e) {
-                JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos");
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Introduzca un número decimal válido");
+        if (validarDatos()) {
+            TipoDocumento tipoDocumento = TipoDocumentoRepo.findById(
+                    comboxTipoDoc.getSelectedIndex() + 1
+            );
+            
+            String comprobante = texfieNoComp.getText();
+            String referencia = texfieReferencia.getText();
+            
+            Cuenta cuenta = CuentaRepo.findById(
+                    comboxCuenta.getSelectedItem().toString().substring(0, 6)
+            );
+            
+            BigDecimal monto = new BigDecimal(texfieMonto.getText()).setScale(2);
+            
+            BigDecimal debe = null;
+            BigDecimal haber = null;
+
+            if (radbutDebito.isSelected()) {
+                debe = monto;
+                haber = BigDecimal.ZERO.setScale(2);
+            } else if (radbutCredito.isSelected()){
+                haber = monto;
+                debe = BigDecimal.ZERO.setScale(2);
             }
+            
+            Registro registroSeleccionado = listaRegistro.get(filaRegistro);
+            registroSeleccionado.setTipoDocumento(tipoDocumento);
+            registroSeleccionado.setComprobante(comprobante);
+            registroSeleccionado.setReferencia(referencia);
+            registroSeleccionado.setCuenta(cuenta);
+            registroSeleccionado.setDebe(debe);
+            registroSeleccionado.setHaber(haber);
+            
+            tabRegistrosModelo.setValueAt(tipoDocumento.getNombre(), filaRegistro, 0);
+            tabRegistrosModelo.setValueAt(comprobante, filaRegistro, 1);
+            tabRegistrosModelo.setValueAt(referencia, filaRegistro, 2);
+            tabRegistrosModelo.setValueAt(cuenta.getId(), filaRegistro, 3);
+            tabRegistrosModelo.setValueAt(debe, filaRegistro, 4);
+            tabRegistrosModelo.setValueAt(haber, filaRegistro, 5);
+            
+            dispose();
         }
     }//GEN-LAST:event_butEditarMouseClicked
     
-    // Escucha de texfieMonto
-    private void texfieMontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texfieMontoFocusLost
+    // Validador de datos
+    private Boolean validarDatos() {
+        if (texfieNoComp.getText().isBlank() || 
+                texfieReferencia.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos");
+            return false;
+        }
+        
         try {
-            BigDecimal.valueOf(Double.parseDouble(texfieMonto.getText()));
+            new BigDecimal(texfieMonto.getText()).setScale(2);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Introduzca un número decimal válido");
-            texfieMonto.setText("");
+            return false;
         }
-    }//GEN-LAST:event_texfieMontoFocusLost
-    
+        
+        return true;
+    }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAnadir;
     private javax.swing.JButton butEditar;

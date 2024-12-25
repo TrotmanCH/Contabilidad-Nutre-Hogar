@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -24,12 +25,19 @@ public class Formulario extends javax.swing.JPanel {
     
     public Formulario() {
         initComponents();
-           
+        
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabRegistros.clearSelection();
+            }
+        });
+        
         tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
         listaSeleccionModelo = tabRegistros.getSelectionModel();
         
-        tabRegistrosModelo.addTableModelListener(this::tablaModeloEscucha);
-        listaSeleccionModelo.addListSelectionListener(this::listaSeleccionEscucha);
+        tabRegistrosModelo.addTableModelListener(this::tablaModeloEscuchador);
+        listaSeleccionModelo.addListSelectionListener(this::listaSeleccionEscuchador);
         
         listaSeleccionModelo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
@@ -47,21 +55,27 @@ public class Formulario extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        texfieNombre = new javax.swing.JTextField();
-        texfieHaber = new javax.swing.JTextField();
-        texfieNoDoc = new javax.swing.JTextField();
-        labTotal = new javax.swing.JLabel();
-        scrpanRegistros = new javax.swing.JScrollPane();
-        tabRegistros = new javax.swing.JTable();
+        labFormulario = new javax.swing.JLabel();
         labNombre = new javax.swing.JLabel();
-        labNoDoc = new javax.swing.JLabel();
-        spiFecha = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        texfieNombre = new javax.swing.JTextField();
+        labConcepto = new javax.swing.JLabel();
         scrpanConcepto = new javax.swing.JScrollPane();
         texareConcepto = new javax.swing.JTextArea();
-        labFormulario = new javax.swing.JLabel();
+        labNoCheque = new javax.swing.JLabel();
+        texfieNoCheque = new javax.swing.JTextField();
+        labFecha = new javax.swing.JLabel();
+        spiFecha = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
         labMonto = new javax.swing.JLabel();
-        labConcepto = new javax.swing.JLabel();
+        texfieMonto = new javax.swing.JTextField();
+        labNoDoc = new javax.swing.JLabel();
+        texfieNoDoc = new javax.swing.JTextField();
+        scrpanRegistros = new javax.swing.JScrollPane();
+        tabRegistros = new javax.swing.JTable();
+        labDiferencia = new javax.swing.JLabel();
+        texfieDiferencia = new javax.swing.JTextField();
+        labTotal = new javax.swing.JLabel();
         texfieDebe = new javax.swing.JTextField();
+        texfieHaber = new javax.swing.JTextField();
         panAcciones = new javax.swing.JPanel();
         butAnadirRegistro = new javax.swing.JButton();
         butEditarRegistro = new javax.swing.JButton();
@@ -69,25 +83,48 @@ public class Formulario extends javax.swing.JPanel {
         butGuardarAsiento = new javax.swing.JButton();
         butExportarFormulario = new javax.swing.JButton();
         butExportarComprobante = new javax.swing.JButton();
-        labFecha = new javax.swing.JLabel();
-        texfieNoCheque = new javax.swing.JTextField();
-        labNoCheque = new javax.swing.JLabel();
-        texfieMonto = new javax.swing.JTextField();
-        texfieDiferencia = new javax.swing.JTextField();
-        labDiferencia = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(241, 248, 255));
 
+        labFormulario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labFormulario.setText("Formulario");
+        labFormulario.setName(" tituloFormulario"); // NOI18N
+
+        labNombre.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labNombre.setText("Nombre:");
+        labNombre.setName(""); // NOI18N
+
         texfieNombre.setName("nombreField"); // NOI18N
 
-        texfieHaber.setEditable(false);
-        texfieHaber.setBackground(new java.awt.Color(255, 255, 255));
+        labConcepto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labConcepto.setText("Concepto:");
+
+        scrpanConcepto.setPreferredSize(new java.awt.Dimension(400, 100));
+
+        texareConcepto.setColumns(20);
+        texareConcepto.setRows(5);
+        texareConcepto.setMinimumSize(new java.awt.Dimension(400, 100));
+        scrpanConcepto.setViewportView(texareConcepto);
+
+        labNoCheque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labNoCheque.setText("<html>No.<br>Cheque</html>");
+
+        labFecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labFecha.setText("Fecha:");
+
+        spiFecha.setModel(new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel());
+
+        labMonto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labMonto.setText("Monto:");
+
+        texfieMonto.setEditable(false);
+        texfieMonto.setBackground(new java.awt.Color(255, 255, 255));
+
+        labNoDoc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labNoDoc.setText("No. Doc.");
 
         texfieNoDoc.setEditable(false);
         texfieNoDoc.setBackground(new java.awt.Color(255, 255, 255));
-
-        labTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labTotal.setText("Total:");
 
         tabRegistros.setAutoCreateRowSorter(true);
         tabRegistros.setModel(new javax.swing.table.DefaultTableModel(
@@ -109,34 +146,20 @@ public class Formulario extends javax.swing.JPanel {
         tabRegistros.setAutoscrolls(false);
         scrpanRegistros.setViewportView(tabRegistros);
 
-        labNombre.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labNombre.setText("Nombre:");
-        labNombre.setName(""); // NOI18N
+        labDiferencia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labDiferencia.setText("Diferencia:");
 
-        labNoDoc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labNoDoc.setText("No. Doc.");
+        texfieDiferencia.setEditable(false);
+        texfieDiferencia.setBackground(new java.awt.Color(255, 255, 255));
 
-        spiFecha.setModel(new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel());
-
-        scrpanConcepto.setPreferredSize(new java.awt.Dimension(400, 100));
-
-        texareConcepto.setColumns(20);
-        texareConcepto.setRows(5);
-        texareConcepto.setMinimumSize(new java.awt.Dimension(400, 100));
-        scrpanConcepto.setViewportView(texareConcepto);
-
-        labFormulario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labFormulario.setText("Formulario");
-        labFormulario.setName(" tituloFormulario"); // NOI18N
-
-        labMonto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labMonto.setText("Monto:");
-
-        labConcepto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labConcepto.setText("Concepto:");
+        labTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labTotal.setText("Total:");
 
         texfieDebe.setEditable(false);
         texfieDebe.setBackground(new java.awt.Color(255, 255, 255));
+
+        texfieHaber.setEditable(false);
+        texfieHaber.setBackground(new java.awt.Color(255, 255, 255));
 
         panAcciones.setBackground(new java.awt.Color(241, 248, 255));
         panAcciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
@@ -233,21 +256,6 @@ public class Formulario extends javax.swing.JPanel {
                 .addComponent(butExportarComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
-
-        labFecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labFecha.setText("Fecha:");
-
-        labNoCheque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labNoCheque.setText("<html>No.<br>Cheque</html>");
-
-        texfieMonto.setEditable(false);
-        texfieMonto.setBackground(new java.awt.Color(255, 255, 255));
-
-        texfieDiferencia.setEditable(false);
-        texfieDiferencia.setBackground(new java.awt.Color(255, 255, 255));
-
-        labDiferencia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labDiferencia.setText("Diferencia:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -363,7 +371,38 @@ public class Formulario extends javax.swing.JPanel {
         encabezado.setFont(new Font("Arial", Font.BOLD, 16));
         encabezado.setBackground(Color.decode("#1E88E5"));
         encabezado.setForeground(Color.WHITE);
+        
+        DefaultTableCellRenderer celdaRenderizador = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
+                if (!isSelected) {
+                    if (row % 2 == 0) {
+                        comp.setBackground(Color.decode("#F1F8FF"));
+                    } else {
+                        comp.setBackground(Color.WHITE); 
+                    }
+                } else {
+                    comp.setBackground(Color.decode("#BBDEFB")); 
+                }
+                
+                if (column == 1 || column == 2) {
+                    setHorizontalAlignment(SwingConstants.LEFT);
+                } else {
+                    setHorizontalAlignment(SwingConstants.CENTER);
+                }
+                
+                return comp;
+            }
+        };
+
+        for (Integer i = 0; i < tabRegistros.getColumnCount(); i++) {
+            tabRegistros.getColumnModel().getColumn(i).setCellRenderer(celdaRenderizador);
+        }
+        
+        tabRegistros.getColumnModel().getColumn(3).setMaxWidth(80);
         tabRegistros.setFont(new Font("Arial", Font.PLAIN, 14));
         tabRegistros.setRowHeight(25);
     }
@@ -390,8 +429,8 @@ public class Formulario extends javax.swing.JPanel {
         });
     }
     
-    // Escuchas de la tabla
-    private void listaSeleccionEscucha(ListSelectionEvent e) {
+    // Escuchadores de la tabla
+    private void listaSeleccionEscuchador(ListSelectionEvent e) {
         if (tabRegistros.getSelectedRow() != -1) {
             butEditarRegistro.setEnabled(true);
             butEliminarRegistro.setEnabled(true);
@@ -400,7 +439,7 @@ public class Formulario extends javax.swing.JPanel {
             butEliminarRegistro.setEnabled(false);
         }
     }
-    private void tablaModeloEscucha(TableModelEvent e) {
+    private void tablaModeloEscuchador(TableModelEvent e) {
         BigDecimal debeTotal = BigDecimal.ZERO.setScale(2);
         BigDecimal haberTotal = BigDecimal.ZERO.setScale(2);
         BigDecimal diferencia;
@@ -422,9 +461,10 @@ public class Formulario extends javax.swing.JPanel {
         texfieHaber.setText(haberTotal.toString());
     }
     
-    // Escuchas de los botones
+    // Escuchadores de los botones
     private void butAnadirRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirRegistroMouseClicked
-        RegistroVentana rv = new RegistroVentana(listaRegistro, tabRegistrosModelo, "AÑADIR REGISTRO", null);
+        RegistroVentana rv = new RegistroVentana(listaRegistro, tabRegistrosModelo, 
+                "Añadir Registro", null);
         rv.setLocationRelativeTo(this);
         rv.setVisible(true);
     }//GEN-LAST:event_butAnadirRegistroMouseClicked
@@ -433,7 +473,7 @@ public class Formulario extends javax.swing.JPanel {
         if (!listaSeleccionModelo.isSelectionEmpty()) {
             Integer filaRegistro = tabRegistros.getSelectedRow();
             RegistroVentana rv = new RegistroVentana(listaRegistro, tabRegistrosModelo,
-                    "EDITAR REGISTRO", filaRegistro);
+                    "Editar Registro", filaRegistro);
             rv.setLocationRelativeTo(this);
             rv.setVisible(true);
         } else {
@@ -444,20 +484,23 @@ public class Formulario extends javax.swing.JPanel {
     private void butEliminarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEliminarRegistroMouseClicked
         if (!listaSeleccionModelo.isSelectionEmpty()){
             Integer filaRegistro = tabRegistros.getSelectedRow();
-            tabRegistrosModelo.removeRow(filaRegistro);
-            listaRegistro.remove(listaRegistro.get(filaRegistro));
+            Integer confirmar = JOptionPane.showConfirmDialog(
+                this, "¿Está seguro de que desea eliminar este registro?",
+                "Confirmar eliminación", JOptionPane.YES_NO_OPTION
+            );
+            
+            if (confirmar == JOptionPane.YES_OPTION) {
+                tabRegistrosModelo.removeRow(filaRegistro);
+                listaRegistro.remove(listaRegistro.get(filaRegistro));
+                JOptionPane.showMessageDialog(this, "Registro eliminado exitosamente.");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un registro en la tabla");
         }
     }//GEN-LAST:event_butEliminarRegistroMouseClicked
 
     private void butGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarAsientoMouseClicked
-        try {
-            // Verificando si los campos estan vacíos
-            texfieNombre.getText().charAt(1);
-            texareConcepto.getText().charAt(1);
-            
-            // Guardado
+        if (validarDatos()) {
             Asiento asiento = Asiento.builder()
                     .fecha(LocalDate.parse(spiFecha.getValue().toString()))
                     .numeroCheque(texfieNoCheque.getText())
@@ -470,20 +513,30 @@ public class Formulario extends javax.swing.JPanel {
             });
             asiento.setRegistros(listaRegistro);
             
-            if (texfieDebe.getText().equals(texfieHaber.getText())) {
-                if (!asiento.getRegistros().isEmpty()) {
-                    AsientoRepo.save(asiento);   
-                } else {
-                    JOptionPane.showMessageDialog(this, "Este asiento no tiene registros");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "El asiento no está balanceado");
-            }  
-        } catch (IndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos");
+            AsientoRepo.save(asiento);   
+            JOptionPane.showMessageDialog(this, "Asiento guardado exitosamente.");
         }
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
-
+    
+    private Boolean validarDatos() {
+        if (texfieNombre.getText().isBlank() || texareConcepto.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos");
+            return false;
+        }
+        
+        if (!texfieDebe.getText().equals(texfieHaber.getText())) {
+            JOptionPane.showMessageDialog(this, "El asiento no está balanceado");
+            return false;
+        }
+        
+        if (listaRegistro.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Este asiento no tiene registros");
+            return false;
+        }
+        
+        return true;
+    }
+    
     private void butExportarFormularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butExportarFormularioMouseClicked
         PDFService pdf = new PDFService();
         pdf.noCheque = texfieNoCheque.getText();
