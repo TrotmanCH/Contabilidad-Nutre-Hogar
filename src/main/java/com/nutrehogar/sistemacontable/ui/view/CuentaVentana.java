@@ -40,7 +40,7 @@ public class CuentaVentana extends javax.swing.JFrame {
             listaTipoCuenta.add(tipoCuenta);
         });
         texfieTipoCuenta.setText(
-            listaTipoCuenta.get(0).getId() +  ". " +
+            listaTipoCuenta.get(0).getId() +  " " +
             listaTipoCuenta.get(0).getNombre()
         );
         
@@ -191,7 +191,7 @@ public class CuentaVentana extends javax.swing.JFrame {
         );
         TipoCuenta tipoCuenta = listaTipoCuenta.get(tipoCuentaId - 1);
         texfieTipoCuenta.setText(
-                tipoCuenta.getId() + ". " + tipoCuenta.getNombre()
+                tipoCuenta.getId() + " " + tipoCuenta.getNombre()
         );
     }
     
