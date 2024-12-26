@@ -8,11 +8,11 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.*;
 
-public class ListaCuenta extends javax.swing.JPanel {
+public class ListaCuentaPestana extends javax.swing.JPanel {
     DefaultTableModel tabCuentasModelo;
     ListSelectionModel listaSeleccionModelo;
     
-    public ListaCuenta() {
+    public ListaCuentaPestana() {
         initComponents();
         
         this.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -29,7 +29,7 @@ public class ListaCuenta extends javax.swing.JPanel {
         listaSeleccionModelo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         estilizarTabla();
-        estilizarBotones(butCrear, butEditar, butEliminar);  
+        estilizarBotones(butAnadir, butEditar, butEliminar);  
         
         for (Cuenta cuenta : CuentaRepo.findAll()) {
             tabCuentasModelo.addRow(new Object[] {
@@ -48,7 +48,7 @@ public class ListaCuenta extends javax.swing.JPanel {
         scrpanCuentas = new javax.swing.JScrollPane();
         tabCuentas = new javax.swing.JTable();
         panAcciones = new javax.swing.JPanel();
-        butCrear = new javax.swing.JButton();
+        butAnadir = new javax.swing.JButton();
         butEditar = new javax.swing.JButton();
         butEliminar = new javax.swing.JButton();
 
@@ -78,21 +78,21 @@ public class ListaCuenta extends javax.swing.JPanel {
         panAcciones.setBackground(new java.awt.Color(241, 248, 255));
         panAcciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
 
-        butCrear.setBackground(new java.awt.Color(242, 242, 242));
-        butCrear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        butCrear.setForeground(new java.awt.Color(255, 255, 255));
-        butCrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/anadir.png"))); // NOI18N
-        butCrear.setText("Crear");
-        butCrear.addActionListener(new java.awt.event.ActionListener() {
+        butAnadir.setBackground(new java.awt.Color(242, 242, 242));
+        butAnadir.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        butAnadir.setForeground(new java.awt.Color(255, 255, 255));
+        butAnadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/anadir.png"))); // NOI18N
+        butAnadir.setText("Anadir");
+        butAnadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butCrearActionPerformed(evt);
+                butAnadirActionPerformed(evt);
             }
         });
 
         butEditar.setBackground(new java.awt.Color(242, 242, 242));
         butEditar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butEditar.setForeground(new java.awt.Color(255, 255, 255));
-        butEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/editar1.png"))); // NOI18N
+        butEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/editar.png"))); // NOI18N
         butEditar.setText("Editar");
         butEditar.setEnabled(false);
         butEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +121,7 @@ public class ListaCuenta extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(butEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(butCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(butAnadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(butEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
         );
@@ -129,7 +129,7 @@ public class ListaCuenta extends javax.swing.JPanel {
             panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAccionesLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(butCrear)
+                .addComponent(butAnadir)
                 .addGap(11, 11, 11)
                 .addComponent(butEditar)
                 .addGap(11, 11, 11)
@@ -245,12 +245,12 @@ public class ListaCuenta extends javax.swing.JPanel {
     }
     
     // Escuchadores de los botones
-    private void butCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCrearActionPerformed
+    private void butAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnadirActionPerformed
         CuentaVentana cv = new CuentaVentana(tabCuentasModelo, "Crear Cuenta",
                 null, null); 
         cv.setLocationRelativeTo(null); 
         cv.setVisible(true);
-    }//GEN-LAST:event_butCrearActionPerformed
+    }//GEN-LAST:event_butAnadirActionPerformed
 
     private void butEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butEditarActionPerformed
         if (!listaSeleccionModelo.isSelectionEmpty()) {
@@ -286,7 +286,7 @@ public class ListaCuenta extends javax.swing.JPanel {
     }//GEN-LAST:event_butEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton butCrear;
+    private javax.swing.JButton butAnadir;
     private javax.swing.JButton butEditar;
     private javax.swing.JButton butEliminar;
     private javax.swing.JLabel labListaCuentas;

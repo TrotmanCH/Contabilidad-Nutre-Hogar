@@ -18,12 +18,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public class Formulario extends javax.swing.JPanel {
+public class FormularioPestana extends javax.swing.JPanel {
     List<Registro> listaRegistro = new ArrayList<>();
     DefaultTableModel tabRegistrosModelo;
     ListSelectionModel listaSeleccionModelo;
     
-    public Formulario() {
+    public FormularioPestana() {
         initComponents();
         
         this.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -176,7 +176,7 @@ public class Formulario extends javax.swing.JPanel {
 
         butEditarRegistro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butEditarRegistro.setForeground(new java.awt.Color(255, 255, 255));
-        butEditarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/editar1.png"))); // NOI18N
+        butEditarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/editar.png"))); // NOI18N
         butEditarRegistro.setEnabled(false);
         butEditarRegistro.setLabel("Editar Registro");
         butEditarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
