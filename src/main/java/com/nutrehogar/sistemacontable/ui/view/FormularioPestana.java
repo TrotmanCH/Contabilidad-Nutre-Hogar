@@ -375,7 +375,7 @@ public class FormularioPestana extends javax.swing.JPanel {
         
         listaSeleccionModelo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        Integer noDoc = AsientoRepo.count() +  1;
+        Integer noDoc = AsientoRepo.findAll().size() + 1;
         texfieNoDoc.setText(new DecimalFormat("000").format(noDoc));
         
         estilizarTabla();
