@@ -410,7 +410,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icon/editar1.png"/>
+              <Image iconType="3" name="/icon/editar.png"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="label" type="java.lang.String" value="Editar Registro"/>

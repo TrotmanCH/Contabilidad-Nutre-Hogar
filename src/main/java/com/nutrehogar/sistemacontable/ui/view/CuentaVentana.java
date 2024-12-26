@@ -45,10 +45,10 @@ public class CuentaVentana extends javax.swing.JFrame {
         );
         
         if (filaCuenta == null) {
-            butCrear.setVisible(true);
+            butAnadir.setVisible(true);
             butEditar.setVisible(false);
         } else {
-            butCrear.setVisible(false);
+            butAnadir.setVisible(false);
             butEditar.setVisible(true);
             
             texfieCodigo.setEnabled(false);
@@ -58,7 +58,7 @@ public class CuentaVentana extends javax.swing.JFrame {
         }
         
         labTitulo.setText(titulo);
-        estilizarBotones(butCrear, butEditar);
+        estilizarBotones(butAnadir, butEditar);
     }
 
     @SuppressWarnings("unchecked")
@@ -74,7 +74,7 @@ public class CuentaVentana extends javax.swing.JFrame {
         comboxSubtipoCuenta = new javax.swing.JComboBox<>();
         labTipoCuenta = new javax.swing.JLabel();
         texfieTipoCuenta = new javax.swing.JTextField();
-        butCrear = new javax.swing.JButton();
+        butAnadir = new javax.swing.JButton();
         butEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -98,12 +98,12 @@ public class CuentaVentana extends javax.swing.JFrame {
 
         texfieTipoCuenta.setEditable(false);
 
-        butCrear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        butCrear.setForeground(new java.awt.Color(255, 255, 255));
-        butCrear.setText("Crear");
-        butCrear.addMouseListener(new java.awt.event.MouseAdapter() {
+        butAnadir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        butAnadir.setForeground(new java.awt.Color(255, 255, 255));
+        butAnadir.setText("Añadir");
+        butAnadir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                butCrearMouseClicked(evt);
+                butAnadirMouseClicked(evt);
             }
         });
 
@@ -147,7 +147,7 @@ public class CuentaVentana extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(butCrear)
+                        .addComponent(butAnadir)
                         .addGap(32, 32, 32)
                         .addComponent(butEditar))
                     .addComponent(labTitulo))
@@ -176,7 +176,7 @@ public class CuentaVentana extends javax.swing.JFrame {
                     .addComponent(texfieTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(butCrear)
+                    .addComponent(butAnadir)
                     .addComponent(butEditar))
                 .addGap(20, 20, 20))
         );
@@ -231,7 +231,7 @@ public class CuentaVentana extends javax.swing.JFrame {
     }
     
     // Escuchadores de los botones
-    private void butCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butCrearMouseClicked
+    private void butAnadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirMouseClicked
         if (validarDatos()) {
             String id = texfieCodigo.getText();
             String nombre = texfieNombre.getText();
@@ -252,7 +252,7 @@ public class CuentaVentana extends javax.swing.JFrame {
             
             dispose();
         }
-    }//GEN-LAST:event_butCrearMouseClicked
+    }//GEN-LAST:event_butAnadirMouseClicked
 
     private void butEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarMouseClicked
         if (validarDatos()) {
@@ -308,7 +308,7 @@ public class CuentaVentana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton butCrear;
+    private javax.swing.JButton butAnadir;
     private javax.swing.JButton butEditar;
     private javax.swing.JComboBox<String> comboxSubtipoCuenta;
     private javax.swing.JLabel labCodigo;
