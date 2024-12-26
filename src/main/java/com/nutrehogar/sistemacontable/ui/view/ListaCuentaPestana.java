@@ -54,9 +54,10 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(241, 248, 255));
 
-        labListaCuentas.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        labListaCuentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         labListaCuentas.setText("Lista de Cuentas");
 
+        tabCuentas.setAutoCreateRowSorter(true);
         tabCuentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -148,9 +149,9 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
                 .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(314, Short.MAX_VALUE)
+                .addContainerGap(319, Short.MAX_VALUE)
                 .addComponent(labListaCuentas)
-                .addContainerGap(335, Short.MAX_VALUE))
+                .addContainerGap(340, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,13 +160,13 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
                 .addComponent(labListaCuentas)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(20, 20, 20)
                         .addComponent(scrpanCuentas)
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                         .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(148, Short.MAX_VALUE))))
+                        .addContainerGap(147, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
     

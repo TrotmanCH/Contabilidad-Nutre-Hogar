@@ -86,7 +86,7 @@ public class FormularioPestana extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(241, 248, 255));
 
-        labFormulario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labFormulario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         labFormulario.setText("Formulario");
         labFormulario.setName(" tituloFormulario"); // NOI18N
 
@@ -107,7 +107,7 @@ public class FormularioPestana extends javax.swing.JPanel {
         scrpanConcepto.setViewportView(texareConcepto);
 
         labNoCheque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labNoCheque.setText("<html>No.<br>Cheque</html>");
+        labNoCheque.setText("<html>No.<br>Cheque:</html>");
 
         labFecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labFecha.setText("Fecha:");
@@ -278,7 +278,7 @@ public class FormularioPestana extends javax.swing.JPanel {
                                 .addComponent(labConcepto)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(scrpanConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(33, 33, 33)
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +292,7 @@ public class FormularioPestana extends javax.swing.JPanel {
                             .addComponent(labNoDoc)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labMonto)
-                                .addGap(22, 22, 22)
+                                .addGap(27, 27, 27)
                                 .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -314,9 +314,9 @@ public class FormularioPestana extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(20, 20, 20)
                 .addComponent(labFormulario)
-                .addGap(30, 30, 30)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)

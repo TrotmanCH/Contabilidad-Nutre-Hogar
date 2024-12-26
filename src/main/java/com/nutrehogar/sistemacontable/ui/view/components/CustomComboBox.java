@@ -38,11 +38,11 @@ public class CustomComboBox<E> extends JComboBox<E> {
                                                       boolean cellHasFocus) {
             var label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof TipoCuenta tipoCuenta) {
-                label.setText(tipoCuenta.getId() + " - " + tipoCuenta.name().toLowerCase());
+                label.setText(tipoCuenta.getId() + " " + tipoCuenta.name());
             } else if (value instanceof SubTipoCuenta tipoCuenta) {
-                label.setText(tipoCuenta.getId() + " - " + tipoCuenta.getNombre().toLowerCase());
+                label.setText(tipoCuenta.getId() + " " + tipoCuenta.getNombre());
             } else if (value instanceof Cuenta cuenta) {
-                label.setText(cuenta.getId() + " - " + cuenta.getNombre());
+                label.setText(cuenta.getId() + " " + cuenta.getNombre());
             }
             return label;
         }

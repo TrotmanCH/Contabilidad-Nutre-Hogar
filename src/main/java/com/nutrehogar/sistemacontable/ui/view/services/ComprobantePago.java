@@ -144,7 +144,7 @@ public class ComprobantePago extends javax.swing.JFrame {
 
         labNoCheque.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
         labNoCheque.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labNoCheque.setText("<html>No.<br>Cheque</html>");
+        labNoCheque.setText("<html>No.<br>Cheque:</html>");
         getContentPane().add(labNoCheque);
         labNoCheque.setBounds(410, 50, 70, 40);
 

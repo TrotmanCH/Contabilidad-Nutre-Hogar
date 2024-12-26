@@ -40,7 +40,7 @@ public class CuentaVentana extends javax.swing.JFrame {
             listaTipoCuenta.add(tipoCuenta);
         });
         texfieTipoCuenta.setText(
-            listaTipoCuenta.get(0).getId() +  ". " +
+            listaTipoCuenta.get(0).getId() +  " " +
             listaTipoCuenta.get(0).getNombre()
         );
         
@@ -78,10 +78,9 @@ public class CuentaVentana extends javax.swing.JFrame {
         butEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nueva Cuenta");
         setResizable(false);
 
-        labTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         labTitulo.setText("Titulo");
 
         labCodigo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -145,12 +144,13 @@ public class CuentaVentana extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(butAnadir)
-                        .addGap(32, 32, 32)
-                        .addComponent(butEditar))
-                    .addComponent(labTitulo))
+                .addComponent(butAnadir)
+                .addGap(32, 32, 32)
+                .addComponent(butEditar)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labTitulo)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -191,7 +191,7 @@ public class CuentaVentana extends javax.swing.JFrame {
         );
         TipoCuenta tipoCuenta = listaTipoCuenta.get(tipoCuentaId - 1);
         texfieTipoCuenta.setText(
-                tipoCuenta.getId() + ". " + tipoCuenta.getNombre()
+                tipoCuenta.getId() + " " + tipoCuenta.getNombre()
         );
     }
     
