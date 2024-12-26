@@ -24,31 +24,7 @@ public class FormularioPestana extends javax.swing.JPanel {
     ListSelectionModel listaSeleccionModelo;
     
     public FormularioPestana() {
-        initComponents();
-        
-        this.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabRegistros.clearSelection();
-            }
-        });
-        
-        tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
-        listaSeleccionModelo = tabRegistros.getSelectionModel();
-        
-        tabRegistrosModelo.addTableModelListener(this::tablaModeloEscuchador);
-        listaSeleccionModelo.addListSelectionListener(this::listaSeleccionEscuchador);
-        
-        listaSeleccionModelo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        Integer noDoc = AsientoRepo.count() +  1;
-        texfieNoDoc.setText(new DecimalFormat("000").format(noDoc));
-        
-        estilizarTabla();
-        estilizarBotones(butAnadirRegistro, butEditarRegistro, 
-                butEliminarRegistro, butGuardarAsiento,
-                butExportarFormulario, butExportarComprobante
-        );     
+        metodoConstructor();
     }
     
     @SuppressWarnings("unchecked")
@@ -83,6 +59,7 @@ public class FormularioPestana extends javax.swing.JPanel {
         butGuardarAsiento = new javax.swing.JButton();
         butExportarFormulario = new javax.swing.JButton();
         butExportarComprobante = new javax.swing.JButton();
+        butLimpiarFormulario = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(241, 248, 255));
 
@@ -126,17 +103,16 @@ public class FormularioPestana extends javax.swing.JPanel {
         texfieNoDoc.setEditable(false);
         texfieNoDoc.setBackground(new java.awt.Color(255, 255, 255));
 
-        tabRegistros.setAutoCreateRowSorter(true);
         tabRegistros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tipo de Doc.", "No. Cheque o Comp.", "Referencia", "Código", "Debe", "Haber"
+                "Tipo de Doc.", "No. Comp.", "Referencia", "Código", "Debe", "Haber"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -224,19 +200,33 @@ public class FormularioPestana extends javax.swing.JPanel {
             }
         });
 
+        butLimpiarFormulario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        butLimpiarFormulario.setForeground(new java.awt.Color(255, 255, 255));
+        butLimpiarFormulario.setText("Limpiar Formulario");
+        butLimpiarFormulario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                butLimpiarFormularioMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panAccionesLayout = new javax.swing.GroupLayout(panAcciones);
         panAcciones.setLayout(panAccionesLayout);
         panAccionesLayout.setHorizontalGroup(
             panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panAccionesLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
                 .addGroup(panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(butAnadirRegistro)
-                    .addComponent(butEliminarRegistro)
-                    .addComponent(butEditarRegistro)
-                    .addComponent(butGuardarAsiento)
-                    .addComponent(butExportarFormulario)
-                    .addComponent(butExportarComprobante))
+                    .addGroup(panAccionesLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(butAnadirRegistro)
+                            .addComponent(butEliminarRegistro)
+                            .addComponent(butEditarRegistro)
+                            .addComponent(butGuardarAsiento)
+                            .addComponent(butExportarFormulario)
+                            .addComponent(butExportarComprobante)))
+                    .addGroup(panAccionesLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(butLimpiarFormulario)))
                 .addGap(12, 12, 12))
         );
         panAccionesLayout.setVerticalGroup(
@@ -244,16 +234,18 @@ public class FormularioPestana extends javax.swing.JPanel {
             .addGroup(panAccionesLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(butAnadirRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(butEditarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(butEliminarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
                 .addComponent(butGuardarAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
                 .addComponent(butExportarFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(butExportarComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(butLimpiarFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
 
@@ -358,11 +350,41 @@ public class FormularioPestana extends javax.swing.JPanel {
                         .addComponent(labTotal)))
                 .addGap(20, 20, 20))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+    
+    // metodo para generar contenido del frame
+    private void metodoConstructor() {
+        initComponents();
+        
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabRegistros.clearSelection();
+            }
+        });
+        
+        tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
+        listaSeleccionModelo = tabRegistros.getSelectionModel();
+        
+        tabRegistrosModelo.addTableModelListener(this::tablaModeloEscuchador);
+        listaSeleccionModelo.addListSelectionListener(this::listaSeleccionEscuchador);
+        
+        listaSeleccionModelo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        Integer noDoc = AsientoRepo.findAll().size() + 1;
+        texfieNoDoc.setText(new DecimalFormat("000").format(noDoc));
+        
+        estilizarTabla();
+        estilizarBotones(butAnadirRegistro, butEditarRegistro, 
+                butEliminarRegistro, butGuardarAsiento,
+                butExportarFormulario, butExportarComprobante,
+                butLimpiarFormulario
+        );  
+    }
     
     // Estilo de los componentes
     private void estilizarTabla() {
@@ -538,22 +560,21 @@ public class FormularioPestana extends javax.swing.JPanel {
         return true;
     }
     
+    // Escuchadores para generar PDFs
     private void butExportarFormularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butExportarFormularioMouseClicked
         PDFService pdf = new PDFService();
-        pdf.noCheque = texfieNoCheque.getText();
-        pdf.fecha = spiFecha.getValue().toString();
-        pdf.monto = texfieMonto.getText();
-        pdf.noDoc = texfieNoDoc.getText();
-        pdf.nombre = texfieNombre.getText();
-        pdf.concepto = texareConcepto.getText();
-        pdf.debe = texfieDebe.getText();
-        pdf.haber = texfieHaber.getText();
-        pdf.registros = tabRegistrosModelo;
+        prepararPDF(pdf);
         pdf.exportarFormulario();
     }//GEN-LAST:event_butExportarFormularioMouseClicked
 
     private void butExportarComprobanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butExportarComprobanteMouseClicked
         PDFService pdf = new PDFService();
+        prepararPDF(pdf);
+        pdf.exportarComprobante();
+    }//GEN-LAST:event_butExportarComprobanteMouseClicked
+    
+    // Obtencion de datos para el pdf
+    private void prepararPDF(PDFService pdf) {
         pdf.noCheque = texfieNoCheque.getText();
         pdf.fecha = spiFecha.getValue().toString();
         pdf.monto = texfieMonto.getText();
@@ -563,8 +584,20 @@ public class FormularioPestana extends javax.swing.JPanel {
         pdf.debe = texfieDebe.getText();
         pdf.haber = texfieHaber.getText();
         pdf.registros = tabRegistrosModelo;
-        pdf.exportarComprobante();
-    }//GEN-LAST:event_butExportarComprobanteMouseClicked
+    }
+    
+    // Escuchador para limpiar  el formulario
+    private void butLimpiarFormularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butLimpiarFormularioMouseClicked
+        Integer confirmar = JOptionPane.showConfirmDialog(
+            this, "¿Está seguro de que desea vaciar todos los campos?",
+            "Limpiar formulario", JOptionPane.YES_NO_OPTION
+        );
+            
+        if (confirmar == JOptionPane.YES_OPTION) {
+            removeAll();
+            metodoConstructor();
+        }
+    }//GEN-LAST:event_butLimpiarFormularioMouseClicked
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAnadirRegistro;
@@ -573,6 +606,7 @@ public class FormularioPestana extends javax.swing.JPanel {
     private javax.swing.JButton butExportarComprobante;
     private javax.swing.JButton butExportarFormulario;
     private javax.swing.JButton butGuardarAsiento;
+    private javax.swing.JButton butLimpiarFormulario;
     private javax.swing.JLabel labConcepto;
     private javax.swing.JLabel labDiferencia;
     private javax.swing.JLabel labFecha;
