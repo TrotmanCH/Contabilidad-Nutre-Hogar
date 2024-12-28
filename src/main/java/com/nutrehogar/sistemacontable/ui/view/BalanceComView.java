@@ -1,27 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.nutrehogar.sistemacontable.ui.view;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
+import com.nutrehogar.sistemacontable.ui.styles.*;
 import lombok.Getter;
 import lombok.Setter;
-/**
- *
- * @author Jayson
- */
+
 @Getter
 @Setter
 
@@ -29,27 +11,74 @@ public class BalanceComView extends javax.swing.JPanel {
     public BalanceComView() {
         initComponents();
         
-        customizeTable();
-            estilizarBoton(btnFiltrar, 120, 50); 
+        new TableStyle(tabRegistros);
+        new ButtonStyle(butFiltrar);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        BalanceComTabla = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        startSpinnerDate = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
-        endSpinnerDate = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
-        btnFiltrar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labBalanceComprobacion = new javax.swing.JLabel();
+        panFiltros = new javax.swing.JPanel();
+        labInicio = new javax.swing.JLabel();
+        spiInicio = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        labFin = new javax.swing.JLabel();
+        spiFin = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        butFiltrar = new javax.swing.JButton();
+        scrpanRegistros = new javax.swing.JScrollPane();
+        tabRegistros = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(241, 248, 255));
 
-        BalanceComTabla.setModel(new javax.swing.table.DefaultTableModel(
+        labBalanceComprobacion.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labBalanceComprobacion.setText("Balance de Comprobación");
+
+        panFiltros.setBackground(new java.awt.Color(241, 248, 255));
+        panFiltros.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros"));
+
+        labInicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labInicio.setText("Inicio:");
+
+        labFin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labFin.setText("Fin:");
+
+        butFiltrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        butFiltrar.setForeground(new java.awt.Color(255, 255, 255));
+        butFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/filtrar.png"))); // NOI18N
+        butFiltrar.setText("Filtrar");
+
+        javax.swing.GroupLayout panFiltrosLayout = new javax.swing.GroupLayout(panFiltros);
+        panFiltros.setLayout(panFiltrosLayout);
+        panFiltrosLayout.setHorizontalGroup(
+            panFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panFiltrosLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(labInicio)
+                .addGap(12, 12, 12)
+                .addComponent(spiInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(labFin)
+                .addGap(12, 12, 12)
+                .addComponent(spiFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(butFiltrar)
+                .addGap(12, 12, 12))
+        );
+        panFiltrosLayout.setVerticalGroup(
+            panFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panFiltrosLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(panFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spiInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labInicio)
+                    .addComponent(labFin)
+                    .addComponent(spiFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(butFiltrar))
+                .addGap(12, 12, 12))
+        );
+
+        tabRegistros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -57,54 +86,7 @@ public class BalanceComView extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane1.setViewportView(BalanceComTabla);
-
-        jPanel1.setBackground(new java.awt.Color(241, 248, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros"));
-
-        btnFiltrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/filtrar.png"))); // NOI18N
-        btnFiltrar.setText("Filtrar");
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Inicio:");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Fin:");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel1)
-                .addGap(12, 12, 12)
-                .addComponent(startSpinnerDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel2)
-                .addGap(12, 12, 12)
-                .addComponent(endSpinnerDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(btnFiltrar)
-                .addGap(12, 12, 12))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(startSpinnerDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(endSpinnerDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFiltrar))
-                .addGap(12, 12, 12))
-        );
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setText("Balance de Comprobación");
+        scrpanRegistros.setViewportView(tabRegistros);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -112,107 +94,39 @@ public class BalanceComView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane1)
+                .addComponent(scrpanRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(panFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(125, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labBalanceComprobacion)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel3)
                 .addGap(20, 20, 20)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labBalanceComprobacion)
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                .addComponent(panFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(scrpanRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
-private void customizeTable() {
-   
-    JTableHeader header = BalanceComTabla.getTableHeader();
-    header.setFont(new Font("Arial", Font.BOLD, 16));
-    header.setBackground(Color.decode("#1E88E5"));
-    header.setForeground(Color.WHITE);
-
-    DefaultTableCellRenderer rowRenderer = new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                                                       boolean isSelected, boolean hasFocus,
-                                                       int row, int column) {
-            Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            // Alternar colores de las filas
-            if (!isSelected) {
-                setBackground(row % 2 == 0 ? new Color(224, 255, 255) : Color.WHITE); 
-                setForeground(Color.BLACK);
-            } else {
-                setBackground(new Color(30, 144, 255)); 
-                setForeground(Color.WHITE);
-            }
-            return cell;
-        }
-    };
-
-    
-    for (int i = 0; i < BalanceComTabla.getColumnCount(); i++) {
-        BalanceComTabla.getColumnModel().getColumn(i).setCellRenderer(rowRenderer);
-    }
-
-  
-    BalanceComTabla.setFont(new Font("Arial", Font.PLAIN, 14));
-    BalanceComTabla.setRowHeight(25);
-
- 
-}
-private void estilizarBoton(JButton boton, int ancho, int alto) {
-
-    boton.setPreferredSize(new Dimension(ancho, alto));
-
-    boton.setContentAreaFilled(false); 
-    boton.setFocusPainted(false);      
-    boton.setBorderPainted(false);    
-
-  
-    boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
-        @Override
-        public void paint(Graphics g, JComponent c) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-      
-        g2d.setColor(Color.decode("#1E88E5")); 
- 
-            g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
-
-            
-            g2d.setColor(new Color(30, 144, 255));
-            g2d.drawRoundRect(0, 0, c.getWidth() - 1, c.getHeight() - 1, 25, 25);
-
-            g2d.dispose();
-
-           
-            super.paint(g, c);
-        }
-    });
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable BalanceComTabla;
-    private javax.swing.JButton btnFiltrar;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner endSpinnerDate;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner startSpinnerDate;
+    private javax.swing.JButton butFiltrar;
+    private javax.swing.JLabel labBalanceComprobacion;
+    private javax.swing.JLabel labFin;
+    private javax.swing.JLabel labInicio;
+    private javax.swing.JPanel panFiltros;
+    private javax.swing.JScrollPane scrpanRegistros;
+    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFin;
+    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiInicio;
+    private javax.swing.JTable tabRegistros;
     // End of variables declaration//GEN-END:variables
 }

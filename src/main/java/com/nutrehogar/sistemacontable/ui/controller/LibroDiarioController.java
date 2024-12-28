@@ -17,12 +17,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
-
-/**
- * @author Calcifer1331
- */
-
 @FieldDefaults(level = AccessLevel.PRIVATE)
+
 public class LibroDiarioController {
     static LibroDiarioController instance;
     @Getter
@@ -42,10 +38,10 @@ public class LibroDiarioController {
 
     private LibroDiarioController() {
         view = new LibroDiarioView();
-        libroDiarioTable = view.getTableLibro();
-        starDateSpinner = view.getStarDateSpinner();
-        endDateSpinner = view.getEndDateSpinner();
-        btnFilter = view.getBtnFilter();
+        libroDiarioTable = view.getTabRegistros();
+        starDateSpinner = view.getSpiInicio();
+        endDateSpinner = view.getSpiFin();
+        btnFilter = view.getButFiltrar();
         libroDiarioTableModel = new LibroDiarioTableModel();
         libroDiarioTable.setModel(libroDiarioTableModel);
         initialize();

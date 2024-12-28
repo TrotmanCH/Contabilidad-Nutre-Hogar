@@ -383,22 +383,15 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="butAnadirRegistro" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="butEliminarRegistro" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="butEditarRegistro" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="butGuardarAsiento" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="butExportarFormulario" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="butExportarComprobante" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="butLimpiarFormulario" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="butAnadirRegistro" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="butEliminarRegistro" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="butEditarRegistro" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="butGuardarAsiento" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="butExportarFormulario" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="butExportarComprobante" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="butLimpiarFormulario" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
