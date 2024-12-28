@@ -13,6 +13,7 @@ public class SistemaContable extends javax.swing.JFrame {
     BalanceComView balanceComprobacion = BalanceComController.getInstance().getView();
     MayorGenView mayorGeneral = MayorGenController.getInstance().getView();
     ListaCuentaPestana listaCuenta = new ListaCuentaPestana();
+    ListaSubTipoCuentaPestana listaSubtipoCuenta = new ListaSubTipoCuentaPestana();
     
     public SistemaContable() {
         initComponents(); 
@@ -21,8 +22,8 @@ public class SistemaContable extends javax.swing.JFrame {
         panContenido.setLayout(new BorderLayout());
         mostrarPestana(formulario);
         
-        estilizarBotones(butFormulario, butBalanceComprobacion,
-                butLibroDiario,butMayorGeneral, butListaCuentas
+        estilizarBotones(butFormulario, butBalanceComprobacion, butLibroDiario,
+                butMayorGeneral, butListaCuentas, butListaSubtipoCuentas
         );
     }
     
@@ -57,6 +58,7 @@ public class SistemaContable extends javax.swing.JFrame {
         butBalanceComprobacion = new javax.swing.JButton();
         butMayorGeneral = new javax.swing.JButton();
         butListaCuentas = new javax.swing.JButton();
+        butListaSubtipoCuentas = new javax.swing.JButton();
         labOcultarMenu = new javax.swing.JLabel();
         panContenido = new javax.swing.JPanel();
 
@@ -130,6 +132,18 @@ public class SistemaContable extends javax.swing.JFrame {
             }
         });
 
+        butListaSubtipoCuentas.setBackground(new java.awt.Color(30, 136, 229));
+        butListaSubtipoCuentas.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        butListaSubtipoCuentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/lista_cuentas.png"))); // NOI18N
+        butListaSubtipoCuentas.setText("Lista Subtipos de Cuentas");
+        butListaSubtipoCuentas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        butListaSubtipoCuentas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        butListaSubtipoCuentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butListaSubtipoCuentasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panMenuLayout = new javax.swing.GroupLayout(panMenu);
         panMenu.setLayout(panMenuLayout);
         panMenuLayout.setHorizontalGroup(
@@ -142,7 +156,8 @@ public class SistemaContable extends javax.swing.JFrame {
                     .addComponent(butLibroDiario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(butFormulario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(butListaCuentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(butListaCuentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(butListaSubtipoCuentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panMenuLayout.setVerticalGroup(
@@ -160,7 +175,9 @@ public class SistemaContable extends javax.swing.JFrame {
                 .addComponent(butMayorGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(butListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(butListaSubtipoCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         labOcultarMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/menu_ocultar.png"))); // NOI18N
@@ -177,7 +194,7 @@ public class SistemaContable extends javax.swing.JFrame {
         panContenido.setLayout(panContenidoLayout);
         panContenidoLayout.setHorizontalGroup(
             panContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 813, Short.MAX_VALUE)
+            .addGap(0, 812, Short.MAX_VALUE)
         );
         panContenidoLayout.setVerticalGroup(
             panContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,17 +210,17 @@ public class SistemaContable extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(labOcultarMenu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
+                .addComponent(panContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 812, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+            .addComponent(panContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(232, Short.MAX_VALUE)
+                .addContainerGap(260, Short.MAX_VALUE)
                 .addComponent(labOcultarMenu)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,6 +246,10 @@ public class SistemaContable extends javax.swing.JFrame {
     private void butListaCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butListaCuentasActionPerformed
         mostrarPestana(listaCuenta);
     }//GEN-LAST:event_butListaCuentasActionPerformed
+    
+    private void butListaSubtipoCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butListaSubtipoCuentasActionPerformed
+        mostrarPestana(listaSubtipoCuenta);
+    }//GEN-LAST:event_butListaSubtipoCuentasActionPerformed
 
     // Escuchador de labOcultarMenu
     private void labOcultarMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labOcultarMenuMouseClicked
@@ -272,6 +293,7 @@ public class SistemaContable extends javax.swing.JFrame {
     private javax.swing.JButton butFormulario;
     private javax.swing.JButton butLibroDiario;
     private javax.swing.JButton butListaCuentas;
+    private javax.swing.JButton butListaSubtipoCuentas;
     private javax.swing.JButton butMayorGeneral;
     private javax.swing.JLabel labLogo;
     private javax.swing.JLabel labOcultarMenu;
