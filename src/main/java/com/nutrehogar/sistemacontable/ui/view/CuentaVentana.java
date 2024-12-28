@@ -6,10 +6,9 @@ import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.domain.repository.SubTipoCuentaRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoCuentaRepo;
-import java.awt.*;
+import com.nutrehogar.sistemacontable.ui.styles.ButtonStyle;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -58,7 +57,7 @@ public class CuentaVentana extends javax.swing.JFrame {
         }
         
         labTitulo.setText(titulo);
-        estilizarBotones(butAnadir, butEditar);
+        new ButtonStyle(butAnadir, butEditar);
     }
 
     @SuppressWarnings("unchecked")
@@ -194,30 +193,7 @@ public class CuentaVentana extends javax.swing.JFrame {
                 tipoCuenta.getId() + " " + tipoCuenta.getNombre()
         );
     }
-    
-    // Estilo de los botones
-    private void estilizarBotones(JButton... botones) {
-        Arrays.asList(botones).forEach((boton) -> {
-            boton.setPreferredSize(new Dimension(120, 50));
-            boton.setContentAreaFilled(false);
-            boton.setFocusPainted(false);
-            boton.setBorderPainted(false);
-
-            boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
-                @Override
-                public void paint(Graphics g, JComponent c) {
-                    Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2d.setColor(Color.decode("#1E88E5"));
-                    g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
-                    g2d.dispose();
-
-                    super.paint(g, c);
-                }
-            }); 
-        });
-    }
-    
+        
     // Llenado de campos de la cuenta a acutalizar
     private void llenarCampos() {
         texfieCodigo.setText(cuenta.getId());
