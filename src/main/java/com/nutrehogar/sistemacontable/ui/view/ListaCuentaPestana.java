@@ -2,11 +2,11 @@ package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
-import java.awt.*;
-import java.util.Arrays;
+import com.nutrehogar.sistemacontable.ui.styles.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.table.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class ListaCuentaPestana extends javax.swing.JPanel {
     DefaultTableModel tabCuentasModelo;
@@ -28,8 +28,7 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
         listaSeleccionModelo.addListSelectionListener(this::listaSeleccionEscuchador);
         listaSeleccionModelo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        estilizarTabla();
-        estilizarBotones(butAnadir, butEditar, butEliminar);  
+        estilizarComponentes();
         
         for (Cuenta cuenta : CuentaRepo.findAll()) {
             tabCuentasModelo.addRow(new Object[] {
@@ -75,6 +74,12 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
             }
         });
         scrpanCuentas.setViewportView(tabCuentas);
+        if (tabCuentas.getColumnModel().getColumnCount() > 0) {
+            tabCuentas.getColumnModel().getColumn(0).setHeaderValue("Código");
+            tabCuentas.getColumnModel().getColumn(1).setHeaderValue("Nombre");
+            tabCuentas.getColumnModel().getColumn(2).setHeaderValue("Tipo de Cuenta");
+            tabCuentas.getColumnModel().getColumn(3).setHeaderValue("Subtipo de Cuenta");
+        }
 
         panAcciones.setBackground(new java.awt.Color(241, 248, 255));
         panAcciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
@@ -84,6 +89,7 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
         butAnadir.setForeground(new java.awt.Color(255, 255, 255));
         butAnadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/anadir.png"))); // NOI18N
         butAnadir.setText("Anadir");
+        butAnadir.setPreferredSize(new java.awt.Dimension(139, 42));
         butAnadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butAnadirActionPerformed(evt);
@@ -130,7 +136,7 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
             panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAccionesLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(butAnadir)
+                .addComponent(butAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(butEditar)
                 .addGap(11, 11, 11)
@@ -171,67 +177,15 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     // Estilo de los componentes
-    private void estilizarTabla() {
-        JTableHeader header = tabCuentas.getTableHeader();
-        header.setFont(new Font("Arial", Font.BOLD, 16));
-        header.setBackground(Color.decode("#1E88E5"));
-        header.setForeground(Color.WHITE);
-
-        DefaultTableCellRenderer celdaRenderizador = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                                boolean isSelected, boolean hasFocus, int row, int column) {
-                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                if (!isSelected) {
-                    if (row % 2 == 0) {
-                        comp.setBackground(Color.decode("#F1F8FF"));
-                    } else {
-                        comp.setBackground(Color.WHITE); 
-                    }
-                } else {
-                    comp.setBackground(Color.decode("#BBDEFB")); 
-                }
-                
-                if (column == 1) {
-                    setHorizontalAlignment(SwingConstants.LEFT);
-                } else {
-                    setHorizontalAlignment(SwingConstants.CENTER);
-                }
-                
-                return comp;
-            }
-        };
-
-        for (int i = 0; i < tabCuentas.getColumnCount(); i++) {
-            tabCuentas.getColumnModel().getColumn(i).setCellRenderer(celdaRenderizador);
-        }
+    private void estilizarComponentes() {
+        new TableStyle(tabCuentas); // Tabla
         
+        // Columnas especificas
         tabCuentas.getColumnModel().getColumn(0).setMaxWidth(80);
-        tabCuentas.setFont(new Font("Arial", Font.PLAIN, 14));
-        tabCuentas.setRowHeight(25);
-    }
-    
-    private void estilizarBotones(JButton... botones) {
-        Arrays.asList(botones).forEach((boton) -> {
-            boton.setPreferredSize(new Dimension(120, 50));
-            boton.setContentAreaFilled(false); 
-            boton.setFocusPainted(false);      
-            boton.setBorderPainted(false);
-            
-            boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
-                @Override
-                public void paint(Graphics g, JComponent c) {
-                    Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2d.setColor(Color.decode("#1E88E5")); 
-                    g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
-                    g2d.dispose();
-
-                    super.paint(g, c);
-                }
-            });
-        });
+        ((DefaultTableCellRenderer) tabCuentas.getColumnModel().getColumn(1).getCellRenderer())
+                .setHorizontalAlignment(SwingConstants.LEFT);
+        
+        new ButtonStyle(butAnadir, butEditar, butEliminar);  // Botones
     }
     
     // Escuchador de tabCuentas

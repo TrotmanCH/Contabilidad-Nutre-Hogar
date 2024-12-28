@@ -24,14 +24,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
-
-/**
- * Controlador de la vista del Mayor General
- *
- * @author Calcifer1331
- */
-
 @FieldDefaults(level = AccessLevel.PRIVATE)
+
 public class MayorGenController {
     static MayorGenController instance;
     @Getter
@@ -50,8 +44,8 @@ public class MayorGenController {
     private MayorGenController() {
         view = new MayorGenView();
         this.tableModel = new MayorGenTableModel();
-        this.starSpinnerModel = view.getStarDateSpinner().getCustomModel();
-        this.endSpinnerModel = view.getEndDateSpinner().getCustomModel();
+        this.starSpinnerModel = view.getSpiInicio().getCustomModel();
+        this.endSpinnerModel = view.getSpiFin().getCustomModel();
         this.tipoCuentaComboModel = new TipoCuentaComboBoxModel();
         this.subTipoCuentaComboModel = new SubTipoCuentaComboBoxModel(List.of());
         this.cuentaComboModel = new CuentaComboBoxModel(List.of());
@@ -66,11 +60,11 @@ public class MayorGenController {
     }
 
     private void initComponents() {
-        view.getMayorGenTable().setModel(tableModel);
-        view.getComTipoCuenta().setModel(tipoCuentaComboModel);
-        view.getComSubTipoCuenta().setModel(subTipoCuentaComboModel);
-        view.getComCuenta().setModel(cuentaComboModel);
-        view.getBtnFilter().addActionListener(e -> loadData());
+        view.getTabRegistros().setModel(tableModel);
+        view.getComboxTipoCuenta().setModel(tipoCuentaComboModel);
+        view.getComboxSubtipoCuenta().setModel(subTipoCuentaComboModel);
+        view.getComboxCuenta().setModel(cuentaComboModel);
+        view.getButFiltrar().addActionListener(e -> loadData());
 
         restarDateToSpinners(starSpinnerModel, endSpinnerModel);
 

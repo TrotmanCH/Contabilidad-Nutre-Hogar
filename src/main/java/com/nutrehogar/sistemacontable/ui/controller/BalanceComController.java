@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.nutrehogar.sistemacontable.ui.controller;
 
 import com.nutrehogar.sistemacontable.application.dto.BalanceComDTO;
@@ -28,12 +24,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
-
 @FieldDefaults(level = AccessLevel.PRIVATE)
-/**
- *
- * @author Jayson
- */
+
 public class BalanceComController {
     static BalanceComController instance;
     @Getter
@@ -46,10 +38,10 @@ public class BalanceComController {
 
     private BalanceComController() {
         view = new BalanceComView();
-        table = view.getBalanceComTabla();
-        starDateSpinner = view.getStartSpinnerDate();
-        endDateSpinner = view.getEndSpinnerDate();
-        view.getBtnFiltrar().addActionListener(e -> {
+        table = view.getTabRegistros();
+        starDateSpinner = view.getSpiInicio();
+        endDateSpinner = view.getSpiFin();
+        view.getButFiltrar().addActionListener(e -> {
             loadData();
         });
         tableModel = new BalanceComTableModel();

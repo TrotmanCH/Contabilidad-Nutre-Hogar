@@ -4,19 +4,17 @@ import com.nutrehogar.sistemacontable.application.service.PDFService;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.domain.repository.AsientoRepo;
-import java.awt.*;
+import com.nutrehogar.sistemacontable.ui.styles.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 
 public class FormularioPestana extends javax.swing.JPanel {
     List<Registro> listaRegistro = new ArrayList<>();
@@ -214,19 +212,15 @@ public class FormularioPestana extends javax.swing.JPanel {
         panAccionesLayout.setHorizontalGroup(
             panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panAccionesLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addGroup(panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panAccionesLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(butAnadirRegistro)
-                            .addComponent(butEliminarRegistro)
-                            .addComponent(butEditarRegistro)
-                            .addComponent(butGuardarAsiento)
-                            .addComponent(butExportarFormulario)
-                            .addComponent(butExportarComprobante)))
-                    .addGroup(panAccionesLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(butLimpiarFormulario)))
+                    .addComponent(butAnadirRegistro)
+                    .addComponent(butEliminarRegistro)
+                    .addComponent(butEditarRegistro)
+                    .addComponent(butGuardarAsiento)
+                    .addComponent(butExportarFormulario)
+                    .addComponent(butExportarComprobante)
+                    .addComponent(butLimpiarFormulario))
                 .addGap(12, 12, 12))
         );
         panAccionesLayout.setVerticalGroup(
@@ -378,77 +372,25 @@ public class FormularioPestana extends javax.swing.JPanel {
         Integer noDoc = AsientoRepo.findAll().size() + 1;
         texfieNoDoc.setText(new DecimalFormat("000").format(noDoc));
         
-        estilizarTabla();
-        estilizarBotones(butAnadirRegistro, butEditarRegistro, 
-                butEliminarRegistro, butGuardarAsiento,
-                butExportarFormulario, butExportarComprobante,
-                butLimpiarFormulario
-        );  
+        estilizarComponentes();     
     }
     
     // Estilo de los componentes
-    private void estilizarTabla() {
-        JTableHeader encabezado = tabRegistros.getTableHeader();
+    private void estilizarComponentes() {
+        new TableStyle(tabRegistros); // Tabla
         
-        encabezado.setFont(new Font("Arial", Font.BOLD, 16));
-        encabezado.setBackground(Color.decode("#1E88E5"));
-        encabezado.setForeground(Color.WHITE);
-        
-        DefaultTableCellRenderer celdaRenderizador = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                                boolean isSelected, boolean hasFocus, int row, int column) {
-                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                if (!isSelected) {
-                    if (row % 2 == 0) {
-                        comp.setBackground(Color.decode("#F1F8FF"));
-                    } else {
-                        comp.setBackground(Color.WHITE); 
-                    }
-                } else {
-                    comp.setBackground(Color.decode("#BBDEFB")); 
-                }
-                
-                if (column == 1 || column == 2) {
-                    setHorizontalAlignment(SwingConstants.LEFT);
-                } else {
-                    setHorizontalAlignment(SwingConstants.CENTER);
-                }
-                
-                return comp;
-            }
-        };
-
-        for (Integer i = 0; i < tabRegistros.getColumnCount(); i++) {
-            tabRegistros.getColumnModel().getColumn(i).setCellRenderer(celdaRenderizador);
-        }
-        
+        // Columnas especificas
         tabRegistros.getColumnModel().getColumn(3).setMaxWidth(80);
-        tabRegistros.setFont(new Font("Arial", Font.PLAIN, 14));
-        tabRegistros.setRowHeight(25);
-    }
-
-    private void estilizarBotones(JButton... botones) {
-        Arrays.asList(botones).forEach((boton) -> {
-            boton.setPreferredSize(new Dimension(120, 50));
-            boton.setContentAreaFilled(false); 
-            boton.setFocusPainted(false);      
-            boton.setBorderPainted(false);
-            
-            boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
-                @Override
-                public void paint(Graphics g, JComponent c) {
-                    Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2d.setColor(Color.decode("#1E88E5")); 
-                    g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 25, 25); 
-                    g2d.dispose();
-
-                    super.paint(g, c);
-                }
-            });
-        });
+        ((DefaultTableCellRenderer) tabRegistros.getColumnModel().getColumn(1).getCellRenderer())
+                .setHorizontalAlignment(SwingConstants.LEFT);
+        ((DefaultTableCellRenderer) tabRegistros.getColumnModel().getColumn(2).getCellRenderer())
+                .setHorizontalAlignment(SwingConstants.LEFT);
+        
+        new ButtonStyle(butAnadirRegistro, butEditarRegistro, 
+                butEliminarRegistro, butGuardarAsiento,
+                butExportarFormulario, butExportarComprobante,
+                butLimpiarFormulario
+        ); // Botones
     }
     
     // Escuchadores de la tabla
