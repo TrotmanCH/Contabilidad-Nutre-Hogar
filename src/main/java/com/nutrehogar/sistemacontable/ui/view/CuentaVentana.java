@@ -10,6 +10,7 @@ import com.nutrehogar.sistemacontable.ui.styles.ButtonStyle;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -255,9 +256,9 @@ public class CuentaVentana extends javax.swing.JFrame {
     
     // Validador de datos
     private Boolean validarDatos() {
-        if (texfieCodigo.getText().length() != 6) {
+        if (!Pattern.matches("\\d{1}\\.\\d{4}", texfieCodigo.getText())) {
             JOptionPane.showMessageDialog(
-                    this, "El codigo debe tener 6 caracteres y el siguiente formato: 0.0000"
+                    this, "El código debe tener 5 dígitos en el siguiente formato: 0.0000"
             );
             return false;
         }

@@ -7,6 +7,7 @@ import com.nutrehogar.sistemacontable.domain.repository.TipoCuentaRepo;
 import com.nutrehogar.sistemacontable.ui.styles.ButtonStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -209,9 +210,9 @@ public class SubTipoCuentaVentana extends javax.swing.JFrame {
     
     // Validador de datos
     private Boolean validarDatos() {
-        if (texfieCodigo.getText().length() < 3 || texfieCodigo.getText().length() > 5) {
+        if (!Pattern.matches("\\d{1}\\.\\d{1,3}", texfieCodigo.getText())) {
             JOptionPane.showMessageDialog(
-                    this, "El codigo debe tener entre 3 y 5 caracteres y en los siguientes formatos: 0.000 "
+                    this, "El código debe tener entre 2 y 4 dígitos en el siguiente formato: 0.000"
             );
             return false;
         }
