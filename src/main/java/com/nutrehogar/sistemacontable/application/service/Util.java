@@ -1,7 +1,7 @@
 package com.nutrehogar.sistemacontable.application.service;
 
-import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
-import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel;
+import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner;
+import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinnerModel;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

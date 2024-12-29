@@ -8,6 +8,7 @@ import java.util.Arrays;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.plaf.basic.BasicButtonUI;
 
 public class ButtonStyle {
     public ButtonStyle(JButton... botones) {
@@ -16,7 +17,7 @@ public class ButtonStyle {
             boton.setBorderPainted(false);
             boton.setFocusPainted(false);
             
-            boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            boton.setUI(new BasicButtonUI() {
                 @Override
                 public void paint(Graphics g, JComponent c) {
                     Graphics2D g2d = (Graphics2D) g.create();

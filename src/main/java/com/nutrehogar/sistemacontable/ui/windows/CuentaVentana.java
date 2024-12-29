@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.view;
+package com.nutrehogar.sistemacontable.ui.windows;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
@@ -11,40 +11,40 @@ import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class CuentaVentana extends javax.swing.JFrame {
-    List<SubTipoCuenta> listaSubTipoCuenta = new ArrayList<>();
-    List<TipoCuenta> listaTipoCuenta  = new ArrayList<>();
+    List<TipoCuenta> tiposCuenta  = new ArrayList<>();
     DefaultTableModel tabCuentasModelo;
-    Integer filaCuenta;
-    Cuenta cuenta;
-    String[] codigoSubtipo = {""};
+    Integer filaIndice;
+    Cuenta cuentaBuscada;
 
-    public CuentaVentana(DefaultTableModel tabCuentasModelo, String titulo, 
-            Integer filaCuenta, Cuenta cuenta) {
+    public CuentaVentana(String titulo, DefaultTableModel tabCuentasModelo, 
+            Integer filaIndice, Cuenta cuentaBuscada) {
         initComponents();
+        new ButtonStyle(butAnadir, butEditar);
         
+        // Trayendo datos de CuentasPestana
+        labTitulo.setText(titulo);
         this.tabCuentasModelo = tabCuentasModelo;
-        this.filaCuenta = filaCuenta;
-        this.cuenta = cuenta;
-        
-        SubTipoCuentaRepo.findAll().forEach((subTipoCuenta) -> {
+        this.filaIndice = filaIndice;
+        this.cuentaBuscada = cuentaBuscada;
+                
+        // Trayendo los subtipos de cuenta
+        SubTipoCuentaRepo.findAll().forEach(subTipoCuenta -> {
             comboxSubtipoCuenta.addItem(subTipoCuenta.getId() + " " + subTipoCuenta.getNombre());
-            listaSubTipoCuenta.add(subTipoCuenta);
         });
-        comboxSubtipoCuenta.addItemListener(this::elementoEscucha);
+        comboxSubtipoCuenta.addItemListener(this::elementoEscuchador);
         
-        TipoCuentaRepo.findAll().forEach((tipoCuenta) -> {
-            listaTipoCuenta.add(tipoCuenta);
-        });
-        texfieTipoCuenta.setText(
-            listaTipoCuenta.get(0).getId() +  " " +
-            listaTipoCuenta.get(0).getNombre()
+        // Trayendo los tipos de cuenta
+        TipoCuentaRepo.findAll().forEach(tipoCuenta -> tiposCuenta.add(tipoCuenta));
+        texfieTipoCuenta.setText(tiposCuenta.get(0).getId() +  " " +
+            tiposCuenta.get(0).getNombre()
         );
         
-        if (filaCuenta == null) {
+        // Cambiando contenido de la ventana dependiendo de si es añadir o editar
+        if (filaIndice == null) {
             butAnadir.setVisible(true);
             butEditar.setVisible(false);
         } else {
@@ -56,9 +56,6 @@ public class CuentaVentana extends javax.swing.JFrame {
             
             llenarCampos();
         }
-        
-        labTitulo.setText(titulo);
-        new ButtonStyle(butAnadir, butEditar);
     }
 
     @SuppressWarnings("unchecked")
@@ -141,24 +138,24 @@ public class CuentaVentana extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(texfieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(texfieCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(20, 20, 20))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(butAnadir)
                 .addGap(32, 32, 32)
                 .addComponent(butEditar)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(labTitulo)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(labTitulo)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labCodigo)
                     .addComponent(texfieCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -174,7 +171,7 @@ public class CuentaVentana extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labTipoCuenta)
                     .addComponent(texfieTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butAnadir)
                     .addComponent(butEditar))
@@ -184,26 +181,26 @@ public class CuentaVentana extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    // Escucha de comboxSubtipoCuenta
-    private void elementoEscucha(ItemEvent e) {
+    // Escuchador de selección de comboxSubtipoCuenta
+    private void elementoEscuchador(ItemEvent e) {
         Integer tipoCuentaId = Integer.valueOf(
-                comboxSubtipoCuenta.getSelectedItem().toString().substring(0, 1)
+            comboxSubtipoCuenta.getSelectedItem().toString().substring(0, 1)
         );
-        TipoCuenta tipoCuenta = listaTipoCuenta.get(tipoCuentaId - 1);
+        TipoCuenta tipoCuenta = tiposCuenta.get(tipoCuentaId - 1);
         texfieTipoCuenta.setText(
                 tipoCuenta.getId() + " " + tipoCuenta.getNombre()
         );
     }
         
-    // Llenado de campos de la cuenta a acutalizar
+    // Llenador de campos de la cuentaBuscada a actualizar
     private void llenarCampos() {
-        texfieCodigo.setText(cuenta.getId());
-        texfieNombre.setText(cuenta.getNombre());
-        comboxSubtipoCuenta.setSelectedItem(cuenta.getSubTipoCuenta().getId() + 
-                " " + cuenta.getSubTipoCuenta().getNombre()
+        texfieCodigo.setText(cuentaBuscada.getId());
+        texfieNombre.setText(cuentaBuscada.getNombre());
+        comboxSubtipoCuenta.setSelectedItem(cuentaBuscada.getSubTipoCuenta().getId() + 
+                " " + cuentaBuscada.getSubTipoCuenta().getNombre()
         );
-        texfieTipoCuenta.setText(cuenta.getSubTipoCuenta().getTipoCuenta().getId() +  ". " +
-            cuenta.getSubTipoCuenta().getTipoCuenta().getNombre()
+        texfieTipoCuenta.setText(cuentaBuscada.getSubTipoCuenta().getTipoCuenta().getId() 
+                +  " " + cuentaBuscada.getSubTipoCuenta().getTipoCuenta().getNombre()
         );
     }
     
@@ -212,8 +209,9 @@ public class CuentaVentana extends javax.swing.JFrame {
         if (validarDatos()) {
             String id = texfieCodigo.getText();
             String nombre = texfieNombre.getText();
-
-            SubTipoCuenta subtipoCuenta = SubTipoCuentaRepo.findById(codigoSubtipo[0]);
+            SubTipoCuenta subtipoCuenta = SubTipoCuentaRepo.findById(
+                    comboxSubtipoCuenta.getSelectedItem().toString().split("\\s")[0]
+            );
 
             Cuenta cuenta = Cuenta.builder()
                     .id(id)
@@ -222,7 +220,7 @@ public class CuentaVentana extends javax.swing.JFrame {
                     .build();
             CuentaRepo.save(cuenta);
 
-            tabCuentasModelo.addRow(new Object[]{
+            tabCuentasModelo.addRow(new Object[] {
                 id, nombre,
                 subtipoCuenta.getTipoCuenta().getNombre(), subtipoCuenta.getNombre()
             });
@@ -235,8 +233,9 @@ public class CuentaVentana extends javax.swing.JFrame {
         if (validarDatos()) {
             String id = texfieCodigo.getText();
             String nombre = texfieNombre.getText();
-
-            SubTipoCuenta subtipoCuenta = SubTipoCuentaRepo.findById(codigoSubtipo[0]);
+            SubTipoCuenta subtipoCuenta = SubTipoCuentaRepo.findById(
+                    comboxSubtipoCuenta.getSelectedItem().toString().split("\\s")[0]
+            );
 
             Cuenta cuenta = Cuenta.builder()
                     .id(id)
@@ -245,10 +244,10 @@ public class CuentaVentana extends javax.swing.JFrame {
                     .build();
             CuentaRepo.update(cuenta);
             
-            tabCuentasModelo.setValueAt(id, filaCuenta, 0);
-            tabCuentasModelo.setValueAt(nombre, filaCuenta, 1);
-            tabCuentasModelo.setValueAt(subtipoCuenta.getTipoCuenta().getNombre(), filaCuenta, 2);
-            tabCuentasModelo.setValueAt(subtipoCuenta.getNombre(), filaCuenta, 3);
+            tabCuentasModelo.setValueAt(id, filaIndice, 0);
+            tabCuentasModelo.setValueAt(nombre, filaIndice, 1);
+            tabCuentasModelo.setValueAt(subtipoCuenta.getTipoCuenta().getNombre(), filaIndice, 2);
+            tabCuentasModelo.setValueAt(subtipoCuenta.getNombre(), filaIndice, 3);
             
             dispose();
         }
@@ -268,15 +267,16 @@ public class CuentaVentana extends javax.swing.JFrame {
             return false;
         }
         
-        listaSubTipoCuenta.forEach((subTipoCuenta) -> {
-            if(comboxSubtipoCuenta.getSelectedItem().toString().startsWith(subTipoCuenta.getId())){
-                codigoSubtipo[0] = subTipoCuenta.getId();
-            }
-        });
-
-        if (!texfieCodigo.getText().startsWith(codigoSubtipo[0])) {
+        if (!texfieCodigo.getText().startsWith(comboxSubtipoCuenta.getSelectedItem().toString().split("\\s")[0])) {
             JOptionPane.showMessageDialog(
                     this, "El código de la cuenta debe comenzar igual que el código del subtipo de cuenta."
+            );
+            return false;
+        }
+        
+        if (CuentaRepo.findById(texfieCodigo.getText()) != null && filaIndice == null) {
+            JOptionPane.showMessageDialog(
+                    this, "Ya existe una cuenta con este código."
             );
             return false;
         }

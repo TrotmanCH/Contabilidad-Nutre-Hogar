@@ -22,9 +22,9 @@ public class BalanceComView extends javax.swing.JPanel {
         labBalanceComprobacion = new javax.swing.JLabel();
         panFiltros = new javax.swing.JPanel();
         labInicio = new javax.swing.JLabel();
-        spiInicio = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        spiInicio = new com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner();
         labFin = new javax.swing.JLabel();
-        spiFin = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        spiFin = new com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner();
         butFiltrar = new javax.swing.JButton();
         scrpanRegistros = new javax.swing.JScrollPane();
         tabRegistros = new javax.swing.JTable();
@@ -45,7 +45,7 @@ public class BalanceComView extends javax.swing.JPanel {
 
         butFiltrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         butFiltrar.setForeground(new java.awt.Color(255, 255, 255));
-        butFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/filtrar.png"))); // NOI18N
+        butFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/filtrar.png"))); // NOI18N
         butFiltrar.setText("Filtrar");
 
         javax.swing.GroupLayout panFiltrosLayout = new javax.swing.GroupLayout(panFiltros);
@@ -94,7 +94,7 @@ public class BalanceComView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(scrpanRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
+                .addComponent(scrpanRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -125,8 +125,8 @@ public class BalanceComView extends javax.swing.JPanel {
     private javax.swing.JLabel labInicio;
     private javax.swing.JPanel panFiltros;
     private javax.swing.JScrollPane scrpanRegistros;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFin;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiInicio;
+    private com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner spiFin;
+    private com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner spiInicio;
     private javax.swing.JTable tabRegistros;
     // End of variables declaration//GEN-END:variables
 }

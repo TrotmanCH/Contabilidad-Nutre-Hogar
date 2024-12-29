@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.view.services;
+package com.nutrehogar.sistemacontable.ui.services;
 
 import java.awt.*;
 import javax.swing.*;
@@ -140,7 +140,7 @@ public class FormularioRegistro extends javax.swing.JFrame {
         getContentPane().add(labEncabezado);
         labEncabezado.setBounds(40, 40, 340, 80);
 
-        labLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo_small.png"))); // NOI18N
+        labLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/nutrehogar_icono.png"))); // NOI18N
         getContentPane().add(labLogo);
         labLogo.setBounds(330, 130, 75, 75);
 

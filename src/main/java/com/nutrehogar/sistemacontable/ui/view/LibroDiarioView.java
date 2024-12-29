@@ -22,9 +22,9 @@ public class LibroDiarioView extends javax.swing.JPanel {
         labLibroDiario = new javax.swing.JLabel();
         panFiltros = new javax.swing.JPanel();
         labInicio = new javax.swing.JLabel();
-        spiInicio = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        spiInicio = new com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner();
         labFin = new javax.swing.JLabel();
-        spiFin = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        spiFin = new com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner();
         butFiltrar = new javax.swing.JButton();
         scrpanRegistros = new javax.swing.JScrollPane();
         tabRegistros = new javax.swing.JTable();
@@ -47,13 +47,8 @@ public class LibroDiarioView extends javax.swing.JPanel {
 
         butFiltrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         butFiltrar.setForeground(new java.awt.Color(255, 255, 255));
-        butFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/filtrar.png"))); // NOI18N
+        butFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/filtrar.png"))); // NOI18N
         butFiltrar.setText("Filtrar");
-        butFiltrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butFiltrarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panFiltrosLayout = new javax.swing.GroupLayout(panFiltros);
         panFiltros.setLayout(panFiltrosLayout);
@@ -104,17 +99,16 @@ public class LibroDiarioView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrpanRegistros)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labLibroDiario)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(scrpanRegistros)
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(125, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labLibroDiario)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,10 +123,6 @@ public class LibroDiarioView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void butFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butFiltrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_butFiltrarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butFiltrar;
     private javax.swing.JLabel labFin;
@@ -140,8 +130,8 @@ public class LibroDiarioView extends javax.swing.JPanel {
     private javax.swing.JLabel labLibroDiario;
     private javax.swing.JPanel panFiltros;
     private javax.swing.JScrollPane scrpanRegistros;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFin;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiInicio;
+    private com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner spiFin;
+    private com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner spiInicio;
     private javax.swing.JTable tabRegistros;
     // End of variables declaration//GEN-END:variables
 }

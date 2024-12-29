@@ -107,17 +107,17 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox" name="comboxTipoCuenta">
+        <Component class="com.nutrehogar.sistemacontable.ui.components.CustomComboBox" name="comboxTipoCuenta">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoCuenta&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox" name="comboxSubtipoCuenta">
+        <Component class="com.nutrehogar.sistemacontable.ui.components.CustomComboBox" name="comboxSubtipoCuenta">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;SubTipoCuenta&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox" name="comboxCuenta">
+        <Component class="com.nutrehogar.sistemacontable.ui.components.CustomComboBox" name="comboxCuenta">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Cuenta&gt;"/>
           </AuxValues>
@@ -179,7 +179,7 @@
             <Property name="text" type="java.lang.String" value="Inicio:"/>
           </Properties>
         </Component>
-        <Component class="com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner" name="spiInicio">
+        <Component class="com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner" name="spiInicio">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
@@ -192,7 +192,7 @@
             <Property name="text" type="java.lang.String" value="Fin:"/>
           </Properties>
         </Component>
-        <Component class="com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner" name="spiFin">
+        <Component class="com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner" name="spiFin">
         </Component>
         <Component class="javax.swing.JButton" name="butFiltrar">
           <Properties>
@@ -203,13 +203,10 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icon/filtrar.png"/>
+              <Image iconType="3" name="/icons/filtrar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Filtrar"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butFiltrarActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

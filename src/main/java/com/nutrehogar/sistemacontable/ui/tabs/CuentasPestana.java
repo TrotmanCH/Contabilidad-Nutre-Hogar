@@ -1,42 +1,45 @@
-package com.nutrehogar.sistemacontable.ui.view;
+package com.nutrehogar.sistemacontable.ui.tabs;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.ui.styles.*;
-import javax.swing.*;
+import com.nutrehogar.sistemacontable.ui.styles.*;
+import com.nutrehogar.sistemacontable.ui.windows.CuentaVentana;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class ListaCuentaPestana extends javax.swing.JPanel {
-    DefaultTableModel tabCuentasModelo;
-    ListSelectionModel listaSeleccionModelo;
-    
-    public ListaCuentaPestana() {
+public class CuentasPestana extends javax.swing.JPanel {
+    public CuentasPestana() {
         initComponents();
+        estilizarComponentes();
+               
+        // Configurando la selección en tabCuentas
+        tabCuentas.getSelectionModel()
+                .addListSelectionListener(this::seleccionEscuchador);
+        tabCuentas.getSelectionModel()
+                .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        this.addMouseListener(new java.awt.event.MouseAdapter() {
+        this.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 tabCuentas.clearSelection();
             }
         });
         
-        tabCuentasModelo = (DefaultTableModel) tabCuentas.getModel();
-        listaSeleccionModelo = tabCuentas.getSelectionModel();
-        
-        listaSeleccionModelo.addListSelectionListener(this::listaSeleccionEscuchador);
-        listaSeleccionModelo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        estilizarComponentes();
-        
-        for (Cuenta cuenta : CuentaRepo.findAll()) {
-            tabCuentasModelo.addRow(new Object[] {
+        // Llenando tabCuentas
+        CuentaRepo.findAll().forEach(cuenta -> {
+            ((DefaultTableModel) tabCuentas.getModel()).addRow(new Object[] {
                 cuenta.getId(),cuenta.getNombre(),
                 cuenta.getSubTipoCuenta().getTipoCuenta().getNombre(),
                 cuenta.getSubTipoCuenta().getNombre()
             });
-        }
+        });
     }
     
     @SuppressWarnings("unchecked")
@@ -54,7 +57,7 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
         setBackground(new java.awt.Color(241, 248, 255));
 
         labListaCuentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        labListaCuentas.setText("Lista de Cuentas");
+        labListaCuentas.setText("Cuentas");
 
         tabCuentas.setAutoCreateRowSorter(true);
         tabCuentas.setModel(new javax.swing.table.DefaultTableModel(
@@ -87,7 +90,7 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
         butAnadir.setBackground(new java.awt.Color(242, 242, 242));
         butAnadir.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butAnadir.setForeground(new java.awt.Color(255, 255, 255));
-        butAnadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/anadir.png"))); // NOI18N
+        butAnadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/anadir.png"))); // NOI18N
         butAnadir.setText("Anadir");
         butAnadir.setPreferredSize(new java.awt.Dimension(139, 42));
         butAnadir.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +102,7 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
         butEditar.setBackground(new java.awt.Color(242, 242, 242));
         butEditar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butEditar.setForeground(new java.awt.Color(255, 255, 255));
-        butEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/editar.png"))); // NOI18N
+        butEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/editar.png"))); // NOI18N
         butEditar.setText("Editar");
         butEditar.setEnabled(false);
         butEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +114,7 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
         butEliminar.setBackground(new java.awt.Color(242, 242, 242));
         butEliminar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        butEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/eliminar.png"))); // NOI18N
+        butEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
         butEliminar.setText("Eliminar");
         butEliminar.setEnabled(false);
         butEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -155,9 +158,9 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
                 .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(319, Short.MAX_VALUE)
+                .addContainerGap(365, Short.MAX_VALUE)
                 .addComponent(labListaCuentas)
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addContainerGap(386, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,11 +188,11 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
         ((DefaultTableCellRenderer) tabCuentas.getColumnModel().getColumn(1).getCellRenderer())
                 .setHorizontalAlignment(SwingConstants.LEFT);
         
-        new ButtonStyle(butAnadir, butEditar, butEliminar);  // Botones
+        new ButtonStyle(butAnadir, butEditar, butEliminar); // Botones
     }
     
-    // Escuchador de tabCuentas
-    public void listaSeleccionEscuchador(ListSelectionEvent e) {
+    // Escuchador de selección de tabCuentas
+    public void seleccionEscuchador(ListSelectionEvent e) {
         if (tabCuentas.getSelectedRow() != -1) {
             butEditar.setEnabled(true);
             butEliminar.setEnabled(true);
@@ -201,42 +204,47 @@ public class ListaCuentaPestana extends javax.swing.JPanel {
     
     // Escuchadores de los botones
     private void butAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnadirActionPerformed
-        CuentaVentana cv = new CuentaVentana(tabCuentasModelo, "Crear Cuenta",
-                null, null); 
+        CuentaVentana cv = new CuentaVentana(
+                "Añadir Cuenta", (DefaultTableModel) tabCuentas.getModel(),
+                null, null
+        ); 
         cv.setLocationRelativeTo(null); 
         cv.setVisible(true);
     }//GEN-LAST:event_butAnadirActionPerformed
 
     private void butEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butEditarActionPerformed
-        if (!listaSeleccionModelo.isSelectionEmpty()) {
-            Integer filaCuenta = tabCuentas.getSelectedRow();
-            String cuentaCodigo = tabCuentas.getValueAt(filaCuenta, 0).toString();
-            Cuenta cuentaSeleccionada = CuentaRepo.findById(cuentaCodigo);
-            CuentaVentana cv = new CuentaVentana(tabCuentasModelo, "Editar Cuenta", 
-                    filaCuenta, cuentaSeleccionada); 
+        if (!tabCuentas.getSelectionModel().isSelectionEmpty()) {
+            Integer filaIndice = tabCuentas.getSelectedRow();
+            String filaCodigo = tabCuentas.getValueAt(filaIndice, 0).toString();
+            Cuenta cuentaBuscada = CuentaRepo.findById(filaCodigo);
+            
+            CuentaVentana cv = new CuentaVentana(
+                    "Editar Cuenta", (DefaultTableModel) tabCuentas.getModel(), 
+                    filaIndice, cuentaBuscada
+            ); 
             cv.setLocationRelativeTo(null); 
             cv.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione una cuenta en la tabla");
+            JOptionPane.showMessageDialog(this, "Seleccione una cuenta en la tabla.");
         }
     }//GEN-LAST:event_butEditarActionPerformed
 
     private void butEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butEliminarActionPerformed
-        if (!listaSeleccionModelo.isSelectionEmpty()) {
-            Integer filaCuenta = tabCuentas.getSelectedRow();
-            String cuentaCodigo = tabCuentas.getValueAt(filaCuenta, 0).toString();
-            Integer confirmar = JOptionPane.showConfirmDialog(
+        if (!tabCuentas.getSelectionModel().isSelectionEmpty()) {
+            Integer filaIndice = tabCuentas.getSelectedRow();
+            String filaCodigo = tabCuentas.getValueAt(filaIndice, 0).toString();
+            Integer respuesta = JOptionPane.showConfirmDialog(
                 this, "¿Está seguro de que desea eliminar esta cuenta?",
-                "Confirmar eliminación", JOptionPane.YES_NO_OPTION
+                "Eliminar Cuenta", JOptionPane.YES_NO_OPTION
             );
             
-            if (confirmar == JOptionPane.YES_OPTION) {
-                tabCuentasModelo.removeRow(filaCuenta);
-                CuentaRepo.delete(cuentaCodigo);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                CuentaRepo.delete(filaCodigo);
+                ((DefaultTableModel) tabCuentas.getModel()).removeRow(filaIndice);
                 JOptionPane.showMessageDialog(this, "Cuenta eliminada exitosamente.");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione una cuenta en la tabla");
+            JOptionPane.showMessageDialog(this, "Seleccione una cuenta en la tabla.");
         }
     }//GEN-LAST:event_butEliminarActionPerformed
 
