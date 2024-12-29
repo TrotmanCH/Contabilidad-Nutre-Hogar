@@ -1,28 +1,31 @@
-package com.nutrehogar.sistemacontable.ui.view;
+package com.nutrehogar.sistemacontable.ui.tabs;
 
 import com.nutrehogar.sistemacontable.application.service.PDFService;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.domain.repository.AsientoRepo;
 import com.nutrehogar.sistemacontable.ui.styles.*;
+import com.nutrehogar.sistemacontable.ui.windows.RegistroVentana;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class FormularioPestana extends javax.swing.JPanel {
-    List<Registro> listaRegistro = new ArrayList<>();
-    DefaultTableModel tabRegistrosModelo;
-    ListSelectionModel listaSeleccionModelo;
+    List<Registro> registros = new ArrayList<>();
     
     public FormularioPestana() {
-        metodoConstructor();
+        construirFormulario();
     }
     
     @SuppressWarnings("unchecked")
@@ -38,7 +41,7 @@ public class FormularioPestana extends javax.swing.JPanel {
         labNoCheque = new javax.swing.JLabel();
         texfieNoCheque = new javax.swing.JTextField();
         labFecha = new javax.swing.JLabel();
-        spiFecha = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        spiFecha = new com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner();
         labMonto = new javax.swing.JLabel();
         texfieMonto = new javax.swing.JTextField();
         labNoDoc = new javax.swing.JLabel();
@@ -87,7 +90,7 @@ public class FormularioPestana extends javax.swing.JPanel {
         labFecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labFecha.setText("Fecha:");
 
-        spiFecha.setModel(new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel());
+        spiFecha.setModel(new com.nutrehogar.sistemacontable.ui.components.LocalDateSpinnerModel());
 
         labMonto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labMonto.setText("Monto:");
@@ -140,7 +143,7 @@ public class FormularioPestana extends javax.swing.JPanel {
 
         butAnadirRegistro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butAnadirRegistro.setForeground(new java.awt.Color(255, 255, 255));
-        butAnadirRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/anadir.png"))); // NOI18N
+        butAnadirRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/anadir.png"))); // NOI18N
         butAnadirRegistro.setText("Añadir Registro");
         butAnadirRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -150,7 +153,7 @@ public class FormularioPestana extends javax.swing.JPanel {
 
         butEditarRegistro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butEditarRegistro.setForeground(new java.awt.Color(255, 255, 255));
-        butEditarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/editar.png"))); // NOI18N
+        butEditarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/editar.png"))); // NOI18N
         butEditarRegistro.setEnabled(false);
         butEditarRegistro.setLabel("Editar Registro");
         butEditarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,7 +164,7 @@ public class FormularioPestana extends javax.swing.JPanel {
 
         butEliminarRegistro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butEliminarRegistro.setForeground(new java.awt.Color(255, 255, 255));
-        butEliminarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/eliminar.png"))); // NOI18N
+        butEliminarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
         butEliminarRegistro.setEnabled(false);
         butEliminarRegistro.setLabel("Eliminar Registro");
         butEliminarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,7 +175,7 @@ public class FormularioPestana extends javax.swing.JPanel {
 
         butGuardarAsiento.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butGuardarAsiento.setForeground(new java.awt.Color(255, 255, 255));
-        butGuardarAsiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/guardar.png"))); // NOI18N
+        butGuardarAsiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/guardar.png"))); // NOI18N
         butGuardarAsiento.setText("Guardar Asiento");
         butGuardarAsiento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -350,29 +353,31 @@ public class FormularioPestana extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    // metodo para generar contenido del frame
-    private void metodoConstructor() {
+    // Método externo para generar contenido del frame
+    private void construirFormulario() {
         initComponents();
+        estilizarComponentes();
         
-        this.addMouseListener(new java.awt.event.MouseAdapter() {
+        // Configurando la selección en tabRegistros
+        tabRegistros.getSelectionModel()
+                .addListSelectionListener(this::seleccionEscuchador);
+        tabRegistros.getSelectionModel()
+                .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        this.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 tabRegistros.clearSelection();
             }
         });
         
-        tabRegistrosModelo = (DefaultTableModel) tabRegistros.getModel();
-        listaSeleccionModelo = tabRegistros.getSelectionModel();
+        // Asignando eschudador de cambios en tabRegistros
+        ((DefaultTableModel) tabRegistros.getModel())
+                .addTableModelListener(this::tablaEscuchador);
         
-        tabRegistrosModelo.addTableModelListener(this::tablaModeloEscuchador);
-        listaSeleccionModelo.addListSelectionListener(this::listaSeleccionEscuchador);
-        
-        listaSeleccionModelo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+        // Asignando número de documento al formulario
         Integer noDoc = AsientoRepo.findAll().size() + 1;
         texfieNoDoc.setText(new DecimalFormat("000").format(noDoc));
-        
-        estilizarComponentes();     
     }
     
     // Estilo de los componentes
@@ -393,8 +398,8 @@ public class FormularioPestana extends javax.swing.JPanel {
         ); // Botones
     }
     
-    // Escuchadores de la tabla
-    private void listaSeleccionEscuchador(ListSelectionEvent e) {
+    // Escuchador de selección de tabRegistros
+    private void seleccionEscuchador(ListSelectionEvent e) {
         if (tabRegistros.getSelectedRow() != -1) {
             butEditarRegistro.setEnabled(true);
             butEliminarRegistro.setEnabled(true);
@@ -403,16 +408,22 @@ public class FormularioPestana extends javax.swing.JPanel {
             butEliminarRegistro.setEnabled(false);
         }
     }
-    private void tablaModeloEscuchador(TableModelEvent e) {
+    
+    // Escuchador de cambios de tabRegistros
+    private void tablaEscuchador(TableModelEvent e) {
         BigDecimal debeTotal = BigDecimal.ZERO.setScale(2);
         BigDecimal haberTotal = BigDecimal.ZERO.setScale(2);
         BigDecimal diferencia;
         
-        for (Integer i = 0; i < tabRegistrosModelo.getRowCount(); i++) {
-            debeTotal = debeTotal.add(new BigDecimal(tabRegistrosModelo.getValueAt(i, 4).toString()));
-            haberTotal = haberTotal.add(new BigDecimal(tabRegistrosModelo.getValueAt(i, 5).toString()));
+        // Se calcula el total de las columnas "debe" y "haber"
+        for (Integer i = 0; i < tabRegistros.getModel().getRowCount(); i++) {
+            debeTotal = debeTotal.add(new BigDecimal(tabRegistros.getModel().getValueAt(i, 4).toString()));
+            haberTotal = haberTotal.add(new BigDecimal(tabRegistros.getModel().getValueAt(i, 5).toString()));
         }
+        texfieDebe.setText(debeTotal.toString());
+        texfieHaber.setText(haberTotal.toString());
         
+        // Se coloca el monto del formulario y la diferencia de ambas columnas
         if (debeTotal.equals(haberTotal)) {
             texfieMonto.setText(debeTotal.toString());
             texfieDiferencia.setText("0.00");
@@ -420,46 +431,48 @@ public class FormularioPestana extends javax.swing.JPanel {
             diferencia = debeTotal.subtract(haberTotal);
             texfieDiferencia.setText(diferencia.toString());
         }
-        
-        texfieDebe.setText(debeTotal.toString());
-        texfieHaber.setText(haberTotal.toString());
     }
     
     // Escuchadores de los botones
     private void butAnadirRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirRegistroMouseClicked
-        RegistroVentana rv = new RegistroVentana(listaRegistro, tabRegistrosModelo, 
-                "Añadir Registro", null);
+        RegistroVentana rv = new RegistroVentana(
+                "Añadir Registro", (DefaultTableModel) tabRegistros.getModel(), 
+                null, registros
+        );
         rv.setLocationRelativeTo(this);
         rv.setVisible(true);
     }//GEN-LAST:event_butAnadirRegistroMouseClicked
     
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
-        if (!listaSeleccionModelo.isSelectionEmpty()) {
-            Integer filaRegistro = tabRegistros.getSelectedRow();
-            RegistroVentana rv = new RegistroVentana(listaRegistro, tabRegistrosModelo,
-                    "Editar Registro", filaRegistro);
+        if (!tabRegistros.getSelectionModel().isSelectionEmpty()) {
+            Integer filaIndice = tabRegistros.getSelectedRow();
+            
+            RegistroVentana rv = new RegistroVentana(
+                    "Editar Registro", (DefaultTableModel) tabRegistros.getModel(),
+                     filaIndice, registros
+            );
             rv.setLocationRelativeTo(this);
             rv.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un registro en la tabla");
+            JOptionPane.showMessageDialog(this, "Seleccione un registro en la tabla.");
         }
     }//GEN-LAST:event_butEditarRegistroMouseClicked
 
     private void butEliminarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEliminarRegistroMouseClicked
-        if (!listaSeleccionModelo.isSelectionEmpty()){
-            Integer filaRegistro = tabRegistros.getSelectedRow();
-            Integer confirmar = JOptionPane.showConfirmDialog(
+        if (!tabRegistros.getSelectionModel().isSelectionEmpty()){
+            Integer filaIndice = tabRegistros.getSelectedRow();
+            Integer respuesta = JOptionPane.showConfirmDialog(
                 this, "¿Está seguro de que desea eliminar este registro?",
-                "Confirmar eliminación", JOptionPane.YES_NO_OPTION
+                "Eliminar Registro", JOptionPane.YES_NO_OPTION
             );
             
-            if (confirmar == JOptionPane.YES_OPTION) {
-                tabRegistrosModelo.removeRow(filaRegistro);
-                listaRegistro.remove(listaRegistro.get(filaRegistro));
+            if (respuesta == JOptionPane.YES_OPTION) {
+                ((DefaultTableModel) tabRegistros.getModel()).removeRow(filaIndice);
+                registros.remove(registros.get(filaIndice));
                 JOptionPane.showMessageDialog(this, "Registro eliminado exitosamente.");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un registro en la tabla");
+            JOptionPane.showMessageDialog(this, "Seleccione un registro en la tabla.");
         }
     }//GEN-LAST:event_butEliminarRegistroMouseClicked
 
@@ -472,10 +485,8 @@ public class FormularioPestana extends javax.swing.JPanel {
                     .concepto(texareConcepto.getText())
                     .build();
             
-            listaRegistro.forEach((registro) -> {
-                registro.setAsiento(asiento);
-            });
-            asiento.setRegistros(listaRegistro);
+            registros.forEach(registro -> registro.setAsiento(asiento));
+            asiento.setRegistros(registros);
             
             AsientoRepo.save(asiento);   
             JOptionPane.showMessageDialog(this, "Asiento guardado exitosamente.");
@@ -485,17 +496,17 @@ public class FormularioPestana extends javax.swing.JPanel {
     // Validador de datos
     private Boolean validarDatos() {
         if (texfieNombre.getText().isBlank() || texareConcepto.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos");
+            JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos.");
             return false;
         }
         
         if (!texfieDebe.getText().equals(texfieHaber.getText())) {
-            JOptionPane.showMessageDialog(this, "El asiento no está balanceado");
+            JOptionPane.showMessageDialog(this, "El asiento no está balanceado.");
             return false;
         }
         
-        if (listaRegistro.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Este asiento no tiene registros");
+        if (registros.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Este asiento no tiene registros.");
             return false;
         }
         
@@ -506,16 +517,16 @@ public class FormularioPestana extends javax.swing.JPanel {
     private void butExportarFormularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butExportarFormularioMouseClicked
         PDFService pdf = new PDFService();
         prepararPDF(pdf);
-        pdf.exportarFormulario();
+        pdf.llenarFormulario();
     }//GEN-LAST:event_butExportarFormularioMouseClicked
 
     private void butExportarComprobanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butExportarComprobanteMouseClicked
         PDFService pdf = new PDFService();
         prepararPDF(pdf);
-        pdf.exportarComprobante();
+        pdf.llenarComprobante();
     }//GEN-LAST:event_butExportarComprobanteMouseClicked
     
-    // Obtencion de datos para el pdf
+    // Obtención de datos para los PDFs
     private void prepararPDF(PDFService pdf) {
         pdf.noCheque = texfieNoCheque.getText();
         pdf.fecha = spiFecha.getValue().toString();
@@ -525,10 +536,10 @@ public class FormularioPestana extends javax.swing.JPanel {
         pdf.concepto = texareConcepto.getText();
         pdf.debe = texfieDebe.getText();
         pdf.haber = texfieHaber.getText();
-        pdf.registros = tabRegistrosModelo;
+        pdf.registros = tabRegistros.getModel();
     }
     
-    // Escuchador para limpiar  el formulario
+    // Escuchador para limpiar el formulario
     private void butLimpiarFormularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butLimpiarFormularioMouseClicked
         Integer confirmar = JOptionPane.showConfirmDialog(
             this, "¿Está seguro de que desea vaciar todos los campos?",
@@ -537,7 +548,7 @@ public class FormularioPestana extends javax.swing.JPanel {
             
         if (confirmar == JOptionPane.YES_OPTION) {
             removeAll();
-            metodoConstructor();
+            construirFormulario();
         }
     }//GEN-LAST:event_butLimpiarFormularioMouseClicked
     
@@ -561,7 +572,7 @@ public class FormularioPestana extends javax.swing.JPanel {
     private javax.swing.JPanel panAcciones;
     private javax.swing.JScrollPane scrpanConcepto;
     private javax.swing.JScrollPane scrpanRegistros;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFecha;
+    private com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner spiFecha;
     private javax.swing.JTable tabRegistros;
     private javax.swing.JTextArea texareConcepto;
     private javax.swing.JTextField texfieDebe;

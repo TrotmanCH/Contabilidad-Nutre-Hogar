@@ -38,7 +38,7 @@
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
               <Component id="labOcultarMenu" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Component id="panContenido" pref="812" max="32767" attributes="0"/>
+              <Component id="panContenido" pref="781" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -74,8 +74,8 @@
                       <Component id="butLibroDiario" alignment="1" max="32767" attributes="0"/>
                       <Component id="butFormulario" alignment="1" max="32767" attributes="0"/>
                       <Component id="labLogo" alignment="1" max="32767" attributes="0"/>
-                      <Component id="butListaCuentas" alignment="1" max="32767" attributes="0"/>
-                      <Component id="butListaSubtipoCuentas" alignment="0" max="32767" attributes="0"/>
+                      <Component id="butCuentas" alignment="1" max="32767" attributes="0"/>
+                      <Component id="butSubtiposCuenta" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -95,9 +95,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="butMayorGeneral" min="-2" pref="48" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="butListaCuentas" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="butCuentas" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="butListaSubtipoCuentas" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="butSubtiposCuenta" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -107,7 +107,7 @@
         <Component class="javax.swing.JLabel" name="labLogo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icon/logo_big.png"/>
+              <Image iconType="3" name="/icons/nutrehogar_logo.png"/>
             </Property>
           </Properties>
         </Component>
@@ -120,7 +120,7 @@
               <Font name="Arial" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icon/formulario.png"/>
+              <Image iconType="3" name="/icons/formulario.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Formulario"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
@@ -139,7 +139,7 @@
               <Font name="Arial" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icon/libro_diario.png"/>
+              <Image iconType="3" name="/icons/libro_diario.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Libro Diario"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
@@ -158,7 +158,7 @@
               <Font name="Arial" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icon/balance_comprobacion.png"/>
+              <Image iconType="3" name="/icons/balance_comprobacion.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Balance de Comprobaci&#xf3;n"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
@@ -177,7 +177,7 @@
               <Font name="Arial" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icon/mayor_general.png"/>
+              <Image iconType="3" name="/icons/mayor_general.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Mayor General"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
@@ -187,7 +187,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butMayorGeneralActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="butListaCuentas">
+        <Component class="javax.swing.JButton" name="butCuentas">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e5" green="88" red="1e" type="rgb"/>
@@ -196,17 +196,17 @@
               <Font name="Arial" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icon/lista_cuentas.png"/>
+              <Image iconType="3" name="/icons/cuentas.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Lista de Cuentas"/>
+            <Property name="text" type="java.lang.String" value="Cuentas"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="horizontalTextPosition" type="int" value="4"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butListaCuentasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butCuentasActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="butListaSubtipoCuentas">
+        <Component class="javax.swing.JButton" name="butSubtiposCuenta">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e5" green="88" red="1e" type="rgb"/>
@@ -214,15 +214,12 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="16" style="1"/>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icon/lista_cuentas.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Lista Subtipos de Cuentas"/>
+            <Property name="text" type="java.lang.String" value="Subtipos de Cuenta"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="horizontalTextPosition" type="int" value="4"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butListaSubtipoCuentasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butSubtiposCuentaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -230,7 +227,7 @@
     <Component class="javax.swing.JLabel" name="labOcultarMenu">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icon/menu_ocultar.png"/>
+          <Image iconType="3" name="/icons/menu_ocultar.png"/>
         </Property>
       </Properties>
       <Events>
@@ -246,14 +243,11 @@
           <Dimension value="[0, 0]"/>
         </Property>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
-      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="812" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="781" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">

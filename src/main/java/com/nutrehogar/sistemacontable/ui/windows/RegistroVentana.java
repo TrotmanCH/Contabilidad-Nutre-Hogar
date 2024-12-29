@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.view;
+package com.nutrehogar.sistemacontable.ui.windows;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
@@ -6,33 +6,38 @@ import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoDocumentoRepo;
 import com.nutrehogar.sistemacontable.ui.styles.ButtonStyle;
-import java.awt.*;
+import java.awt.Color;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class RegistroVentana extends javax.swing.JFrame {
-    List<Registro> listaRegistro;
+    List<Registro> registros;
     DefaultTableModel tabRegistrosModelo;
-    Integer filaRegistro;
+    Integer filaIndice;
     
-    public RegistroVentana(List<Registro> listaRegistro, DefaultTableModel tabRegistrosModelo, 
-                String titulo, Integer filaRegistro) {
+    public RegistroVentana(String titulo, DefaultTableModel tabRegistrosModelo, 
+                 Integer filaIndice, List<Registro> registros) {
         initComponents();
+        new ButtonStyle(butAnadir, butEditar);
         
-        this.listaRegistro = listaRegistro;
+        // Trayendo datos de FormularioPestana
+        labTitulo.setText(titulo);
+        this.registros = registros;
         this.tabRegistrosModelo = tabRegistrosModelo;
-        this.filaRegistro = filaRegistro;
+        this.filaIndice = filaIndice;
         
-        TipoDocumentoRepo.findAll().forEach((tipoDocumento) -> {
+        // Trayendo los tipos de documentos y las cuentas
+        TipoDocumentoRepo.findAll().forEach(tipoDocumento -> {
             comboxTipoDoc.addItem(tipoDocumento.getNombre());
         });
-        CuentaRepo.findAll().forEach((cuenta) -> {
+        CuentaRepo.findAll().forEach(cuenta -> {
             comboxCuenta.addItem(cuenta.getId()+ " " + cuenta.getNombre());
         });
-                
-        if (filaRegistro == null) {
+        
+        // Cambiando contenido de la ventana dependiendo de si es añadir o editar
+        if (filaIndice == null) {
             butAnadir.setVisible(true);
             butEditar.setVisible(false);
         } else {
@@ -42,8 +47,6 @@ public class RegistroVentana extends javax.swing.JFrame {
             llenarCampos();
         }
         
-        labTitulo.setText(titulo);
-        new ButtonStyle(butAnadir, butEditar);
     }
     
     @SuppressWarnings("unchecked")
@@ -124,47 +127,45 @@ public class RegistroVentana extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labMonto)
+                    .addComponent(labNoComp)
+                    .addComponent(labReferencia)
+                    .addComponent(labCuenta)
+                    .addComponent(labTipoRegistro)
+                    .addComponent(labTipoDoc))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(comboxCuenta, 0, 249, Short.MAX_VALUE)
+                        .addComponent(texfieReferencia))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(radbutDebito)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radbutCredito))
+                    .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texfieNoComp, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(labTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(butAnadir)
                 .addGap(18, 18, 18)
                 .addComponent(butEditar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labMonto)
-                            .addComponent(labNoComp)
-                            .addComponent(labReferencia)
-                            .addComponent(labCuenta)
-                            .addComponent(labTipoRegistro)
-                            .addComponent(labTipoDoc))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(texfieNoComp, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(comboxCuenta, 0, 249, Short.MAX_VALUE)
-                                .addComponent(texfieReferencia))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(radbutDebito)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radbutCredito))
-                            .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(153, Short.MAX_VALUE)
-                        .addComponent(labTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)))
-                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(labTitulo)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labTipoDoc)
                     .addComponent(comboxTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -189,7 +190,7 @@ public class RegistroVentana extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labMonto)
                     .addComponent(texfieMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butEditar)
                     .addComponent(butAnadir))
@@ -199,24 +200,24 @@ public class RegistroVentana extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
         
-    // Llenado de campos del registro a acutalizar
+    // Llenado de campos con campos del registro a actualizar
     private void llenarCampos() {
-        Registro registroSeleccionado = listaRegistro.get(filaRegistro);
+        Registro registroBuscado = registros.get(filaIndice);
         
-        comboxTipoDoc.setSelectedIndex(registroSeleccionado.getTipoDocumento().getId() - 1);
-        texfieNoComp.setText(registroSeleccionado.getComprobante());
-        texfieReferencia.setText(registroSeleccionado.getReferencia());
-        comboxCuenta.setSelectedItem(registroSeleccionado.getCuenta().getId() +
-                " " + registroSeleccionado.getCuenta().getNombre()
+        comboxTipoDoc.setSelectedIndex(registroBuscado.getTipoDocumento().getId() - 1);
+        texfieNoComp.setText(registroBuscado.getComprobante());
+        texfieReferencia.setText(registroBuscado.getReferencia());
+        comboxCuenta.setSelectedItem(registroBuscado.getCuenta().getId() +
+                " " + registroBuscado.getCuenta().getNombre()
         );
 
-        if (!registroSeleccionado.getDebe().equals(BigDecimal.ZERO.setScale(2))  
-                && registroSeleccionado.getHaber().equals(BigDecimal.ZERO.setScale(2))) {
+        if (!registroBuscado.getDebe().equals(BigDecimal.ZERO.setScale(2))  
+                && registroBuscado.getHaber().equals(BigDecimal.ZERO.setScale(2))) {
             radbutDebito.setSelected(true);
-            texfieMonto.setText(registroSeleccionado.getDebe().toString());
+            texfieMonto.setText(registroBuscado.getDebe().toString());
         } else {
             radbutCredito.setSelected(true);
-            texfieMonto.setText(registroSeleccionado.getHaber().toString());
+            texfieMonto.setText(registroBuscado.getHaber().toString());
         }
     }
     
@@ -226,19 +227,15 @@ public class RegistroVentana extends javax.swing.JFrame {
             TipoDocumento tipoDocumento = TipoDocumentoRepo.findById(
                     comboxTipoDoc.getSelectedIndex() + 1
             );
-            
             String comprobante = texfieNoComp.getText();
             String referencia = texfieReferencia.getText();
-            
             Cuenta cuenta = CuentaRepo.findById(
-                    comboxCuenta.getSelectedItem().toString().substring(0, 6)
+                    comboxCuenta.getSelectedItem().toString().split("\\s")[0]
             );
-            
             BigDecimal monto = new BigDecimal(texfieMonto.getText()).setScale(2);
             
             BigDecimal debe = null;
             BigDecimal haber = null;
-
             if (radbutDebito.isSelected()) {
                 debe = monto;
                 haber = BigDecimal.ZERO.setScale(2);
@@ -255,7 +252,8 @@ public class RegistroVentana extends javax.swing.JFrame {
                     .debe(debe)
                     .haber(haber)
                     .build();
-            listaRegistro.add(registro);
+            registros.add(registro);
+            
             tabRegistrosModelo.addRow(new Object[] {
                     tipoDocumento.getNombre(), comprobante, 
                     referencia, cuenta.getId(),
@@ -271,19 +269,15 @@ public class RegistroVentana extends javax.swing.JFrame {
             TipoDocumento tipoDocumento = TipoDocumentoRepo.findById(
                     comboxTipoDoc.getSelectedIndex() + 1
             );
-            
             String comprobante = texfieNoComp.getText();
             String referencia = texfieReferencia.getText();
-            
             Cuenta cuenta = CuentaRepo.findById(
-                    comboxCuenta.getSelectedItem().toString().substring(0, 6)
+                    comboxCuenta.getSelectedItem().toString().split("\\s")[0]
             );
-            
             BigDecimal monto = new BigDecimal(texfieMonto.getText()).setScale(2);
             
             BigDecimal debe = null;
             BigDecimal haber = null;
-
             if (radbutDebito.isSelected()) {
                 debe = monto;
                 haber = BigDecimal.ZERO.setScale(2);
@@ -292,20 +286,20 @@ public class RegistroVentana extends javax.swing.JFrame {
                 debe = BigDecimal.ZERO.setScale(2);
             }
             
-            Registro registroSeleccionado = listaRegistro.get(filaRegistro);
-            registroSeleccionado.setTipoDocumento(tipoDocumento);
-            registroSeleccionado.setComprobante(comprobante);
-            registroSeleccionado.setReferencia(referencia);
-            registroSeleccionado.setCuenta(cuenta);
-            registroSeleccionado.setDebe(debe);
-            registroSeleccionado.setHaber(haber);
+            Registro registroBuscado = registros.get(filaIndice);
+            registroBuscado.setTipoDocumento(tipoDocumento);
+            registroBuscado.setComprobante(comprobante);
+            registroBuscado.setReferencia(referencia);
+            registroBuscado.setCuenta(cuenta);
+            registroBuscado.setDebe(debe);
+            registroBuscado.setHaber(haber);
             
-            tabRegistrosModelo.setValueAt(tipoDocumento.getNombre(), filaRegistro, 0);
-            tabRegistrosModelo.setValueAt(comprobante, filaRegistro, 1);
-            tabRegistrosModelo.setValueAt(referencia, filaRegistro, 2);
-            tabRegistrosModelo.setValueAt(cuenta.getId(), filaRegistro, 3);
-            tabRegistrosModelo.setValueAt(debe, filaRegistro, 4);
-            tabRegistrosModelo.setValueAt(haber, filaRegistro, 5);
+            tabRegistrosModelo.setValueAt(tipoDocumento.getNombre(), filaIndice, 0);
+            tabRegistrosModelo.setValueAt(comprobante, filaIndice, 1);
+            tabRegistrosModelo.setValueAt(referencia, filaIndice, 2);
+            tabRegistrosModelo.setValueAt(cuenta.getId(), filaIndice, 3);
+            tabRegistrosModelo.setValueAt(debe, filaIndice, 4);
+            tabRegistrosModelo.setValueAt(haber, filaIndice, 5);
             
             dispose();
         }
@@ -313,16 +307,15 @@ public class RegistroVentana extends javax.swing.JFrame {
     
     // Validador de datos
     private Boolean validarDatos() {
-        if (texfieNoComp.getText().isBlank() || 
-                texfieReferencia.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos");
+        if (texfieNoComp.getText().isBlank() || texfieReferencia.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos.");
             return false;
         }
         
         try {
             new BigDecimal(texfieMonto.getText()).setScale(2);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Introduzca un número decimal válido");
+            JOptionPane.showMessageDialog(this, "Introduzca un número decimal válido.");
             return false;
         }
         

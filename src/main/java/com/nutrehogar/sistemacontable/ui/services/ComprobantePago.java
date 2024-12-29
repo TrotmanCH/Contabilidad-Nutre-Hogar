@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.view.services;
+package com.nutrehogar.sistemacontable.ui.services;
 
 import java.awt.Color;
 import javax.swing.*;
@@ -214,7 +214,7 @@ public class ComprobantePago extends javax.swing.JFrame {
         getContentPane().add(texfieNoDoc);
         texfieNoDoc.setBounds(490, 160, 80, 26);
 
-        labLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo_small.png"))); // NOI18N
+        labLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/nutrehogar_icono.png"))); // NOI18N
         getContentPane().add(labLogo);
         labLogo.setBounds(310, 130, 75, 75);
 

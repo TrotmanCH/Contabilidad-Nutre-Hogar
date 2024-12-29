@@ -1,50 +1,52 @@
-package com.nutrehogar.sistemacontable.ui.view;
+package com.nutrehogar.sistemacontable.ui.tabs;
 
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.SubTipoCuentaRepo;
 import com.nutrehogar.sistemacontable.ui.styles.*;
-import javax.swing.*;
+import com.nutrehogar.sistemacontable.ui.windows.SubtiposCuentaVentana;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
-    DefaultTableModel tabSubtipoCuentasModelo;
-    ListSelectionModel listaSeleccionModelo;
-    
-    public ListaSubTipoCuentaPestana() {
+public class SubtiposCuentaPestana extends javax.swing.JPanel {
+    public SubtiposCuentaPestana() {
         initComponents();
+        estilizarComponentes();
         
-        this.addMouseListener(new java.awt.event.MouseAdapter() {
+        // Configurando la selección en tabSubtiposCuentas        
+        tabSubtiposCuenta.getSelectionModel()
+                .addListSelectionListener(this::seleccionEscuchador);
+        tabSubtiposCuenta.getSelectionModel()
+                .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        this.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabSubtipoCuentas.clearSelection();
+            public void mouseClicked(MouseEvent evt) {
+                tabSubtiposCuenta.clearSelection();
             }
         });
         
-        tabSubtipoCuentasModelo = (DefaultTableModel) tabSubtipoCuentas.getModel();
-        listaSeleccionModelo = tabSubtipoCuentas.getSelectionModel();
-        
-        listaSeleccionModelo.addListSelectionListener(this::listaSeleccionEscuchador);
-        listaSeleccionModelo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        estilizarComponentes();
-        
-        for (SubTipoCuenta subtipoCuenta : SubTipoCuentaRepo.findAll()) {
-            tabSubtipoCuentasModelo.addRow(new Object[] {
+        // Llenando tabSubtiposCuentas
+        SubTipoCuentaRepo.findAll().forEach(subtipoCuenta -> {
+            ((DefaultTableModel) tabSubtiposCuenta.getModel()).addRow(new Object[] {
                 subtipoCuenta.getId(),subtipoCuenta.getNombre(),
                 subtipoCuenta.getTipoCuenta().getNombre()
             });
-        }
+        });
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labListaSubtipoCuentas = new javax.swing.JLabel();
-        scrpanSubtipoCuentas = new javax.swing.JScrollPane();
-        tabSubtipoCuentas = new javax.swing.JTable();
+        labSubtiposCuenta = new javax.swing.JLabel();
+        scrpanSubtiposCuenta = new javax.swing.JScrollPane();
+        tabSubtiposCuenta = new javax.swing.JTable();
         panAcciones = new javax.swing.JPanel();
         butAnadir = new javax.swing.JButton();
         butEditar = new javax.swing.JButton();
@@ -52,11 +54,11 @@ public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(241, 248, 255));
 
-        labListaSubtipoCuentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        labListaSubtipoCuentas.setText("Lista de Subtipos de Cuentas");
+        labSubtiposCuenta.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labSubtiposCuenta.setText("Subtipos de Cuenta");
 
-        tabSubtipoCuentas.setAutoCreateRowSorter(true);
-        tabSubtipoCuentas.setModel(new javax.swing.table.DefaultTableModel(
+        tabSubtiposCuenta.setAutoCreateRowSorter(true);
+        tabSubtiposCuenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -72,7 +74,7 @@ public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        scrpanSubtipoCuentas.setViewportView(tabSubtipoCuentas);
+        scrpanSubtiposCuenta.setViewportView(tabSubtiposCuenta);
 
         panAcciones.setBackground(new java.awt.Color(241, 248, 255));
         panAcciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
@@ -80,7 +82,7 @@ public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
         butAnadir.setBackground(new java.awt.Color(242, 242, 242));
         butAnadir.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butAnadir.setForeground(new java.awt.Color(255, 255, 255));
-        butAnadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/anadir.png"))); // NOI18N
+        butAnadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/anadir.png"))); // NOI18N
         butAnadir.setText("Anadir");
         butAnadir.setPreferredSize(new java.awt.Dimension(139, 42));
         butAnadir.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +94,7 @@ public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
         butEditar.setBackground(new java.awt.Color(242, 242, 242));
         butEditar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butEditar.setForeground(new java.awt.Color(255, 255, 255));
-        butEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/editar.png"))); // NOI18N
+        butEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/editar.png"))); // NOI18N
         butEditar.setText("Editar");
         butEditar.setEnabled(false);
         butEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +106,7 @@ public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
         butEliminar.setBackground(new java.awt.Color(242, 242, 242));
         butEliminar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         butEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        butEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/eliminar.png"))); // NOI18N
+        butEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
         butEliminar.setText("Eliminar");
         butEliminar.setEnabled(false);
         butEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -143,24 +145,24 @@ public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(scrpanSubtipoCuentas)
+                .addComponent(scrpanSubtiposCuenta)
                 .addGap(20, 20, 20)
                 .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(249, Short.MAX_VALUE)
-                .addComponent(labListaSubtipoCuentas)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addContainerGap(301, Short.MAX_VALUE)
+                .addComponent(labSubtiposCuenta)
+                .addContainerGap(320, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(labListaSubtipoCuentas)
+                .addComponent(labSubtiposCuenta)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(scrpanSubtipoCuentas)
+                        .addComponent(scrpanSubtiposCuenta)
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
@@ -171,19 +173,19 @@ public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
     
     // Estilo de los componentes
     private void estilizarComponentes() {
-        new TableStyle(tabSubtipoCuentas); // Tabla
+        new TableStyle(tabSubtiposCuenta); // Tabla
         
         // Columnas especificas
-        tabSubtipoCuentas.getColumnModel().getColumn(0).setMaxWidth(80);
-        ((DefaultTableCellRenderer) tabSubtipoCuentas.getColumnModel().getColumn(1).getCellRenderer())
+        tabSubtiposCuenta.getColumnModel().getColumn(0).setMaxWidth(80);
+        ((DefaultTableCellRenderer) tabSubtiposCuenta.getColumnModel().getColumn(1).getCellRenderer())
                 .setHorizontalAlignment(SwingConstants.LEFT);
         
         new ButtonStyle(butAnadir, butEditar, butEliminar);  // Botones
     }
     
-    // Escuchador de tabCuentas
-    public void listaSeleccionEscuchador(ListSelectionEvent e) {
-        if (tabSubtipoCuentas.getSelectedRow() != -1) {
+    // Escuchador de selección de tabSubtiposCuentas
+    public void seleccionEscuchador(ListSelectionEvent e) {
+        if (tabSubtiposCuenta.getSelectedRow() != -1) {
             butEditar.setEnabled(true);
             butEliminar.setEnabled(true);
         } else {
@@ -194,19 +196,22 @@ public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
     
     // Escuchadores de los botones
     private void butAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnadirActionPerformed
-        SubTipoCuentaVentana scv = new SubTipoCuentaVentana(tabSubtipoCuentasModelo, "Crear Subtipo",
+        SubtiposCuentaVentana scv = new SubtiposCuentaVentana(
+                "Añadir Subtipo", (DefaultTableModel) tabSubtiposCuenta.getModel(),
                 null, null); 
         scv.setLocationRelativeTo(null); 
         scv.setVisible(true);
     }//GEN-LAST:event_butAnadirActionPerformed
 
     private void butEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butEditarActionPerformed
-        if (!listaSeleccionModelo.isSelectionEmpty()) {
-            Integer filaSubtipoCuenta = tabSubtipoCuentas.getSelectedRow();
-            String subtipoCuentaCodigo = tabSubtipoCuentas.getValueAt(filaSubtipoCuenta, 0).toString();
-            SubTipoCuenta subtipoCuentaSeleccionada = SubTipoCuentaRepo.findById(subtipoCuentaCodigo);
-            SubTipoCuentaVentana scv = new SubTipoCuentaVentana(tabSubtipoCuentasModelo, "Editar Subtipo", 
-                    filaSubtipoCuenta, subtipoCuentaSeleccionada); 
+        if (!tabSubtiposCuenta.getSelectionModel().isSelectionEmpty()) {
+            Integer filaIndice = tabSubtiposCuenta.getSelectedRow();
+            String filaCodigo = tabSubtiposCuenta.getValueAt(filaIndice, 0).toString();
+            SubTipoCuenta subtipoCuentaBuscada = SubTipoCuentaRepo.findById(filaCodigo);
+            
+            SubtiposCuentaVentana scv = new SubtiposCuentaVentana(
+                    "Editar Subtipo", (DefaultTableModel) tabSubtiposCuenta.getModel(), 
+                    filaIndice, subtipoCuentaBuscada); 
             scv.setLocationRelativeTo(null); 
             scv.setVisible(true);
         } else {
@@ -215,17 +220,17 @@ public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
     }//GEN-LAST:event_butEditarActionPerformed
 
     private void butEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butEliminarActionPerformed
-        if (!listaSeleccionModelo.isSelectionEmpty()) {
-            Integer filaSubtipoCuenta = tabSubtipoCuentas.getSelectedRow();
-            String subtipoCuentaCodigo = tabSubtipoCuentas.getValueAt(filaSubtipoCuenta, 0).toString();
-            Integer confirmar = JOptionPane.showConfirmDialog(
+        if (!tabSubtiposCuenta.getSelectionModel().isSelectionEmpty()) {
+            Integer filaIndice = tabSubtiposCuenta.getSelectedRow();
+            String filaCodigo = tabSubtiposCuenta.getValueAt(filaIndice, 0).toString();
+            Integer respuesta = JOptionPane.showConfirmDialog(
                 this, "¿Está seguro de que desea eliminar este subtipo?",
-                "Confirmar eliminación", JOptionPane.YES_NO_OPTION
+                "Eliminar Subtipo", JOptionPane.YES_NO_OPTION
             );
             
-            if (confirmar == JOptionPane.YES_OPTION) {
-                tabSubtipoCuentasModelo.removeRow(filaSubtipoCuenta);
-                SubTipoCuentaRepo.delete(subtipoCuentaCodigo);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                SubTipoCuentaRepo.delete(filaCodigo);
+                ((DefaultTableModel) tabSubtiposCuenta.getModel()).removeRow(filaIndice);
                 JOptionPane.showMessageDialog(this, "Subtipo eliminado exitosamente.");
             }
         } else {
@@ -237,9 +242,9 @@ public class ListaSubTipoCuentaPestana extends javax.swing.JPanel {
     private javax.swing.JButton butAnadir;
     private javax.swing.JButton butEditar;
     private javax.swing.JButton butEliminar;
-    private javax.swing.JLabel labListaSubtipoCuentas;
+    private javax.swing.JLabel labSubtiposCuenta;
     private javax.swing.JPanel panAcciones;
-    private javax.swing.JScrollPane scrpanSubtipoCuentas;
-    private javax.swing.JTable tabSubtipoCuentas;
+    private javax.swing.JScrollPane scrpanSubtiposCuenta;
+    private javax.swing.JTable tabSubtiposCuenta;
     // End of variables declaration//GEN-END:variables
 }

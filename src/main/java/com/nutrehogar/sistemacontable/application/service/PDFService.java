@@ -4,8 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.nutrehogar.sistemacontable.ui.view.services.ComprobantePago;
-import com.nutrehogar.sistemacontable.ui.view.services.FormularioRegistro;
+import com.nutrehogar.sistemacontable.ui.services.*;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -13,8 +12,11 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class PDFService {
     public String noCheque;
@@ -25,9 +27,9 @@ public class PDFService {
     public String concepto;
     public String debe;
     public String haber;
-    public DefaultTableModel registros;
+    public TableModel registros;
     
-    public void exportarComprobante() {
+    public void llenarComprobante() {
         ComprobantePago cp = new ComprobantePago();
         cp.texfieNoCheque.setText(noCheque);
         cp.texfieFecha.setText(fecha);
@@ -51,7 +53,7 @@ public class PDFService {
         cp.setVisible(true);
         exportarPDF(cp);
     }
-    public void exportarFormulario() {
+    public void llenarFormulario() {
         FormularioRegistro fr = new FormularioRegistro();
         fr.texfieNoCheque.setText(noCheque);
         fr.texfieFecha.setText(fecha);

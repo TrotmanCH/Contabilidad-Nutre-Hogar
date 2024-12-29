@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.nutrehogar.sistemacontable.ui.view.services;
+package com.nutrehogar.sistemacontable.ui.services;
 
 import lombok.Getter;
 import lombok.Setter;

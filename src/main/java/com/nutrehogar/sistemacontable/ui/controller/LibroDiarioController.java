@@ -4,7 +4,7 @@ import com.nutrehogar.sistemacontable.application.dto.LibroDiarioDTO;
 import com.nutrehogar.sistemacontable.application.service.Util;
 import com.nutrehogar.sistemacontable.domain.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.repository.LibroDiarioRepo;
-import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner;
+import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.view.LibroDiarioView;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.view.components;
+package com.nutrehogar.sistemacontable.ui.components;
 
 import lombok.Getter;
 import lombok.Setter;

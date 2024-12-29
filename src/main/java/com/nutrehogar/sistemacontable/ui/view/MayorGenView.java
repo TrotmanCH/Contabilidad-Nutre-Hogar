@@ -24,14 +24,14 @@ public class MayorGenView extends javax.swing.JPanel {
 
         labMayorGeneral = new javax.swing.JLabel();
         panSelector = new javax.swing.JPanel();
-        comboxTipoCuenta = new com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<>();
-        comboxSubtipoCuenta = new com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<>();
-        comboxCuenta = new com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<>();
+        comboxTipoCuenta = new com.nutrehogar.sistemacontable.ui.components.CustomComboBox<>();
+        comboxSubtipoCuenta = new com.nutrehogar.sistemacontable.ui.components.CustomComboBox<>();
+        comboxCuenta = new com.nutrehogar.sistemacontable.ui.components.CustomComboBox<>();
         panFiltros = new javax.swing.JPanel();
         labInicio = new javax.swing.JLabel();
-        spiInicio = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        spiInicio = new com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner();
         labFin = new javax.swing.JLabel();
-        spiFin = new com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner();
+        spiFin = new com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner();
         butFiltrar = new javax.swing.JButton();
         scrpanRegistros = new javax.swing.JScrollPane();
         tabRegistros = new javax.swing.JTable();
@@ -81,13 +81,8 @@ public class MayorGenView extends javax.swing.JPanel {
 
         butFiltrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         butFiltrar.setForeground(new java.awt.Color(255, 255, 255));
-        butFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/filtrar.png"))); // NOI18N
+        butFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/filtrar.png"))); // NOI18N
         butFiltrar.setText("Filtrar");
-        butFiltrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butFiltrarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panFiltrosLayout = new javax.swing.GroupLayout(panFiltros);
         panFiltros.setLayout(panFiltrosLayout);
@@ -162,24 +157,19 @@ public class MayorGenView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void butFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butFiltrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_butFiltrarActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butFiltrar;
-    private com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<Cuenta> comboxCuenta;
-    private com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<SubTipoCuenta> comboxSubtipoCuenta;
-    private com.nutrehogar.sistemacontable.ui.view.components.CustomComboBox<TipoCuenta> comboxTipoCuenta;
+    private com.nutrehogar.sistemacontable.ui.components.CustomComboBox<Cuenta> comboxCuenta;
+    private com.nutrehogar.sistemacontable.ui.components.CustomComboBox<SubTipoCuenta> comboxSubtipoCuenta;
+    private com.nutrehogar.sistemacontable.ui.components.CustomComboBox<TipoCuenta> comboxTipoCuenta;
     private javax.swing.JLabel labFin;
     private javax.swing.JLabel labInicio;
     private javax.swing.JLabel labMayorGeneral;
     private javax.swing.JPanel panFiltros;
     private javax.swing.JPanel panSelector;
     private javax.swing.JScrollPane scrpanRegistros;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiFin;
-    private com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner spiInicio;
+    private com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner spiFin;
+    private com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner spiInicio;
     private javax.swing.JTable tabRegistros;
     // End of variables declaration//GEN-END:variables
 }

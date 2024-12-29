@@ -23,20 +23,18 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrpanRegistros" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="labLibroDiario" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
+              <Component id="scrpanRegistros" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="125" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="panFiltros" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="125" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="labLibroDiario" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -118,7 +116,7 @@
             <Property name="text" type="java.lang.String" value="Inicio:"/>
           </Properties>
         </Component>
-        <Component class="com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner" name="spiInicio">
+        <Component class="com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner" name="spiInicio">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
@@ -131,7 +129,7 @@
             <Property name="text" type="java.lang.String" value="Fin:"/>
           </Properties>
         </Component>
-        <Component class="com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinner" name="spiFin">
+        <Component class="com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner" name="spiFin">
         </Component>
         <Component class="javax.swing.JButton" name="butFiltrar">
           <Properties>
@@ -142,13 +140,10 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icon/filtrar.png"/>
+              <Image iconType="3" name="/icons/filtrar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Filtrar"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butFiltrarActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

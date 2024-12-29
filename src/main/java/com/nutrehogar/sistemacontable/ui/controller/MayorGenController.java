@@ -5,7 +5,7 @@ import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.MayorGenRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoCuentaRepo;
-import com.nutrehogar.sistemacontable.ui.view.components.LocalDateSpinnerModel;
+import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinnerModel;
 import com.nutrehogar.sistemacontable.ui.view.MayorGenView;
 import lombok.AccessLevel;
 import lombok.Getter;
