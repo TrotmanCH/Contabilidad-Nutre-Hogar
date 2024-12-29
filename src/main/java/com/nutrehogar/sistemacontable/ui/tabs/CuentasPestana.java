@@ -3,15 +3,12 @@ package com.nutrehogar.sistemacontable.ui.tabs;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.ui.styles.*;
-import com.nutrehogar.sistemacontable.ui.styles.*;
 import com.nutrehogar.sistemacontable.ui.windows.CuentaVentana;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class CuentasPestana extends javax.swing.JPanel {
@@ -68,20 +65,33 @@ public class CuentasPestana extends javax.swing.JPanel {
                 "Código", "Nombre", "Tipo de Cuenta", "Subtipo de Cuenta"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tabCuentas.getTableHeader().setReorderingAllowed(false);
         scrpanCuentas.setViewportView(tabCuentas);
         if (tabCuentas.getColumnModel().getColumnCount() > 0) {
-            tabCuentas.getColumnModel().getColumn(0).setHeaderValue("Código");
-            tabCuentas.getColumnModel().getColumn(1).setHeaderValue("Nombre");
-            tabCuentas.getColumnModel().getColumn(2).setHeaderValue("Tipo de Cuenta");
-            tabCuentas.getColumnModel().getColumn(3).setHeaderValue("Subtipo de Cuenta");
+            tabCuentas.getColumnModel().getColumn(0).setMinWidth(120);
+            tabCuentas.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tabCuentas.getColumnModel().getColumn(0).setMaxWidth(120);
+            tabCuentas.getColumnModel().getColumn(2).setMinWidth(160);
+            tabCuentas.getColumnModel().getColumn(2).setPreferredWidth(160);
+            tabCuentas.getColumnModel().getColumn(2).setMaxWidth(160);
+            tabCuentas.getColumnModel().getColumn(3).setMinWidth(320);
+            tabCuentas.getColumnModel().getColumn(3).setPreferredWidth(320);
+            tabCuentas.getColumnModel().getColumn(3).setMaxWidth(320);
         }
 
         panAcciones.setBackground(new java.awt.Color(241, 248, 255));
@@ -181,13 +191,7 @@ public class CuentasPestana extends javax.swing.JPanel {
     
     // Estilo de los componentes
     private void estilizarComponentes() {
-        new TableStyle(tabCuentas); // Tabla
-        
-        // Columnas especificas
-        tabCuentas.getColumnModel().getColumn(0).setMaxWidth(80);
-        ((DefaultTableCellRenderer) tabCuentas.getColumnModel().getColumn(1).getCellRenderer())
-                .setHorizontalAlignment(SwingConstants.LEFT);
-        
+        new TableStyle(tabCuentas); // Tabla;
         new ButtonStyle(butAnadir, butEditar, butEliminar); // Botones
     }
     

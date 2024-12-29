@@ -314,8 +314,8 @@ public class RegistroVentana extends javax.swing.JFrame {
         
         try {
             new BigDecimal(texfieMonto.getText()).setScale(2);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Introduzca un número decimal válido.");
+        } catch (NumberFormatException | ArithmeticException e) {
+            JOptionPane.showMessageDialog(this, "Introduzca un monto válido.");
             return false;
         }
         
