@@ -15,10 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class FormularioPestana extends javax.swing.JPanel {
@@ -112,16 +110,38 @@ public class FormularioPestana extends javax.swing.JPanel {
                 "Tipo de Doc.", "No. Comp.", "Referencia", "Código", "Debe", "Haber"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         tabRegistros.setAutoscrolls(false);
+        tabRegistros.getTableHeader().setReorderingAllowed(false);
         scrpanRegistros.setViewportView(tabRegistros);
+        if (tabRegistros.getColumnModel().getColumnCount() > 0) {
+            tabRegistros.getColumnModel().getColumn(0).setMinWidth(160);
+            tabRegistros.getColumnModel().getColumn(0).setPreferredWidth(160);
+            tabRegistros.getColumnModel().getColumn(0).setMaxWidth(160);
+            tabRegistros.getColumnModel().getColumn(3).setMinWidth(80);
+            tabRegistros.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tabRegistros.getColumnModel().getColumn(3).setMaxWidth(80);
+            tabRegistros.getColumnModel().getColumn(4).setMinWidth(120);
+            tabRegistros.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tabRegistros.getColumnModel().getColumn(4).setMaxWidth(120);
+            tabRegistros.getColumnModel().getColumn(5).setMinWidth(120);
+            tabRegistros.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tabRegistros.getColumnModel().getColumn(5).setMaxWidth(120);
+        }
 
         labDiferencia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labDiferencia.setText("Diferencia:");
@@ -382,15 +402,7 @@ public class FormularioPestana extends javax.swing.JPanel {
     
     // Estilo de los componentes
     private void estilizarComponentes() {
-        new TableStyle(tabRegistros); // Tabla
-        
-        // Columnas especificas
-        tabRegistros.getColumnModel().getColumn(3).setMaxWidth(80);
-        ((DefaultTableCellRenderer) tabRegistros.getColumnModel().getColumn(1).getCellRenderer())
-                .setHorizontalAlignment(SwingConstants.LEFT);
-        ((DefaultTableCellRenderer) tabRegistros.getColumnModel().getColumn(2).getCellRenderer())
-                .setHorizontalAlignment(SwingConstants.LEFT);
-        
+        new TableStyle(tabRegistros); // Tabla        
         new ButtonStyle(butAnadirRegistro, butEditarRegistro, 
                 butEliminarRegistro, butGuardarAsiento,
                 butExportarFormulario, butExportarComprobante,
@@ -428,6 +440,7 @@ public class FormularioPestana extends javax.swing.JPanel {
             texfieMonto.setText(debeTotal.toString());
             texfieDiferencia.setText("0.00");
         } else {
+            texfieMonto.setText("");
             diferencia = debeTotal.subtract(haberTotal);
             texfieDiferencia.setText(diferencia.toString());
         }

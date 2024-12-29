@@ -8,9 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class SubtiposCuentaPestana extends javax.swing.JPanel {
@@ -74,7 +72,16 @@ public class SubtiposCuentaPestana extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tabSubtiposCuenta.getTableHeader().setReorderingAllowed(false);
         scrpanSubtiposCuenta.setViewportView(tabSubtiposCuenta);
+        if (tabSubtiposCuenta.getColumnModel().getColumnCount() > 0) {
+            tabSubtiposCuenta.getColumnModel().getColumn(0).setMinWidth(160);
+            tabSubtiposCuenta.getColumnModel().getColumn(0).setPreferredWidth(160);
+            tabSubtiposCuenta.getColumnModel().getColumn(0).setMaxWidth(160);
+            tabSubtiposCuenta.getColumnModel().getColumn(2).setMinWidth(240);
+            tabSubtiposCuenta.getColumnModel().getColumn(2).setPreferredWidth(240);
+            tabSubtiposCuenta.getColumnModel().getColumn(2).setMaxWidth(240);
+        }
 
         panAcciones.setBackground(new java.awt.Color(241, 248, 255));
         panAcciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
@@ -174,12 +181,6 @@ public class SubtiposCuentaPestana extends javax.swing.JPanel {
     // Estilo de los componentes
     private void estilizarComponentes() {
         new TableStyle(tabSubtiposCuenta); // Tabla
-        
-        // Columnas especificas
-        tabSubtiposCuenta.getColumnModel().getColumn(0).setMaxWidth(80);
-        ((DefaultTableCellRenderer) tabSubtiposCuenta.getColumnModel().getColumn(1).getCellRenderer())
-                .setHorizontalAlignment(SwingConstants.LEFT);
-        
         new ButtonStyle(butAnadir, butEditar, butEliminar);  // Botones
     }
     

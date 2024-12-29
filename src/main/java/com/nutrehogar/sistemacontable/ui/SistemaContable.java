@@ -267,12 +267,12 @@ public class SistemaContable extends javax.swing.JFrame {
         repaint();
     }//GEN-LAST:event_labOcultarMenuMouseClicked
     
-    public void mostrarPestana(JPanel pestana){
-       pestana.setBackground(new Color(241,248,255));
-       panContenido.removeAll();
-       panContenido.add(pestana);
-       panContenido.revalidate();
-       panContenido.repaint();
+    private void mostrarPestana(JPanel pestana){
+        pestana.setBackground(new Color(241,248,255));
+        panContenido.removeAll();
+        panContenido.add(pestana);
+        panContenido.revalidate();
+        panContenido.repaint();
     }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -287,7 +287,5 @@ public class SistemaContable extends javax.swing.JFrame {
     private javax.swing.JPanel panContenido;
     private javax.swing.JPanel panMenu;
     // End of variables declaration//GEN-END:variables
-
-
 }
 

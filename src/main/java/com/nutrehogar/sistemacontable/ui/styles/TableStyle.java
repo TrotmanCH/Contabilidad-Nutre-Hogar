@@ -32,8 +32,11 @@ public class TableStyle {
                 } else {
                     componente.setBackground(Color.decode("#BBDEFB")); 
                 }
-                
-                setHorizontalAlignment(SwingConstants.CENTER);
+                if (tabla.getModel().getColumnClass(columna) == String.class) {
+                    setHorizontalAlignment(SwingConstants.LEFT);
+                } else {
+                    setHorizontalAlignment(SwingConstants.CENTER);
+                }
                 return componente;
             }
         };
