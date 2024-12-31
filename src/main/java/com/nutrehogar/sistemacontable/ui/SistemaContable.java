@@ -1,5 +1,6 @@
 package com.nutrehogar.sistemacontable.ui;
 
+import com.nutrehogar.sistemacontable.application.service.BackupService;
 import com.nutrehogar.sistemacontable.ui.controller.*;
 import com.nutrehogar.sistemacontable.ui.tabs.*;
 import com.nutrehogar.sistemacontable.ui.view.*;
@@ -17,6 +18,7 @@ public class SistemaContable extends javax.swing.JFrame {
     MayorGenView mayorGeneral = MayorGenController.getInstance().getView();
     CuentasPestana listaCuenta = new CuentasPestana();
     SubtiposCuentaPestana listaSubtipoCuenta = new SubtiposCuentaPestana();
+    BackupService backupService =BackupService.getInstance();
     
     public SistemaContable() {
         initComponents(); 
@@ -28,6 +30,8 @@ public class SistemaContable extends javax.swing.JFrame {
         estilizarBotones(butFormulario, butBalanceComprobacion, butLibroDiario,
                 butMayorGeneral, butCuentas, butSubtiposCuenta
         );
+        // Poner la siguiente linea en un boton para mostrar la ventana de backups
+        backupService.getDialog(this).setVisible(true);
     }
     
     // Estilo de botones
