@@ -5,8 +5,6 @@ import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +15,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class AsientoRepo {
     private static final Session session = HibernateUtil.getSession();
         
-    public static @NotNull @Unmodifiable List<Asiento> findAll() {
+    public static List<Asiento> findAll() {
         List<Asiento> transaccions = List.of();
             try {
                 session.beginTransaction();
@@ -33,7 +31,16 @@ public class AsientoRepo {
     public static Asiento findById(Integer id) {
         return session.find(Asiento.class, id);
     }
-
+    public static int getSize(){
+        int size = 0;
+        try {
+            size = session.createQuery("select count(id) from Asiento", Long.class).uniqueResult().intValue();
+        } catch (Exception e) {
+            e.printStackTrace();
+            size=-1;
+        }
+        return size;
+    }
     public static void save(Asiento asiento) {
         try {
             session.beginTransaction();
@@ -44,7 +51,7 @@ public class AsientoRepo {
         }
     }
 
-    public static void save(@NotNull List<Asiento> asientos) {
+    public static void save( List<Asiento> asientos) {
         try {
             session.beginTransaction();
             asientos.forEach(session::persist);
@@ -90,4 +97,5 @@ public class AsientoRepo {
             e.printStackTrace();
         }
     }
+
 }
