@@ -54,6 +54,11 @@ public class BackupService {
     JDialog dialog;
 
     /**
+     * Frame principal del programa.
+     */
+    Frame mainFrame;
+
+    /**
      * Panel principal que contiene los elementos de la interfaz gráfica.
      */
     BackupPanel backupPanel;
@@ -123,6 +128,22 @@ public class BackupService {
     }
 
     /**
+     * Muestra el diálogo modal para gestionar respaldos.
+     *
+     * @param frame Ventana principal de la aplicación.
+     * @return Instancia del diálogo modal.
+     */
+    public JDialog getDialog(JFrame frame) {
+        if (dialog == null) {
+            mainFrame = frame;
+            dialog = new JDialog(mainFrame, "Copias de Seguridad", true);
+            dialog.add(backupPanel);
+            dialog.setSize(430, 460);
+        }
+        return dialog;
+    }
+
+    /**
      * Configura los componentes gráficos y asigna los eventos de los botones y la tabla.
      */
     private void initialize() {
@@ -159,8 +180,22 @@ public class BackupService {
      * @param e Evento asociado al clic del botón.
      */
     private void btnRestarBackupActionPerformance(ActionEvent e) {
-        System.out.println(selectedFile.getAbsolutePath());
+        var response = JOptionPane.showConfirmDialog(
+                dialog,
+                "Debe creara una copia de seguridad con los datos actuales.",
+                "Restablecer copia",
+                JOptionPane.OK_CANCEL_OPTION);
+
+        if (response != JOptionPane.OK_OPTION) return;
+
+        int result = btnCreateBackupActionPerformed(null, "security_");
+
+        if (result != JOptionPane.OK_OPTION) return;
+
         restartBackup(selectedFile.getAbsolutePath());
+
+        JOptionPane.showMessageDialog(dialog,"Para hacer efectivo los cambios se cerrara el programa","Se cerrara el programa.", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     /**
@@ -181,7 +216,6 @@ public class BackupService {
         if (!e.getValueIsAdjusting()) {
             int selectedRow = tableBackup.getSelectedRow();
             if (selectedRow != -1) {
-                System.out.println("Fila seleccionada: " + selectedRow);
                 selectFile(selectedRow);
                 btnRestarBackup.setEnabled(true);
             } else {
@@ -195,9 +229,10 @@ public class BackupService {
      *
      * @param e Evento asociado al clic del botón.
      */
-    public void btnCreateBackupActionPerformed(ActionEvent e) {
+    public int btnCreateBackupActionPerformed(ActionEvent e, String name) {
         JTextField inputFileName = new JTextField();
-        inputFileName.setText(createNameByDate());
+        var fileName = name == null ? createNameByDate() : name + createNameByDate();
+        inputFileName.setText(fileName);
         JPanel contentPanel = new JPanel();
         contentPanel.add(new Label("Nombre:"));
         contentPanel.add(inputFileName);
@@ -215,9 +250,12 @@ public class BackupService {
             backup(createFilePathAndName(input));
             files = findBackupFiles();
             backupTableModel.setDataAndReload(files);
-        } else {
-            System.out.println("Cancelado");
         }
+        return result;
+    }
+
+    public int btnCreateBackupActionPerformed(ActionEvent e) {
+        return btnCreateBackupActionPerformed(e, null);
     }
 
     /**
@@ -227,21 +265,6 @@ public class BackupService {
      */
     private void selectFile(int i) {
         selectedFile = files[i];
-    }
-
-    /**
-     * Muestra el diálogo modal para gestionar respaldos.
-     *
-     * @param frame Ventana principal de la aplicación.
-     * @return Instancia del diálogo modal.
-     */
-    public JDialog getDialog(JFrame frame) {
-        if (dialog == null) {
-            dialog = new JDialog(frame, "Copias de Seguridad", true);
-            dialog.add(backupPanel);
-            dialog.setSize(430, 460);
-        }
-        return dialog;
     }
 
     /**
@@ -268,12 +291,10 @@ public class BackupService {
                 connection.setAutoCommit(true);
                 stmt.execute("VACUUM INTO '" + fileName + "';");
                 connection.setAutoCommit(false);
-                System.out.println("Respaldo completado.");
             } catch (Exception e) {
-                e.printStackTrace();
                 JOptionPane.showMessageDialog(
                         dialog,
-                        "Ha ocurrido un error inesperado.",
+                        "Error al realizar copia de seguridad.",
                         "Error",
                         JOptionPane.ERROR_MESSAGE
                 );
@@ -289,7 +310,7 @@ public class BackupService {
     public void restartBackup(String fileName) {
         session.doWork(connection -> {
             try (Statement stmt = connection.createStatement()) {
-// Habilita el autocommit para ejecutar los comandos
+                // Habilita el autocommit para ejecutar los comandos
                 connection.setAutoCommit(true);
 
                 // Elimina los datos actuales de las tablas
@@ -313,14 +334,11 @@ public class BackupService {
 
                 // Restaurar el autocommit a su estado inicial
                 connection.setAutoCommit(false);
-
-                System.out.println("Restauración completada.");
             } catch (Exception e) {
                 // Manejo de errores durante el proceso de respaldo
-                e.printStackTrace();
                 JOptionPane.showMessageDialog(
                         dialog,
-                        "Ha ocurrido un error inesperado.",
+                        "Error al restablecer los datos",
                         "Error",
                         JOptionPane.ERROR_MESSAGE
                 );
