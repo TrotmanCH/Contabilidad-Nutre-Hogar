@@ -11,6 +11,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * Clase de utilidad del proyecto, Contiene metodos que pueden ser utilizados en el proyecto,
@@ -88,6 +89,10 @@ public class Util {
                 super.setValue(value);
             }
         }
+    }
+    public static <E> List<E> ifNull(List<E> e){
+        if (e == null) return List.of();
+        return e;
     }
 
 }
