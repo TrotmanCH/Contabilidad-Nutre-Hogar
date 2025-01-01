@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.Session;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -194,7 +193,7 @@ public class BackupService {
 
         restartBackup(selectedFile.getAbsolutePath());
 
-        JOptionPane.showMessageDialog(dialog,"Para hacer efectivo los cambios se cerrara el programa","Se cerrara el programa.", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(dialog,"Para hacer efectivo los cambios se cerrara el programa.","Se cerrara el programa.", JOptionPane.INFORMATION_MESSAGE);
 
     }
 
@@ -212,7 +211,7 @@ public class BackupService {
      *
      * @param e Evento de selección de la tabla.
      */
-    public void tableChainSelectedRow(@NotNull ListSelectionEvent e) {
+    public void tableChainSelectedRow( ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
             int selectedRow = tableBackup.getSelectedRow();
             if (selectedRow != -1) {
@@ -352,7 +351,7 @@ public class BackupService {
      *
      * @return Ruta completa del archivo de respaldo.
      */
-    private @NotNull String createFilePathAndName(String fileName) {
+    private  String createFilePathAndName(String fileName) {
         return getBackupPath() + File.separator + fileName + ".sqlite";
     }
 
@@ -361,7 +360,7 @@ public class BackupService {
      *
      * @return Nombre del archivo de respaldo.
      */
-    private @NotNull String createNameByDate() {
+    private  String createNameByDate() {
         return "backup_" + LocalDateTime.now().format(getDateFormat());
     }
 
