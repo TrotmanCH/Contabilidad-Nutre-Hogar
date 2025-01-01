@@ -22,8 +22,10 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Vector;
 
 import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
 public class MayorGenController {
@@ -68,10 +70,11 @@ public class MayorGenController {
 
         restarDateToSpinners(starSpinnerModel, endSpinnerModel);
 
-        defineModelListener();
         loadSubTipoCuentas();
         loadCuenta();
         loadData();
+
+        defineModelListener();
     }
 
     /**
@@ -177,7 +180,7 @@ public class MayorGenController {
      */
     private static class SubTipoCuentaComboBoxModel extends DefaultComboBoxModel<SubTipoCuenta> {
         public SubTipoCuentaComboBoxModel(@NotNull List<SubTipoCuenta> data) {
-            super(data.toArray(new SubTipoCuenta[0]));
+            super(new Vector<>(data));
         }
 
         /**
@@ -200,7 +203,7 @@ public class MayorGenController {
      */
     private static class CuentaComboBoxModel extends DefaultComboBoxModel<Cuenta> {
         public CuentaComboBoxModel(@NotNull List<Cuenta> data) {
-            super(data.toArray(new Cuenta[0]));
+            super(new Vector<>(data));
         }
 
         /**
