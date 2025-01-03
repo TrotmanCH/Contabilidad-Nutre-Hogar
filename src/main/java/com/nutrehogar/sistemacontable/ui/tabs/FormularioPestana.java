@@ -431,8 +431,8 @@ public class FormularioPestana extends javax.swing.JPanel {
 
     // Estilo de los componentes
     private void estilizarComponentes() {
-        new TableStyle(tabRegistros); // Tabla        
-        new ButtonStyle(butAnadirRegistro, butEditarRegistro,
+        TableStyle.setStyle(tabRegistros); // Tabla
+        ButtonStyle.setStyle(butAnadirRegistro, butEditarRegistro,
                 butEliminarRegistro, butGuardarAsiento,
                 butExportarFormulario, butExportarComprobante,
                 butLimpiarFormulario

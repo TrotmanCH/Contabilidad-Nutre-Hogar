@@ -23,7 +23,7 @@ public class CuentaVentana extends javax.swing.JFrame {
     public CuentaVentana(String titulo, DefaultTableModel tabCuentasModelo, 
             Integer filaIndice, Cuenta cuentaBuscada) {
         initComponents();
-        new ButtonStyle(butAnadir, butEditar);
+        ButtonStyle.setStyle(butAnadir, butEditar);
         
         // Trayendo datos de CuentasPestana
         labTitulo.setText(titulo);

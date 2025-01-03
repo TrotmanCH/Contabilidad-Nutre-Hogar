@@ -180,8 +180,8 @@ public class SubtiposCuentaPestana extends javax.swing.JPanel {
     
     // Estilo de los componentes
     private void estilizarComponentes() {
-        new TableStyle(tabSubtiposCuenta); // Tabla
-        new ButtonStyle(butAnadir, butEditar, butEliminar);  // Botones
+        TableStyle.setStyle(tabSubtiposCuenta); // Tabla
+        ButtonStyle.setStyle(butAnadir, butEditar, butEliminar);  // Botones
     }
     
     // Escuchador de selección de tabSubtiposCuentas

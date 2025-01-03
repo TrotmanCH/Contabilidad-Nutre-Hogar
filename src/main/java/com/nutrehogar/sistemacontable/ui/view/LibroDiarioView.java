@@ -11,8 +11,8 @@ public class LibroDiarioView extends javax.swing.JPanel {
     public LibroDiarioView() {
         initComponents();
         
-        new TableStyle(tabRegistros);
-        new ButtonStyle(butFiltrar);
+        TableStyle.setStyle(tabRegistros);
+        ButtonStyle.setStyle(butFiltrar);
     }
     
     @SuppressWarnings("unchecked")
