@@ -14,8 +14,8 @@ public class MayorGenView extends javax.swing.JPanel {
     public MayorGenView() {
         initComponents();
         
-        new TableStyle(tabRegistros);
-        new ButtonStyle(butFiltrar,butEdit);
+        TableStyle.setStyle(tabRegistros);
+        ButtonStyle.setStyle(butFiltrar,butEdit);
     }
     
     @SuppressWarnings("unchecked")

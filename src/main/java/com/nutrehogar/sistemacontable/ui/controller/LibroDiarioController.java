@@ -67,7 +67,7 @@ public class LibroDiarioController {
         });
     }
 
-    public class LibroDiarioTableModel extends AbstractTableModel {
+    public static class LibroDiarioTableModel extends AbstractTableModel {
         /**
          * lista de datos a mostrar en la base de datos
          */

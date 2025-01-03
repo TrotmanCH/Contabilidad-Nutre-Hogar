@@ -20,7 +20,7 @@ public class SubtiposCuentaVentana extends javax.swing.JFrame {
     public SubtiposCuentaVentana(String titulo, DefaultTableModel tabSubtiposCuentaModelo, 
             Integer filaIndice, SubTipoCuenta subtipoCuentaBuscada) {
         initComponents();
-        new ButtonStyle(butAnadir, butEditar);
+        ButtonStyle.setStyle(butAnadir, butEditar);
         
         // Trayendo datos de SubtiposCuentaPestana
         labTitulo.setText(titulo);
