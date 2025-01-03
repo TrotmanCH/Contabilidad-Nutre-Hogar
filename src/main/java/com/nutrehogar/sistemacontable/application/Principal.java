@@ -9,6 +9,8 @@ import javax.swing.*;
 public class Principal {
     public static void main(String[] args) {
         Thread.startVirtualThread(HibernateUtil::getSession);
+        //Tarea que se realizara antes de que se apage la JVM, cierra conexión de hibernate
+        Thread.startVirtualThread(()-> Runtime.getRuntime().addShutdownHook(new Thread(HibernateUtil::shutdown)));
 
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
@@ -26,8 +28,5 @@ public class Principal {
         }
 
         java.awt.EventQueue.invokeLater(() -> new SistemaContable().setVisible(true));
-
-        //Tarea que se realizara antes de que se apage la JVM, cierra conexión de hibernate
-        Runtime.getRuntime().addShutdownHook(new Thread(HibernateUtil::shutdown));
     }
 }

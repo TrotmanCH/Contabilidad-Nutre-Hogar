@@ -32,7 +32,7 @@ public class LocalDateSpinner extends JSpinner {
     /**
      * Le da la funcionalidad al espiner de aumentar o decrementar la fecha dependiendo de que seccion se la seleccionada
      */
-    public void configEditor() {
+    public final void configEditor() {
         JSpinner.DefaultEditor editor = new JSpinner.DefaultEditor(this);
         this.setEditor(editor);
         editor.getTextField().addMouseListener(new MouseAdapter() {
