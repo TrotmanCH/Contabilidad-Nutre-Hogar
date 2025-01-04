@@ -25,7 +25,6 @@ public class MayorGenRepo {
 
     public static @NotNull List<MayorGenDTO> find(Field orderField, OrderDirection orderDirection, Filter... filters) {
         List<MayorGenDTO> mayorGeneralDTOS = List.of();
-        System.out.println(filters);
         if (filters == null || filters.length == 0) return mayorGeneralDTOS;
         try {
             session.beginTransaction();
@@ -39,6 +38,7 @@ public class MayorGenRepo {
             Join<Registro, TipoDocumento> tipoDocumento = registro.join("tipoDocumento");
 
             // Alias
+            Path<Integer> asientoIdPath = asiento.get("id");
             Path<LocalDate> asientoFechaPath = asiento.get("fecha");
             Path<String> asientoNombrePath = asiento.get("nombre");
             Path<String> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
@@ -52,6 +52,7 @@ public class MayorGenRepo {
             // Selección de campos para el DTO
             cq.select(cb.construct(
                     MayorGenDTO.class,
+                    asientoIdPath,
                     asientoFechaPath,
                     asientoNombrePath,
                     tipoDocumentoNombrePath,

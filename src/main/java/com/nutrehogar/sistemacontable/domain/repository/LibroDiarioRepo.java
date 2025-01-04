@@ -42,6 +42,7 @@ public class LibroDiarioRepo {
             Join<Registro, TipoDocumento> tipoDocumento = registro.join("tipoDocumento");
 
             // Alias
+            Path<Integer> asientoIdPath = asiento.get("id");
             Path<LocalDate> fechaPath = asiento.get("fecha");
             Path<String> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
             Path<String> codigoCuentaPath = cuenta.get("id");
@@ -53,6 +54,7 @@ public class LibroDiarioRepo {
             // Selección de campos para el DTO
             cq.select(cb.construct(
                     LibroDiarioDTO.class,
+                    asientoIdPath,
                     fechaPath,
                     tipoDocumentoNombrePath,
                     codigoCuentaPath,

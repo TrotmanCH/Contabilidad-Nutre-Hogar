@@ -1,14 +1,16 @@
 package com.nutrehogar.sistemacontable.ui.controller;
 
+import com.nutrehogar.sistemacontable.application.dto.CuentaDTO;
 import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
+import com.nutrehogar.sistemacontable.application.service.Util;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.MayorGenRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoCuentaRepo;
+import com.nutrehogar.sistemacontable.ui.SistemaContable;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinnerModel;
 import com.nutrehogar.sistemacontable.ui.view.MayorGenView;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -17,25 +19,34 @@ import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.table.AbstractTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Vector;
+import java.util.function.Consumer;
 
 import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
 public class MayorGenController {
     static MayorGenController instance;
-    @Getter
     final MayorGenView view;
+    List<MayorGenDTO> data;
+    MayorGenDTO selected;
+    final JTable table;
     final MayorGenTableModel tableModel;
+    final JButton editButton;
     final LocalDateSpinnerModel starSpinnerModel;
     final LocalDateSpinnerModel endSpinnerModel;
-    final SubTipoCuentaComboBoxModel subTipoCuentaComboModel;
-    final TipoCuentaComboBoxModel tipoCuentaComboModel;
-    final CuentaComboBoxModel cuentaComboModel;
+    SubTipoCuentaComboBoxModel subTipoCuentaComboModel;
+    TipoCuentaComboBoxModel tipoCuentaComboModel;
+    CuentaComboBoxModel cuentaComboModel;
     /**
      * Última cuenta seleccionada, se usará para la consulta
      */
@@ -43,13 +54,20 @@ public class MayorGenController {
 
     private MayorGenController() {
         view = new MayorGenView();
+        this.table = view.getTabRegistros();
         this.tableModel = new MayorGenTableModel();
+        this.editButton = view.getButEdit();
         this.starSpinnerModel = view.getSpiInicio().getCustomModel();
         this.endSpinnerModel = view.getSpiFin().getCustomModel();
         this.tipoCuentaComboModel = new TipoCuentaComboBoxModel();
         this.subTipoCuentaComboModel = new SubTipoCuentaComboBoxModel(List.of());
         this.cuentaComboModel = new CuentaComboBoxModel(List.of());
         initComponents();
+    }
+
+    public MayorGenView getView(Consumer<Integer> action) {
+        editButton.addActionListener(e -> action.accept((selected.getAsientoId())));
+        return this.view;
     }
 
     public static MayorGenController getInstance() {
@@ -60,6 +78,8 @@ public class MayorGenController {
     }
 
     private void initComponents() {
+        editButton.setEnabled(false);
+        Util.setTableRenderer(table);
         view.getTabRegistros().setModel(tableModel);
         view.getComboxTipoCuenta().setModel(tipoCuentaComboModel);
         view.getComboxSubtipoCuenta().setModel(subTipoCuentaComboModel);
@@ -68,11 +88,48 @@ public class MayorGenController {
 
         restarDateToSpinners(starSpinnerModel, endSpinnerModel);
 
-        defineModelListener();
         loadSubTipoCuentas();
         loadCuenta();
+        cuentaId = cuentaComboModel.getElementAt(0).getId();
         loadData();
+
+        defineModelListener();
     }
+
+    public void setCuentaTo(CuentaDTO cuentaDTO) {
+        Objects.requireNonNull(cuentaDTO);
+        TipoCuenta tipoCuentaConsumer;
+        com.nutrehogar.sistemacontable.domain.model.TipoCuenta cuentaTipo;
+        try {
+            tipoCuentaConsumer = TipoCuenta.valueOf(cuentaDTO.getTipoCuenta().toUpperCase());
+            cuentaTipo = TipoCuentaRepo.findById(tipoCuentaConsumer.getId());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return;
+        }
+        tipoCuentaComboModel.setSelectedItem(tipoCuentaConsumer);
+        SubTipoCuenta subTipoCuentaConsumer = cuentaTipo.getSubTipoCuenta().getFirst();
+        for (var st : cuentaTipo.getSubTipoCuenta()) {
+            if (st.getNombre().equals(cuentaDTO.getSubTipoCuenta())) {
+                subTipoCuentaConsumer = st;
+                break;
+            }
+        }
+        Objects.requireNonNull(subTipoCuentaConsumer);
+        subTipoCuentaComboModel.setSelectedItem(subTipoCuentaConsumer);
+        Cuenta cuentaConsumer = subTipoCuentaConsumer.getCuentas().getFirst();
+        for (var cu : subTipoCuentaConsumer.getCuentas()) {
+            if (cu.getNombre().equals(cuentaDTO.getCuenta())) {
+                cuentaConsumer = cu;
+                break;
+            }
+        }
+        Objects.requireNonNull(cuentaConsumer);
+        cuentaComboModel.setSelectedItem(cuentaConsumer);
+    }
+
+    ;
+
 
     /**
      * Optiene el {@link TipoCuenta} que está seleccionado en el {@code tipoCuentaComboModel},
@@ -107,15 +164,14 @@ public class MayorGenController {
      * Además, avisa a la tabla, para que renderice los nuevos datos
      */
     public void loadData() {
-        List<MayorGenDTO> data = MayorGenRepo.find(
+        this.data = MayorGenRepo.find(
                 null,
                 null,
-                new MayorGenRepo.Filter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
+                new MayorGenRepo.Filter.ByFechaRange(starSpinnerModel.getValue(), endSpinnerModel.getValue()),
                 new MayorGenRepo.Filter.ByCuentaId(cuentaId));
-        SwingUtilities.invokeLater(() -> {
-            tableModel.setData(data);
-        });
+        SwingUtilities.invokeLater(() -> tableModel.setData(this.data));
     }
+
 
     /**
      * Se asigna los {@code contentsChanged} a los modelos de los combobox.
@@ -170,6 +226,32 @@ public class MayorGenController {
                 loadData();
             }
         });
+        // Detectar clic derecho
+        table.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                press(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+//                press(e);
+            }
+
+            private void press(@NotNull MouseEvent e) {
+                int row = table.rowAtPoint(e.getPoint());
+                if (row != -1) {
+                    int selectedRow = table.getSelectedRow();
+                    if (selectedRow >= 0 && selectedRow < data.size()) {
+                        selected = data.get(selectedRow);
+                        editButton.setEnabled(true);
+                    } else {
+                        editButton.setEnabled(false);
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -177,7 +259,7 @@ public class MayorGenController {
      */
     private static class SubTipoCuentaComboBoxModel extends DefaultComboBoxModel<SubTipoCuenta> {
         public SubTipoCuentaComboBoxModel(@NotNull List<SubTipoCuenta> data) {
-            super(data.toArray(new SubTipoCuenta[0]));
+            super(new Vector<>(data));
         }
 
         /**
@@ -200,7 +282,7 @@ public class MayorGenController {
      */
     private static class CuentaComboBoxModel extends DefaultComboBoxModel<Cuenta> {
         public CuentaComboBoxModel(@NotNull List<Cuenta> data) {
-            super(data.toArray(new Cuenta[0]));
+            super(new Vector<>(data));
         }
 
         /**
@@ -235,7 +317,6 @@ public class MayorGenController {
      * @see
      */
     public static class MayorGenTableModel extends AbstractTableModel {
-        private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
         /**
          * lista de datos a mostrar en la base de datos
          */
@@ -268,8 +349,8 @@ public class MayorGenController {
             sumHaber = BigDecimal.ZERO;
             for (MayorGenDTO dto : data) {
                 saldo = TipoCuenta.fromId(dto.getTipoCuentaId()).getSaldo(saldo, dto.getRegistroHaber(), dto.getRegistroDebe());
-                sumDebe = sumDebe.add(dto.getRegistroDebe(), MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
-                sumHaber = sumHaber.add(dto.getRegistroHaber(), MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
+                sumDebe = sumDebe.add(dto.getRegistroDebe(), MathContext.DECIMAL128).setScale(2, RoundingMode.HALF_UP);
+                sumHaber = sumHaber.add(dto.getRegistroHaber(), MathContext.DECIMAL128).setScale(2, RoundingMode.HALF_UP);
                 dto.setSaldo(saldo);
             }
             return data;
@@ -301,14 +382,14 @@ public class MayorGenController {
                     case 2 -> dto.getTipoDocumentoNombre();
                     case 3 -> dto.getCuentaId();
                     case 4 -> dto.getRegistroReferencia();
-                    case 5 -> dto.getRegistroDebe();
-                    case 6 -> dto.getRegistroHaber();
+                    case 5 -> dto.getRegistroDebe().setScale(2, RoundingMode.HALF_UP);
+                    case 6 -> dto.getRegistroHaber().setScale(2, RoundingMode.HALF_UP);
                     case 7 -> dto.getSaldo();
                     default -> null;
                 };
             } else {
                 return switch (columnIndex) {
-                    case 4 -> "TOTAL:";
+                    case 4 -> "TOTAL";
                     case 5 -> sumDebe;
                     case 6 -> sumHaber;
                     case 7 -> saldo;
@@ -335,7 +416,6 @@ public class MayorGenController {
 
         public void setData(List<MayorGenDTO> newData) {
             data = newData != null ? calcularSaldos(newData) : List.of();
-            System.out.println("MayorGenTableModel.setData: " + data);
             fireTableDataChanged();
         }
     }

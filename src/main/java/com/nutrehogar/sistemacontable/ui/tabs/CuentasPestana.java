@@ -1,44 +1,70 @@
 package com.nutrehogar.sistemacontable.ui.tabs;
 
+import com.nutrehogar.sistemacontable.application.dto.CuentaDTO;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.ui.styles.*;
 import com.nutrehogar.sistemacontable.ui.windows.CuentaVentana;
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.function.Consumer;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
 public class CuentasPestana extends javax.swing.JPanel {
-    public CuentasPestana() {
+    CuentaDTO cuentaDTO = new CuentaDTO();
+
+    public CuentasPestana(@NotNull Consumer<CuentaDTO> setCuenta) {
         initComponents();
         estilizarComponentes();
-               
+
+        butVer.setEnabled(false);
+        this.butVer.addActionListener(e -> setCuenta.accept(cuentaDTO));
+        tabCuentas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                press(e);
+            }
+
+            private void press(@NotNull MouseEvent e) {
+                int row = tabCuentas.rowAtPoint(e.getPoint());
+                if (row != -1) {
+                    int selectedRow = tabCuentas.getSelectedRow();
+                    if (selectedRow < 0) return;
+                    cuentaDTO.setTipoCuenta(tabCuentas.getValueAt(selectedRow, 2).toString());
+                    cuentaDTO.setSubTipoCuenta(tabCuentas.getValueAt(selectedRow, 3).toString());
+                    cuentaDTO.setCuenta(tabCuentas.getValueAt(selectedRow, 1).toString());
+                    butVer.setEnabled(true);
+                }
+            }
+        });
         // Configurando la selección en tabCuentas
         tabCuentas.getSelectionModel()
                 .addListSelectionListener(this::seleccionEscuchador);
         tabCuentas.getSelectionModel()
                 .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 tabCuentas.clearSelection();
             }
         });
-        
+
         // Llenando tabCuentas
         CuentaRepo.findAll().forEach(cuenta -> {
-            ((DefaultTableModel) tabCuentas.getModel()).addRow(new Object[] {
-                cuenta.getId(),cuenta.getNombre(),
-                cuenta.getSubTipoCuenta().getTipoCuenta().getNombre(),
-                cuenta.getSubTipoCuenta().getNombre()
+            ((DefaultTableModel) tabCuentas.getModel()).addRow(new Object[]{
+                    cuenta.getId(), cuenta.getNombre(),
+                    cuenta.getSubTipoCuenta().getTipoCuenta().getNombre(),
+                    cuenta.getSubTipoCuenta().getNombre()
             });
         });
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -50,6 +76,7 @@ public class CuentasPestana extends javax.swing.JPanel {
         butAnadir = new javax.swing.JButton();
         butEditar = new javax.swing.JButton();
         butEliminar = new javax.swing.JButton();
+        butVer = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(241, 248, 255));
 
@@ -58,26 +85,26 @@ public class CuentasPestana extends javax.swing.JPanel {
 
         tabCuentas.setAutoCreateRowSorter(true);
         tabCuentas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Código", "Nombre", "Tipo de Cuenta", "Subtipo de Cuenta"
-            }
+                },
+                new String[]{
+                        "Código", "Nombre", "Tipo de Cuenta", "Subtipo de Cuenta"
+                }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            Class[] types = new Class[]{
+                    java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            boolean[] canEdit = new boolean[]{
+                    false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         tabCuentas.getTableHeader().setReorderingAllowed(false);
@@ -133,68 +160,83 @@ public class CuentasPestana extends javax.swing.JPanel {
             }
         });
 
+        butVer.setBackground(new java.awt.Color(242, 242, 242));
+        butVer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        butVer.setForeground(new java.awt.Color(255, 255, 255));
+        butVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/libro_diario.png"))); // NOI18N
+        butVer.setText("Ver");
+        butVer.setEnabled(false);
+        butVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butVerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panAccionesLayout = new javax.swing.GroupLayout(panAcciones);
         panAcciones.setLayout(panAccionesLayout);
         panAccionesLayout.setHorizontalGroup(
-            panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panAccionesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(butEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(butAnadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(butEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(12, 12, 12))
+                panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panAccionesLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(butEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(butAnadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(butEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(butVer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(12, 12, 12))
         );
         panAccionesLayout.setVerticalGroup(
-            panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAccionesLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(butAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(butEditar)
-                .addGap(11, 11, 11)
-                .addComponent(butEliminar)
-                .addGap(12, 12, 12))
+                panAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAccionesLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(butAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(butEditar)
+                                .addGap(11, 11, 11)
+                                .addComponent(butEliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(butVer)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(scrpanCuentas)
-                .addGap(20, 20, 20)
-                .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(365, Short.MAX_VALUE)
-                .addComponent(labListaCuentas)
-                .addContainerGap(386, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(scrpanCuentas)
+                                .addGap(20, 20, 20)
+                                .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20))
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(365, Short.MAX_VALUE)
+                                .addComponent(labListaCuentas)
+                                .addContainerGap(386, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labListaCuentas)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(scrpanCuentas)
-                        .addGap(20, 20, 20))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                        .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(147, Short.MAX_VALUE))))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(labListaCuentas)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(20, 20, 20)
+                                                .addComponent(scrpanCuentas, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                                                .addGap(20, 20, 20))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(panAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
+
     // Estilo de los componentes
     private void estilizarComponentes() {
-        new TableStyle(tabCuentas); // Tabla;
-        new ButtonStyle(butAnadir, butEditar, butEliminar); // Botones
+        TableStyle.setStyle(tabCuentas); // Tabla;
+        ButtonStyle.setStyle(butAnadir, butEditar, butEliminar, butVer); // Botones
     }
-    
+
     // Escuchador de selección de tabCuentas
     public void seleccionEscuchador(ListSelectionEvent e) {
         if (tabCuentas.getSelectedRow() != -1) {
@@ -205,28 +247,28 @@ public class CuentasPestana extends javax.swing.JPanel {
             butEliminar.setEnabled(false);
         }
     }
-    
+
     // Escuchadores de los botones
     private void butAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnadirActionPerformed
         CuentaVentana cv = new CuentaVentana(
                 "Añadir Cuenta", (DefaultTableModel) tabCuentas.getModel(),
                 null, null
-        ); 
-        cv.setLocationRelativeTo(null); 
+        );
+        cv.setLocationRelativeTo(null);
         cv.setVisible(true);
     }//GEN-LAST:event_butAnadirActionPerformed
 
     private void butEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butEditarActionPerformed
         if (!tabCuentas.getSelectionModel().isSelectionEmpty()) {
-            Integer filaIndice = tabCuentas.getSelectedRow();
+            int filaIndice = tabCuentas.getSelectedRow();
             String filaCodigo = tabCuentas.getValueAt(filaIndice, 0).toString();
             Cuenta cuentaBuscada = CuentaRepo.findById(filaCodigo);
-            
+
             CuentaVentana cv = new CuentaVentana(
-                    "Editar Cuenta", (DefaultTableModel) tabCuentas.getModel(), 
+                    "Editar Cuenta", (DefaultTableModel) tabCuentas.getModel(),
                     filaIndice, cuentaBuscada
-            ); 
-            cv.setLocationRelativeTo(null); 
+            );
+            cv.setLocationRelativeTo(null);
             cv.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una cuenta en la tabla.");
@@ -235,13 +277,13 @@ public class CuentasPestana extends javax.swing.JPanel {
 
     private void butEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butEliminarActionPerformed
         if (!tabCuentas.getSelectionModel().isSelectionEmpty()) {
-            Integer filaIndice = tabCuentas.getSelectedRow();
+            int filaIndice = tabCuentas.getSelectedRow();
             String filaCodigo = tabCuentas.getValueAt(filaIndice, 0).toString();
-            Integer respuesta = JOptionPane.showConfirmDialog(
-                this, "¿Está seguro de que desea eliminar esta cuenta?",
-                "Eliminar Cuenta", JOptionPane.YES_NO_OPTION
+            int respuesta = JOptionPane.showConfirmDialog(
+                    this, "¿Está seguro de que desea eliminar esta cuenta?",
+                    "Eliminar Cuenta", JOptionPane.YES_NO_OPTION
             );
-            
+
             if (respuesta == JOptionPane.YES_OPTION) {
                 CuentaRepo.delete(filaCodigo);
                 ((DefaultTableModel) tabCuentas.getModel()).removeRow(filaIndice);
@@ -252,10 +294,15 @@ public class CuentasPestana extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_butEliminarActionPerformed
 
+    private void butVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butVerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_butVerActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAnadir;
     private javax.swing.JButton butEditar;
     private javax.swing.JButton butEliminar;
+    private javax.swing.JButton butVer;
     private javax.swing.JLabel labListaCuentas;
     private javax.swing.JPanel panAcciones;
     private javax.swing.JScrollPane scrpanCuentas;

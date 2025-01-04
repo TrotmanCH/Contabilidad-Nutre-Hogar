@@ -54,7 +54,7 @@ public class LocalDateSpinnerModel extends AbstractSpinnerModel {
     }
 
     @Override
-    public Object getValue() {
+    public LocalDate getValue() {
         return currentDate;
     }
 
