@@ -25,6 +25,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Vector;
+import java.util.function.Consumer;
 
 import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
 
@@ -62,8 +63,9 @@ public class MayorGenController {
         initComponents();
     }
 
-    public MayorGenView getView(SistemaContable frame) {
+    public MayorGenView getView(SistemaContable frame, Consumer<Integer> action) {
         this.main=frame;
+        editButton.addActionListener(e -> action.accept((selected.getAsientoId())));
         return this.view;
     }
 
@@ -87,6 +89,7 @@ public class MayorGenController {
 
         loadSubTipoCuentas();
         loadCuenta();
+        cuentaId=cuentaComboModel.getElementAt(0).getId();
         loadData();
 
         defineModelListener();
@@ -128,7 +131,7 @@ public class MayorGenController {
         List<MayorGenDTO> data = MayorGenRepo.find(
                 null,
                 null,
-                new MayorGenRepo.Filter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
+                new MayorGenRepo.Filter.ByFechaRange(starSpinnerModel.getValue(), endSpinnerModel.getValue()),
                 new MayorGenRepo.Filter.ByCuentaId(cuentaId));
         SwingUtilities.invokeLater(() -> {
             this.data=data;
@@ -191,8 +194,6 @@ public class MayorGenController {
                 loadData();
             }
         });
-        editButton.addActionListener(e -> main.editarAsiento(selected.getAsientoId()));
-
         // Detectar clic derecho
         table.addMouseListener(new MouseAdapter() {
 
