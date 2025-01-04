@@ -4,7 +4,6 @@ import com.nutrehogar.sistemacontable.application.service.PDFService;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.domain.repository.AsientoRepo;
-import com.nutrehogar.sistemacontable.domain.repository.RegistroRepo;
 import com.nutrehogar.sistemacontable.ui.styles.*;
 import com.nutrehogar.sistemacontable.ui.windows.RegistroVentana;
 import org.jetbrains.annotations.NotNull;
@@ -12,9 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +20,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
+import static com.nutrehogar.sistemacontable.application.service.Util.DECIMAL_FORMAT;
+
 public class FormularioPestana extends javax.swing.JPanel {
 
     private List<Registro> registros;
     private Asiento asiento;
-    private static final DecimalFormat formater = new DecimalFormat("000");
     private boolean isEdite;
 
     public FormularioPestana() {
@@ -39,12 +37,11 @@ public class FormularioPestana extends javax.swing.JPanel {
 
     public FormularioPestana(@NotNull Asiento asiento) {
         isEdite = true;
-        removeAll();
         construirFormulario();
         this.asiento = asiento;
         this.texareConcepto.setText(asiento.getConcepto());
         this.texfieNombre.setText(asiento.getNombre());
-        this.texfieNoDoc.setText(formater.format(asiento.getId()));
+        this.texfieNoDoc.setText(DECIMAL_FORMAT.format(asiento.getId()));
         this.texfieNoCheque.setText(asiento.getNumeroCheque());
         this.registros = asiento.getRegistros();
         if (tabRegistros.getModel() instanceof DefaultTableModel model) {
@@ -427,7 +424,7 @@ public class FormularioPestana extends javax.swing.JPanel {
         // Asignando eschudador de cambios en tabRegistros
         tabRegistros.getModel()
                 .addTableModelListener(this::tablaEscuchador);
-        texfieNoDoc.setText(formater.format(AsientoRepo.getSize()+1));
+        texfieNoDoc.setText(DECIMAL_FORMAT.format(AsientoRepo.getSize()+1));
     }
 
     // Estilo de los componentes
