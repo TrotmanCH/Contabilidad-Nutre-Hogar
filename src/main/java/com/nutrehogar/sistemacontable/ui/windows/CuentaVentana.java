@@ -10,6 +10,7 @@ import com.nutrehogar.sistemacontable.ui.styles.ButtonStyle;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -38,9 +39,9 @@ public class CuentaVentana extends javax.swing.JFrame {
         comboxSubtipoCuenta.addItemListener(this::elementoEscuchador);
         
         // Trayendo los tipos de cuenta
-        TipoCuentaRepo.findAll().forEach(tipoCuenta -> tiposCuenta.add(tipoCuenta));
-        texfieTipoCuenta.setText(tiposCuenta.get(0).getId() +  " " +
-            tiposCuenta.get(0).getNombre()
+        tiposCuenta.addAll(TipoCuentaRepo.findAll());
+        texfieTipoCuenta.setText(tiposCuenta.getFirst().getId() +  " " +
+            tiposCuenta.getFirst().getNombre()
         );
         
         // Cambiando contenido de la ventana dependiendo de si es añadir o editar
@@ -183,9 +184,7 @@ public class CuentaVentana extends javax.swing.JFrame {
     
     // Escuchador de selección de comboxSubtipoCuenta
     private void elementoEscuchador(ItemEvent e) {
-        Integer tipoCuentaId = Integer.valueOf(
-            comboxSubtipoCuenta.getSelectedItem().toString().substring(0, 1)
-        );
+        int tipoCuentaId = Integer.parseInt(Objects.requireNonNull(comboxSubtipoCuenta.getSelectedItem()).toString().substring(0, 1));
         TipoCuenta tipoCuenta = tiposCuenta.get(tipoCuentaId - 1);
         texfieTipoCuenta.setText(
                 tipoCuenta.getId() + " " + tipoCuenta.getNombre()
@@ -210,7 +209,7 @@ public class CuentaVentana extends javax.swing.JFrame {
             String id = texfieCodigo.getText();
             String nombre = texfieNombre.getText();
             SubTipoCuenta subtipoCuenta = SubTipoCuentaRepo.findById(
-                    comboxSubtipoCuenta.getSelectedItem().toString().split("\\s")[0]
+                    Objects.requireNonNull(comboxSubtipoCuenta.getSelectedItem()).toString().split("\\s")[0]
             );
 
             Cuenta cuenta = Cuenta.builder()
@@ -234,7 +233,7 @@ public class CuentaVentana extends javax.swing.JFrame {
             String id = texfieCodigo.getText();
             String nombre = texfieNombre.getText();
             SubTipoCuenta subtipoCuenta = SubTipoCuentaRepo.findById(
-                    comboxSubtipoCuenta.getSelectedItem().toString().split("\\s")[0]
+                    Objects.requireNonNull(comboxSubtipoCuenta.getSelectedItem()).toString().split("\\s")[0]
             );
 
             Cuenta cuenta = Cuenta.builder()
@@ -267,7 +266,7 @@ public class CuentaVentana extends javax.swing.JFrame {
             return false;
         }
         
-        if (!texfieCodigo.getText().startsWith(comboxSubtipoCuenta.getSelectedItem().toString().split("\\s")[0])) {
+        if (!texfieCodigo.getText().startsWith(Objects.requireNonNull(comboxSubtipoCuenta.getSelectedItem()).toString().split("\\s")[0])) {
             JOptionPane.showMessageDialog(
                     this, "El código de la cuenta debe comenzar igual que el código del subtipo de cuenta."
             );
