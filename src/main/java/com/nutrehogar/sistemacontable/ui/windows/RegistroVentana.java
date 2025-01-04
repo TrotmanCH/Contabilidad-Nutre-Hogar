@@ -6,16 +6,22 @@ import com.nutrehogar.sistemacontable.domain.model.TipoDocumento;
 import com.nutrehogar.sistemacontable.domain.repository.CuentaRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoDocumentoRepo;
 import com.nutrehogar.sistemacontable.ui.styles.ButtonStyle;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.Color;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class RegistroVentana extends javax.swing.JFrame {
-    List<Registro> registros;
-    DefaultTableModel tabRegistrosModelo;
-    Integer filaIndice;
+    final List<Registro> registros;
+    final DefaultTableModel tabRegistrosModelo;
+    final Integer filaIndice;
     
     public RegistroVentana(String titulo, DefaultTableModel tabRegistrosModelo, 
                  Integer filaIndice, List<Registro> registros) {
@@ -29,12 +35,8 @@ public class RegistroVentana extends javax.swing.JFrame {
         this.filaIndice = filaIndice;
         
         // Trayendo los tipos de documentos y las cuentas
-        TipoDocumentoRepo.findAll().forEach(tipoDocumento -> {
-            comboxTipoDoc.addItem(tipoDocumento.getNombre());
-        });
-        CuentaRepo.findAll().forEach(cuenta -> {
-            comboxCuenta.addItem(cuenta.getId()+ " " + cuenta.getNombre());
-        });
+        TipoDocumentoRepo.findAll().forEach(tipoDocumento -> comboxTipoDoc.addItem(tipoDocumento.getNombre()));
+        CuentaRepo.findAll().forEach(cuenta -> comboxCuenta.addItem(cuenta.getId()+ " " + cuenta.getNombre()));
         
         // Cambiando contenido de la ventana dependiendo de si es añadir o editar
         if (filaIndice == null) {
@@ -46,7 +48,6 @@ public class RegistroVentana extends javax.swing.JFrame {
             
             llenarCampos();
         }
-        
     }
     
     @SuppressWarnings("unchecked")
@@ -211,8 +212,8 @@ public class RegistroVentana extends javax.swing.JFrame {
                 " " + registroBuscado.getCuenta().getNombre()
         );
 
-        if (!registroBuscado.getDebe().equals(BigDecimal.ZERO.setScale(2))  
-                && registroBuscado.getHaber().equals(BigDecimal.ZERO.setScale(2))) {
+        if (!registroBuscado.getDebe().equals(BigDecimal.ZERO)
+                && registroBuscado.getHaber().equals(BigDecimal.ZERO)) {
             radbutDebito.setSelected(true);
             texfieMonto.setText(registroBuscado.getDebe().toString());
         } else {
@@ -223,48 +224,14 @@ public class RegistroVentana extends javax.swing.JFrame {
     
     // Escuchadores de los botones
     private void butAnadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirMouseClicked
-        if (validarDatos()) {
-            TipoDocumento tipoDocumento = TipoDocumentoRepo.findById(
-                    comboxTipoDoc.getSelectedIndex() + 1
-            );
-            String comprobante = texfieNoComp.getText();
-            String referencia = texfieReferencia.getText();
-            Cuenta cuenta = CuentaRepo.findById(
-                    comboxCuenta.getSelectedItem().toString().split("\\s")[0]
-            );
-            BigDecimal monto = new BigDecimal(texfieMonto.getText()).setScale(2);
-            
-            BigDecimal debe = null;
-            BigDecimal haber = null;
-            if (radbutDebito.isSelected()) {
-                debe = monto;
-                haber = BigDecimal.ZERO.setScale(2);
-            } else if (radbutCredito.isSelected()){
-                haber = monto;
-                debe = BigDecimal.ZERO.setScale(2);
-            }
-
-            Registro registro = Registro.builder()
-                    .tipoDocumento(tipoDocumento)
-                    .comprobante(comprobante)
-                    .referencia(referencia)
-                    .cuenta(cuenta)
-                    .debe(debe)
-                    .haber(haber)
-                    .build();
-            registros.add(registro);
-            
-            tabRegistrosModelo.addRow(new Object[] {
-                    tipoDocumento.getNombre(), comprobante, 
-                    referencia, cuenta.getId(),
-                    debe, haber    
-            });
-
-            dispose();
-        }
+        actionButton();
     }//GEN-LAST:event_butAnadirMouseClicked
     
     private void butEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarMouseClicked
+        actionButton();
+    }//GEN-LAST:event_butEditarMouseClicked
+
+    public void actionButton(){
         if (validarDatos()) {
             TipoDocumento tipoDocumento = TipoDocumentoRepo.findById(
                     comboxTipoDoc.getSelectedIndex() + 1
@@ -272,48 +239,64 @@ public class RegistroVentana extends javax.swing.JFrame {
             String comprobante = texfieNoComp.getText();
             String referencia = texfieReferencia.getText();
             Cuenta cuenta = CuentaRepo.findById(
-                    comboxCuenta.getSelectedItem().toString().split("\\s")[0]
+                    Objects.requireNonNull(comboxCuenta.getSelectedItem()).toString().split("\\s")[0]
             );
-            BigDecimal monto = new BigDecimal(texfieMonto.getText()).setScale(2);
-            
+            BigDecimal monto = new BigDecimal(texfieMonto.getText()).setScale(2, RoundingMode.HALF_UP);
+            System.out.println("Cuenta es: " + cuenta);
             BigDecimal debe = null;
             BigDecimal haber = null;
             if (radbutDebito.isSelected()) {
                 debe = monto;
-                haber = BigDecimal.ZERO.setScale(2);
+                haber = BigDecimal.ZERO;
             } else if (radbutCredito.isSelected()){
                 haber = monto;
-                debe = BigDecimal.ZERO.setScale(2);
+                debe = BigDecimal.ZERO;
             }
-            
-            Registro registroBuscado = registros.get(filaIndice);
-            registroBuscado.setTipoDocumento(tipoDocumento);
-            registroBuscado.setComprobante(comprobante);
-            registroBuscado.setReferencia(referencia);
-            registroBuscado.setCuenta(cuenta);
-            registroBuscado.setDebe(debe);
-            registroBuscado.setHaber(haber);
-            
-            tabRegistrosModelo.setValueAt(tipoDocumento.getNombre(), filaIndice, 0);
-            tabRegistrosModelo.setValueAt(comprobante, filaIndice, 1);
-            tabRegistrosModelo.setValueAt(referencia, filaIndice, 2);
-            tabRegistrosModelo.setValueAt(cuenta.getId(), filaIndice, 3);
-            tabRegistrosModelo.setValueAt(debe, filaIndice, 4);
-            tabRegistrosModelo.setValueAt(haber, filaIndice, 5);
-            
+            if (filaIndice == null) {
+                Registro registro = Registro.builder()
+                        .tipoDocumento(tipoDocumento)
+                        .comprobante(comprobante)
+                        .referencia(referencia)
+                        .cuenta(cuenta)
+                        .debe(debe)
+                        .haber(haber)
+                        .build();
+                registros.add(registro);
+
+                tabRegistrosModelo.addRow(new Object[] {
+                        tipoDocumento.getNombre(), comprobante,
+                        referencia, cuenta.getId(),
+                        debe, haber
+                });
+            } else {
+                Registro registroBuscado = registros.get(filaIndice);
+                registroBuscado.setTipoDocumento(tipoDocumento);
+                registroBuscado.setComprobante(comprobante);
+                registroBuscado.setReferencia(referencia);
+                registroBuscado.setCuenta(cuenta);
+                registroBuscado.setDebe(debe);
+                registroBuscado.setHaber(haber);
+
+                tabRegistrosModelo.setValueAt(tipoDocumento.getNombre(), filaIndice, 0);
+                tabRegistrosModelo.setValueAt(comprobante, filaIndice, 1);
+                tabRegistrosModelo.setValueAt(referencia, filaIndice, 2);
+                tabRegistrosModelo.setValueAt(cuenta.getId(), filaIndice, 3);
+                tabRegistrosModelo.setValueAt(debe, filaIndice, 4);
+                tabRegistrosModelo.setValueAt(haber, filaIndice, 5);
+            }
             dispose();
         }
-    }//GEN-LAST:event_butEditarMouseClicked
-    
+    }
+
     // Validador de datos
-    private Boolean validarDatos() {
+    private @NotNull Boolean validarDatos() {
         if (texfieNoComp.getText().isBlank() || texfieReferencia.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos.");
             return false;
         }
         
         try {
-            new BigDecimal(texfieMonto.getText()).setScale(2);
+            new BigDecimal(texfieMonto.getText());
         } catch (NumberFormatException | ArithmeticException e) {
             JOptionPane.showMessageDialog(this, "Introduzca un monto válido.");
             return false;

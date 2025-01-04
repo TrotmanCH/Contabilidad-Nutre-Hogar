@@ -1,9 +1,10 @@
-package com.nutrehogar.sistemacontable.ui.tabs;
+package com.nutrehogar.sistemacontable  .ui.tabs;
 
 import com.nutrehogar.sistemacontable.application.service.PDFService;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.domain.repository.AsientoRepo;
+import com.nutrehogar.sistemacontable.domain.repository.RegistroRepo;
 import com.nutrehogar.sistemacontable.ui.styles.*;
 import com.nutrehogar.sistemacontable.ui.windows.RegistroVentana;
 import org.jetbrains.annotations.NotNull;
@@ -11,11 +12,12 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
@@ -26,19 +28,17 @@ public class FormularioPestana extends javax.swing.JPanel {
     private List<Registro> registros;
     private Asiento asiento;
     private static final DecimalFormat formater = new DecimalFormat("000");
+    private boolean isEdite;
 
     public FormularioPestana() {
+        isEdite = false;
         construirFormulario();
         registros = new ArrayList<>();
         asiento = new Asiento();
-        asiento.setRegistros(registros);
     }
 
     public FormularioPestana(@NotNull Asiento asiento) {
-        setAsiento(asiento);
-    }
-
-    public void setAsiento(@NotNull Asiento asiento) {
+        isEdite = true;
         removeAll();
         construirFormulario();
         this.asiento = asiento;
@@ -50,12 +50,13 @@ public class FormularioPestana extends javax.swing.JPanel {
         if (tabRegistros.getModel() instanceof DefaultTableModel model) {
             for (var registro : registros) {
                 model.addRow(new Object[]{
-                    registro.getTipoDocumento().getNombre(), registro.getComprobante(),
-                    registro.getReferencia(), registro.getCuenta().getId(),
-                    registro.getDebe(), registro.getHaber()
+                        registro.getTipoDocumento().getNombre(), registro.getComprobante(),
+                        registro.getReferencia(), registro.getCuenta().getId(),
+                        registro.getDebe().setScale(2, RoundingMode.HALF_UP), registro.getHaber().setScale(2, RoundingMode.HALF_UP),
                 });
             }
         }
+        tablaEscuchador(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -426,7 +427,7 @@ public class FormularioPestana extends javax.swing.JPanel {
         // Asignando eschudador de cambios en tabRegistros
         tabRegistros.getModel()
                 .addTableModelListener(this::tablaEscuchador);
-        texfieNoDoc.setText(formater.format(AsientoRepo.getSize()));
+        texfieNoDoc.setText(formater.format(AsientoRepo.getSize()+1));
     }
 
     // Estilo de los componentes
@@ -458,8 +459,8 @@ public class FormularioPestana extends javax.swing.JPanel {
 
         // Se calcula el total de las columnas "debe" y "haber"
         for (int i = 0; i < tabRegistros.getModel().getRowCount(); i++) {
-            debeTotal = debeTotal.add(new BigDecimal(tabRegistros.getModel().getValueAt(i, 4).toString()));
-            haberTotal = haberTotal.add(new BigDecimal(tabRegistros.getModel().getValueAt(i, 5).toString()));
+            debeTotal = debeTotal.add(new BigDecimal(tabRegistros.getModel().getValueAt(i, 4).toString()).setScale(2, RoundingMode.HALF_UP));
+            haberTotal = haberTotal.add(new BigDecimal(tabRegistros.getModel().getValueAt(i, 5).toString()).setScale(2, RoundingMode.HALF_UP));
         }
         texfieDebe.setText(debeTotal.toString());
         texfieHaber.setText(haberTotal.toString());
@@ -526,8 +527,6 @@ public class FormularioPestana extends javax.swing.JPanel {
             asiento.setConcepto(texareConcepto.getText());
             registros.forEach(registro -> registro.setAsiento(asiento));
             asiento.setRegistros(registros);
-            System.out.printf(asiento.toString());
-            asiento.getRegistros().forEach(registro -> System.out.printf(registro.toString()));
             AsientoRepo.update(asiento);
             JOptionPane.showMessageDialog(this, "Asiento guardado exitosamente.");
         }
@@ -541,8 +540,10 @@ public class FormularioPestana extends javax.swing.JPanel {
             return false;
         }
 
-        if (!texfieDebe.getText().equals(texfieHaber.getText())) {
-            JOptionPane.showMessageDialog(this, "El asiento no está balanceado.");
+        if (!(new BigDecimal(texfieDebe.getText()).equals(new BigDecimal(texfieHaber.getText())))) {
+            JOptionPane.showMessageDialog(this, "El asiento no está balanceado." +
+                    "debe: "+new BigDecimal(texfieDebe.getText())+
+                    "  haber: "+new BigDecimal(texfieHaber.getText()));
             return false;
         }
 
