@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.util.Arrays;
 
 /**
  * Enum que define los tipos que pueden ser las cunetas.

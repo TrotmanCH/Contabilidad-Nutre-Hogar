@@ -10,6 +10,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,6 +24,7 @@ import java.util.List;
  * @author Jayson
  */
 public class BalanceComRepo {
+    private static final Logger logger = LoggerFactory.getLogger(BalanceComRepo.class);
 
     private static final Session session = HibernateUtil.getSession();
 
@@ -113,7 +116,7 @@ public class BalanceComRepo {
             if (session != null && session.getTransaction() != null) {
                 session.getTransaction().rollback(); // Deshacer la transacción en caso de error
             }
-            e.printStackTrace();
+            logger.error("Error finding balance com", e);
         }
         return BalanceComDTOS;
     }
@@ -137,7 +140,7 @@ public class BalanceComRepo {
 
         /**
          * -- GETTER --
-         *  Obtiene el nombre del campo correspondiente en la entidad.
+         * Obtiene el nombre del campo correspondiente en la entidad.
          *
          * @return Nombre del campo.
          */

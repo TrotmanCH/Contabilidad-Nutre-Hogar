@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -25,6 +27,9 @@ import java.util.List;
  * @author Calcifer1331
  */
 public class LibroDiarioRepo {
+    private static final Logger logger = LoggerFactory.getLogger(LibroDiarioRepo.class);
+
+
     private static final Session session = HibernateUtil.getSession();
 
     public static @NotNull List<LibroDiarioDTO> find(Field orderField, OrderDirection orderDirection, Filter... filters) {
@@ -108,7 +113,7 @@ public class LibroDiarioRepo {
             if (session != null && session.getTransaction() != null) {
                 session.getTransaction().rollback(); // Deshacer la transacción en caso de error
             }
-            e.printStackTrace();
+            logger.error("Error en libro diario repo", e);
         }
         return libroDiarioDTOS;
     }

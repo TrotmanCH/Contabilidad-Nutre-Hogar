@@ -72,7 +72,6 @@ public class BalanceComController {
                         return;
                     }
                     selected = selectedDate;
-                    System.out.println("Selected: " + selected);
                     editButton.setEnabled(true);
                 }
             }
