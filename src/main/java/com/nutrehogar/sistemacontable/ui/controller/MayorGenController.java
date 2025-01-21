@@ -14,6 +14,8 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
@@ -35,6 +37,9 @@ import static com.nutrehogar.sistemacontable.application.service.Util.restarDate
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
 public class MayorGenController {
+
+    private static final Logger logger = LoggerFactory.getLogger(MayorGenController.class);
+
     static MayorGenController instance;
     final MayorGenView view;
     List<MayorGenDTO> data;
@@ -97,38 +102,40 @@ public class MayorGenController {
     }
 
     public void setCuentaTo(CuentaDTO cuentaDTO) {
-        Objects.requireNonNull(cuentaDTO);
-        TipoCuenta tipoCuentaConsumer;
-        com.nutrehogar.sistemacontable.domain.model.TipoCuenta cuentaTipo;
         try {
-            tipoCuentaConsumer = TipoCuenta.valueOf(cuentaDTO.getTipoCuenta().toUpperCase());
-            cuentaTipo = TipoCuentaRepo.findById(tipoCuentaConsumer.getId());
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return;
-        }
-        tipoCuentaComboModel.setSelectedItem(tipoCuentaConsumer);
-        SubTipoCuenta subTipoCuentaConsumer = cuentaTipo.getSubTipoCuenta().getFirst();
-        for (var st : cuentaTipo.getSubTipoCuenta()) {
-            if (st.getNombre().equals(cuentaDTO.getSubTipoCuenta())) {
-                subTipoCuentaConsumer = st;
-                break;
+            Objects.requireNonNull(cuentaDTO);
+            TipoCuenta tipoCuentaConsumer;
+            com.nutrehogar.sistemacontable.domain.model.TipoCuenta cuentaTipo;
+            try {
+                tipoCuentaConsumer = TipoCuenta.valueOf(cuentaDTO.getTipoCuenta().toUpperCase());
+                cuentaTipo = TipoCuentaRepo.findById(tipoCuentaConsumer.getId());
+            } catch (IllegalArgumentException e) {
+                logger.error("TipoCuenta no valido", e);
+                return;
             }
-        }
-        Objects.requireNonNull(subTipoCuentaConsumer);
-        subTipoCuentaComboModel.setSelectedItem(subTipoCuentaConsumer);
-        Cuenta cuentaConsumer = subTipoCuentaConsumer.getCuentas().getFirst();
-        for (var cu : subTipoCuentaConsumer.getCuentas()) {
-            if (cu.getNombre().equals(cuentaDTO.getCuenta())) {
-                cuentaConsumer = cu;
-                break;
+            tipoCuentaComboModel.setSelectedItem(tipoCuentaConsumer);
+            SubTipoCuenta subTipoCuentaConsumer = cuentaTipo.getSubTipoCuenta().getFirst();
+            for (var st : cuentaTipo.getSubTipoCuenta()) {
+                if (st.getNombre().equals(cuentaDTO.getSubTipoCuenta())) {
+                    subTipoCuentaConsumer = st;
+                    break;
+                }
             }
+            Objects.requireNonNull(subTipoCuentaConsumer);
+            subTipoCuentaComboModel.setSelectedItem(subTipoCuentaConsumer);
+            Cuenta cuentaConsumer = subTipoCuentaConsumer.getCuentas().getFirst();
+            for (var cu : subTipoCuentaConsumer.getCuentas()) {
+                if (cu.getNombre().equals(cuentaDTO.getCuenta())) {
+                    cuentaConsumer = cu;
+                    break;
+                }
+            }
+            Objects.requireNonNull(cuentaConsumer);
+            cuentaComboModel.setSelectedItem(cuentaConsumer);
+        } catch (NullPointerException e) {
+            logger.error("Algun tipo invalido", e);
         }
-        Objects.requireNonNull(cuentaConsumer);
-        cuentaComboModel.setSelectedItem(cuentaConsumer);
     }
-
-    ;
 
 
     /**
@@ -164,11 +171,7 @@ public class MayorGenController {
      * Además, avisa a la tabla, para que renderice los nuevos datos
      */
     public void loadData() {
-        this.data = MayorGenRepo.find(
-                null,
-                null,
-                new MayorGenRepo.Filter.ByFechaRange(starSpinnerModel.getValue(), endSpinnerModel.getValue()),
-                new MayorGenRepo.Filter.ByCuentaId(cuentaId));
+        this.data = MayorGenRepo.find(null, null, new MayorGenRepo.Filter.ByFechaRange(starSpinnerModel.getValue(), endSpinnerModel.getValue()), new MayorGenRepo.Filter.ByCuentaId(cuentaId));
         SwingUtilities.invokeLater(() -> tableModel.setData(this.data));
     }
 

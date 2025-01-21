@@ -6,11 +6,15 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TipoDocumentoRepo {
+    private static final Logger logger = LoggerFactory.getLogger(TipoDocumentoRepo.class);
     private static final Session session = HibernateUtil.getSession();
 
     public static List<TipoDocumento> findAll() {
@@ -21,7 +25,7 @@ public class TipoDocumentoRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            e.printStackTrace();
+            logger.error("Error al consultar los tipos de documento", e);
         }
         return transaccions;
     }
@@ -37,6 +41,7 @@ public class TipoDocumentoRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+            logger.error("Error al guardar los tipos de documento", e);
         }
     }
 
@@ -47,6 +52,7 @@ public class TipoDocumentoRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+            logger.error("Error al guardar los tipos de documento", e);
         }
     }
 
@@ -59,7 +65,7 @@ public class TipoDocumentoRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            e.printStackTrace();
+            logger.error("Error al eliminar los tipos de documento", e);
         }
     }
 
@@ -71,7 +77,7 @@ public class TipoDocumentoRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            e.printStackTrace();
+            logger.error("Error al eliminar los tipos de documento", e);
         }
     }
 
@@ -82,7 +88,7 @@ public class TipoDocumentoRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            e.printStackTrace();
+            logger.error("Error al actualizar los tipos de documento", e);
         }
     }
 }
