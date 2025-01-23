@@ -1,13 +1,14 @@
-package com.nutrehogar.sistemacontable.application.service;
+package com.nutrehogar.sistemacontable.application.config;
 
-import lombok.AccessLevel;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.util.Properties;
+
+import static com.nutrehogar.sistemacontable.application.config.Constants.*;
 
 /**
  * Clase encargada de gestionar la carga, el almacenamiento y la inicialización de configuraciones
@@ -19,18 +20,13 @@ import java.util.Properties;
  *
  * @author Calcifer1331
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigLoader {
-    public static final String RESOURCE_PATH = "config.properties";
-    public static final String RESOURCE_RELATIVE_PATH = "src/main/resources/config.properties";
+
+
     /**
      * Propiedades del programa, son las que se cargan en el momento en que se arranca.
      */
     private static final Properties properties = new Properties();
-    @Getter
-    private static final String[] columnNames = {
-            "Propiedad", "Valor", "Key", "Default Value"
-    };
     /**
      * Propiedades que se editan al momento de manipular las propiedades, se debe llamar al metodo {@code persistProperties()}
      * para efectuar las modificaciones.
@@ -38,13 +34,16 @@ public class ConfigLoader {
     private static Properties config = null;
 
     static {
-        setDefaultValues();
-        loadProperties();
+//        setDefaultValues();
+//        loadProperties();
         createDirectory(getAbsoluteProgramPath());
         createDirectory(getBackupPath());
         createDirectory(getLogsPath());
     }
 
+    private ConfigLoader() {
+        throw new IllegalStateException("Configure Class");
+    }
 
     public static void setDefaultValues() {
         for (Property property : Property.values()) {
@@ -138,7 +137,7 @@ public class ConfigLoader {
     }
 
     public static @NotNull String getAbsoluteProgramPath() {
-        return System.getProperty("user.home") + File.separator + properties.getProperty(Property.PROGRAM_PATH.key);
+        return System.getProperty("user.home") + File.separator + FOLDER_PROGRAM_NAME;
     }
 
     /**
@@ -147,7 +146,7 @@ public class ConfigLoader {
      * @return Ruta de la base de datos.
      */
     public static @NotNull String getDbPath() {
-        return getAbsoluteProgramPath() + File.separator + properties.getProperty(Property.DB_NAME.key);
+        return getAbsoluteProgramPath() + File.separator + DB_NAME;
     }
 
     /**
@@ -156,11 +155,11 @@ public class ConfigLoader {
      * @return Ruta de los respaldos.
      */
     public static @NotNull String getBackupPath() {
-        return getAbsoluteProgramPath() + File.separator + properties.getProperty(Property.DB_BACKUP_PATH.key);
+        return getAbsoluteProgramPath() + File.separator + FOLDER_BACKUP_NAME;
     }
 
     public static @NotNull String getLogsPath() {
-        return getAbsoluteProgramPath() + File.separator + "logs";
+        return getAbsoluteProgramPath() + File.separator + FOLDER_LOG_NAME;
     }
 
     /**

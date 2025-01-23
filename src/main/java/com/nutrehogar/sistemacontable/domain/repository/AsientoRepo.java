@@ -1,6 +1,6 @@
 package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.HibernateUtil;
+import com.nutrehogar.sistemacontable.application.config.HibernateUtil;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -105,5 +105,4 @@ public class AsientoRepo {
             logger.error("Error al actualizar asiento", e);
         }
     }
-
 }

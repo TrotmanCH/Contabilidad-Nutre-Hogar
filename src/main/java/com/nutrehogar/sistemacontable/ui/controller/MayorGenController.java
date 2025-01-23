@@ -3,19 +3,18 @@ package com.nutrehogar.sistemacontable.ui.controller;
 import com.nutrehogar.sistemacontable.application.dto.CuentaDTO;
 import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
 import com.nutrehogar.sistemacontable.application.service.Util;
+import com.nutrehogar.sistemacontable.domain.TipoCuenta;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.MayorGenRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoCuentaRepo;
-import com.nutrehogar.sistemacontable.ui.SistemaContable;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinnerModel;
 import com.nutrehogar.sistemacontable.ui.view.MayorGenView;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
@@ -34,13 +33,8 @@ import java.util.function.Consumer;
 
 import static com.nutrehogar.sistemacontable.application.service.Util.restarDateToSpinners;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
-
+@Slf4j
 public class MayorGenController {
-
-    private static final Logger logger = LoggerFactory.getLogger(MayorGenController.class);
-
-    static MayorGenController instance;
     final MayorGenView view;
     List<MayorGenDTO> data;
     MayorGenDTO selected;
@@ -69,17 +63,13 @@ public class MayorGenController {
         this.cuentaComboModel = new CuentaComboBoxModel(List.of());
         initComponents();
     }
+    public void MayorGenView() {
 
-    public MayorGenView getView(Consumer<Integer> action) {
-        editButton.addActionListener(e -> action.accept((selected.getAsientoId())));
-        return this.view;
     }
 
-    public static MayorGenController getInstance() {
-        if (instance == null) {
-            instance = new MayorGenController();
-        }
-        return instance;
+    public MayorGenView getView(Consumer<Integer> editarAsiento) {
+        editButton.addActionListener(e -> editarAsiento.accept((selected.getAsientoId())));
+        return this.view;
     }
 
     private void initComponents() {
@@ -110,7 +100,7 @@ public class MayorGenController {
                 tipoCuentaConsumer = TipoCuenta.valueOf(cuentaDTO.getTipoCuenta().toUpperCase());
                 cuentaTipo = TipoCuentaRepo.findById(tipoCuentaConsumer.getId());
             } catch (IllegalArgumentException e) {
-                logger.error("TipoCuenta no valido", e);
+                log.error("TipoCuenta no valido", e);
                 return;
             }
             tipoCuentaComboModel.setSelectedItem(tipoCuentaConsumer);
@@ -133,7 +123,7 @@ public class MayorGenController {
             Objects.requireNonNull(cuentaConsumer);
             cuentaComboModel.setSelectedItem(cuentaConsumer);
         } catch (NullPointerException e) {
-            logger.error("Algun tipo invalido", e);
+            log.error("Algun tipo invalido", e);
         }
     }
 

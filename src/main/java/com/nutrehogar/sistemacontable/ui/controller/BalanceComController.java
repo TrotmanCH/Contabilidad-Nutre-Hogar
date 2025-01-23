@@ -3,6 +3,7 @@ package com.nutrehogar.sistemacontable.ui.controller;
 import com.nutrehogar.sistemacontable.application.dto.BalanceComDTO;
 import com.nutrehogar.sistemacontable.application.service.Util;
 import com.nutrehogar.sistemacontable.domain.OrderDirection;
+import com.nutrehogar.sistemacontable.domain.TipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.BalanceComRepo;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.view.BalanceComView;

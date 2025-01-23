@@ -30,9 +30,9 @@ public class SistemaContable extends javax.swing.JFrame {
     BackupService backupService;
 
 
-    static Color bgColor = Color.decode("#2E4156");
-    static Color pestanaBg = new Color(241, 248, 255);
-    static MatteBorder border = BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE);
+    static final Color bgColor = Color.decode("#2E4156");
+    static final Color pestanaBg = new Color(241, 248, 255);
+    static final MatteBorder border = BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE);
 
     static MouseAdapter mouseAdapter = new MouseAdapter() {
         @Override
@@ -49,27 +49,24 @@ public class SistemaContable extends javax.swing.JFrame {
     final static ImageIcon closeIcon = new ImageIcon(Objects.requireNonNull(SistemaContable.class.getResource("/icons/menu_ocultar.png")));
     final static ImageIcon openIcon = new ImageIcon(Objects.requireNonNull(SistemaContable.class.getResource("/icons/menu_mostrar.png")));
 
-    public SistemaContable() {
+    private SistemaContable() {
+
         initComponents();
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/nutrehogar_logo.png")));
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         panContenido.setLayout(new BorderLayout());
-        formulario = new FormularioPestana();
-        mostrarPestana(formulario);
-
         estilizarBotones(butFormulario, butBalanceComprobacion, butLibroDiario,
                 butMayorGeneral, butCuentas, butSubtiposCuenta, butBackup
         );
-
     }
 
-    public Consumer<Integer> editarAsiento = (idAsiento)->{
+    public Consumer<Integer> editarAsiento = (idAsiento) -> {
         Objects.requireNonNull(idAsiento);
-        formulario= new FormularioPestana(AsientoRepo.findById(idAsiento));
+        formulario = new FormularioPestana(AsientoRepo.findById(idAsiento));
         mostrarPestana(formulario);
     };
 
-    public Consumer<CuentaDTO> setMayorGenByCuenta = (cuentaDTO)->{
+    public Consumer<CuentaDTO> setMayorGenByCuenta = (cuentaDTO) -> {
         if (mayorGeneral == null) {
             mayorGeneral = MayorGenController.getInstance().getView(editarAsiento);
         }
@@ -78,12 +75,12 @@ public class SistemaContable extends javax.swing.JFrame {
     };
 
     // Estilo de botones
-    private void estilizarBotones(JButton@NotNull...   botones) {
-        for (var boton : botones) {
-            boton.setFocusPainted(false);
-            boton.setForeground(Color.WHITE);
-            boton.setBorder(border);
-            boton.addMouseListener(mouseAdapter);
+    private void estilizarBotones(JButton @NotNull ... botones) {
+        for (var button : botones) {
+            button.setFocusPainted(false);
+            button.setForeground(Color.WHITE);
+            button.setBorder(border);
+            button.addMouseListener(mouseAdapter);
         }
     }
 
@@ -282,36 +279,26 @@ public class SistemaContable extends javax.swing.JFrame {
 
     // Escuchadores de botones
     private void butFormularioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butFormularioActionPerformed
-         formulario = new FormularioPestana();
         mostrarPestana(formulario);
     }//GEN-LAST:event_butFormularioActionPerformed
 
     private void butLibroDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLibroDiarioActionPerformed
-        if (libroDiario == null) libroDiario = LibroDiarioController.getInstance().getView(editarAsiento);
         mostrarPestana(libroDiario);
     }//GEN-LAST:event_butLibroDiarioActionPerformed
 
     private void butBalanceComprobacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butBalanceComprobacionActionPerformed
-        if (balanceComprobacion == null) balanceComprobacion = BalanceComController.getInstance().getView(editarAsiento);
         mostrarPestana(balanceComprobacion);
     }//GEN-LAST:event_butBalanceComprobacionActionPerformed
 
     private void butMayorGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butMayorGeneralActionPerformed
-        if (mayorGeneral == null) {
-            mayorGeneral = MayorGenController.getInstance().getView(editarAsiento);
-        }
         mostrarPestana(mayorGeneral);
     }//GEN-LAST:event_butMayorGeneralActionPerformed
 
     private void butCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCuentasActionPerformed
-        if (listaCuenta == null) {
-            listaCuenta = new CuentasPestana(setMayorGenByCuenta);
-        }
         mostrarPestana(listaCuenta);
     }//GEN-LAST:event_butCuentasActionPerformed
 
     private void butSubtiposCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSubtiposCuentaActionPerformed
-        if (listaSubtipoCuenta == null) listaSubtipoCuenta = new SubtiposCuentaPestana();
         mostrarPestana(listaSubtipoCuenta);
     }//GEN-LAST:event_butSubtiposCuentaActionPerformed
 
@@ -325,7 +312,6 @@ public class SistemaContable extends javax.swing.JFrame {
     }//GEN-LAST:event_labOcultarMenuMouseClicked
 
     private void butBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butBackupActionPerformed
-        if (backupService == null) backupService = BackupService.getInstance();
         backupService.getDialog(this).setVisible(true);
     }//GEN-LAST:event_butBackupActionPerformed
 

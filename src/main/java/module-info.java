@@ -35,4 +35,6 @@ module SistemaContable {
     exports com.nutrehogar.sistemacontable.domain.repository;
 
     opens com.nutrehogar.sistemacontable.domain.model to org.hibernate.orm.core;
+    exports com.nutrehogar.sistemacontable.application.config;
+    exports com.nutrehogar.sistemacontable.exception;
 }

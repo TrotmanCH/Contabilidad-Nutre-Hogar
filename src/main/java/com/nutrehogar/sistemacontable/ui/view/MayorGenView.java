@@ -2,7 +2,7 @@ package com.nutrehogar.sistemacontable.ui.view;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
-import com.nutrehogar.sistemacontable.ui.controller.TipoCuenta;
+import com.nutrehogar.sistemacontable.domain.TipoCuenta;
 import com.nutrehogar.sistemacontable.ui.styles.*;
 import lombok.Getter;
 import lombok.Setter;

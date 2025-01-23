@@ -1,4 +1,4 @@
-package com.nutrehogar.sistemacontable.ui.controller;
+package com.nutrehogar.sistemacontable.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

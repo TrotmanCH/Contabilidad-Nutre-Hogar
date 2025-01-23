@@ -1,8 +1,7 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.nutrehogar.sistemacontable.domain.HibernateUtil;
-import com.nutrehogar.sistemacontable.ui.controller.MayorGenController;
+import com.nutrehogar.sistemacontable.application.config.HibernateUtil;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,7 @@
 package com.nutrehogar.sistemacontable.domain.repository;
 
 import com.nutrehogar.sistemacontable.application.dto.BalanceComDTO;
-import com.nutrehogar.sistemacontable.domain.HibernateUtil;
+import com.nutrehogar.sistemacontable.application.config.HibernateUtil;
 import com.nutrehogar.sistemacontable.domain.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.model.*;
 import jakarta.persistence.TypedQuery;

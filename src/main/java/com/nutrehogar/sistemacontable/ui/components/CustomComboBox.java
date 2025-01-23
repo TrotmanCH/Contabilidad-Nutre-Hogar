@@ -2,7 +2,7 @@ package com.nutrehogar.sistemacontable.ui.components;
 
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
-import com.nutrehogar.sistemacontable.ui.controller.TipoCuenta;
+import com.nutrehogar.sistemacontable.domain.TipoCuenta;
 
 import javax.swing.*;
 import java.awt.*;

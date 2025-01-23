@@ -1,25 +1,22 @@
 package com.nutrehogar.sistemacontable.application.service;
 
-import com.nutrehogar.sistemacontable.application.dto.BalanceComDTO;
-import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinnerModel;
-import com.nutrehogar.sistemacontable.ui.controller.TipoCuenta;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Clase de utilidad del proyecto, Contiene metodos que pueden ser utilizados en el proyecto,
@@ -130,5 +127,19 @@ public class Util {
     }
 
     public record Pair<A, B>(A first, B second) {
+    }
+    /**
+     * Obtiene el tipo del campo anotado con @Id en una clase.
+     *
+     * @param clazz La clase en la que buscar el campo @Id.
+     * @return El tipo del campo @Id, o un Optional vacío si no se encuentra.
+     */
+    public static Optional<Class<?>> getIdFieldType(@NotNull Class<?> clazz) {
+        for (Field field : clazz.getDeclaredFields()) {
+            if (field.isAnnotationPresent(Id.class)) {
+                return Optional.of(field.getType());
+            }
+        }
+        return Optional.empty();
     }
 }

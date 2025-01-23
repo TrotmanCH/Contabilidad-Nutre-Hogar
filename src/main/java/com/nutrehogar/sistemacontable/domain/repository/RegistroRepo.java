@@ -1,6 +1,6 @@
 package com.nutrehogar.sistemacontable.domain.repository;
 
-import com.nutrehogar.sistemacontable.domain.HibernateUtil;
+import com.nutrehogar.sistemacontable.application.config.HibernateUtil;
 import com.nutrehogar.sistemacontable.domain.model.Registro;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
