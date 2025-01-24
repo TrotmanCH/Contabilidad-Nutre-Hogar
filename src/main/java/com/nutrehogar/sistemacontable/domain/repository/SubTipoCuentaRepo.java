@@ -6,12 +6,16 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 
 public class SubTipoCuentaRepo {
+    private static final Logger logger = LoggerFactory.getLogger(SubTipoCuentaRepo.class);
     private static final Session session = HibernateUtil.getSession();
 
     public static List<SubTipoCuenta> findAll() {
@@ -22,7 +26,7 @@ public class SubTipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            e.printStackTrace();
+            logger.error("Error en findAll", e);
         }
         return transaccions;
     }
@@ -30,6 +34,7 @@ public class SubTipoCuentaRepo {
     public static SubTipoCuenta findById(String id) {
         return session.find(SubTipoCuenta.class, id);
     }
+
     public static SubTipoCuenta findByNombre(String nombre) {
         return session.createQuery(
                         "from SubTipoCuenta st where st.nombre = :nombre",
@@ -46,6 +51,7 @@ public class SubTipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+            logger.error("Error en el save", e);
         }
     }
 
@@ -56,6 +62,7 @@ public class SubTipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+            logger.error("Error en el save", e);
         }
     }
 
@@ -68,7 +75,7 @@ public class SubTipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            e.printStackTrace();
+            logger.error("Error en el delete", e);
         }
     }
 
@@ -80,7 +87,7 @@ public class SubTipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            e.printStackTrace();
+            logger.error("Error en el delete", e);
         }
     }
 
@@ -91,7 +98,7 @@ public class SubTipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            e.printStackTrace();
+            logger.error("Error en el update", e);
         }
     }
 }
