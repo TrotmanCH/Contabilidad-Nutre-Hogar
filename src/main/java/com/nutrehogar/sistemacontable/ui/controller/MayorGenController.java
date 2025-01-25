@@ -51,7 +51,7 @@ public class MayorGenController {
      */
     private String cuentaId;
 
-    private MayorGenController() {
+    public MayorGenController() {
         view = new MayorGenView();
         this.table = view.getTabRegistros();
         this.tableModel = new MayorGenTableModel();

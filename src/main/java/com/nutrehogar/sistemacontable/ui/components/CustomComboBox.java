@@ -37,12 +37,12 @@ public class CustomComboBox<E> extends JComboBox<E> {
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
                                                       boolean cellHasFocus) {
             var label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            if (value instanceof TipoCuenta tipoCuenta) {
-                label.setText(tipoCuenta.getId() + " " + tipoCuenta.name());
-            } else if (value instanceof SubTipoCuenta tipoCuenta) {
-                label.setText(tipoCuenta.getId() + " " + tipoCuenta.getNombre());
-            } else if (value instanceof Cuenta cuenta) {
-                label.setText(cuenta.getId() + " " + cuenta.getNombre());
+            switch (value) {
+                case TipoCuenta tipoCuenta -> label.setText(tipoCuenta.getId() + " " + tipoCuenta.name());
+                case SubTipoCuenta tipoCuenta -> label.setText(tipoCuenta.getId() + " " + tipoCuenta.getNombre());
+                case Cuenta cuenta -> label.setText(cuenta.getId() + " " + cuenta.getNombre());
+                default -> {
+                }
             }
             return label;
         }

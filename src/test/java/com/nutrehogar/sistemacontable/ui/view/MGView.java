@@ -24,6 +24,7 @@ public class MGView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fontLoader1 = new com.nutrehogar.sistemacontable.ui.JComponents.FontLoader();
         conteiner = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -32,29 +33,29 @@ public class MGView extends javax.swing.JFrame {
         javax.swing.GroupLayout conteinerLayout = new javax.swing.GroupLayout(conteiner);
         conteiner.setLayout(conteinerLayout);
         conteinerLayout.setHorizontalGroup(
-                conteinerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 886, Short.MAX_VALUE)
+            conteinerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 841, Short.MAX_VALUE)
         );
         conteinerLayout.setVerticalGroup(
-                conteinerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 458, Short.MAX_VALUE)
+            conteinerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 428, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(conteiner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(conteiner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(conteiner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(conteiner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -76,7 +77,7 @@ public class MGView extends javax.swing.JFrame {
         splash.setLocationRelativeTo(null); // Centrado en la pantalla
         splash.setVisible(true);
 
-        HibernateUtil.getSessionFactory();//para que se inicialice en el hilo princiapl
+//        HibernateUtil.getSessionFactory();//para que se inicialice en el hilo princiapl
 //        Thread.startVirtualThread(HibernateUtil::createSession);// inicia una session en un hilo virtual
         //lo que se ejecute dentro, se ejecuta en el EDT
         SwingUtilities.invokeAndWait(() -> {
@@ -96,5 +97,6 @@ public class MGView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JPanel conteiner;
+    private com.nutrehogar.sistemacontable.ui.JComponents.FontLoader fontLoader1;
     // End of variables declaration//GEN-END:variables
 }
