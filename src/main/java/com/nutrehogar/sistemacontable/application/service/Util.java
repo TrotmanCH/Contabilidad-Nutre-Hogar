@@ -41,7 +41,9 @@ import java.util.Optional;
  * @see DecimalFormat
  */
 public class Util {
-    public static LocalDate CURRENT_DATE = LocalDate.now();
+    public static final LocalDate CURRENT_DATE = LocalDate.now();
+    public static final LocalDate START_PERIOD = LocalDate.of(CURRENT_DATE.getYear(), 1, 1);
+    public static final LocalDate END_PERIOD = LocalDate.of(CURRENT_DATE.getYear(), 12, 31);
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
     // Formato estático para números decimales
@@ -101,6 +103,7 @@ public class Util {
             }
         }
     }
+
     @Getter
     private static final DecimalRenderer DECIMAL_RENDERER = new DecimalRenderer();
 
@@ -128,6 +131,7 @@ public class Util {
 
     public record Pair<A, B>(A first, B second) {
     }
+
     /**
      * Obtiene el tipo del campo anotado con @Id en una clase.
      *

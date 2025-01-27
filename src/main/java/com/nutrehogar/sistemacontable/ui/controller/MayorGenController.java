@@ -56,13 +56,14 @@ public class MayorGenController {
         this.table = view.getTabRegistros();
         this.tableModel = new MayorGenTableModel();
         this.editButton = view.getButEdit();
-        this.starSpinnerModel = view.getSpiInicio().getCustomModel();
-        this.endSpinnerModel = view.getSpiFin().getCustomModel();
+        this.starSpinnerModel = view.getSpiInicio().getModel();
+        this.endSpinnerModel = view.getSpiFin().getModel();
         this.tipoCuentaComboModel = new TipoCuentaComboBoxModel();
         this.subTipoCuentaComboModel = new SubTipoCuentaComboBoxModel(List.of());
         this.cuentaComboModel = new CuentaComboBoxModel(List.of());
         initComponents();
     }
+
     public void MayorGenView() {
 
     }
@@ -161,7 +162,8 @@ public class MayorGenController {
      * Además, avisa a la tabla, para que renderice los nuevos datos
      */
     public void loadData() {
-        this.data = MayorGenRepo.find(null, null, new MayorGenRepo.Filter.ByFechaRange(starSpinnerModel.getValue(), endSpinnerModel.getValue()), new MayorGenRepo.Filter.ByCuentaId(cuentaId));
+//        this.data = MayorGenRepo.find(null, null, new MayorGenRepo.Filter.ByFechaRange(starSpinnerModel.getValue(), endSpinnerModel.getValue()), new MayorGenRepo.Filter.ByCuentaId(cuentaId));
+        this.data = List.of();
         SwingUtilities.invokeLater(() -> tableModel.setData(this.data));
     }
 

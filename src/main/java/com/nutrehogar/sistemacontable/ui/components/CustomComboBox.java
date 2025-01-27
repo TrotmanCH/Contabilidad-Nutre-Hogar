@@ -28,23 +28,8 @@ public class CustomComboBox<E> extends JComboBox<E> {
     public CustomComboBox() {
     }
 
-    public CustomComboBox(ComboBoxModel<E> aModel) {
-        super(aModel);
-    }
+//    public CustomComboBox(ComboBoxModel<E> aModel) {
+//        super(aModel);
+//    }
 
-    static class CustomListCellRenderer extends DefaultListCellRenderer {
-        @Override
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
-                                                      boolean cellHasFocus) {
-            var label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            switch (value) {
-                case TipoCuenta tipoCuenta -> label.setText(tipoCuenta.getId() + " " + tipoCuenta.name());
-                case SubTipoCuenta tipoCuenta -> label.setText(tipoCuenta.getId() + " " + tipoCuenta.getNombre());
-                case Cuenta cuenta -> label.setText(cuenta.getId() + " " + cuenta.getNombre());
-                default -> {
-                }
-            }
-            return label;
-        }
-    }
 }

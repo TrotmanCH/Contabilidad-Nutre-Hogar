@@ -1,4 +1,6 @@
-package com.nutrehogar.sistemacontable.application.repository.core;
+package com.nutrehogar.sistemacontable.application.repository.crud;
+
+import com.nutrehogar.sistemacontable.application.repository.SimpleRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +12,7 @@ import java.util.Optional;
  * @param <T>  El tipo de la entidad gestionada por este repositorio.
  * @param <ID> El tipo del identificador único de la entidad.
  */
-public interface BaseRepository<T, ID> {
+public interface CRUDRepository<T, ID> extends SimpleRepository<T> {
 
     /**
      * Busca una entidad por su identificador único.

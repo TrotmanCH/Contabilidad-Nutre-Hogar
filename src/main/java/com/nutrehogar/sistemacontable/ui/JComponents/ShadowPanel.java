@@ -92,54 +92,45 @@ public class ShadowPanel extends JPanel {
                 int h = height - (shadowTop ? i : 0) - (shadowBottom ? i : 0);
 
                 // Dibujar la sombra con esquinas personalizadas
-                drawCustomRoundedRect(g2, x, y, w, h,
-                        topLeftArcShadow, topRightArcShadow,
-                        bottomLeftArcShadow, bottomRightArcShadow);
+                drawCustomRoundedRect(g2, x, y, w, h, topLeftArcShadow, topRightArcShadow, bottomLeftArcShadow, bottomRightArcShadow);
             }
+            addBorderForShadow();
         }
 
         // Dibujar el panel principal
         g2.setComposite(AlphaComposite.SrcOver); // Restaurar la opacidad
         g2.setColor(getBackground());
-        drawCustomRoundedRect(g2,
-                shadowLeft ? shadowSize : 0,
-                shadowTop ? shadowSize : 0,
-                width - (shadowLeft ? shadowSize : 0) - (shadowRight ? shadowSize : 0),
-                height - (shadowTop ? shadowSize : 0) - (shadowBottom ? shadowSize : 0),
-                topLeftArcVisible, topRightArcVisible,
-                bottomLeftArcVisible, bottomRightArcVisible);
+        drawCustomRoundedRect(g2, shadowLeft ? shadowSize : 0, shadowTop ? shadowSize : 0, width - (shadowLeft ? shadowSize : 0) - (shadowRight ? shadowSize : 0), height - (shadowTop ? shadowSize : 0) - (shadowBottom ? shadowSize : 0), topLeftArcVisible, topRightArcVisible, bottomLeftArcVisible, bottomRightArcVisible);
 
         // Dibujar el borde (si está configurado)
         if (borderColor != null && borderThickness > 0 && borderOpacity > 0) {
             g2.setColor(new Color(borderColor.getRed(), borderColor.getGreen(), borderColor.getBlue(), borderOpacity));
             g2.setStroke(new BasicStroke(borderThickness));
-            drawCustomRoundedRect(g2,
-                    (shadowLeft ? shadowSize : 0) + borderThickness / 2.0, // Ajustar la posición para que el borde no se corte
-                    (shadowTop ? shadowSize : 0) + borderThickness / 2.0,
-                    width - (shadowLeft ? shadowSize : 0) - (shadowRight ? shadowSize : 0) - borderThickness,
-                    height - (shadowTop ? shadowSize : 0) - (shadowBottom ? shadowSize : 0) - borderThickness,
-                    topLeftArcVisible, topRightArcVisible,
-                    bottomLeftArcVisible, bottomRightArcVisible);
+            drawCustomRoundedRect(g2, (shadowLeft ? shadowSize : 0) + borderThickness / 2.0, // Ajustar la posición para que el borde no se corte
+                    (shadowTop ? shadowSize : 0) + borderThickness / 2.0, width - (shadowLeft ? shadowSize : 0) - (shadowRight ? shadowSize : 0) - borderThickness, height - (shadowTop ? shadowSize : 0) - (shadowBottom ? shadowSize : 0) - borderThickness, topLeftArcVisible, topRightArcVisible, bottomLeftArcVisible, bottomRightArcVisible);
         }
 
         g2.dispose();
     }
 
+    private void addBorderForShadow() {
+        this.setBorder(BorderFactory.createEmptyBorder(shadowTop ? shadowSize + borderThickness : 0, shadowLeft ? shadowSize + borderThickness : 0, shadowBottom ? shadowSize : 0, shadowRight ? shadowSize : 0));
+    }
+
     /**
      * Dibuja un rectángulo redondeado con esquinas personalizadas.
      *
-     * @param g2              Objeto Graphics2D.
-     * @param x               Coordenada X.
-     * @param y               Coordenada Y.
-     * @param width           Ancho del rectángulo.
-     * @param height          Alto del rectángulo.
-     * @param topLeftArc      Radio de la esquina superior izquierda.
-     * @param topRightArc     Radio de la esquina superior derecha.
-     * @param bottomLeftArc   Radio de la esquina inferior izquierda.
-     * @param bottomRightArc  Radio de la esquina inferior derecha.
+     * @param g2             Objeto Graphics2D.
+     * @param x              Coordenada X.
+     * @param y              Coordenada Y.
+     * @param width          Ancho del rectángulo.
+     * @param height         Alto del rectángulo.
+     * @param topLeftArc     Radio de la esquina superior izquierda.
+     * @param topRightArc    Radio de la esquina superior derecha.
+     * @param bottomLeftArc  Radio de la esquina inferior izquierda.
+     * @param bottomRightArc Radio de la esquina inferior derecha.
      */
-    private void drawCustomRoundedRect(Graphics2D g2, double x, double y, double width, double height,
-                                       int topLeftArc, int topRightArc, int bottomLeftArc, int bottomRightArc) {
+    private void drawCustomRoundedRect(Graphics2D g2, double x, double y, double width, double height, int topLeftArc, int topRightArc, int bottomLeftArc, int bottomRightArc) {
         // Crear un camino (Path2D) para el rectángulo redondeado
         java.awt.geom.Path2D.Double path = new java.awt.geom.Path2D.Double();
 

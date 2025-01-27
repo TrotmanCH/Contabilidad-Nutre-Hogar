@@ -1,5 +1,6 @@
-package com.nutrehogar.sistemacontable.application.repository.core;
+package com.nutrehogar.sistemacontable.domain.core;
 
+import com.nutrehogar.sistemacontable.application.repository.crud.CRUDRepository;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,11 +22,11 @@ import java.util.Objects;
  * }
  * </pre>
  */
-public class RepositoryFactory {
+public class CRUDRepositoryFactory {
 
     /**
      * Crea una instancia dinámica de un repositorio que implementa la interfaz especificada.
-     * La implementación real de los métodos se delega a una instancia de {@link RepositoryImpl}.
+     * La implementación real de los métodos se delega a una instancia de {@link CRUDRepositoryImpl}.
      *
      * @param repositoryInterface La interfaz del repositorio que se desea implementar.
      * @param entityClass         La clase de la entidad gestionada por el repositorio.
@@ -37,7 +38,7 @@ public class RepositoryFactory {
      * @throws IllegalArgumentException Si alguno de los parámetros es nulo.
      */
     @SuppressWarnings("unchecked")
-    public static <T, ID, R extends BaseRepository<T, ID>> @NotNull R createRepository(
+    public static <T, ID, R extends CRUDRepository<T, ID>> @NotNull R createRepository(
             @NotNull Class<R> repositoryInterface,
             @NotNull Class<T> entityClass,
             @NotNull Session session) throws NullPointerException {
@@ -51,7 +52,7 @@ public class RepositoryFactory {
                 new Class<?>[]{repositoryInterface},
                 (proxy, method, args) -> {
                     // Implementación dinámica de los métodos
-                    RepositoryImpl<T, ID> repositoryImpl = new RepositoryImpl<>(entityClass, session);
+                    CRUDRepositoryImpl<T, ID> repositoryImpl = new CRUDRepositoryImpl<>(entityClass, session);
                     return method.invoke(repositoryImpl, args);
                 }
         );

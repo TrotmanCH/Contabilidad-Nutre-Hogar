@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+import static com.nutrehogar.sistemacontable.application.service.Util.CURRENT_DATE;
+
 /**
  * Modelo de un spinner que tiene como valor un {@link LocalDate}
  *
@@ -37,20 +39,24 @@ public class LocalDateSpinnerModel extends AbstractSpinnerModel {
     private ChronoUnit incrementUnit;
 
     public LocalDateSpinnerModel() {
-        this.currentDate = LocalDate.now();
+        this.currentDate = CURRENT_DATE;
         this.incrementUnit = ChronoUnit.DAYS;
     }
 
     public LocalDateSpinnerModel(LocalDate currentDate) {
-        this.currentDate = currentDate;
+        this.currentDate = ifDateNull(currentDate);
         this.incrementUnit = ChronoUnit.DAYS;
     }
 
     public LocalDateSpinnerModel(LocalDate initialDate, LocalDate minDate, LocalDate maxDate, ChronoUnit incrementUnit) {
-        this.currentDate = initialDate != null ? initialDate : LocalDate.now();
-        this.minDate = minDate;
-        this.maxDate = maxDate;
-        this.incrementUnit = incrementUnit != null ? incrementUnit : ChronoUnit.DAYS;
+        this.currentDate = ifDateNull(initialDate);
+        this.minDate = ifDateNull(minDate);
+        this.maxDate = ifDateNull(maxDate);
+        this.incrementUnit = incrementUnit == null ? ChronoUnit.DAYS : incrementUnit;
+    }
+
+    private LocalDate ifDateNull(LocalDate date) {
+        return date == null ? CURRENT_DATE : date;
     }
 
     @Override

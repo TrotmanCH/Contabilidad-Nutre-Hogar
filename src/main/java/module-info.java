@@ -1,23 +1,21 @@
 module SistemaContable {
-    requires java.base;
     requires java.compiler;
-    requires java.desktop;
     requires java.instrument;
-    requires java.logging;
     requires java.naming;
     requires java.rmi;
     requires java.sql;
     requires java.transaction.xa;
-    requires java.xml;
     requires java.xml.crypto;
 
-    requires com.formdev.flatlaf;
     requires itextpdf;
     requires jakarta.persistence;
     requires static lombok;
     requires org.hibernate.orm.core;
     requires org.jetbrains.annotations;
     requires org.slf4j;
+    requires com.formdev.flatlaf.extras;
+    requires com.formdev.flatlaf;
+    requires java.desktop;
 
     exports com.nutrehogar.sistemacontable.ui;
     exports com.nutrehogar.sistemacontable.ui.components;

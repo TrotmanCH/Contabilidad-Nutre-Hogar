@@ -1,7 +1,9 @@
 package com.nutrehogar.sistemacontable.application.repository;
 
 import com.nutrehogar.sistemacontable.application.config.HibernateUtil;
-import com.nutrehogar.sistemacontable.application.repository.core.RepositoryFactory;
+import com.nutrehogar.sistemacontable.application.repository.crud.AsientoRepository;
+import com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryFactory;
+import com.nutrehogar.sistemacontable.application.repository.crud.CuentaRepository;
 import com.nutrehogar.sistemacontable.domain.model.Asiento;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,7 @@ class RepositoryFactoryTest {
     @Test
     void createRepository() {
 
-        AsientoRepository asientoRepo = RepositoryFactory.createRepository(
+        AsientoRepository asientoRepo = CRUDRepositoryFactory.createRepository(
                 AsientoRepository.class, Asiento.class, HibernateUtil.getSession()
         );
 
@@ -25,7 +27,7 @@ class RepositoryFactoryTest {
         Optional<Asiento> asientoOpt = asientoRepo.findById(1);
         asientoOpt.ifPresent(System.out::println);
         asientoRepo.findAll().forEach(System.out::println);
-        var cuentaRepo = RepositoryFactory.createRepository(CuentaRepository.class, Cuenta.class, HibernateUtil.getSession());
+        var cuentaRepo = CRUDRepositoryFactory.createRepository(CuentaRepository.class, Cuenta.class, HibernateUtil.getSession());
 
         cuentaRepo.findAll().forEach(System.out::println);
         // Eliminar un asiento por ID

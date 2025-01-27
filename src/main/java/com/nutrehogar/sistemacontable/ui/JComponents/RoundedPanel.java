@@ -62,8 +62,13 @@ public class RoundedPanel extends JPanel {
                     height - borderThickness,
                     arcWidth, arcHeight
             ));
+            addBorderForBorderThickness(borderThickness);
         }
 
         g2.dispose();
+    }
+
+    private void addBorderForBorderThickness(int v) {
+        this.setBorder(BorderFactory.createEmptyBorder(v, v, v, v));
     }
 }

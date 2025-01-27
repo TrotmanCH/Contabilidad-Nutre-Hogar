@@ -1,6 +1,5 @@
 package com.nutrehogar.sistemacontable.ui.components;
 
-import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -13,20 +12,22 @@ import java.time.temporal.ChronoUnit;
  * @author Calcifer1331
  * @see LocalDateSpinnerModel
  */
-@Getter
 public class LocalDateSpinner extends JSpinner {
-    private final LocalDateSpinnerModel customModel;
-
-    public LocalDateSpinner() {
-        customModel = new LocalDateSpinnerModel();
-        this.setModel(customModel);
+    {
         configEditor();
     }
 
-    public LocalDateSpinner(LocalDateSpinnerModel customModel) {
-        super(customModel);
-        this.customModel = customModel;
-        configEditor();
+    public LocalDateSpinner() {
+        super(new LocalDateSpinnerModel());
+    }
+
+    public LocalDateSpinner(LocalDateSpinnerModel localDateSpinnerModel) {
+        super(localDateSpinnerModel);
+    }
+
+    @Override
+    public LocalDateSpinnerModel getModel() {
+        return (LocalDateSpinnerModel) super.getModel();
     }
 
     /**
@@ -40,11 +41,11 @@ public class LocalDateSpinner extends JSpinner {
             public void mouseClicked(MouseEvent e) {
                 int position = editor.getTextField().getCaretPosition();
                 if (position < 5) {
-                    customModel.setIncrementUnit(ChronoUnit.YEARS);
+                    getModel().setIncrementUnit(ChronoUnit.YEARS);
                 } else if (position < 8) {
-                    customModel.setIncrementUnit(ChronoUnit.MONTHS);
+                    getModel().setIncrementUnit(ChronoUnit.MONTHS);
                 } else {
-                    customModel.setIncrementUnit(ChronoUnit.DAYS);
+                    getModel().setIncrementUnit(ChronoUnit.DAYS);
                 }
             }
         });

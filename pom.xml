@@ -152,6 +152,19 @@
             <artifactId>flatlaf</artifactId>
             <version>3.5.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.5.2</version>
+            <classifier>windows-x86_64</classifier>
+            <type>dll</type>
+        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>

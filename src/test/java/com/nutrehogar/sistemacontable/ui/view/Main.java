@@ -4,17 +4,30 @@
  */
 package com.nutrehogar.sistemacontable.ui.view;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.ui.FlatNativeWindowBorder;
+import com.nutrehogar.sistemacontable.ui.JComponents.Background;
+import com.nutrehogar.sistemacontable.ui.JComponents.ShadowPanel;
+import com.nutrehogar.sistemacontable.ui.JComponents.UIConstants;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.io.InputStream;
+
 /**
- *
  * @author Calci
  */
-public class Main extends javax.swing.JFrame {
+public class Main extends JFrame {
 
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        getContentPane().setBackground(new Color(227,213,202));
     }
 
     /**
@@ -27,50 +40,171 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         background1 = new com.nutrehogar.sistemacontable.ui.JComponents.Background();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        shadowPanel1 = new com.nutrehogar.sistemacontable.ui.JComponents.ShadowPanel();
+        shadowPanel4 = new com.nutrehogar.sistemacontable.ui.JComponents.ShadowPanel();
+        jLabel1 = new javax.swing.JLabel();
+        shadowPanel3 = new com.nutrehogar.sistemacontable.ui.JComponents.ShadowPanel();
+        jPanel1 = new javax.swing.JPanel();
+        shadowPanel2 = new com.nutrehogar.sistemacontable.ui.JComponents.ShadowPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        background1.setBackground(new java.awt.Color(235, 237, 228));
+        background1.setColor1(new java.awt.Color(227, 213, 202));
+        background1.setFundType(com.nutrehogar.sistemacontable.ui.JComponents.Background.FundType.SOLID);
+
+        shadowPanel1.setBorderColor(new java.awt.Color(255, 255, 255));
+        shadowPanel1.setBottomLeftArcVisible(0);
+        shadowPanel1.setShadowBottom(false);
+        shadowPanel1.setShadowLeft(false);
+        shadowPanel1.setShadowOpacity(10);
+        shadowPanel1.setShadowSize(8);
+        shadowPanel1.setShadowTop(false);
+        shadowPanel1.setTopLeftArcVisible(0);
+
+        shadowPanel4.setBackground(new java.awt.Color(165, 165, 141));
+        shadowPanel4.setBorderColor(new java.awt.Color(48, 48, 48));
+        shadowPanel4.setBorderThickness(0);
+        shadowPanel4.setShadowLeft(false);
+        shadowPanel4.setShadowOpacity(10);
+        shadowPanel4.setShadowSize(6);
+        shadowPanel4.setShadowTop(false);
+
+        jLabel1.setBackground(new java.awt.Color(48, 48, 48));
+        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(48, 48, 48));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Mayor General");
+
+        javax.swing.GroupLayout shadowPanel4Layout = new javax.swing.GroupLayout(shadowPanel4);
+        shadowPanel4.setLayout(shadowPanel4Layout);
+        shadowPanel4Layout.setHorizontalGroup(
+                shadowPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(shadowPanel4Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        shadowPanel4Layout.setVerticalGroup(
+                shadowPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(shadowPanel4Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout shadowPanel1Layout = new javax.swing.GroupLayout(shadowPanel1);
+        shadowPanel1.setLayout(shadowPanel1Layout);
+        shadowPanel1Layout.setHorizontalGroup(
+                shadowPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(shadowPanel1Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(shadowPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        shadowPanel1Layout.setVerticalGroup(
+                shadowPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(shadowPanel1Layout.createSequentialGroup()
+                                .addGap(106, 106, 106)
+                                .addComponent(shadowPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(352, Short.MAX_VALUE))
+        );
+
+        shadowPanel3.setBackground(new java.awt.Color(48, 48, 48));
+        shadowPanel3.setBorderColor(new java.awt.Color(48, 48, 48));
+        shadowPanel3.setBorderThickness(0);
+        shadowPanel3.setShadowLeft(false);
+        shadowPanel3.setShadowOpacity(10);
+        shadowPanel3.setShadowSize(6);
+        shadowPanel3.setShadowTop(false);
+
+        javax.swing.GroupLayout shadowPanel3Layout = new javax.swing.GroupLayout(shadowPanel3);
+        shadowPanel3.setLayout(shadowPanel3Layout);
+        shadowPanel3Layout.setHorizontalGroup(
+                shadowPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 48, Short.MAX_VALUE)
+        );
+        shadowPanel3Layout.setVerticalGroup(
+                shadowPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 495, Short.MAX_VALUE)
+        );
+
+        jPanel1.setOpaque(false);
+
+        shadowPanel2.setBackground(new java.awt.Color(232, 231, 231));
+        shadowPanel2.setBorderColor(new java.awt.Color(255, 255, 255));
+        shadowPanel2.setShadowLeft(false);
+        shadowPanel2.setShadowOpacity(10);
+        shadowPanel2.setShadowSize(6);
+        shadowPanel2.setShadowTop(false);
+
+        javax.swing.GroupLayout shadowPanel2Layout = new javax.swing.GroupLayout(shadowPanel2);
+        shadowPanel2.setLayout(shadowPanel2Layout);
+        shadowPanel2Layout.setHorizontalGroup(
+                shadowPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 472, Short.MAX_VALUE)
+        );
+        shadowPanel2Layout.setVerticalGroup(
+                shadowPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 122, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(shadowPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 12, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(shadowPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout background1Layout = new javax.swing.GroupLayout(background1);
         background1.setLayout(background1Layout);
         background1Layout.setHorizontalGroup(
-            background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, background1Layout.createSequentialGroup()
-                .addContainerGap(169, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(127, 127, 127))
+                background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(background1Layout.createSequentialGroup()
+                                .addComponent(shadowPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(shadowPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         background1Layout.setVerticalGroup(
-            background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(background1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(background1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(shadowPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+                                .addContainerGap())
+                        .addComponent(shadowPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 805, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(background1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 513, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(background1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -79,41 +213,22 @@ public class Main extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
+    public static void main(String[] args) {
+        // Instalar FlatLaf Native
+        // Aplicar
+        System.setProperty("flatlaf.useWindowDecorations", "true");
+        FlatLightLaf.setup();
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Main().setVisible(true);
-            }
-        });
+        EventQueue.invokeLater(() -> new Main().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.nutrehogar.sistemacontable.ui.JComponents.Background background1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private com.nutrehogar.sistemacontable.ui.JComponents.ShadowPanel shadowPanel1;
+    private com.nutrehogar.sistemacontable.ui.JComponents.ShadowPanel shadowPanel2;
+    private com.nutrehogar.sistemacontable.ui.JComponents.ShadowPanel shadowPanel3;
+    private com.nutrehogar.sistemacontable.ui.JComponents.ShadowPanel shadowPanel4;
     // End of variables declaration//GEN-END:variables
 }

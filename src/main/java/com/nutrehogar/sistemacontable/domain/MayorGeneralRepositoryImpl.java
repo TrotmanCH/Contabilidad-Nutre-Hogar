@@ -1,30 +1,24 @@
-package com.nutrehogar.sistemacontable.domain.repository;
+package com.nutrehogar.sistemacontable.domain;
 
 import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
 import com.nutrehogar.sistemacontable.application.repository.business.MayorGeneralRepository;
-import com.nutrehogar.sistemacontable.domain.MayorGenQueryBuilder;
-import com.nutrehogar.sistemacontable.domain.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.core.TransactionManager;
-import jakarta.persistence.criteria.*;
+import com.nutrehogar.sistemacontable.domain.repository.MayorGenRepo;
+import jakarta.persistence.criteria.CriteriaQuery;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * @author Calcifer1331
- */
-@Slf4j
-public class MayorGenRepo extends TransactionManager implements MayorGeneralRepository {
+public class MayorGeneralRepositoryImpl extends TransactionManager implements MayorGeneralRepository {
 
-    public MayorGenRepo(Session session) {
+    public MayorGeneralRepositoryImpl(Session session) {
         super(session);
     }
 
-    public @NotNull List<MayorGenDTO> find(Field orderField, OrderDirection orderDirection, Filter... filters) {
+    public @NotNull List<MayorGenDTO> find(MayorGenRepo.Field orderField, OrderDirection orderDirection, MayorGenRepo.Filter... filters) {
         List<MayorGenDTO> mayorGeneralDTOS = List.of();
         if (filters == null || filters.length == 0) return mayorGeneralDTOS;
         mayorGeneralDTOS = executeInTransaction(() -> {
@@ -75,19 +69,19 @@ public class MayorGenRepo extends TransactionManager implements MayorGeneralRepo
         /**
          * Filtra el Mayor General por código de cuenta.
          */
-        record ByCuentaId(String value) implements Filter {
+        record ByCuentaId(String value) implements MayorGeneralRepositoryImpl.Filter {
         }
 
         /**
          * Filtra el Mayor General por nombre de cuenta.
          */
-        record ByNombreCuenta(String value) implements Filter {
+        record ByNombreCuenta(String value) implements MayorGeneralRepositoryImpl.Filter {
         }
 
         /**
          * Filtra el Mayor General por un rango de fechas.
          */
-        record ByFechaRange(LocalDate startDate, LocalDate endDate) implements Filter {
+        record ByFechaRange(LocalDate startDate, LocalDate endDate) implements MayorGeneralRepositoryImpl.Filter {
         }
     }
 }
