@@ -20,6 +20,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "account_subtype")
 public class AccountSubtype {
+    public static final int MAX_ID_LENGTH = 4;
+    public static final int MAX_CANONICAL_ID_LENGTH = 3;
     @Id
     @Column(name = "id", nullable = false)
     Integer id;
@@ -44,7 +46,7 @@ public class AccountSubtype {
 
     public Pair<Integer, Integer> getSeparateId() {
         var tipoCuentaId = accountType.getId();
-        var subTipoCuentaId = id.toString().toCharArray();
+        var subTipoCuentaId = id.toString().toCharArray()[0];
         return new Pair<>(id, accountType.getId());
     }
 

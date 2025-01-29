@@ -40,7 +40,7 @@ public abstract class Controller<T> {
         updateView();
     }
 
-    public void updateView() {
+    protected void updateView() {
         SwingUtilities.invokeLater(getTblModel()::fireTableDataChanged);
     }
 

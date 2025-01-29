@@ -41,7 +41,7 @@ public abstract class CRUDController<T, ID> extends Controller<T> {
         });
     }
 
-    public void save(T entity) {
+    private void save(T entity) {
         if (entity == null) return;
         try {
             getRepository().save(entity);
@@ -60,7 +60,7 @@ public abstract class CRUDController<T, ID> extends Controller<T> {
     }
 
 
-    public void update(T entity) {
+    private void update(T entity) {
         if (entity == null) return;
         try {
             getRepository().update(getSelected());
@@ -78,20 +78,17 @@ public abstract class CRUDController<T, ID> extends Controller<T> {
     }
 
 
-    public void delete(ID id) {
+    private void delete(ID id) {
         if (id == null) {
             prepareToAdd();
             return;
         }
-
         var response = JOptionPane.showConfirmDialog(
                 (Component) getView(),
                 "Desea eliminar? El cambio sera permanente.",
                 "Elimination",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
         if (response != JOptionPane.OK_OPTION) return;
-
         try {
             getRepository().deleteById(id);
             loadData(); // Recargar datos después de eliminar
@@ -118,11 +115,33 @@ public abstract class CRUDController<T, ID> extends Controller<T> {
         select();
     }
 
-    protected abstract void setElementSelected(@NotNull MouseEvent e);
+    private void setElementSelected(@NotNull MouseEvent e) {
+        int row = getTblData().rowAtPoint(e.getPoint());
+        if (row != -1) {
+            int selectedRow = getTblData().getSelectedRow();
+            if (selectedRow < 0) {
+                deselect();
+                return;
+            }
+//            var selected = getData().get(selectedRow);
+//            if (selected.getId() == null) {
+//                deselect();
+//                return;
+//            }
+            setSelected(getData().get(selectedRow));
+        }
+    }
 
-    protected abstract void prepareToEdit();
+    protected void prepareToEdit() {
+        getBtnUpdate().setEnabled(true);
+        getBtnSave().setEnabled(false);
+    }
 
-    protected abstract void prepareToAdd();
+    protected void prepareToAdd() {
+        deselect();
+        getBtnUpdate().setEnabled(false);
+        getBtnSave().setEnabled(true);
+    }
 
     protected abstract ID prepareToDelete();
 

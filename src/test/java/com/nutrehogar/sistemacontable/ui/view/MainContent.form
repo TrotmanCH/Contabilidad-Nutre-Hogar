@@ -31,7 +31,9 @@
               <Component id="btnJournal" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnGeneralLedger" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="247" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnAccountSubtype" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="99" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -48,6 +50,7 @@
                   <Component id="btnTrialBalance" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnJournal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnGeneralLedger" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAccountSubtype" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="content" max="32767" attributes="0"/>
@@ -104,6 +107,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGeneralLedgerActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAccountSubtype">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="AccountSubtypeView"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAccountSubtypeActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

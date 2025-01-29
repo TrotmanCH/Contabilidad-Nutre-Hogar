@@ -12,14 +12,12 @@ import com.nutrehogar.sistemacontable.domain.AccountType;
 import com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryFactory;
 import com.nutrehogar.sistemacontable.domain.model.Account;
 import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
+import com.nutrehogar.sistemacontable.domain.repository.AccountSubtypeRepositoryImpl;
 import com.nutrehogar.sistemacontable.domain.repository.GeneralLedgerRepositoryImpl;
 import com.nutrehogar.sistemacontable.domain.repository.JournalRepositoryImpl;
 import com.nutrehogar.sistemacontable.domain.repository.TrialBalanceRepositoryImpl;
 import com.nutrehogar.sistemacontable.ui.controller.*;
-import com.nutrehogar.sistemacontable.ui.view.defaultImple.DefaultAccountView;
-import com.nutrehogar.sistemacontable.ui.view.defaultImple.DefaultGeneralLedgerView;
-import com.nutrehogar.sistemacontable.ui.view.defaultImple.DefaultJournalView;
-import com.nutrehogar.sistemacontable.ui.view.defaultImple.DefaultTrialBalanceView;
+import com.nutrehogar.sistemacontable.ui.view.defaultImple.*;
 import org.hibernate.Session;
 
 import java.awt.*;
@@ -64,13 +62,20 @@ public class MainContent extends javax.swing.JFrame {
         btnTrialBalance = new javax.swing.JButton();
         btnJournal = new javax.swing.JButton();
         btnGeneralLedger = new javax.swing.JButton();
+        btnAccountSubtype = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
-        contentLayout.setHorizontalGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 0, Short.MAX_VALUE));
-        contentLayout.setVerticalGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 381, Short.MAX_VALUE));
+        contentLayout.setHorizontalGroup(
+                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+        );
+        contentLayout.setVerticalGroup(
+                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 381, Short.MAX_VALUE)
+        );
 
         btnAccountView.setText("AccountView");
         btnAccountView.addActionListener(new java.awt.event.ActionListener() {
@@ -100,10 +105,45 @@ public class MainContent extends javax.swing.JFrame {
             }
         });
 
+        btnAccountSubtype.setText("AccountSubtypeView");
+        btnAccountSubtype.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccountSubtypeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout.createSequentialGroup().addComponent(btnAccountView).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(btnTrialBalance).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnJournal).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnGeneralLedger).addGap(0, 247, Short.MAX_VALUE)).addGroup(layout.createSequentialGroup().addContainerGap().addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addContainerGap()));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnAccountView).addComponent(btnTrialBalance).addComponent(btnJournal).addComponent(btnGeneralLedger)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAccountView)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnTrialBalance)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnJournal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGeneralLedger)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAccountSubtype)
+                                .addGap(0, 99, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnAccountView)
+                                        .addComponent(btnTrialBalance)
+                                        .addComponent(btnJournal)
+                                        .addComponent(btnGeneralLedger)
+                                        .addComponent(btnAccountSubtype))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -136,6 +176,12 @@ public class MainContent extends javax.swing.JFrame {
         setContent(view);
     }//GEN-LAST:event_btnGeneralLedgerActionPerformed
 
+    private void btnAccountSubtypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountSubtypeActionPerformed
+        var view = new DefaultAccountSubtypeView();
+        var controller = new AccountSubtypeController(subTipoRepository, view);
+        setContent(view);
+    }//GEN-LAST:event_btnAccountSubtypeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -146,6 +192,7 @@ public class MainContent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAccountSubtype;
     private javax.swing.JButton btnAccountView;
     private javax.swing.JButton btnGeneralLedger;
     private javax.swing.JButton btnJournal;

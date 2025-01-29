@@ -20,7 +20,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "account")
 public class Account {
-    public static final int MAX_ACCOUNT_ID_LENGTH = 5;
+    public static final int MAX_ID_LENGTH = 5;
+    public static final int MAX_CANONICAL_ID_LENGTH = 3;
     @Id
     @Column(name = "id", nullable = false)
     Integer id;
@@ -43,7 +44,7 @@ public class Account {
         int subtypeIdLength = accountSubtype.getId().toString().length();
 
         // Calcular el número máximo de dígitos permitidos para el ID de la cuenta
-        int maxAccountIdDigits = MAX_ACCOUNT_ID_LENGTH - subtypeIdLength;
+        int maxAccountIdDigits = MAX_ID_LENGTH - subtypeIdLength;
 
         // Validar que el ID de la cuenta no exceda el límite de dígitos
         if (id < 0 || id.toString().length() > maxAccountIdDigits) {

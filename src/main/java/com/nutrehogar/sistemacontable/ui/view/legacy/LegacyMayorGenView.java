@@ -1,21 +1,21 @@
-////package com.nutrehogar.sistemacontable.ui.view.defaultImple;
-////
-////import com.nutrehogar.sistemacontable.ui.styles.*;
-////import lombok.Getter;
-////import lombok.Setter;
-////
-////@Getter
-////@Setter
-////
-////public class MayorGenView extends javax.swing.JPanel {
-////    public MayorGenView() {
-////        initComponents();
-////
-////        TableStyle.setStyle(tabRegistros);
-////        ButtonStyle.setStyle(butFiltrar,butEdit);
-////    }
-////
-////    @SuppressWarnings("unchecked")
+//////package com.nutrehogar.sistemacontable.ui.view.defaultImple;
+//////
+//////import com.nutrehogar.sistemacontable.ui.styles.*;
+//////import lombok.Getter;
+//////import lombok.Setter;
+//////
+//////@Getter
+//////@Setter
+//////
+//////public class MayorGenView extends javax.swing.JPanel {
+//////    public MayorGenView() {
+//////        initComponents();
+//////
+//////        TableStyle.setStyle(tabRegistros);
+//////        ButtonStyle.setStyle(butFiltrar,butEdit);
+//////    }
+//////
+//////    @SuppressWarnings("unchecked")
 //    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 //    private void initComponents() {
 //
@@ -162,7 +162,7 @@
 //                .addGap(20, 20, 20))
 //        );
 //    }// </editor-fold>//GEN-END:initComponents
-////
+//////
 //    // Variables declaration - do not modify//GEN-BEGIN:variables
 //    private javax.swing.JButton butEdit;
 //    private javax.swing.JButton butFiltrar;
@@ -179,4 +179,4 @@
 //    private com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner spiInicio;
 //    private javax.swing.JTable tabRegistros;
 //    // End of variables declaration//GEN-END:variables
-////}
+//////}

@@ -7,6 +7,7 @@ import com.nutrehogar.sistemacontable.domain.model.Account;
 import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
 import com.nutrehogar.sistemacontable.ui.components.CustomComboBoxModel;
 import com.nutrehogar.sistemacontable.ui.components.CustomListCellRenderer;
+import com.nutrehogar.sistemacontable.ui.components.DocumentSizeFilter;
 import com.nutrehogar.sistemacontable.ui.view.AccountView;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
@@ -46,13 +47,8 @@ public class AccountController extends CRUDController<Account, Integer> {
         setTblModel(new AccountTableModel());
         cbxModelAccountType = new CustomComboBoxModel<>(AccountType.values());
         cbxModelSubtype = new CustomComboBoxModel<>(List.of());
-        documentSizeFilter = new DocumentSizeFilter(Account.MAX_ACCOUNT_ID_LENGTH);
+        documentSizeFilter = new DocumentSizeFilter(Account.MAX_CANONICAL_ID_LENGTH);
         super.initialize();
-    }
-
-    @Override
-    protected void loadData() {
-        super.loadData();
     }
 
 
@@ -73,47 +69,27 @@ public class AccountController extends CRUDController<Account, Integer> {
         ((PlainDocument) getTxtAccountId().getDocument()).setDocumentFilter(documentSizeFilter);
     }
 
-    public void setTextToLbAccountTypeId() {
+    private void setTextToLbAccountTypeId() {
         if (cbxModelAccountType.getSelectedItem() == null) return;
         var id = cbxModelAccountType.getSelectedItem().getId();
         getView().getLblAccountTypeId().setText(id + ".");
 
     }
 
-    public void setTextToLbAccountSubtypeId() {
+    private void setTextToLbAccountSubtypeId() {
         if (cbxModelSubtype.getSelectedItem() == null) return;
         var id = cbxModelSubtype.getSelectedItem().getCanonicalId();
         getView().getLblAccountSubtypeId().setText(id);
-        int size = Account.MAX_ACCOUNT_ID_LENGTH - cbxModelSubtype.getSelectedItem().getId().toString().length();
+        int size = Account.MAX_ID_LENGTH - cbxModelSubtype.getSelectedItem().getId().toString().length();
         documentSizeFilter.setMaxCaracteres(size);
-
         getTxtAccountId().setText(getTxtAccountId().getText().length() <= size ? getTxtAccountId().getText() : "");
     }
 
     @Override
-    protected void setElementSelected(@NotNull MouseEvent e) {
-        int row = getTblData().rowAtPoint(e.getPoint());
-        if (row != -1) {
-            int selectedRow = getTblData().getSelectedRow();
-            if (selectedRow < 0) {
-                deselect();
-                return;
-            }
-            var selected = getData().get(selectedRow);
-            if (selected.getId() == null) {
-                deselect();
-                return;
-            }
-            setSelected(selected);
-        }
-    }
-
-    @Override
     protected void prepareToEdit() {
+        super.prepareToEdit();
         getTxtAccountName().setText(getSelected().getName());
         getTxtAccountId().setText(getSelected().getCanonicalId());
-        getBtnUpdate().setEnabled(true);
-        getBtnSave().setEnabled(false);
         getTxtAccountId().setEnabled(false);
         getCbxAccountType().setEnabled(false);
         getCbxAccountSubtype().setEnabled(false);
@@ -125,9 +101,7 @@ public class AccountController extends CRUDController<Account, Integer> {
 
     @Override
     protected void prepareToAdd() {
-        deselect();
-        getBtnUpdate().setEnabled(false);
-        getBtnSave().setEnabled(true);
+        super.prepareToAdd();
         getTxtAccountId().setEnabled(true);
         getCbxAccountType().setEnabled(true);
         getCbxAccountSubtype().setEnabled(true);
@@ -152,7 +126,7 @@ public class AccountController extends CRUDController<Account, Integer> {
             showMessage("El Codigo tiene que ser un numero.");
             return null;
         }
-        if (cbxModelSubtype.getSelectedItem() == null || getTxtAccountName().getText().isBlank()) {
+        if (cbxModelAccountType.getSelectedItem() == null || cbxModelSubtype.getSelectedItem() == null || getTxtAccountName().getText().isBlank()) {
             showMessage("Ningun campo puede estar vacio.");
             return null;
         }
@@ -228,32 +202,6 @@ public class AccountController extends CRUDController<Account, Integer> {
         }
     }
 
-
-
-    @Setter
-    static class DocumentSizeFilter extends DocumentFilter {
-        private int maxCaracteres; // Límite de 10 caracteres
-
-        public DocumentSizeFilter(int maxCaracteres) {
-            this.maxCaracteres = maxCaracteres;
-        }
-
-        @Override
-        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
-                throws BadLocationException {
-            if (string.matches("\\d*") && (fb.getDocument().getLength() + string.length()) <= maxCaracteres) {
-                super.insertString(fb, offset, string, attr);
-            }
-        }
-
-        @Override
-        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
-                throws BadLocationException {
-            if (text.matches("\\d*") && (fb.getDocument().getLength() + text.length() - length) <= maxCaracteres) {
-                super.replace(fb, offset, length, text, attrs);
-            }
-        }
-    }
 
     @Override
     public AccountView getView() {
