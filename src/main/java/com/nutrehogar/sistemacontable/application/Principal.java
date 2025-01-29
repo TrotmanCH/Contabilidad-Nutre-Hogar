@@ -2,7 +2,6 @@ package com.nutrehogar.sistemacontable.application;
 
 import com.nutrehogar.sistemacontable.application.config.HibernateUtil;
 import com.nutrehogar.sistemacontable.application.config.ConfigLoader;
-import com.nutrehogar.sistemacontable.ui.SistemaContable;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -30,7 +29,7 @@ public class Principal {
 
         // Iniciar la interfaz gráfica en el hilo de eventos de Swing
         java.awt.EventQueue.invokeLater(() -> {
-            new SistemaContable().setVisible(true);
+//            new SistemaContable().setVisible(true);
         });
     }
 

@@ -1,5 +1,8 @@
 package com.nutrehogar.sistemacontable.application.service;
 
+import com.nutrehogar.sistemacontable.domain.AccountType;
+import com.nutrehogar.sistemacontable.domain.DocumentType;
+import com.nutrehogar.sistemacontable.ui.components.CustomTableCellRenderer;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinnerModel;
 import jakarta.persistence.Id;
@@ -79,58 +82,12 @@ public class Util {
         end.setValue(LocalDate.of(CURRENT_DATE.getYear(), 12, 31));
     }
 
-    /**
-     * Define como se debe renderizar una selda que contenga un tipo especifico de dato.
-     * <p>
-     * En este caso si el valor de la celda ({@code value}) es de tipo {@link BigDecimal} se aplicara este renderer.
-     * <p>
-     * <strong><a id="override">Implementation Note:</a></strong> si el <code>bigDecimal</code> es 0 (<code>BigDecimal.ZERO</code>) en la tabla no se vera nada es decir ""
-     * ,en cambio si es un numero diferente a 0 antes de imprimir al numero se le aplica un {@link DecimalFormat},
-     * en concreto "#,##0.00", mediante <code>formatBigDecimal</code> de {@link Util}.
-     *
-     * @see DefaultTableCellRenderer
-     */
-
-    private static class DecimalRenderer extends DefaultTableCellRenderer {
-        @Override
-        protected void setValue(Object value) {
-            if (value instanceof BigDecimal bigDecimal) {
-                setText(!bigDecimal.equals(BigDecimal.ZERO) ? formatBigDecimal(bigDecimal) : ""); // Formato con 2 decimales
-            } else if (value instanceof Double doubleValue) {
-                setText(doubleValue != 0.0 ? DECIMAL_FORMAT.format(doubleValue) : ""); // Formato para Double
-            } else {
-                super.setValue(value);
-            }
-        }
-    }
-
-    @Getter
-    private static final DecimalRenderer DECIMAL_RENDERER = new DecimalRenderer();
-
-    /**
-     * Configura el renderer por defecto para una o más tablas.
-     *
-     * @param tables Tablas a las que se aplicará el renderer
-     */
-    public static void setTableRenderer(JTable @NotNull ... tables) {
-        for (JTable table : tables) {
-            table.setDefaultRenderer(BigDecimal.class, DECIMAL_RENDERER);
-            table.setDefaultRenderer(Double.class, DECIMAL_RENDERER);
-            table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        }
-    }
-
     @Contract(value = "!null -> param1", pure = true)
     public static <E> @NotNull List<E> ifNull(List<E> e) {
         if (e == null) return List.of();
         return e;
     }
 
-    public record Triple<A, B, C>(A first, B second, C third) {
-    }
-
-    public record Pair<A, B>(A first, B second) {
-    }
 
     /**
      * Obtiene el tipo del campo anotado con @Id en una clase.

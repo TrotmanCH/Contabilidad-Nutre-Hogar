@@ -12,7 +12,7 @@
     <url>https://github.com/TrotmanCH/Contabilidad-Nutre-Hogar</url>
     <description>
         Este proyecto es una aplicación de escritorio para la gestión contable de Nutre Hogar.
-        Permite el registro y control de transacciones contables, incluyendo la generación de reportes de libro diario
+        Permite el ledgerRecord y control de transacciones contables, incluyendo la generación de reportes de libro diario
         mayor y general.
     </description>
     <inceptionYear>2024</inceptionYear>

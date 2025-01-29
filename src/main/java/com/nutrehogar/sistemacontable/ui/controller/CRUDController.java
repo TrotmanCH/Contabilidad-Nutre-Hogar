@@ -1,7 +1,11 @@
 package com.nutrehogar.sistemacontable.ui.controller;
 
 import com.nutrehogar.sistemacontable.application.repository.crud.CRUDRepository;
+import com.nutrehogar.sistemacontable.exception.RepositoryException;
 import com.nutrehogar.sistemacontable.ui.view.CRUDView;
+import jakarta.persistence.EntityExistsException;
+import org.hibernate.ObjectDeletedException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -16,11 +20,6 @@ public abstract class CRUDController<T, ID> extends Controller<T> {
     }
 
     @Override
-    protected void initialize() {
-        super.initialize();
-    }
-
-    @Override
     protected void loadData() {
         setData(getRepository().findAll());
         super.loadData();
@@ -28,12 +27,13 @@ public abstract class CRUDController<T, ID> extends Controller<T> {
 
     @Override
     protected void setupViewListeners() {
-        getBtnSave().addActionListener(e -> save(getFormData()));
-        getBtnDelete().addActionListener(e -> delete(getSelectedId()));
-        getBtnUpdate().addActionListener(e -> update());
-        getBtnEdit().setEnabled(false);
-        getBtnDelete().setEnabled(false);
-        getTable().addMouseListener(new MouseAdapter() {
+        getBtnSave().addActionListener(e -> save(prepareToSave()));
+        getBtnDelete().addActionListener(e -> delete(prepareToDelete()));
+        getBtnUpdate().addActionListener(e -> update(prepareToUpdate()));
+        getBtnEdit().addActionListener(e -> prepareToEdit());
+        getBtnAdd().addActionListener(e -> prepareToAdd());
+        deselect();
+        getTblData().addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 setElementSelected(e);
@@ -42,33 +42,45 @@ public abstract class CRUDController<T, ID> extends Controller<T> {
     }
 
     public void save(T entity) {
+        if (entity == null) return;
         try {
             getRepository().save(entity);
             loadData(); // Recargar datos después de guardar
-            System.out.printf("Saved entity: %s\n", entity);
-        } catch (Exception e) {
-            showError("Error al guardar: " + e.getMessage(), "");
+            prepareToAdd();
+        } catch (RepositoryException e) {
+            String fullMessage = switch (e.getCause()) {
+                case EntityExistsException c -> "Ya existe esa Cuenta";
+                case IllegalArgumentException c -> "Los datos no puede ser nulo";
+                case ConstraintViolationException c -> "Codigo de cuenta duplicado";
+                case null, default -> e.getMessage();
+            };
+
+            showError("Error al guardar: " + fullMessage);
         }
     }
 
-    public void update() {
-        updateSelected();
+
+    public void update(T entity) {
+        if (entity == null) return;
         try {
             getRepository().update(getSelected());
             loadData(); // Recargar datos después de eliminar
-            setSelected(null);
-            getBtnDelete().setEnabled(false);
-            getBtnEdit().setEnabled(false);
-        } catch (Exception e) {
-            showError("Error al actualizar: " + e.getMessage());
+            prepareToAdd();
+        } catch (RepositoryException e) {
+            String fullMessage = switch (e.getCause()) {
+                case IllegalArgumentException c -> "Los datos no son validos";
+                case ObjectDeletedException c -> "No se puede editar un cuenta eliminado";
+                case ConstraintViolationException c -> "Operacion no valido";
+                case null, default -> e.getMessage();
+            };
+            showError("Error al guardar: " + fullMessage);
         }
     }
 
-    protected abstract void updateSelected();
 
     public void delete(ID id) {
         if (id == null) {
-            getBtnDelete().setEnabled(false);
+            prepareToAdd();
             return;
         }
 
@@ -83,18 +95,40 @@ public abstract class CRUDController<T, ID> extends Controller<T> {
         try {
             getRepository().deleteById(id);
             loadData(); // Recargar datos después de eliminar
-            setSelected(null);
-            getBtnDelete().setEnabled(false);
-        } catch (Exception e) {
-            showError("Error al eliminar: " + e.getMessage());
+            prepareToAdd();
+        } catch (RepositoryException e) {
+            showError("Error al guardar: " + e.getMessage());
         }
+    }
+
+    protected void deselect() {
+        setSelected(null);
+        getBtnDelete().setEnabled(false);
+        getBtnEdit().setEnabled(false);
+    }
+
+    protected void select() {
+        getBtnDelete().setEnabled(true);
+        getBtnEdit().setEnabled(true);
+    }
+
+    @Override
+    public void setSelected(T selected) {
+        super.setSelected(selected);
+        select();
     }
 
     protected abstract void setElementSelected(@NotNull MouseEvent e);
 
-    protected abstract ID getSelectedId();
+    protected abstract void prepareToEdit();
 
-    protected abstract T getFormData();
+    protected abstract void prepareToAdd();
+
+    protected abstract ID prepareToDelete();
+
+    protected abstract T prepareToSave();
+
+    protected abstract T prepareToUpdate();
 
     @Override
     public CRUDRepository<T, ID> getRepository() {

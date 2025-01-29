@@ -7,8 +7,6 @@ public interface CRUDView extends View {
 
     JButton getBtnSave();
 
-    JButton getBtnClear();
-
     JButton getBtnAdd();
 
     JButton getBtnUpdate();

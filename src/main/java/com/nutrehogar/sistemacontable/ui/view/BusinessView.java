@@ -5,11 +5,13 @@ import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner;
 import javax.swing.*;
 
 public interface BusinessView extends View {
-    LocalDateSpinner getSpinnerStartPeriod();
+    LocalDateSpinner getSpnStart();
 
-    LocalDateSpinner getSpinnerEndPeriod();
+    LocalDateSpinner getSpnEnd();
 
     JButton getBtnFilter();
 
-    JButton getBtnClear();
+    JButton getBtnResetStart();
+
+    JButton getBtnResetEnd();
 }

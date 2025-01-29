@@ -1,20 +1,19 @@
 package com.nutrehogar.sistemacontable.ui.components;
 
-import com.nutrehogar.sistemacontable.domain.model.Cuenta;
-import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
-import com.nutrehogar.sistemacontable.domain.TipoCuenta;
+import com.nutrehogar.sistemacontable.domain.model.Account;
+import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
+import com.nutrehogar.sistemacontable.domain.AccountType;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Combobox personalizado, se usa para definir el tipo de renderizado que tendra cada tipo de dato.
  * <p>
  * Los ya definidos son:
  * <u>
- * <li>{@link TipoCuenta}</li>
- * <li>{@link SubTipoCuenta}</li>
- * <li>{@link Cuenta}</li>
+ * <li>{@link AccountType}</li>
+ * <li>{@link AccountSubtype}</li>
+ * <li>{@link Account}</li>
  * </u>
  *
  * @param <E>

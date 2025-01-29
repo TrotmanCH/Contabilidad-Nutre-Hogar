@@ -3,7 +3,7 @@ package com.nutrehogar.sistemacontable.ui.view;
 import javax.swing.*;
 
 public interface View {
-    JTable getTable();
+    JTable getTblData();
 
     JButton getBtnEdit();
 

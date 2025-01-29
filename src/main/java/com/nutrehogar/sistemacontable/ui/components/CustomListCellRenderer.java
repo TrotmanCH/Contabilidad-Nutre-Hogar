@@ -1,7 +1,8 @@
 package com.nutrehogar.sistemacontable.ui.components;
 
-import com.nutrehogar.sistemacontable.domain.model.Cuenta;
-import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
+import com.nutrehogar.sistemacontable.domain.AccountType;
+import com.nutrehogar.sistemacontable.domain.model.Account;
+import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +13,11 @@ public class CustomListCellRenderer extends DefaultListCellRenderer {
                                                   boolean cellHasFocus) {
         var label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         label.setText(switch (value) {
-                    case com.nutrehogar.sistemacontable.domain.TipoCuenta tipoCuenta ->
-                            tipoCuenta.getId() + " " + tipoCuenta.name();
-                    case SubTipoCuenta tipoCuenta -> tipoCuenta.getId() + " " + tipoCuenta.getNombre();
-                    case Cuenta cuenta -> cuenta.getId() + " " + cuenta.getNombre();
-                    case com.nutrehogar.sistemacontable.domain.model.TipoCuenta tipoCuenta2 ->
-                            tipoCuenta2.getId() + " " + tipoCuenta2.getNombre();
+                    case AccountType accountType -> AccountType.getCellRenderer(accountType);
+                    case AccountSubtype tipoCuenta ->
+                            tipoCuenta.getAccountType().getId() + "." + tipoCuenta.getCanonicalId() + " " + tipoCuenta.getName();
+                    case Account account -> account.getFormattedId();
+                    case null -> "";
                     default -> value.toString();
                 }
         );

@@ -13,11 +13,11 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Mapeo de clases de entidad -->
-        <mapping class="com.nutrehogar.sistemacontable.domain.model.Asiento"/>
-        <mapping class="com.nutrehogar.sistemacontable.domain.model.Cuenta"/>
-        <mapping class="com.nutrehogar.sistemacontable.domain.model.Registro"/>
-        <mapping class="com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta"/>
-        <mapping class="com.nutrehogar.sistemacontable.domain.model.TipoCuenta"/>
-        <mapping class="com.nutrehogar.sistemacontable.domain.model.TipoDocumento"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.JournalEntry"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.Account"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.LedgerRecord"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.model.AccountSubtype"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.AccountType"/>
+        <mapping class="com.nutrehogar.sistemacontable.domain.DocumentType"/>
     </session-factory>
 </hibernate-configuration>

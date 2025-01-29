@@ -6,21 +6,24 @@ package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.nutrehogar.sistemacontable.application.config.HibernateUtil;
-import com.nutrehogar.sistemacontable.application.repository.SimpleRepository;
-import com.nutrehogar.sistemacontable.application.repository.crud.CuentaRepository;
-import com.nutrehogar.sistemacontable.application.repository.crud.SubTipoCuentaRepository;
-import com.nutrehogar.sistemacontable.application.repository.crud.TipoCuentaRepository;
-import com.nutrehogar.sistemacontable.domain.BalanceCheckRepositoryImpl;
+import com.nutrehogar.sistemacontable.application.repository.crud.AccountRepository;
+import com.nutrehogar.sistemacontable.application.repository.crud.AccountSubtypeRepository;
+import com.nutrehogar.sistemacontable.domain.AccountType;
 import com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryFactory;
-import com.nutrehogar.sistemacontable.domain.model.Cuenta;
-import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
-import com.nutrehogar.sistemacontable.domain.model.TipoCuenta;
-import com.nutrehogar.sistemacontable.ui.controller.AccountController;
-import com.nutrehogar.sistemacontable.ui.controller.BalanceCheckController;
-import com.nutrehogar.sistemacontable.ui.controller.Controller;
+import com.nutrehogar.sistemacontable.domain.model.Account;
+import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
+import com.nutrehogar.sistemacontable.domain.repository.GeneralLedgerRepositoryImpl;
+import com.nutrehogar.sistemacontable.domain.repository.JournalRepositoryImpl;
+import com.nutrehogar.sistemacontable.domain.repository.TrialBalanceRepositoryImpl;
+import com.nutrehogar.sistemacontable.ui.controller.*;
+import com.nutrehogar.sistemacontable.ui.view.defaultImple.DefaultAccountView;
+import com.nutrehogar.sistemacontable.ui.view.defaultImple.DefaultGeneralLedgerView;
+import com.nutrehogar.sistemacontable.ui.view.defaultImple.DefaultJournalView;
+import com.nutrehogar.sistemacontable.ui.view.defaultImple.DefaultTrialBalanceView;
 import org.hibernate.Session;
 
 import java.awt.*;
+import java.util.List;
 import javax.swing.*;
 
 /**
@@ -28,12 +31,7 @@ import javax.swing.*;
  */
 public class MainContent extends javax.swing.JFrame {
     Session session;
-    Controller controller;
-    SubTipoCuentaRepository subTipoRepository;
-    TipoCuentaRepository tipoRepository;
-    CuentaRepository repository;
-    AccountView view;
-    JFrame main;
+    AccountSubtypeRepository subTipoRepository;
 
     /**
      * Creates new form MainContent
@@ -41,16 +39,7 @@ public class MainContent extends javax.swing.JFrame {
     public MainContent() {
         initComponents();
         session = HibernateUtil.getSession();
-//        view = new BalanceCheckView();
-//        repository = new BalanceCheckRepositoryImpl(session);
-//        controller = new BalanceCheckController(repository, view);
-//        var balan = controller.getView();
-        view = new AccountView();
-        repository = CRUDRepositoryFactory.createRepository(CuentaRepository.class, Cuenta.class, session);
-        subTipoRepository = CRUDRepositoryFactory.createRepository(SubTipoCuentaRepository.class, SubTipoCuenta.class, session);
-        tipoRepository = CRUDRepositoryFactory.createRepository(TipoCuentaRepository.class, TipoCuenta.class, session);
-        controller = new AccountController(repository, view, subTipoRepository, tipoRepository);
-        setContent(view);
+        subTipoRepository = CRUDRepositoryFactory.createRepository(AccountSubtypeRepository.class, AccountSubtype.class, session);
     }
 
     public void setContent(JPanel p) {
@@ -71,33 +60,81 @@ public class MainContent extends javax.swing.JFrame {
     private void initComponents() {
 
         content = new javax.swing.JPanel();
+        btnAccountView = new javax.swing.JButton();
+        btnTrialBalance = new javax.swing.JButton();
+        btnJournal = new javax.swing.JButton();
+        btnGeneralLedger = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
-        contentLayout.setHorizontalGroup(
-                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 645, Short.MAX_VALUE)
-        );
-        contentLayout.setVerticalGroup(
-                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 410, Short.MAX_VALUE)
-        );
+        contentLayout.setHorizontalGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 0, Short.MAX_VALUE));
+        contentLayout.setVerticalGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 381, Short.MAX_VALUE));
+
+        btnAccountView.setText("AccountView");
+        btnAccountView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccountViewActionPerformed(evt);
+            }
+        });
+
+        btnTrialBalance.setText("TrialBalance");
+        btnTrialBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrialBalanceActionPerformed(evt);
+            }
+        });
+
+        btnJournal.setText("Journal");
+        btnJournal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJournalActionPerformed(evt);
+            }
+        });
+
+        btnGeneralLedger.setText("GeneralLedger");
+        btnGeneralLedger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGeneralLedgerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout.createSequentialGroup().addComponent(btnAccountView).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(btnTrialBalance).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnJournal).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnGeneralLedger).addGap(0, 247, Short.MAX_VALUE)).addGroup(layout.createSequentialGroup().addContainerGap().addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnAccountView).addComponent(btnTrialBalance).addComponent(btnJournal).addComponent(btnGeneralLedger)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAccountViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountViewActionPerformed
+        var view = new DefaultAccountView();
+        var repository = CRUDRepositoryFactory.createRepository(AccountRepository.class, Account.class, session);
+        var controller = new AccountController(repository, view, subTipoRepository);
+        setContent(view);
+    }//GEN-LAST:event_btnAccountViewActionPerformed
+
+    private void btnTrialBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrialBalanceActionPerformed
+        var view = new DefaultTrialBalanceView();
+        var repository = new TrialBalanceRepositoryImpl(session);
+        var controller = new TrialBalanceController(repository, view);
+        setContent(view);
+    }//GEN-LAST:event_btnTrialBalanceActionPerformed
+
+    private void btnJournalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJournalActionPerformed
+        var view = new DefaultJournalView();
+        var repository = new JournalRepositoryImpl(session);
+        var controller = new JournalController(repository, view);
+        setContent(view);
+    }//GEN-LAST:event_btnJournalActionPerformed
+
+    private void btnGeneralLedgerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneralLedgerActionPerformed
+        var view = new DefaultGeneralLedgerView();
+        var repository = new GeneralLedgerRepositoryImpl(session);
+        var controller = new GeneralLedgerController(repository, view, subTipoRepository);
+        setContent(view);
+    }//GEN-LAST:event_btnGeneralLedgerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,6 +146,10 @@ public class MainContent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAccountView;
+    private javax.swing.JButton btnGeneralLedger;
+    private javax.swing.JButton btnJournal;
+    private javax.swing.JButton btnTrialBalance;
     private static javax.swing.JPanel content;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,10 +1,15 @@
 package com.nutrehogar.sistemacontable.domain.core;
 
+import com.nutrehogar.sistemacontable.application.repository.crud.AccountSubtypeRepository;
 import com.nutrehogar.sistemacontable.application.repository.crud.CRUDRepository;
+import com.nutrehogar.sistemacontable.domain.repository.AccountSubtypeRepositoryImpl;
+import com.nutrehogar.sistemacontable.exception.RepositoryException;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Objects;
 
 /**
@@ -43,18 +48,35 @@ public class CRUDRepositoryFactory {
             @NotNull Class<T> entityClass,
             @NotNull Session session) throws NullPointerException {
 
-        Objects.requireNonNull(repositoryInterface, "La interfaz del repositorio nula.");
-        Objects.requireNonNull(entityClass, "La classe del repositorio nula.");
-        Objects.requireNonNull(session, "La session del repositorio nula.");
+        Objects.requireNonNull(repositoryInterface, "La interfaz del repositorio no puede ser nula.");
+        Objects.requireNonNull(entityClass, "La clase de la entidad no puede ser nula.");
+        Objects.requireNonNull(session, "La sesión no puede ser nula.");
+
+        // Crear una instancia de la implementación específica si es necesario
+        Object repositoryImpl;
+        if (repositoryInterface == AccountSubtypeRepository.class) {
+            repositoryImpl = new AccountSubtypeRepositoryImpl(session);
+        } else {
+            repositoryImpl = new CRUDRepositoryImpl<>(entityClass, session);
+        }
 
         return (R) Proxy.newProxyInstance(
                 repositoryInterface.getClassLoader(),
                 new Class<?>[]{repositoryInterface},
                 (proxy, method, args) -> {
-                    // Implementación dinámica de los métodos
-                    CRUDRepositoryImpl<T, ID> repositoryImpl = new CRUDRepositoryImpl<>(entityClass, session);
-                    return method.invoke(repositoryImpl, args);
+                    // Redirigir la llamada a la implementación específica
+                    try {
+                        return method.invoke(repositoryImpl, args);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        throw searchRepo(e);
+                    }
                 }
         );
+    }
+
+    public static Throwable searchRepo(Throwable throwable) {
+        System.out.println("************" + throwable);
+        if (throwable instanceof RepositoryException repositoryException) return repositoryException;
+        return searchRepo(throwable.getCause());
     }
 }
