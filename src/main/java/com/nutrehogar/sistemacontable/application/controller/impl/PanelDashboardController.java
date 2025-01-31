@@ -11,6 +11,7 @@ import com.nutrehogar.sistemacontable.application.controller.crud.AccountingEntr
 import com.nutrehogar.sistemacontable.ui.view.imple.PanelDashboardView;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class PanelDashboardController extends DashboardController {
     public PanelDashboardController(PanelDashboardView view, AccountingEntryFormController accountingEntryFormController, AccountController accountController, AccountSubtypeController accountSubtypeController, JournalController journalController, TrialBalanceController trialBalanceController, GeneralLedgerController generalLedgerController, BackupController backupController) {
@@ -37,6 +38,12 @@ public class PanelDashboardController extends DashboardController {
             getBtnHome().setEnabled(true);
         } else {
             getBtnHome().setEnabled(false);
+            getBtnShowFormView().setBackground(Color.WHITE);
+            getBtnShowJournalView().setBackground(Color.WHITE);
+            getBtnShowTrialBalanceView().setBackground(Color.WHITE);
+            getBtnShowGeneralLedgerView().setBackground(Color.WHITE);
+            getBtnShowAccountView().setBackground(Color.WHITE);
+            getBtnShowAccountSubtypeView().setBackground(Color.WHITE);
         }
         super.setContent(p);
     }

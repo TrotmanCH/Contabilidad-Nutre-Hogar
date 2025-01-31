@@ -11,7 +11,6 @@ public class MainClass {
     public static void main(String[] args) {
         System.setProperty("LOG_DIR", ConfigLoader.getLogsPath());
         Logger logger = LoggerFactory.getLogger(MainClass.class);
-        System.setProperty("flatlaf.useWindowDecorations", "true");
         FlatLightLaf.setup();
 
         new App();
