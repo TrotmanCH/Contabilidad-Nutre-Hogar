@@ -1,6 +1,15 @@
 package com.nutrehogar.sistemacontable.application;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.nutrehogar.sistemacontable.application.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.application.controller.*;
+import com.nutrehogar.sistemacontable.application.controller.business.GeneralLedgerController;
+import com.nutrehogar.sistemacontable.application.controller.business.JournalController;
+import com.nutrehogar.sistemacontable.application.controller.business.TrialBalanceController;
+import com.nutrehogar.sistemacontable.application.controller.crud.AccountController;
+import com.nutrehogar.sistemacontable.application.controller.crud.AccountSubtypeController;
+import com.nutrehogar.sistemacontable.application.controller.crud.AccountingEntryFormController;
+import com.nutrehogar.sistemacontable.application.controller.impl.PanelDashboardController;
 import com.nutrehogar.sistemacontable.application.repository.crud.AccountRepository;
 import com.nutrehogar.sistemacontable.application.repository.crud.AccountSubtypeRepository;
 import com.nutrehogar.sistemacontable.application.repository.crud.JournalEntryRepository;
@@ -13,9 +22,14 @@ import com.nutrehogar.sistemacontable.domain.model.LedgerRecord;
 import com.nutrehogar.sistemacontable.domain.repository.GeneralLedgerRepositoryImpl;
 import com.nutrehogar.sistemacontable.domain.repository.JournalRepositoryImpl;
 import com.nutrehogar.sistemacontable.domain.repository.TrialBalanceRepositoryImpl;
-import com.nutrehogar.sistemacontable.ui.controller.*;
 import com.nutrehogar.sistemacontable.ui.view.*;
-import com.nutrehogar.sistemacontable.ui.view.defaultImple.*;
+import com.nutrehogar.sistemacontable.ui.view.business.GeneralLedgerView;
+import com.nutrehogar.sistemacontable.ui.view.business.JournalView;
+import com.nutrehogar.sistemacontable.ui.view.business.TrialBalanceView;
+import com.nutrehogar.sistemacontable.ui.view.crud.AccountSubtypeView;
+import com.nutrehogar.sistemacontable.ui.view.crud.AccountView;
+import com.nutrehogar.sistemacontable.ui.view.crud.AccountingEntryFormView;
+import com.nutrehogar.sistemacontable.ui.view.imple.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 
@@ -49,7 +63,7 @@ public class App {
     private TrialBalanceView trialBalanceView;
     private GeneralLedgerView generalLedgerView;
     private BackupView backupView;
-    private DashboardView dashboardView;
+    private PanelDashboardView dashboardView;
 
     private Consumer<Integer> prepareToEditJournalEntry;
 
@@ -59,8 +73,10 @@ public class App {
         setDefaultRepositories();
         setDefaultViews();
         setDefaultControllers();
+        FlatSVGIcon svgLogo = new FlatSVGIcon("svgs/SistemaContableLogo.svg", 250, 250);
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame();
+            frame.setIconImage(svgLogo.getImage());
             frame.setTitle("Sistema Contable");
             frame.setSize(1300, 600);
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -104,7 +120,7 @@ public class App {
         trialBalanceController = new TrialBalanceController(trialBalanceRepository, trialBalanceView, prepareToEditJournalEntry);
         journalController = new JournalController(journalRepository, journalView, prepareToEditJournalEntry);
         backupController = new BackupController(backupView);
-        dashboardController = new DashboardController(dashboardView, accountingEntryFormController, accountController, accountSubtypeController, journalController, trialBalanceController, generalLedgerController, backupController);
+        dashboardController = new PanelDashboardController(dashboardView, accountingEntryFormController, accountController, accountSubtypeController, journalController, trialBalanceController, generalLedgerController, backupController);
     }
 
 }

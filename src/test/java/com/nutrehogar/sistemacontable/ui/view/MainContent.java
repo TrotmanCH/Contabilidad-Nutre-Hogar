@@ -6,6 +6,12 @@ package com.nutrehogar.sistemacontable.ui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.nutrehogar.sistemacontable.application.config.HibernateUtil;
+import com.nutrehogar.sistemacontable.application.controller.business.GeneralLedgerController;
+import com.nutrehogar.sistemacontable.application.controller.business.JournalController;
+import com.nutrehogar.sistemacontable.application.controller.business.TrialBalanceController;
+import com.nutrehogar.sistemacontable.application.controller.crud.AccountController;
+import com.nutrehogar.sistemacontable.application.controller.crud.AccountSubtypeController;
+import com.nutrehogar.sistemacontable.application.controller.crud.AccountingEntryFormController;
 import com.nutrehogar.sistemacontable.application.repository.crud.AccountRepository;
 import com.nutrehogar.sistemacontable.application.repository.crud.AccountSubtypeRepository;
 import com.nutrehogar.sistemacontable.application.repository.crud.JournalEntryRepository;
@@ -18,8 +24,13 @@ import com.nutrehogar.sistemacontable.domain.model.LedgerRecord;
 import com.nutrehogar.sistemacontable.domain.repository.GeneralLedgerRepositoryImpl;
 import com.nutrehogar.sistemacontable.domain.repository.JournalRepositoryImpl;
 import com.nutrehogar.sistemacontable.domain.repository.TrialBalanceRepositoryImpl;
-import com.nutrehogar.sistemacontable.ui.controller.*;
-import com.nutrehogar.sistemacontable.ui.view.defaultImple.*;
+import com.nutrehogar.sistemacontable.ui.view.business.GeneralLedgerView;
+import com.nutrehogar.sistemacontable.ui.view.business.JournalView;
+import com.nutrehogar.sistemacontable.ui.view.business.TrialBalanceView;
+import com.nutrehogar.sistemacontable.ui.view.crud.AccountSubtypeView;
+import com.nutrehogar.sistemacontable.ui.view.crud.AccountView;
+import com.nutrehogar.sistemacontable.ui.view.crud.AccountingEntryFormView;
+import com.nutrehogar.sistemacontable.ui.view.imple.*;
 import org.hibernate.Session;
 
 import java.awt.*;

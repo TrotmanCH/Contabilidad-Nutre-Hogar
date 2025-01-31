@@ -1,0 +1,35 @@
+<svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <linearGradient id="a">
+        <stop offset="0" stop-color="#e52030" />
+        <stop offset=".5" stop-color="#ee3d4a" />
+        <stop offset="1" stop-color="#f44f5a" />
+    </linearGradient>
+    <linearGradient id="b" gradientUnits="userSpaceOnUse" x1="106.63091" x2="105.31878"
+        y1="134.63101" y2="134.63101">
+        <stop offset=".34436703" stop-color="#f3f3f3" />
+        <stop offset=".58972126" stop-color="#e5e5e5" />
+        <stop offset=".83086526" stop-color="#c1c1c0" />
+        <stop offset="1" stop-color="#999998" />
+    </linearGradient>
+    <linearGradient id="c" gradientUnits="userSpaceOnUse" x1="102.77107" x2="102.77107"
+        xlink:href="#a" y1="142.32433" y2="126.13683" />
+    <linearGradient id="d" gradientUnits="userSpaceOnUse" x1="97.667633" x2="97.720947"
+        xlink:href="#a" y1="144.70987" y2="142.46701" />
+    <g transform="matrix(1.1601209 0 0 1.1601209 -104.411146 -144.342788)">
+        <rect fill="#ed6c47" height="16.419538" ry="1.136737" stroke-width=".096137"
+            width="14.59764" x="93.045158" y="125.98956" />
+        <rect fill="url(#b)" height="16.418268" ry="1.136649" stroke-width=".091974"
+            width="13.361794" x="93.265724" y="125.9902" />
+        <rect fill="#ff8f6b" height="16.419538" ry="1.136737" stroke-width=".088358"
+            width="12.331085" x="93.313812" y="125.98956" />
+        <path
+            d="m94.239684 125.98956h1.732718v16.41954h-1.732718c-.733903 0-1.194526-.49686-1.194526-1.21904v-14.001c0-.75343.538751-1.1995 1.194526-1.1995z"
+            fill="#d35230" stroke-width=".088358" />
+        <path d="m102.14607 125.9902h1.21875v16.418268h-1.21875z" fill="url(#c)"
+            stroke-width=".087797" />
+        <path
+            d="m95.833572 142.44933h3.765625v2.13707a.2073813.2073813 147.98428 0 1 -.298189.18645l-1.542301-.75119a.09665151.09665151.00000599 0 0 -.08464 0l-1.552731.75627a.20012861.20012861 32.015728 0 1 -.28776-.17993z"
+            fill="url(#d)" stroke-width=".098" transform="translate(1.016696 -.040229)" />
+    </g>
+</svg>

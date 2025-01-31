@@ -13,7 +13,7 @@ public class UIConstants {
     }
 
     // Cargar SVG desde la ruta del classpath
-    public static final FlatSVGIcon ICON_MAYOR_GENERAL = new FlatSVGIcon("icons/RiBankLine.svg");
+    public static final FlatSVGIcon ICON_MAYOR_GENERAL = new FlatSVGIcon("svgs/RiBankLine.svg");
     // Fuentes
     public static final Font FONT = new Font("Segoe UI Semibold", Font.PLAIN, 14);
     public static final Font FONT_TITLE = FONT.deriveFont(Font.BOLD, 24);
