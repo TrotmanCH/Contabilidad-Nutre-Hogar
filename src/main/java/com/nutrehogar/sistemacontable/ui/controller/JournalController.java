@@ -5,7 +5,7 @@ import com.nutrehogar.sistemacontable.domain.DocumentType;
 import com.nutrehogar.sistemacontable.domain.helper.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.model.Account;
 import com.nutrehogar.sistemacontable.domain.repository.JournalRepositoryImpl;
-import com.nutrehogar.sistemacontable.ui.view.JournalSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.JournalView;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.table.AbstractTableModel;
@@ -14,8 +14,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.function.Consumer;
 
-public class JournalSimpleController extends BusinessSimpleController<JournalDTO> {
-    public JournalSimpleController(JournalRepositoryImpl repository, JournalSimpleView view, Consumer<Integer> editJournalEntry) {
+public class JournalController extends BusinessController<JournalDTO> {
+    public JournalController(JournalRepositoryImpl repository, JournalView view, Consumer<Integer> editJournalEntry) {
         super(repository, view, editJournalEntry);
     }
 
@@ -93,8 +93,8 @@ public class JournalSimpleController extends BusinessSimpleController<JournalDTO
     }
 
     @Override
-    public JournalSimpleView getView() {
-        return (JournalSimpleView) super.getView();
+    public JournalView getView() {
+        return (JournalView) super.getView();
     }
 
     @Override

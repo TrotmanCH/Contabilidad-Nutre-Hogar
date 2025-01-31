@@ -4,7 +4,7 @@
  */
 package com.nutrehogar.sistemacontable.ui.view.defaultImple;
 
-import com.nutrehogar.sistemacontable.ui.view.JournalSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.JournalView;
 import lombok.Getter;
 
 /**
@@ -12,12 +12,12 @@ import lombok.Getter;
  * @author Calci
  */
 @Getter
-public class DefaultJournalSimpleView extends JournalSimpleView {
+public class DefaultJournalView extends  JournalView{
 
     /**
      * Creates new form DefaultJournalView
      */
-    public DefaultJournalSimpleView() {
+    public DefaultJournalView() {
         initComponents();
     }
 

@@ -6,7 +6,8 @@ package com.nutrehogar.sistemacontable.ui.view.defaultImple;
 
 import com.nutrehogar.sistemacontable.domain.DocumentType;
 import com.nutrehogar.sistemacontable.domain.model.Account;
-import com.nutrehogar.sistemacontable.ui.view.AccountingEntryFormSimpleView;
+import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
+import com.nutrehogar.sistemacontable.ui.view.AccountingEntryFormView;
 import lombok.Getter;
 
 /**
@@ -14,13 +15,13 @@ import lombok.Getter;
  * @author Calci
  */
 @Getter
-public class DefaultAccountEntryFormSimpleView extends AccountingEntryFormSimpleView {
+public class DefaultAccountEntryFormView extends AccountingEntryFormView {
     private String lblText = "Hola"; 
 
     /**
      * Creates new form DefaultAccountEntryFormView
      */
-    public DefaultAccountEntryFormSimpleView() {
+    public DefaultAccountEntryFormView() {
         initComponents();
     }
 

@@ -2,7 +2,7 @@ package com.nutrehogar.sistemacontable.ui.controller;
 
 import com.nutrehogar.sistemacontable.application.repository.crud.CRUDRepository;
 import com.nutrehogar.sistemacontable.exception.RepositoryException;
-import com.nutrehogar.sistemacontable.ui.view.CRUDSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.CRUDView;
 import jakarta.persistence.EntityExistsException;
 import org.hibernate.ObjectDeletedException;
 import org.hibernate.exception.ConstraintViolationException;
@@ -13,8 +13,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 
-public abstract class CRUDSimpleController<T, ID> extends SimpleController<T> {
-    public CRUDSimpleController(CRUDRepository<T, ID> repository, CRUDSimpleView view) {
+public abstract class CRUDController<T, ID> extends SimpleController<T> {
+    public CRUDController(CRUDRepository<T, ID> repository, CRUDView view) {
         super(repository, view);
     }
 
@@ -144,8 +144,8 @@ public abstract class CRUDSimpleController<T, ID> extends SimpleController<T> {
     }
 
     @Override
-    public CRUDSimpleView getView() {
-        return (CRUDSimpleView) super.getView();
+    public CRUDView getView() {
+        return (CRUDView) super.getView();
     }
 
     public JButton getBtnAdd() {

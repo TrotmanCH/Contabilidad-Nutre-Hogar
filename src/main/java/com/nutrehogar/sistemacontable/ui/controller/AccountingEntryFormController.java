@@ -11,7 +11,7 @@ import com.nutrehogar.sistemacontable.domain.model.JournalEntry;
 import com.nutrehogar.sistemacontable.domain.model.LedgerRecord;
 import com.nutrehogar.sistemacontable.exception.RepositoryException;
 import com.nutrehogar.sistemacontable.ui.components.*;
-import com.nutrehogar.sistemacontable.ui.view.AccountingEntryFormSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.AccountingEntryFormView;
 import jakarta.persistence.EntityExistsException;
 import org.hibernate.ObjectDeletedException;
 import org.hibernate.exception.ConstraintViolationException;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AccountingEntryFormSimpleController extends SimpleController<LedgerRecord> {
+public class AccountingEntryFormController extends SimpleController<LedgerRecord> {
     private final JournalEntryRepository journalRepository;
     private final AccountRepository accountRepository;
     private Optional<JournalEntry> journalEntry;
@@ -40,7 +40,7 @@ public class AccountingEntryFormSimpleController extends SimpleController<Ledger
     private BigDecimal CERO;
 
 
-    public AccountingEntryFormSimpleController(LedgerRecordRepository repository, AccountingEntryFormSimpleView view, JournalEntryRepository journalRepository, AccountRepository accountRepository) {
+    public AccountingEntryFormController(LedgerRecordRepository repository, AccountingEntryFormView view, JournalEntryRepository journalRepository, AccountRepository accountRepository) {
         super(repository, view);
         this.journalRepository = journalRepository;
         this.accountRepository = accountRepository;
@@ -500,8 +500,8 @@ public class AccountingEntryFormSimpleController extends SimpleController<Ledger
     }
 
     @Override
-    public AccountingEntryFormSimpleView getView() {
-        return (AccountingEntryFormSimpleView) super.getSimpleView();
+    public AccountingEntryFormView getView() {
+        return (AccountingEntryFormView) super.getView();
     }
 
     public JTextField getTxtEntryCheckNumber() {

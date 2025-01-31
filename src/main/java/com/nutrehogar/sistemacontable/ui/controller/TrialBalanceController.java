@@ -5,7 +5,7 @@ import com.nutrehogar.sistemacontable.domain.DocumentType;
 import com.nutrehogar.sistemacontable.domain.helper.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.model.Account;
 import com.nutrehogar.sistemacontable.domain.repository.TrialBalanceRepositoryImpl;
-import com.nutrehogar.sistemacontable.ui.view.TrialBalanceSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.TrialBalanceView;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.table.AbstractTableModel;
@@ -19,9 +19,9 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class TrialBalanceSimpleController extends BusinessSimpleController<TrialBalanceDTO> {
+public class TrialBalanceController extends BusinessController<TrialBalanceDTO> {
 
-    public TrialBalanceSimpleController(TrialBalanceRepositoryImpl repository, TrialBalanceSimpleView view, Consumer<Integer> editJournalEntry) {
+    public TrialBalanceController(TrialBalanceRepositoryImpl repository, TrialBalanceView view, Consumer<Integer> editJournalEntry) {
         super(repository, view, editJournalEntry);
     }
 
@@ -129,8 +129,8 @@ public class TrialBalanceSimpleController extends BusinessSimpleController<Trial
     }
 
     @Override
-    public TrialBalanceSimpleView getView() {
-        return (TrialBalanceSimpleView) super.getView();
+    public TrialBalanceView getView() {
+        return (TrialBalanceView) super.getView();
     }
 
     @Override

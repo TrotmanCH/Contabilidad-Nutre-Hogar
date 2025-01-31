@@ -28,6 +28,7 @@ public abstract class SimpleController<T> extends Controller {
     public SimpleController(SimpleRepository<T> repository, SimpleView view) {
         super(view);
         this.repository = repository;
+        initialize();
     }
 
     @Override
@@ -36,18 +37,12 @@ public abstract class SimpleController<T> extends Controller {
         getTblData().setDefaultRenderer(Object.class, new CustomTableCellRenderer());
         getTblData().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         loadData();
-        super.initialize();
+        setupViewListeners();
     }
 
     protected void loadData() {
         updateView();
     }
-
-    protected void updateView() {
-        SwingUtilities.invokeLater(getTblModel()::fireTableDataChanged);
-    }
-
-    protected abstract void setElementSelected(@NotNull MouseEvent e);
 
     @Override
     protected void setupViewListeners() {
@@ -58,6 +53,12 @@ public abstract class SimpleController<T> extends Controller {
             }
         });
     }
+
+    protected void updateView() {
+        SwingUtilities.invokeLater(getTblModel()::fireTableDataChanged);
+    }
+
+    protected abstract void setElementSelected(@NotNull MouseEvent e);
 
     @Override
     public SimpleView getView() {

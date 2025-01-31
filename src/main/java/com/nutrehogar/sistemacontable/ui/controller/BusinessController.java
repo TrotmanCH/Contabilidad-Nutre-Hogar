@@ -3,7 +3,7 @@ package com.nutrehogar.sistemacontable.ui.controller;
 import com.nutrehogar.sistemacontable.application.repository.business.BusinessRepository;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinnerModel;
-import com.nutrehogar.sistemacontable.ui.view.BusinessSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.BusinessView;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,14 +16,14 @@ import static com.nutrehogar.sistemacontable.application.service.Util.START_PERI
 
 @Getter
 @Setter
-public abstract class BusinessSimpleController<T> extends SimpleController<T> {
+public abstract class BusinessController<T> extends SimpleController<T> {
     private LocalDateSpinnerModel spnModelStartPeriod;
     private LocalDateSpinnerModel spnModelEndPeriod;
     private final Consumer<Integer> editJournalEntry;
     private Integer journalEntryId;
 
 
-    public BusinessSimpleController(BusinessRepository<T> repository, BusinessSimpleView view, Consumer<Integer> editJournalEntry) {
+    public BusinessController(BusinessRepository<T> repository, BusinessView view, Consumer<Integer> editJournalEntry) {
         super(repository, view);
         this.editJournalEntry = editJournalEntry;
     }
@@ -86,8 +86,8 @@ public abstract class BusinessSimpleController<T> extends SimpleController<T> {
 
 
     @Override
-    public BusinessSimpleView getView() {
-        return (BusinessSimpleView) super.getView();
+    public BusinessView getView() {
+        return (BusinessView) super.getView();
     }
 
     @Override

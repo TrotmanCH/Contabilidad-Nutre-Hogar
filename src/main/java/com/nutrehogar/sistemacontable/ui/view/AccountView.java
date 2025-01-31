@@ -5,7 +5,7 @@ import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
 
 import javax.swing.*;
 
-public abstract class AccountSimpleView extends CRUDSimpleView {
+public abstract class AccountView extends CRUDView {
     public abstract JComboBox<AccountType> getCbxAccountType();
 
     public abstract JComboBox<AccountSubtype> getCbxAccountSubtype();

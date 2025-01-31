@@ -7,7 +7,7 @@ package com.nutrehogar.sistemacontable.ui.view.defaultImple;
 import com.nutrehogar.sistemacontable.domain.AccountType;
 import com.nutrehogar.sistemacontable.domain.model.Account;
 import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
-import com.nutrehogar.sistemacontable.ui.view.GeneralLedgerSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.GeneralLedgerView;
 import lombok.Getter;
 
 /**
@@ -15,12 +15,12 @@ import lombok.Getter;
  * @author Calci
  */
 @Getter
-public class DefaultGeneralLedgerSimpleView extends GeneralLedgerSimpleView {
+public class DefaultGeneralLedgerView extends GeneralLedgerView{
 
     /**
      * Creates new form DefaultGeneralLedgerView
      */
-    public DefaultGeneralLedgerSimpleView() {
+    public DefaultGeneralLedgerView() {
         initComponents();
     }
 

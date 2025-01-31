@@ -11,12 +11,9 @@ public abstract class Controller {
 
     public Controller(View view) {
         this.view = view;
-        initialize();
     }
 
-    protected void initialize() {
-        setupViewListeners();
-    }
+    protected abstract void initialize();
 
     protected abstract void setupViewListeners();
 

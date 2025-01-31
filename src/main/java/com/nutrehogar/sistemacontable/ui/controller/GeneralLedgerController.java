@@ -11,7 +11,7 @@ import com.nutrehogar.sistemacontable.domain.repository.GeneralLedgerRepositoryI
 import com.nutrehogar.sistemacontable.domain.repository.TrialBalanceRepositoryImpl;
 import com.nutrehogar.sistemacontable.ui.components.CustomComboBoxModel;
 import com.nutrehogar.sistemacontable.ui.components.CustomListCellRenderer;
-import com.nutrehogar.sistemacontable.ui.view.GeneralLedgerSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.GeneralLedgerView;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -26,13 +26,13 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class GeneralLedgerSimpleController extends BusinessSimpleController<GeneralLedgerDTO> {
+public class GeneralLedgerController extends BusinessController<GeneralLedgerDTO> {
     private final AccountSubtypeRepository subtypeRepository;
     private CustomComboBoxModel<AccountType> cbxModelAccountType;
     private CustomComboBoxModel<Account> cbxModelAccount;
     private CustomComboBoxModel<AccountSubtype> cbxModelSubtype;
 
-    public GeneralLedgerSimpleController(GeneralLedgerRepositoryImpl repository, GeneralLedgerSimpleView view, Consumer<Integer> editJournalEntry, AccountSubtypeRepository subtypeRepository) {
+    public GeneralLedgerController(GeneralLedgerRepositoryImpl repository, GeneralLedgerView view, Consumer<Integer> editJournalEntry, AccountSubtypeRepository subtypeRepository) {
         super(repository, view, editJournalEntry);
         this.subtypeRepository = subtypeRepository;
         loadDataSubtype();
@@ -235,8 +235,8 @@ public class GeneralLedgerSimpleController extends BusinessSimpleController<Gene
     }
 
     @Override
-    public GeneralLedgerSimpleView getView() {
-        return (GeneralLedgerSimpleView) super.getView();
+    public GeneralLedgerView getView() {
+        return (GeneralLedgerView) super.getView();
     }
 
     @Override

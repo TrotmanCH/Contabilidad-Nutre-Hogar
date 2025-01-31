@@ -6,20 +6,21 @@ package com.nutrehogar.sistemacontable.ui.view.defaultImple;
 
 import com.nutrehogar.sistemacontable.domain.AccountType;
 import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
-import com.nutrehogar.sistemacontable.ui.view.AccountSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.AccountView;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Calci
  */
 @Getter
-public class DefaultAccountSimpleView extends AccountSimpleView {
+public class DefaultAccountView extends AccountView {
 
     /**
      * Creates new form AccountView
      */
-    public DefaultAccountSimpleView() {
+    public DefaultAccountView() {
         initComponents();
     }
 

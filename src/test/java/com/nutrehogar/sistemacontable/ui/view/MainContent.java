@@ -41,19 +41,19 @@ public class MainContent extends javax.swing.JFrame {
     JournalRepositoryImpl journalRepository;
     TrialBalanceRepositoryImpl trialBalanceRepository;
 
-    AccountingEntryFormSimpleController accountingEntryFormController;
-    AccountSimpleController accountController;
-    AccountSubtypeSimpleController accountSubtypeController;
-    JournalSimpleController journalController;
-    TrialBalanceSimpleController trialBalanceController;
-    GeneralLedgerSimpleController generalLedgerController;
-    AccountingEntryFormSimpleView accountingEntryFormView;
+    AccountingEntryFormController accountingEntryFormController;
+    AccountController accountController;
+    AccountSubtypeController accountSubtypeController;
+    JournalController journalController;
+    TrialBalanceController trialBalanceController;
+    GeneralLedgerController generalLedgerController;
+    AccountingEntryFormView accountingEntryFormView;
 
-    AccountSimpleView accountView;
-    AccountSubtypeSimpleView accountSubtypeView;
-    JournalSimpleView journalView;
-    TrialBalanceSimpleView trialBalanceView;
-    GeneralLedgerSimpleView generalLedgerView;
+    AccountView accountView;
+    AccountSubtypeView accountSubtypeView;
+    JournalView journalView;
+    TrialBalanceView trialBalanceView;
+    GeneralLedgerView generalLedgerView;
 
     private final Consumer<Integer> prepareToEditJournalEntry;
 
@@ -73,23 +73,23 @@ public class MainContent extends javax.swing.JFrame {
         journalRepository = new JournalRepositoryImpl(session);
         trialBalanceRepository = new TrialBalanceRepositoryImpl(session);
 
-        accountingEntryFormView = new DefaultAccountEntryFormSimpleView();
-        accountView = new DefaultAccountSimpleView();
-        accountSubtypeView = new DefaultAccountSubtypeSimpleView();
-        journalView = new DefaultJournalSimpleView();
-        trialBalanceView = new DefaultTrialBalanceSimpleView();
-        generalLedgerView = new DefaultGeneralLedgerSimpleView();
+        accountingEntryFormView = new DefaultAccountEntryFormView();
+        accountView = new DefaultAccountView();
+        accountSubtypeView = new DefaultAccountSubtypeView();
+        journalView = new DefaultJournalView();
+        trialBalanceView = new DefaultTrialBalanceView();
+        generalLedgerView = new DefaultGeneralLedgerView();
 
-        accountingEntryFormController = new AccountingEntryFormSimpleController(ledgerRecordRepository, accountingEntryFormView, journalEntryRepository, accountRepository);
+        accountingEntryFormController = new AccountingEntryFormController(ledgerRecordRepository, accountingEntryFormView, journalEntryRepository, accountRepository);
         prepareToEditJournalEntry = (Integer JournalEntryId) -> {
             setContent(accountingEntryFormController.getView());
             accountingEntryFormController.prepareToEditEntry(JournalEntryId);
         };
-        accountController = new AccountSimpleController(accountRepository, accountView, subTipoRepository);
-        accountSubtypeController = new AccountSubtypeSimpleController(subTipoRepository, accountSubtypeView);
-        generalLedgerController = new GeneralLedgerSimpleController(generalLedgerRepository, generalLedgerView, prepareToEditJournalEntry, subTipoRepository);
-        trialBalanceController = new TrialBalanceSimpleController(trialBalanceRepository, trialBalanceView, prepareToEditJournalEntry);
-        journalController = new JournalSimpleController(journalRepository, journalView, prepareToEditJournalEntry);
+        accountController = new AccountController(accountRepository, accountView, subTipoRepository);
+        accountSubtypeController = new AccountSubtypeController(subTipoRepository, accountSubtypeView);
+        generalLedgerController = new GeneralLedgerController(generalLedgerRepository, generalLedgerView, prepareToEditJournalEntry, subTipoRepository);
+        trialBalanceController = new TrialBalanceController(trialBalanceRepository, trialBalanceView, prepareToEditJournalEntry);
+        journalController = new JournalController(journalRepository, journalView, prepareToEditJournalEntry);
     }
 
     public void setContent(JPanel p) {

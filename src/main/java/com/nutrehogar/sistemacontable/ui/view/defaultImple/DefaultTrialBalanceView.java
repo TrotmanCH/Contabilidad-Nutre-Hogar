@@ -4,7 +4,7 @@
  */
 package com.nutrehogar.sistemacontable.ui.view.defaultImple;
 
-import com.nutrehogar.sistemacontable.ui.view.TrialBalanceSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.TrialBalanceView;
 import lombok.Getter;
 
 /**
@@ -12,12 +12,12 @@ import lombok.Getter;
  * @author Calci
  */
 @Getter
-public class DefaultTrialBalanceSimpleView extends TrialBalanceSimpleView {
+public class DefaultTrialBalanceView extends TrialBalanceView{
 
     /**
      * Creates new form DefaultTrialBalanceView
      */
-    public DefaultTrialBalanceSimpleView() {
+    public DefaultTrialBalanceView() {
         initComponents();
     }
 

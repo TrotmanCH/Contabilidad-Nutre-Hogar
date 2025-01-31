@@ -8,15 +8,15 @@ import java.awt.*;
 
 @Getter
 public class DashboardController extends Controller{
-    private final AccountingEntryFormSimpleController accountingEntryFormController;
-    private final AccountSimpleController accountController;
-    private final AccountSubtypeSimpleController accountSubtypeController;
-    private final JournalSimpleController journalController;
-    private final TrialBalanceSimpleController trialBalanceController;
-    private final GeneralLedgerSimpleController generalLedgerController;
+    private final AccountingEntryFormController accountingEntryFormController;
+    private final AccountController accountController;
+    private final AccountSubtypeController accountSubtypeController;
+    private final JournalController journalController;
+    private final TrialBalanceController trialBalanceController;
+    private final GeneralLedgerController generalLedgerController;
     private final BackupController backupController;
 
-    public DashboardController(DashboardView view, AccountingEntryFormSimpleController accountingEntryFormController, AccountSimpleController accountController, AccountSubtypeSimpleController accountSubtypeController, JournalSimpleController journalController, TrialBalanceSimpleController trialBalanceController, GeneralLedgerSimpleController generalLedgerController, BackupController backupController) {
+    public DashboardController(DashboardView view, AccountingEntryFormController accountingEntryFormController, AccountController accountController, AccountSubtypeController accountSubtypeController, JournalController journalController, TrialBalanceController trialBalanceController, GeneralLedgerController generalLedgerController, BackupController backupController) {
         super(view);
         this.accountingEntryFormController = accountingEntryFormController;
         this.accountController = accountController;
@@ -25,6 +25,12 @@ public class DashboardController extends Controller{
         this.trialBalanceController = trialBalanceController;
         this.generalLedgerController = generalLedgerController;
         this.backupController = backupController;
+        initialize();
+    }
+
+    @Override
+    protected void initialize() {
+        setupViewListeners();
     }
 
     protected void setupViewListeners() {

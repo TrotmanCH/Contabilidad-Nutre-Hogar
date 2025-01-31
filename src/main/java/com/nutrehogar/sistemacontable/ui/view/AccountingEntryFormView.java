@@ -6,7 +6,7 @@ import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner;
 
 import javax.swing.*;
 
-public abstract class AccountingEntryFormSimpleView extends CRUDSimpleView {
+public abstract class AccountingEntryFormView extends CRUDView {
     public abstract JTextField getTxtEntryCheckNumber();
 
     public abstract LocalDateSpinner getSpnEntryDate();

@@ -12,6 +12,11 @@ public class BackupController extends Controller {
     }
 
     @Override
+    protected void initialize() {
+
+    }
+
+    @Override
     protected void setupViewListeners() {
     }
 

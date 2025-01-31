@@ -7,17 +7,17 @@ import com.nutrehogar.sistemacontable.ui.components.CustomComboBoxModel;
 import com.nutrehogar.sistemacontable.ui.components.CustomListCellRenderer;
 import com.nutrehogar.sistemacontable.ui.components.DocumentSizeFilter;
 import com.nutrehogar.sistemacontable.domain.helper.AccountSubtypeIdComparator;
-import com.nutrehogar.sistemacontable.ui.view.AccountSubtypeSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.AccountSubtypeView;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.text.PlainDocument;
 
-public class AccountSubtypeSimpleController extends CRUDSimpleController<AccountSubtype, Integer> {
+public class AccountSubtypeController extends CRUDController<AccountSubtype, Integer> {
     private CustomComboBoxModel<AccountType> cbxModelAccountType;
     private DocumentSizeFilter documentSizeFilter;
 
-    public AccountSubtypeSimpleController(AccountSubtypeRepository repository, AccountSubtypeSimpleView view) {
+    public AccountSubtypeController(AccountSubtypeRepository repository, AccountSubtypeView view) {
         super(repository, view);
         setTextToLbAccountTypeId();
         prepareToAdd();
@@ -166,8 +166,8 @@ public class AccountSubtypeSimpleController extends CRUDSimpleController<Account
     }
 
     @Override
-    public AccountSubtypeSimpleView getView() {
-        return (AccountSubtypeSimpleView) super.getView();
+    public AccountSubtypeView getView() {
+        return (AccountSubtypeView) super.getView();
     }
 
     @Override

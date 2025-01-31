@@ -4,7 +4,7 @@ import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner;
 
 import javax.swing.*;
 
-public abstract class BusinessSimpleView extends SimpleView {
+public abstract class BusinessView extends SimpleView {
     public abstract LocalDateSpinner getSpnStart();
 
     public abstract LocalDateSpinner getSpnEnd();

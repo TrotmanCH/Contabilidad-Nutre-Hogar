@@ -1,6 +1,6 @@
 package com.nutrehogar.sistemacontable.ui.view.defaultImple;
 
-import com.nutrehogar.sistemacontable.ui.view.TrialBalanceSimpleView;
+import com.nutrehogar.sistemacontable.ui.view.TrialBalanceView;
 
 import javax.swing.JButton;
 
@@ -9,8 +9,8 @@ import com.nutrehogar.sistemacontable.ui.view.legacy.styles.TableStyle;
 import lombok.Getter;
 
 @Getter
-public class LegacyTrialBalanceSimpleView extends TrialBalanceSimpleView {
-    public LegacyTrialBalanceSimpleView() {
+public class LegacyTrialBalanceView extends TrialBalanceView {
+    public LegacyTrialBalanceView() {
         initComponents();
         TableStyle.setStyle(tblData);
         ButtonStyle.setStyle(btnFilter, btnEdit);
