@@ -67,7 +67,7 @@ public interface CRUDRepository<T, ID> extends SimpleRepository<T> {
      * @throws OptimisticLockException      Si hay problemas de concurrencia (bloqueos o versiones desactualizadas).
      * @throws ConstraintViolationException Si se violan restricciones de la base de datos.
      */
-    void update(T entity) throws RepositoryException;
+    T update(T entity) throws RepositoryException;
 
     /**
      * Elimina una entidad del repositorio.

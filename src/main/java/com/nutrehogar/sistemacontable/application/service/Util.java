@@ -47,7 +47,7 @@ public class Util {
     public static final LocalDate CURRENT_DATE = LocalDate.now();
     public static final LocalDate START_PERIOD = LocalDate.of(CURRENT_DATE.getYear(), 1, 1);
     public static final LocalDate END_PERIOD = LocalDate.of(CURRENT_DATE.getYear(), 12, 31);
-
+    public static final BigDecimal ZERO = new BigDecimal("0.00");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
     // Formato estático para números decimales
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");

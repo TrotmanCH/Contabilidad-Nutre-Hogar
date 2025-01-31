@@ -4,6 +4,7 @@ package com.nutrehogar.sistemacontable.ui.components;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -28,6 +29,11 @@ public class LocalDateSpinner extends JSpinner {
     @Override
     public LocalDateSpinnerModel getModel() {
         return (LocalDateSpinnerModel) super.getModel();
+    }
+
+    @Override
+    public LocalDate getValue() {
+        return (LocalDate) super.getValue();
     }
 
     /**

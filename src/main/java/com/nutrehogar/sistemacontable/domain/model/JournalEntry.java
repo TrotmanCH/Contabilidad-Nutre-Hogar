@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -27,13 +28,13 @@ public class JournalEntry {
     @Column(name = "date", nullable = false)
     LocalDate date;
 
-    @Column(name = "name", columnDefinition = "TEXT")
+    @Column(name = "name", columnDefinition = "TEXT", nullable = false)
     String name;
 
     @Column(name = "concept", columnDefinition = "TEXT")
     String concept;
 
-    @OneToMany(mappedBy = "journalEntry", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    List<LedgerRecord> ledgerRecords;
+    @OneToMany(mappedBy = "journalEntry", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    List<LedgerRecord> ledgerRecords = new ArrayList<>();
 
 }

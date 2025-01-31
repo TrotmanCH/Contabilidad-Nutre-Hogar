@@ -1,6 +1,7 @@
 package com.nutrehogar.sistemacontable.ui.view;
 
-import com.nutrehogar.sistemacontable.ui.styles.*;
+import com.nutrehogar.sistemacontable.ui.view.legacy.styles.ButtonStyle;
+import com.nutrehogar.sistemacontable.ui.view.legacy.styles.TableStyle;
 import lombok.Getter;
 import lombok.Setter;
 

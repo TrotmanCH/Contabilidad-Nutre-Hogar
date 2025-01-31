@@ -1,0 +1,1483 @@
+2025-01-29 09:29:00 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 09:29:00 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 09:29:01 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 09:29:01 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 09:29:01 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 09:29:02 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 09:29:03 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@66173591] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 09:29:03 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 09:59:48 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 09:59:48 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 09:59:49 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 09:59:49 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 09:59:49 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 09:59:50 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 09:59:50 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@8bd749e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 09:59:50 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 10:01:11 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 10:01:11 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 10:01:11 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 10:01:11 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 10:01:11 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 10:01:12 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 10:01:12 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@22ac508e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 10:01:12 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 10:15:12 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 10:15:12 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 10:15:12 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 10:15:12 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 10:15:12 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 10:15:14 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 10:15:14 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@70e3c656] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 10:15:14 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 10:16:10 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 10:16:10 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 10:16:11 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 10:16:11 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 10:16:11 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 10:16:12 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 10:16:12 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@bcf430f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 10:16:12 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 10:23:03 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 10:23:03 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 10:23:04 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 10:23:04 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 10:23:04 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 10:23:05 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 10:23:05 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7dd32ed2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 10:23:05 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 10:26:11 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 10:26:11 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 10:26:11 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 10:26:11 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 10:26:12 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 10:26:13 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 10:26:13 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5d9e3f1d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 10:26:13 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 10:34:10 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 10:34:10 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 10:34:10 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 10:34:11 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 10:34:11 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 10:34:12 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 10:34:12 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@fba5a0a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 10:34:12 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 10:40:01 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 10:40:01 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 10:40:02 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 10:40:02 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 10:40:02 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 10:40:03 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 10:40:03 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@75a92389] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 10:40:03 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 10:41:32 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 10:41:33 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 10:41:33 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 10:41:33 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 10:41:33 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 10:41:34 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 10:41:34 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@185e6080] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 10:41:34 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 10:43:24 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 10:43:24 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 10:43:25 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 10:43:25 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 10:43:25 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 10:43:26 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 10:43:26 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4ee9869b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 10:43:26 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:06:46 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:06:46 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:06:46 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:06:47 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:06:47 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:06:48 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:06:48 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@fba5a0a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:06:48 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:08:07 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:08:07 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:08:07 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:08:07 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:08:08 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:08:09 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:08:09 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@75a92389] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:08:09 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:13:49 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:13:49 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:13:49 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:13:49 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:13:50 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:13:51 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:13:51 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5e8cad03] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:13:51 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:14:46 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:14:46 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:14:46 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:14:46 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:14:47 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:14:48 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:14:48 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@85da043] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:14:48 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:17:33 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:17:33 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:17:34 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:17:34 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:17:34 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:17:35 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:17:35 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@dae1951] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:17:35 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:34:22 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:34:22 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:34:22 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:34:22 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:34:22 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:34:23 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:34:23 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@46d1059] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:34:23 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:40:47 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:40:48 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:40:48 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:40:48 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:40:48 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:40:52 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:40:52 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:40:53 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:40:53 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:40:53 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:40:54 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:40:54 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7ce8b961] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:40:54 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:42:20 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:42:20 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:42:20 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:42:20 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:42:21 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:42:22 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:42:22 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7a92183e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:42:22 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:43:49 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:43:49 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:43:50 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:43:50 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:43:50 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:43:51 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:43:51 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@25697a00] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:43:51 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:44:20 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:44:20 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:44:20 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:44:21 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:44:21 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:44:22 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:44:22 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@99bbdb6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:44:22 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:46:57 [AWT-EventQueue-0] ERROR c.n.s.domain.core.TransactionManager - Error inesperado en la transacción
+java.lang.IllegalStateException: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.nutrehogar.sistemacontable.domain.model.AccountSubtype' (save the transient instance before flushing)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:157)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173)
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1433)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:491)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2354)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:1978)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:439)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:169)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:267)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:101)
+	at com.nutrehogar.sistemacontable.domain.core.TransactionManager.executeInTransaction(TransactionManager.java:38)
+	at com.nutrehogar.sistemacontable.domain.core.TransactionManager.executeInTransaction(TransactionManager.java:72)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryImpl.delete(CRUDRepositoryImpl.java:54)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryImpl.deleteById(CRUDRepositoryImpl.java:61)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryFactory.lambda$createRepository$0(CRUDRepositoryFactory.java:69)
+	at jdk.proxy2/jdk.proxy2.$Proxy65.deleteById(Unknown Source)
+	at com.nutrehogar.sistemacontable.ui.controller.CRUDSimpleController.delete(CRUDController.java:93)
+	at com.nutrehogar.sistemacontable.ui.controller.CRUDSimpleController.lambda$setupViewListeners$1(CRUDController.java:31)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6621)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6386)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4996)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.nutrehogar.sistemacontable.domain.model.AccountSubtype' (save the transient instance before flushing)
+	at org.hibernate.engine.spi.CascadingActions$9.cascade(CascadingActions.java:382)
+	at org.hibernate.engine.spi.CascadingActions$9.cascade(CascadingActions.java:372)
+	at org.hibernate.engine.internal.Cascade.cascadeToOne(Cascade.java:553)
+	at org.hibernate.engine.internal.Cascade.cascadeAssociation(Cascade.java:475)
+	at org.hibernate.engine.internal.Cascade.cascadeProperty(Cascade.java:236)
+	at org.hibernate.engine.internal.Cascade.cascade(Cascade.java:175)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.prepareEntityFlushes(AbstractFlushingEventListener.java:169)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.preFlush(AbstractFlushingEventListener.java:107)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.flushEverythingToExecutions(AbstractFlushingEventListener.java:82)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1429)
+	... 53 common frames omitted
+2025-01-29 11:46:57 [AWT-EventQueue-0] ERROR c.n.s.exception.AppException - Excepción: Error inesperado en la transacción. Causa: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.nutrehogar.sistemacontable.domain.model.AccountSubtype' (save the transient instance before flushing)
+com.nutrehogar.sistemacontable.exception.RepositoryException: Error inesperado en la transacción
+	at com.nutrehogar.sistemacontable.domain.core.TransactionManager.executeInTransaction(TransactionManager.java:67)
+	at com.nutrehogar.sistemacontable.domain.core.TransactionManager.executeInTransaction(TransactionManager.java:72)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryImpl.delete(CRUDRepositoryImpl.java:54)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryImpl.deleteById(CRUDRepositoryImpl.java:61)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryFactory.lambda$createRepository$0(CRUDRepositoryFactory.java:69)
+	at jdk.proxy2/jdk.proxy2.$Proxy65.deleteById(Unknown Source)
+	at com.nutrehogar.sistemacontable.ui.controller.CRUDSimpleController.delete(CRUDController.java:93)
+	at com.nutrehogar.sistemacontable.ui.controller.CRUDSimpleController.lambda$setupViewListeners$1(CRUDController.java:31)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6621)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6386)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4996)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: java.lang.IllegalStateException: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.nutrehogar.sistemacontable.domain.model.AccountSubtype' (save the transient instance before flushing)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:157)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173)
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1433)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:491)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2354)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:1978)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:439)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:169)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:267)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:101)
+	at com.nutrehogar.sistemacontable.domain.core.TransactionManager.executeInTransaction(TransactionManager.java:38)
+	... 45 common frames omitted
+Caused by: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.nutrehogar.sistemacontable.domain.model.AccountSubtype' (save the transient instance before flushing)
+	at org.hibernate.engine.spi.CascadingActions$9.cascade(CascadingActions.java:382)
+	at org.hibernate.engine.spi.CascadingActions$9.cascade(CascadingActions.java:372)
+	at org.hibernate.engine.internal.Cascade.cascadeToOne(Cascade.java:553)
+	at org.hibernate.engine.internal.Cascade.cascadeAssociation(Cascade.java:475)
+	at org.hibernate.engine.internal.Cascade.cascadeProperty(Cascade.java:236)
+	at org.hibernate.engine.internal.Cascade.cascade(Cascade.java:175)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.prepareEntityFlushes(AbstractFlushingEventListener.java:169)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.preFlush(AbstractFlushingEventListener.java:107)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.flushEverythingToExecutions(AbstractFlushingEventListener.java:82)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1429)
+	... 53 common frames omitted
+2025-01-29 11:48:48 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 11:48:48 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 11:48:49 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 11:48:49 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 11:48:49 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 11:48:50 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 11:48:50 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@31c69641] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 11:48:50 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 11:50:48 [AWT-EventQueue-0] ERROR c.n.s.domain.core.TransactionManager - Error inesperado en la transacción
+java.lang.IllegalStateException: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.nutrehogar.sistemacontable.domain.model.AccountSubtype' (save the transient instance before flushing)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:157)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173)
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1433)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:491)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2354)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:1978)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:439)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:169)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:267)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:101)
+	at com.nutrehogar.sistemacontable.domain.core.TransactionManager.executeInTransaction(TransactionManager.java:38)
+	at com.nutrehogar.sistemacontable.domain.core.TransactionManager.executeInTransaction(TransactionManager.java:72)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryImpl.delete(CRUDRepositoryImpl.java:54)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryImpl.deleteById(CRUDRepositoryImpl.java:61)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryFactory.lambda$createRepository$0(CRUDRepositoryFactory.java:69)
+	at jdk.proxy2/jdk.proxy2.$Proxy65.deleteById(Unknown Source)
+	at com.nutrehogar.sistemacontable.ui.controller.CRUDSimpleController.delete(CRUDController.java:93)
+	at com.nutrehogar.sistemacontable.ui.controller.CRUDSimpleController.lambda$setupViewListeners$1(CRUDController.java:31)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6621)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6386)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4996)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.nutrehogar.sistemacontable.domain.model.AccountSubtype' (save the transient instance before flushing)
+	at org.hibernate.engine.spi.CascadingActions$9.cascade(CascadingActions.java:382)
+	at org.hibernate.engine.spi.CascadingActions$9.cascade(CascadingActions.java:372)
+	at org.hibernate.engine.internal.Cascade.cascadeToOne(Cascade.java:553)
+	at org.hibernate.engine.internal.Cascade.cascadeAssociation(Cascade.java:475)
+	at org.hibernate.engine.internal.Cascade.cascadeProperty(Cascade.java:236)
+	at org.hibernate.engine.internal.Cascade.cascade(Cascade.java:175)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.prepareEntityFlushes(AbstractFlushingEventListener.java:169)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.preFlush(AbstractFlushingEventListener.java:107)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.flushEverythingToExecutions(AbstractFlushingEventListener.java:82)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1429)
+	... 53 common frames omitted
+2025-01-29 11:50:48 [AWT-EventQueue-0] ERROR c.n.s.exception.AppException - Excepción: Error inesperado en la transacción. Causa: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.nutrehogar.sistemacontable.domain.model.AccountSubtype' (save the transient instance before flushing)
+com.nutrehogar.sistemacontable.exception.RepositoryException: Error inesperado en la transacción
+	at com.nutrehogar.sistemacontable.domain.core.TransactionManager.executeInTransaction(TransactionManager.java:67)
+	at com.nutrehogar.sistemacontable.domain.core.TransactionManager.executeInTransaction(TransactionManager.java:72)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryImpl.delete(CRUDRepositoryImpl.java:54)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryImpl.deleteById(CRUDRepositoryImpl.java:61)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.nutrehogar.sistemacontable.domain.core.CRUDRepositoryFactory.lambda$createRepository$0(CRUDRepositoryFactory.java:69)
+	at jdk.proxy2/jdk.proxy2.$Proxy65.deleteById(Unknown Source)
+	at com.nutrehogar.sistemacontable.ui.controller.CRUDSimpleController.delete(CRUDController.java:93)
+	at com.nutrehogar.sistemacontable.ui.controller.CRUDSimpleController.lambda$setupViewListeners$1(CRUDController.java:31)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6621)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6386)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4996)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: java.lang.IllegalStateException: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.nutrehogar.sistemacontable.domain.model.AccountSubtype' (save the transient instance before flushing)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:157)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173)
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1433)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:491)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2354)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:1978)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:439)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:169)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:267)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:101)
+	at com.nutrehogar.sistemacontable.domain.core.TransactionManager.executeInTransaction(TransactionManager.java:38)
+	... 45 common frames omitted
+Caused by: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.nutrehogar.sistemacontable.domain.model.AccountSubtype' (save the transient instance before flushing)
+	at org.hibernate.engine.spi.CascadingActions$9.cascade(CascadingActions.java:382)
+	at org.hibernate.engine.spi.CascadingActions$9.cascade(CascadingActions.java:372)
+	at org.hibernate.engine.internal.Cascade.cascadeToOne(Cascade.java:553)
+	at org.hibernate.engine.internal.Cascade.cascadeAssociation(Cascade.java:475)
+	at org.hibernate.engine.internal.Cascade.cascadeProperty(Cascade.java:236)
+	at org.hibernate.engine.internal.Cascade.cascade(Cascade.java:175)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.prepareEntityFlushes(AbstractFlushingEventListener.java:169)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.preFlush(AbstractFlushingEventListener.java:107)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.flushEverythingToExecutions(AbstractFlushingEventListener.java:82)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1429)
+	... 53 common frames omitted
+2025-01-29 12:08:46 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 12:08:46 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 12:08:46 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 12:08:46 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 12:08:47 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 12:08:48 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 12:08:48 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4ee9869b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 12:08:48 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 12:29:28 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 12:29:28 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 12:29:28 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 12:29:28 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 12:29:28 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 12:29:29 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 12:29:29 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@33858bf4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 12:29:29 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 14:40:30 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 14:40:30 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 14:40:30 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 14:40:30 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 14:40:31 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 14:40:32 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 14:40:32 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@225bf448] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 14:40:32 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 14:42:01 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 14:42:01 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 14:42:02 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 14:42:02 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 14:42:02 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 14:42:03 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 14:42:03 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3d23d31e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 14:42:03 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 14:42:33 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 14:42:33 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 14:42:34 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 14:42:34 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 14:42:34 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 14:42:35 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 14:42:35 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7e06723b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 14:42:35 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 14:43:16 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 14:43:16 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 14:43:19 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 14:43:19 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 14:43:19 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 14:43:20 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 14:43:20 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 14:43:21 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 14:43:21 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@45887e5c] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 14:43:21 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 15:07:01 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 15:07:01 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 15:07:01 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 15:07:01 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 15:07:02 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 15:07:03 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 15:07:03 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1bafa8d6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 15:07:03 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 15:07:44 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 15:07:44 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 15:07:44 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 15:07:44 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 15:07:45 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 15:07:46 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 15:07:46 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@38527ee1] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 15:07:46 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 15:08:42 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 15:08:42 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 15:08:42 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 15:08:42 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 15:08:42 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 15:08:44 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 15:08:44 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@247b6649] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 15:08:44 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 15:11:24 [main] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 15:11:24 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 15:11:25 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 15:11:25 [main] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 15:11:25 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 15:11:26 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 15:11:26 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@212fafd1] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 15:11:26 [main] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 15:11:27 [Thread-0] INFO  c.n.s.a.config.HibernateUtil - Session closed
+2025-01-29 15:11:37 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 15:11:37 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 15:11:37 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 15:11:37 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 15:11:38 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 15:11:39 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 15:11:39 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2b8b79c6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 15:11:39 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 15:14:45 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 15:14:46 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 15:14:46 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 15:14:46 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 15:14:47 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 15:14:48 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 15:14:48 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@999793] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 15:14:48 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 19:30:50 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 19:30:50 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 19:30:51 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 19:30:51 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 19:30:51 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 19:30:52 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 19:30:52 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6e1403e9] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 19:30:52 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 19:42:43 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 19:42:43 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 19:42:43 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 19:42:43 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 19:42:44 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 19:42:45 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 19:42:45 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1dbfc4bf] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 19:42:45 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 19:43:07 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 19:43:07 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 19:43:07 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 19:43:07 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 19:43:07 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 19:43:08 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 19:43:08 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@352cdb15] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 19:43:08 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 19:45:34 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 19:45:34 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 19:45:34 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 19:45:34 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 19:45:35 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 19:45:36 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 19:45:36 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@71397863] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 19:45:36 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:09:20 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:09:20 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:09:20 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:09:20 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:09:21 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:09:22 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:09:22 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@16b57d03] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:09:22 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:12:26 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:12:26 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:12:27 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:12:27 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:12:27 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:12:28 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:12:28 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7939f462] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:12:28 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:13:45 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:13:45 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:13:45 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:13:45 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:13:45 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:13:46 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:13:46 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@c0b5a40] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:13:47 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:14:27 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:14:27 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:14:28 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:14:28 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:14:28 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:14:29 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:14:29 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1bda1131] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:14:29 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:15:15 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:15:15 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:15:15 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:15:15 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:15:16 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:15:17 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:15:17 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@251adb14] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:15:17 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:18:29 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:18:29 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:18:29 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:18:29 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:18:29 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:18:30 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:18:31 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6fa4725b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:18:31 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:19:41 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:19:41 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:19:41 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:19:42 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:19:42 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:19:43 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:19:43 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6054ff03] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:19:43 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:22:22 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:22:22 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:22:22 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:22:22 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:22:23 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:22:24 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:22:24 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3b2fa604] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:22:24 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:24:28 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:24:28 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:24:28 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:24:28 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:24:29 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:24:30 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:24:30 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1511d33d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:24:30 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:35:40 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:35:40 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:35:40 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:35:40 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:35:40 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:35:41 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:35:41 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6c179754] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:35:41 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:38:23 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:38:23 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:38:24 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:38:24 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:38:24 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:38:25 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:38:25 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5e372237] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:38:25 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:38:58 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:38:58 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:38:58 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:38:58 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:38:58 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:38:59 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:38:59 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5b1f87c0] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:38:59 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:40:03 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:40:03 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:40:04 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:40:04 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:40:04 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:40:05 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:40:05 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2bd698d5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:40:05 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:47:43 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:47:43 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:47:43 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:47:44 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:47:44 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:47:45 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:47:45 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@17a0520a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:47:45 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:48:14 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:48:15 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:48:15 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:48:15 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:48:15 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:48:16 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:48:16 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@46fd54b7] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:48:16 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:49:22 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:49:22 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:49:22 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:49:22 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:49:23 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:49:24 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:49:24 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3b3aeb9] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:49:24 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:52:35 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:52:35 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:52:35 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:52:36 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:52:36 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:52:37 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:52:37 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3b3aeb9] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:52:37 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:55:54 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:55:54 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:55:55 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:55:55 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:55:55 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:55:56 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:55:56 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@69e9b610] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:55:56 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 20:59:32 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 20:59:33 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 20:59:33 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 20:59:33 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 20:59:33 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 20:59:34 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 20:59:34 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@29e23884] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 20:59:34 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:01:09 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:01:09 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:01:09 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:01:09 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:01:10 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:01:11 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:01:11 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6b9bb2b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:01:11 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:02:17 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:02:17 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:02:17 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:02:17 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:02:17 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:02:18 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:02:18 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@72f19a3d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:02:18 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:02:39 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:02:39 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:02:39 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:02:39 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:02:39 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:02:40 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:02:41 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@750020a8] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:02:41 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:09:56 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:09:56 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:09:56 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:09:56 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:09:57 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:09:58 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:09:58 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@41838411] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:09:58 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:12:03 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:12:03 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:12:04 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:12:04 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:12:04 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:12:05 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:12:05 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@daa5e27] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:12:05 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:13:50 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:13:50 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:13:50 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:13:51 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:13:51 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:13:52 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:13:52 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3b186116] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:13:52 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:23:21 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:23:21 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:23:21 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:23:21 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:23:22 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:23:23 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:23:23 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@a759642] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:23:23 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:25:22 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:25:22 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:25:23 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:25:23 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:25:23 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:25:24 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:25:24 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7e4db4eb] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:25:24 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:26:36 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:26:36 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:26:37 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:26:37 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:26:37 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:26:38 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:26:38 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@16232717] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:26:38 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:29:49 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:29:49 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:29:49 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:29:49 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:29:50 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:29:51 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:29:51 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@76a39e9] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:29:51 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:31:22 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:31:22 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:31:23 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:31:23 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:31:23 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:31:24 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:31:24 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2771fe39] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:31:24 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:39:44 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:39:44 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:39:45 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:39:45 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:39:45 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:39:46 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:39:46 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@445c1899] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:39:46 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:41:10 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:41:10 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:41:10 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:41:11 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:41:11 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:41:12 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:41:12 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1f87700e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:41:12 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:41:34 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:41:34 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:41:34 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:41:34 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:41:34 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:41:35 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:41:36 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3640dd9] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:41:36 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:42:33 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:42:33 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:42:33 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:42:33 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:42:33 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:42:34 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:42:34 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6daf6bec] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:42:34 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:43:30 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:43:30 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:43:30 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:43:30 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:43:31 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:43:32 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:43:32 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4027d596] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:43:32 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:44:42 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:44:43 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:44:43 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:44:43 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:44:43 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:44:44 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:44:44 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3ec4ecb6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:44:44 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:45:14 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:45:14 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:45:14 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:45:14 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:45:15 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:45:16 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:45:16 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1129f997] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:45:16 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:49:17 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:49:17 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:49:18 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:49:18 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:49:18 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:49:19 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:49:19 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@43d51985] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:49:19 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:51:11 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:51:11 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:51:12 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:51:12 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:51:12 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:51:13 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:51:13 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@45518a17] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:51:13 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session
+2025-01-29 21:59:01 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Building Hibernate SessionFactory
+2025-01-29 21:59:01 [AWT-EventQueue-0] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.1.Final
+2025-01-29 21:59:01 [AWT-EventQueue-0] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-01-29 21:59:01 [AWT-EventQueue-0] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-29 21:59:02 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlite:C:\Users\Calci\SistemaContable\sistemacontable.sqlite]
+	Database driver: org.sqlite.JDBC
+	Database version: 3.46.1
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-01-29 21:59:03 [AWT-EventQueue-0] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-29 21:59:03 [AWT-EventQueue-0] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@14efe035] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-29 21:59:03 [AWT-EventQueue-0] INFO  c.n.s.a.config.HibernateUtil - Open session

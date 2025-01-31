@@ -46,7 +46,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane1" alignment="1" pref="433" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                   <Component id="pnlAside" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -245,7 +245,7 @@
                                   <Component id="txtAccountSubtypeName" alignment="0" max="32767" attributes="0"/>
                                   <Component id="cbxAccountType" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lblAccountTypeId" min="-2" pref="18" max="-2" attributes="0"/>
+                                      <Component id="lblAccountTypeId" min="-2" pref="12" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtAccountSubtypeId" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -253,11 +253,12 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="labelSection1" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="labelSection1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="sepaSection1" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="lblSave" min="-2" pref="250" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnSave" min="-2" pref="123" max="-2" attributes="0"/>
@@ -291,12 +292,12 @@
                           <Component id="lblAccountType" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cbxAccountType" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="labelSection1" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="sepaSection1" alignment="1" min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnSave" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblSave" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -314,6 +315,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="lblAccountName">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Nombre de Subtipo Cuenta:"/>
               </Properties>
             </Component>
@@ -321,19 +323,21 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblAccountId">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Codigo de SubTipo Cuenta"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAccountTypeId">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="1"/>
+                <Property name="text" type="java.lang.String" value="1."/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtAccountSubtypeId">
             </Component>
             <Component class="javax.swing.JLabel" name="lblAccountType">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Tipo De Cuenta:"/>
               </Properties>
             </Component>

@@ -169,7 +169,7 @@
                           <Component id="lblEnd" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnResetEnd" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnFilter" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblFilter" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -205,6 +205,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblStart">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Inicio de Periodo:"/>
               </Properties>
             </Component>
@@ -222,6 +223,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblEnd">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="final de Periodo:"/>
               </Properties>
             </Component>

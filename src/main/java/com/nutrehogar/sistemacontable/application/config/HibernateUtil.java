@@ -18,9 +18,11 @@ import javax.swing.*;
  * Se recomienda cerrar la sesión y el SessionFactory al finalizar el uso de la aplicación.
  * </p>
  */
-@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 @Slf4j
 public class HibernateUtil {
+    private HibernateUtil() {
+        throw new IllegalStateException("Utility class");
+    }
 
     private static final SessionFactory sessionFactory = buildSessionFactory(); // Instancia de SessionFactory
     private static Session session = null; // Instancia única de Session

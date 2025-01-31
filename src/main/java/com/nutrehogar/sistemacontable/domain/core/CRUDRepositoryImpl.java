@@ -45,8 +45,8 @@ public class CRUDRepositoryImpl<T, ID> extends TransactionManager implements CRU
     }
 
     @Override
-    public void update(T entity) throws RepositoryException {
-        executeInTransaction(() -> getSession().merge(entity));
+    public T update(T entity) throws RepositoryException {
+        return executeInTransaction(() -> getSession().merge(entity));
     }
 
     @Override

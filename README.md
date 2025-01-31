@@ -28,7 +28,7 @@ module SistemaContable {
     exports com.nutrehogar.sistemacontable.ui.controller;
     exports com.nutrehogar.sistemacontable.ui.tabs;
     exports com.nutrehogar.sistemacontable.ui.styles;
-    exports com.nutrehogar.sistemacontable.ui.view;
+    exports com.nutrehogar.sistemacontable.ui.simpleView;
     exports com.nutrehogar.sistemacontable.ui.services;
     exports com.nutrehogar.sistemacontable.ui.windows;
     exports com.nutrehogar.sistemacontable.application;

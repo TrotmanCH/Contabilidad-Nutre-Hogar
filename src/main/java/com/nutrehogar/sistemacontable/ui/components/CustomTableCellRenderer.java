@@ -10,8 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
-import static com.nutrehogar.sistemacontable.application.service.Util.DECIMAL_FORMAT;
-import static com.nutrehogar.sistemacontable.application.service.Util.formatBigDecimal;
+import static com.nutrehogar.sistemacontable.application.service.Util.*;
 
 /**
  * Define como se debe renderizar una selda que contenga un tipo especifico de dato.
@@ -28,12 +27,14 @@ public class CustomTableCellRenderer extends DefaultTableCellRenderer {
     @Override
     protected void setValue(Object value) {
         setText(switch (value) {
-            case BigDecimal bigDecimal -> (!bigDecimal.equals(BigDecimal.ZERO) ? formatBigDecimal(bigDecimal) : "");
-            case Double doubleValue -> (doubleValue != 0.0 ? DECIMAL_FORMAT.format(doubleValue) : "");
+            case BigDecimal bigDecimal ->
+                    (bigDecimal.equals(BigDecimal.ZERO) || bigDecimal.equals(ZERO) ? " " : formatBigDecimal(bigDecimal));
+            case Double doubleValue -> (doubleValue != 0.0 ? DECIMAL_FORMAT.format(doubleValue) : " ");
             case AccountType accountType -> AccountType.getCellRenderer(accountType);
             case AccountSubtype tipoCuenta ->
                     tipoCuenta.getAccountType().getId() + "." + tipoCuenta.getCanonicalId() + " " + tipoCuenta.getName();
             case Account account -> account.getId() + " " + account.getName();
+            case DocumentType documentType -> documentType.getName();
             case null -> "";
             default -> value.toString();
         });

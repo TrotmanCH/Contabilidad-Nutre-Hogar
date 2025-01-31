@@ -282,12 +282,12 @@
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cbxAccountSubtype" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="labelSection1" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="sepaSection1" alignment="1" min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnSave" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblSave" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -304,6 +304,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="lblAccountName">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Nombre de Cuenta:"/>
               </Properties>
             </Component>
@@ -311,6 +312,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblAccountId">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Codigo de Cuenta:"/>
               </Properties>
             </Component>
@@ -329,6 +331,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblAccountType">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Tipo De Cuenta:"/>
               </Properties>
             </Component>
@@ -344,6 +347,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="SubTipo Cuenta:"/>
               </Properties>
             </Component>

@@ -170,7 +170,7 @@
                           <Component id="lblEnd" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnResetEnd" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnFilter" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblFilter" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -182,17 +182,17 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cbxAccountType" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblAccountType" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cbxAccountSubtype" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblAccountSubtype" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cbxAccount" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblAccount" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -221,6 +221,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblStart">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Inicio de Periodo:"/>
               </Properties>
             </Component>
@@ -238,6 +239,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblEnd">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="final de Periodo:"/>
               </Properties>
             </Component>
@@ -292,16 +294,19 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblAccountType">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Tipo de Cuenta:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAccountSubtype">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="SubTipo de Cuenta:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAccount">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Cuenta:"/>
               </Properties>
             </Component>

@@ -64,6 +64,15 @@ public class LocalDateSpinnerModel extends AbstractSpinnerModel {
         return currentDate;
     }
 
+    public void setValue(LocalDate value) {
+        currentDate = ifDateNull(value);
+    }
+
+    public void resetValue() {
+        currentDate = CURRENT_DATE;
+        fireStateChanged();
+    }
+
     @Override
     public void setValue(Object value) {
         if (value instanceof LocalDate newDate) {
