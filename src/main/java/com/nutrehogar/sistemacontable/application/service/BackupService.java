@@ -1,9 +1,10 @@
 package com.nutrehogar.sistemacontable.application.service;
 
-import com.nutrehogar.sistemacontable.domain.HibernateUtil;
+import com.nutrehogar.sistemacontable.application.config.Constants;
 import com.nutrehogar.sistemacontable.ui.services.BackupPanel;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 
 import javax.swing.*;
@@ -23,12 +24,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import static com.nutrehogar.sistemacontable.application.service.ConfigLoader.getBackupPath;
-import static com.nutrehogar.sistemacontable.application.service.Util.getDateFormat;
+import static com.nutrehogar.sistemacontable.application.config.ConfigLoader.getBackupPath;
 
 /**
  * Servicio encargado de gestionar las operaciones de respaldo de la base de datos
@@ -39,18 +37,13 @@ import static com.nutrehogar.sistemacontable.application.service.Util.getDateFor
  */
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Slf4j
 public class BackupService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BackupService.class);
-
-    /**
-     * Instancia única de la clase, siguiendo el patrón Singleton.
-     */
-    static BackupService instance;
     /**
      * Sesión de Hibernate para la conexión con la base de datos.
      */
-    final Session session = HibernateUtil.getSession();
+    final Session session;
     /**
      * Diálogo modal que muestra la interfaz gráfica de respaldo.
      */
@@ -105,7 +98,8 @@ public class BackupService {
      * Constructor privado para implementar el patrón Singleton.
      * Inicializa los componentes gráficos y carga los archivos de respaldo disponibles.
      */
-    private BackupService() {
+    public BackupService(Session session) {
+        this.session = session;
         backupPanel = new BackupPanel();
         btnCreateBackup = backupPanel.getBtnCreateBackup();
         btnRestarBackup = backupPanel.getBtnRestarBackup();
@@ -119,15 +113,13 @@ public class BackupService {
     }
 
     /**
-     * Obtiene la instancia única de {@code BackupService}.
+     * Devuelve el formato de fecha usado para guardar archivos.
      *
-     * @return Instancia única de {@code BackupService}.
+     * @return año-mes-día-hora-minuto-segundo
      */
-    public static BackupService getInstance() {
-        if (instance == null) {
-            instance = new BackupService();
-        }
-        return instance;
+    @Contract(" -> new")
+    public static @NotNull DateTimeFormatter getDateFormat() {
+        return Constants.DATE_TIME_FORMATTER;
     }
 
     /**
@@ -171,7 +163,7 @@ public class BackupService {
                 LocalDateTime date2 = LocalDateTime.parse(o2.toString(), formatter);
                 return date1.compareTo(date2);
             } catch (Exception e) {
-                logger.error("Error parsing date", e);
+                log.error("Error parsing date", e);
                 return 0;
             }
         });
@@ -199,7 +191,7 @@ public class BackupService {
 
         restartBackup(selectedFile.getAbsolutePath());
 
-        logger.info("Restar copia finalizada");
+        log.info("Restar copia finalizada");
 
         JOptionPane.showMessageDialog(dialog,"Para hacer efectivo los cambios se cerrara el programa.","Se cerrara el programa.", JOptionPane.INFORMATION_MESSAGE);
         System.exit(1);//terminar proceso
@@ -299,7 +291,7 @@ public class BackupService {
                 stmt.execute("VACUUM INTO '" + fileName + "';");
                 connection.setAutoCommit(false);
             } catch (Exception e) {
-                logger.error("Error while backup", e);
+                log.error("Error while backup", e);
                 JOptionPane.showMessageDialog(
                         dialog,
                         "Error al realizar copia de seguridad.",
@@ -343,7 +335,7 @@ public class BackupService {
                 // Restaurar el autocommit a su estado inicial
                 connection.setAutoCommit(false);
             } catch (Exception e) {
-                logger.error("Error al realizar copia de seguridad.", e);
+                log.error("Error al realizar copia de seguridad.", e);
                 // Manejo de errores durante el proceso de respaldo
                 JOptionPane.showMessageDialog(
                         dialog,
@@ -430,7 +422,7 @@ public class BackupService {
                                     .atZone(ZoneId.systemDefault())
                                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
                         } catch (IOException e) {
-                            logger.error("Error al obtener el fichero de datos.", e);
+                            log.error("Error al obtener el fichero de datos.", e);
                             JOptionPane.showMessageDialog(
                                     null,
                                     "Ha ocurrido un error inesperado.",
