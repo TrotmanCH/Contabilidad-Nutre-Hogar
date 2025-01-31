@@ -1,16 +1,17 @@
 package com.nutrehogar.sistemacontable.ui.components;
 
-import com.nutrehogar.sistemacontable.application.service.Util;
+import com.nutrehogar.sistemacontable.application.config.Constants;
 import com.nutrehogar.sistemacontable.domain.AccountType;
 import com.nutrehogar.sistemacontable.domain.DocumentType;
 import com.nutrehogar.sistemacontable.domain.model.Account;
 import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import static com.nutrehogar.sistemacontable.application.service.Util.*;
 
 /**
  * Define como se debe renderizar una selda que contenga un tipo especifico de dato.
@@ -24,12 +25,22 @@ import static com.nutrehogar.sistemacontable.application.service.Util.*;
  * @see DefaultTableCellRenderer
  */
 public class CustomTableCellRenderer extends DefaultTableCellRenderer {
+    /**
+     * Formatea un {@link BigDecimal} a dos decimales con redondeo hacia el valor más cercano.
+     *
+     * @param value número a formatear
+     * @return el número redondeado a dos decimales como cadena
+     */
+    public static @NotNull String formatBigDecimal(@NotNull BigDecimal value) {
+        return Constants.DECIMAL_FORMAT.format(value.setScale(2, RoundingMode.HALF_UP));
+    }
+
     @Override
     protected void setValue(Object value) {
         setText(switch (value) {
             case BigDecimal bigDecimal ->
-                    (bigDecimal.equals(BigDecimal.ZERO) || bigDecimal.equals(ZERO) ? " " : formatBigDecimal(bigDecimal));
-            case Double doubleValue -> (doubleValue != 0.0 ? DECIMAL_FORMAT.format(doubleValue) : " ");
+                    (bigDecimal.equals(BigDecimal.ZERO) || bigDecimal.equals(Constants.ZERO) ? " " : formatBigDecimal(bigDecimal));
+            case Double doubleValue -> (doubleValue != 0.0 ? Constants.DECIMAL_FORMAT.format(doubleValue) : " ");
             case AccountType accountType -> AccountType.getCellRenderer(accountType);
             case AccountSubtype tipoCuenta ->
                     tipoCuenta.getAccountType().getId() + "." + tipoCuenta.getCanonicalId() + " " + tipoCuenta.getName();

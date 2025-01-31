@@ -62,11 +62,13 @@ public class DefaultTrialBalanceView extends TrialBalanceView{
 
         btnFilter.setText("Aplicar");
 
-        lblFilter.setText("<html><p>Muestra los datos de registros que coincidan con el perio contable</p></html>");
+        lblFilter.setLabelFor(btnFilter);
+        lblFilter.setText("<html><p>Muestra los datos de registros que coincidan con el periodo contable</p></html>");
         lblFilter.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblFilter.setPreferredSize(new java.awt.Dimension(250, 40));
 
         lblStart.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblStart.setLabelFor(spnStart);
         lblStart.setText("Inicio de Periodo:");
 
         btnResetStart.setText("Restablecer");
@@ -74,10 +76,12 @@ public class DefaultTrialBalanceView extends TrialBalanceView{
         btnResetEnd.setText("Restablecer");
 
         lblEnd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblEnd.setLabelFor(spnEnd);
         lblEnd.setText("final de Periodo:");
 
         btnEdit.setText("Editar");
 
+        lblEdit.setLabelFor(btnEdit);
         lblEdit.setText("<html><p>Editar registro seleccionado</p></html>");
         lblEdit.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblEdit.setPreferredSize(new java.awt.Dimension(250, 40));

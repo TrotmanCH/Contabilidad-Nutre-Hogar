@@ -1,10 +1,10 @@
 package com.nutrehogar.sistemacontable.ui.controller;
 
+import com.nutrehogar.sistemacontable.application.config.Constants;
 import com.nutrehogar.sistemacontable.application.dto.LedgerRecordDTO;
 import com.nutrehogar.sistemacontable.application.repository.crud.AccountRepository;
 import com.nutrehogar.sistemacontable.application.repository.crud.JournalEntryRepository;
 import com.nutrehogar.sistemacontable.application.repository.crud.LedgerRecordRepository;
-import com.nutrehogar.sistemacontable.application.service.Util;
 import com.nutrehogar.sistemacontable.domain.DocumentType;
 import com.nutrehogar.sistemacontable.domain.model.Account;
 import com.nutrehogar.sistemacontable.domain.model.JournalEntry;
@@ -54,7 +54,8 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
         cbxModelDocumentType = new CustomComboBoxModel<>(DocumentType.values());
         journalEntry = Optional.empty();
         tblDataList = new ArrayList<>();
-        CERO = Util.ZERO;
+        CERO = Constants.ZERO;
+        getTxtEntryDocumentNumber().setEnabled(false);
         prepareBtnToAddEntry();
         prepareBtnToAddRecord();
         super.initialize();
@@ -374,7 +375,7 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
 
     private void prepareToAddEntry() {
         journalEntry = Optional.of(new JournalEntry());
-        getTxtEntryDocumentNumber().setEnabled(true);
+        getTxtEntryDocumentNumber().setEnabled(false);
         getTxtEntryName().setText("");
         getTaEntryConcept().setText("");
         getTxtEntryDocumentNumber().setText("");

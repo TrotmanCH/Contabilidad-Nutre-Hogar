@@ -28,7 +28,7 @@ public class JournalController extends BusinessController<JournalDTO> {
     @Override
     protected void loadData() {
         getData().clear();
-        var lista = getRepository().find(JournalRepositoryImpl.Field.ACCOUNT_ID, OrderDirection.ASCENDING, new JournalRepositoryImpl.Filter.ByDateRange(getSpnModelStartPeriod().getValue(), getSpnModelEndPeriod().getValue()));
+        var lista = getRepository().find(JournalRepositoryImpl.Field.JOURNAL_DATE, OrderDirection.DESCENDING, new JournalRepositoryImpl.Filter.ByDateRange(getSpnModelStartPeriod().getValue(), getSpnModelEndPeriod().getValue()));
         setData(lista);
         super.loadData();
     }

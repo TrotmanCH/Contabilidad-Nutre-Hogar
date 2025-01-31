@@ -80,8 +80,8 @@ public class GeneralLedgerController extends BusinessController<GeneralLedgerDTO
         getData().clear();
 
         var list = getRepository().find(
-                GeneralLedgerRepositoryImpl.Field.ACCOUNT_ID,
-                OrderDirection.ASCENDING,
+                GeneralLedgerRepositoryImpl.Field.JOURNAL_ENTRY_DATE,
+                OrderDirection.DESCENDING,
                 new GeneralLedgerRepositoryImpl.Filter.ByDateRange(
                         getSpnModelStartPeriod().getValue(),
                         getSpnModelEndPeriod().getValue()),

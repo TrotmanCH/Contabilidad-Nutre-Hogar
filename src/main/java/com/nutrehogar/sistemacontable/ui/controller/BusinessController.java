@@ -11,8 +11,8 @@ import javax.swing.*;
 
 import java.util.function.Consumer;
 
-import static com.nutrehogar.sistemacontable.application.service.Util.END_PERIOD;
-import static com.nutrehogar.sistemacontable.application.service.Util.START_PERIOD;
+import static com.nutrehogar.sistemacontable.application.config.Constants.END_PERIOD;
+import static com.nutrehogar.sistemacontable.application.config.Constants.START_PERIOD;
 
 @Getter
 @Setter

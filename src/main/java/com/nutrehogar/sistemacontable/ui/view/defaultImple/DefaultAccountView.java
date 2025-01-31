@@ -22,6 +22,8 @@ public class DefaultAccountView extends AccountView {
      */
     public DefaultAccountView() {
         initComponents();
+        txtAccountName.putClientProperty("JTextField.placeholderText", "Caja Menuda");
+        txtAccountId.putClientProperty("JTextField.placeholderText", "20");
     }
 
     /**
@@ -78,17 +80,20 @@ public class DefaultAccountView extends AccountView {
 
         btnAdd.setText("Crear");
 
-        lblAdd.setText("<html><p>Prepara el Formulario para crear una nueva Cuenta</p></html>");
+        lblAdd.setLabelFor(btnAdd);
+        lblAdd.setText("<html><p>Prepara el formulario para crear una nueva cuenta</p></html>");
         lblAdd.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblAdd.setPreferredSize(new java.awt.Dimension(250, 40));
 
-        lblEdit.setText("<html><p>Prepara el Formulario para editar la Cuenta seleccionada</p></html>");
+        lblEdit.setLabelFor(btnEdit);
+        lblEdit.setText("<html><p>Prepara el formulario para editar la cuenta seleccionada</p></html>");
         lblEdit.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblEdit.setPreferredSize(new java.awt.Dimension(250, 40));
 
         btnEdit.setText("Editar");
 
-        lblDelete.setText("<html><p>Elimina la Cuenta seleccionada</p></html>");
+        lblDelete.setLabelFor(btnDelete);
+        lblDelete.setText("<html><p>Elimina la cuenta seleccionada</p></html>");
         lblDelete.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblDelete.setPreferredSize(new java.awt.Dimension(250, 40));
 
@@ -134,10 +139,12 @@ public class DefaultAccountView extends AccountView {
         pnlForm.setBorder(javax.swing.BorderFactory.createTitledBorder("Formulario"));
 
         lblAccountName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAccountName.setLabelFor(txtAccountName);
         lblAccountName.setText("Nombre de Cuenta:");
 
         lblAccountId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblAccountId.setText("Codigo de Cuenta:");
+        lblAccountId.setLabelFor(txtAccountId);
+        lblAccountId.setText("Código de Cuenta:");
 
         lblAccountTypeId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblAccountTypeId.setText("1");
@@ -145,11 +152,13 @@ public class DefaultAccountView extends AccountView {
         lblAccountSubtypeId.setText("000");
 
         lblAccountType.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAccountType.setLabelFor(cbxAccountType);
         lblAccountType.setText("Tipo De Cuenta:");
 
         cbxAccountType.setModel(new javax.swing.DefaultComboBoxModel<>());
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setLabelFor(cbxAccountSubtype);
         jLabel1.setText("SubTipo Cuenta:");
 
         btnSave.setText("Guardar");
@@ -160,11 +169,13 @@ public class DefaultAccountView extends AccountView {
 
         btnUpdate.setText("Actualizar");
 
-        lblSave.setText("<html><p>Guarda la nueva Cuenta registrada en el Formulario en la base de datos</p></html>");
+        lblSave.setLabelFor(btnSave);
+        lblSave.setText("<html><p>Guarda la nueva cuenta registrada en el formulario, en la base de datos</p></html>");
         lblSave.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblSave.setPreferredSize(new java.awt.Dimension(250, 40));
 
-        lblUpdate.setText("<html><p>Actualiza los datos de la Cuenta seleccionada con los datos del Formulario</p></html>");
+        lblUpdate.setLabelFor(btnUpdate);
+        lblUpdate.setText("<html><p>Actualiza los datos de la cuenta seleccionada con los datos del formulario</p></html>");
         lblUpdate.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblUpdate.setPreferredSize(new java.awt.Dimension(250, 40));
 

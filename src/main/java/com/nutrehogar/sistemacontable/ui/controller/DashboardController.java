@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 @Getter
-public class DashboardController extends Controller{
+public class DashboardController extends Controller {
     private final AccountingEntryFormController accountingEntryFormController;
     private final AccountController accountController;
     private final AccountSubtypeController accountSubtypeController;
@@ -30,6 +30,7 @@ public class DashboardController extends Controller{
 
     @Override
     protected void initialize() {
+        getPnlContent().setOpaque(false);
         setupViewListeners();
     }
 

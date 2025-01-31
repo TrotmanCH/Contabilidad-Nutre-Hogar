@@ -72,11 +72,13 @@ public class DefaultGeneralLedgerView extends GeneralLedgerView{
 
         btnFilter.setText("Aplicar");
 
-        lblFilter.setText("<html><p>Muestra los datos de registros que coincidan con el perio contable</p></html>");
+        lblFilter.setLabelFor(btnFilter);
+        lblFilter.setText("<html><p>Muestra los datos de registros que coincidan con el periodo contable</p></html>");
         lblFilter.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblFilter.setPreferredSize(new java.awt.Dimension(250, 40));
 
         lblStart.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblStart.setLabelFor(spnStart);
         lblStart.setText("Inicio de Periodo:");
 
         btnResetStart.setText("Restablecer");
@@ -84,10 +86,12 @@ public class DefaultGeneralLedgerView extends GeneralLedgerView{
         btnResetEnd.setText("Restablecer");
 
         lblEnd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblEnd.setLabelFor(spnEnd);
         lblEnd.setText("final de Periodo:");
 
         btnEdit.setText("Editar");
 
+        lblEdit.setLabelFor(btnEdit);
         lblEdit.setText("<html><p>Editar registro seleccionado</p></html>");
         lblEdit.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblEdit.setPreferredSize(new java.awt.Dimension(250, 40));
@@ -104,12 +108,15 @@ public class DefaultGeneralLedgerView extends GeneralLedgerView{
         cbxAccountSubtype.setModel(new javax.swing.DefaultComboBoxModel<>());
 
         lblAccountType.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAccountType.setLabelFor(cbxAccountType);
         lblAccountType.setText("Tipo de Cuenta:");
 
         lblAccountSubtype.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAccountSubtype.setLabelFor(lblAccountSubtype);
         lblAccountSubtype.setText("SubTipo de Cuenta:");
 
         lblAccount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAccount.setLabelFor(lblAccount);
         lblAccount.setText("Cuenta:");
 
         javax.swing.GroupLayout pnlOperationsLayout = new javax.swing.GroupLayout(pnlOperations);

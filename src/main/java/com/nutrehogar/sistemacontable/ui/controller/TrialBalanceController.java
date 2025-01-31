@@ -34,7 +34,7 @@ public class TrialBalanceController extends BusinessController<TrialBalanceDTO> 
     @Override
     protected void loadData() {
         getData().clear();
-        var list = getRepository().find(TrialBalanceRepositoryImpl.Field.ACCOUNT_ID, OrderDirection.ASCENDING, new TrialBalanceRepositoryImpl.Filter.ByDateRange(getSpnModelStartPeriod().getValue(), getSpnModelEndPeriod().getValue()));
+        var list = getRepository().find(TrialBalanceRepositoryImpl.Field.JOURNAL_DATE, OrderDirection.DESCENDING, new TrialBalanceRepositoryImpl.Filter.ByDateRange(getSpnModelStartPeriod().getValue(), getSpnModelEndPeriod().getValue()));
 
         Map<Integer, List<TrialBalanceDTO>> agrupadoPorCuenta = list.stream().collect(Collectors.groupingBy(TrialBalanceDTO::getAccountId));
 

@@ -1,5 +1,6 @@
 package com.nutrehogar.sistemacontable.application.service;
 
+import com.nutrehogar.sistemacontable.application.config.Constants;
 import com.nutrehogar.sistemacontable.ui.services.BackupPanel;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -23,9 +24,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import static com.nutrehogar.sistemacontable.application.config.ConfigLoader.getBackupPath;
-import static com.nutrehogar.sistemacontable.application.service.Util.getDateFormat;
 
 /**
  * Servicio encargado de gestionar las operaciones de respaldo de la base de datos
@@ -109,6 +110,16 @@ public class BackupService {
         backupTableModel = new BackupTableModel(files);
         tableBackup.setModel(backupTableModel);
         initialize();
+    }
+
+    /**
+     * Devuelve el formato de fecha usado para guardar archivos.
+     *
+     * @return año-mes-día-hora-minuto-segundo
+     */
+    @Contract(" -> new")
+    public static @NotNull DateTimeFormatter getDateFormat() {
+        return Constants.DATE_TIME_FORMATTER;
     }
 
     /**

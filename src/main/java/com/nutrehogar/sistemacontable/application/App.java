@@ -24,32 +24,32 @@ import java.util.function.Consumer;
 
 @Slf4j
 public class App {
-    Session session;
-    AccountRepository accountRepository;
-    AccountSubtypeRepository subTipoRepository;
-    JournalEntryRepository journalEntryRepository;
-    LedgerRecordRepository ledgerRecordRepository;
-    JournalRepositoryImpl journalRepository;
-    TrialBalanceRepositoryImpl trialBalanceRepository;
-    GeneralLedgerRepositoryImpl generalLedgerRepository;
+    private Session session;
+    private AccountRepository accountRepository;
+    private AccountSubtypeRepository subTipoRepository;
+    private JournalEntryRepository journalEntryRepository;
+    private LedgerRecordRepository ledgerRecordRepository;
+    private JournalRepositoryImpl journalRepository;
+    private TrialBalanceRepositoryImpl trialBalanceRepository;
+    private GeneralLedgerRepositoryImpl generalLedgerRepository;
 
-    AccountingEntryFormController accountingEntryFormController;
-    AccountController accountController;
-    AccountSubtypeController accountSubtypeController;
-    JournalController journalController;
-    TrialBalanceController trialBalanceController;
-    GeneralLedgerController generalLedgerController;
-    BackupController backupController;
-    DashboardController dashboardController;
+    private AccountingEntryFormController accountingEntryFormController;
+    private AccountController accountController;
+    private AccountSubtypeController accountSubtypeController;
+    private JournalController journalController;
+    private TrialBalanceController trialBalanceController;
+    private GeneralLedgerController generalLedgerController;
+    private BackupController backupController;
+    private DashboardController dashboardController;
 
-    AccountingEntryFormView accountingEntryFormView;
-    AccountView accountView;
-    AccountSubtypeView accountSubtypeView;
-    JournalView journalView;
-    TrialBalanceView trialBalanceView;
-    GeneralLedgerView generalLedgerView;
-    BackupView backupView;
-    DashboardView dashboardView;
+    private AccountingEntryFormView accountingEntryFormView;
+    private AccountView accountView;
+    private AccountSubtypeView accountSubtypeView;
+    private JournalView journalView;
+    private TrialBalanceView trialBalanceView;
+    private GeneralLedgerView generalLedgerView;
+    private BackupView backupView;
+    private DashboardView dashboardView;
 
     private Consumer<Integer> prepareToEditJournalEntry;
 
@@ -66,7 +66,7 @@ public class App {
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
-            frame.add(accountingEntryFormView);
+            frame.add(dashboardView);
             frame.setVisible(true);
         });
     }
