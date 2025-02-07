@@ -396,7 +396,7 @@ public class FormularioPestana extends javax.swing.JPanel {
                 .addTableModelListener(this::tablaEscuchador);
         
         // Asignando número de documento al formulario
-        Integer noDoc = AsientoRepo.getSize();
+        Integer noDoc = AsientoRepo.findAll().size() + 1;
         texfieNoDoc.setText(new DecimalFormat("000").format(noDoc));
     }
     
