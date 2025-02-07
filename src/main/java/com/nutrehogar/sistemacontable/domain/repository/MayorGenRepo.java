@@ -11,8 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -23,11 +21,11 @@ import java.util.List;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MayorGenRepo {
-    private static final Logger logger = LoggerFactory.getLogger(MayorGenRepo.class);
     private static final Session session = HibernateUtil.getSession();
 
     public static @NotNull List<MayorGenDTO> find(Field orderField, OrderDirection orderDirection, Filter... filters) {
         List<MayorGenDTO> mayorGeneralDTOS = List.of();
+        System.out.println(filters);
         if (filters == null || filters.length == 0) return mayorGeneralDTOS;
         try {
             session.beginTransaction();
@@ -41,7 +39,6 @@ public class MayorGenRepo {
             Join<Registro, TipoDocumento> tipoDocumento = registro.join("tipoDocumento");
 
             // Alias
-            Path<Integer> asientoIdPath = asiento.get("id");
             Path<LocalDate> asientoFechaPath = asiento.get("fecha");
             Path<String> asientoNombrePath = asiento.get("nombre");
             Path<String> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
@@ -55,7 +52,6 @@ public class MayorGenRepo {
             // Selección de campos para el DTO
             cq.select(cb.construct(
                     MayorGenDTO.class,
-                    asientoIdPath,
                     asientoFechaPath,
                     asientoNombrePath,
                     tipoDocumentoNombrePath,
@@ -112,7 +108,7 @@ public class MayorGenRepo {
             if (session != null && session.getTransaction() != null) {
                 session.getTransaction().rollback(); // Deshacer la transacción en caso de error
             }
-            logger.error("Error en la busqueda de mayor general", e);
+            e.printStackTrace();
         }
         return mayorGeneralDTOS;
     }

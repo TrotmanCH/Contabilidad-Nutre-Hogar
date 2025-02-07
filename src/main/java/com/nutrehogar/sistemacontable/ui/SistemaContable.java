@@ -1,92 +1,55 @@
 package com.nutrehogar.sistemacontable.ui;
 
-import com.nutrehogar.sistemacontable.application.dto.CuentaDTO;
-import com.nutrehogar.sistemacontable.application.service.BackupService;
-import com.nutrehogar.sistemacontable.domain.repository.AsientoRepo;
 import com.nutrehogar.sistemacontable.ui.controller.*;
 import com.nutrehogar.sistemacontable.ui.tabs.*;
 import com.nutrehogar.sistemacontable.ui.view.*;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import org.jetbrains.annotations.NotNull;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Objects;
-import java.util.function.Consumer;
+import java.util.Arrays;
 import javax.swing.*;
-import javax.swing.border.MatteBorder;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SistemaContable extends javax.swing.JFrame {
-
-    FormularioPestana formulario;
-    LibroDiarioView libroDiario;
-    BalanceComView balanceComprobacion;
-    MayorGenView mayorGeneral;
-    CuentasPestana listaCuenta;
-    SubtiposCuentaPestana listaSubtipoCuenta;
-    BackupService backupService;
-
-
-    static Color bgColor = Color.decode("#2E4156");
-    static Color pestanaBg = new Color(241, 248, 255);
-    static MatteBorder border = BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE);
-
-    static MouseAdapter mouseAdapter = new MouseAdapter() {
-        @Override
-        public void mousePressed(@NotNull MouseEvent e) {
-            e.getComponent().setBackground(bgColor);
-        }
-
-        @Override
-        public void mouseReleased(@NotNull MouseEvent e) {
-            e.getComponent().setBackground(null);
-        }
-    };
-
-    final static ImageIcon closeIcon = new ImageIcon(Objects.requireNonNull(SistemaContable.class.getResource("/icons/menu_ocultar.png")));
-    final static ImageIcon openIcon = new ImageIcon(Objects.requireNonNull(SistemaContable.class.getResource("/icons/menu_mostrar.png")));
-
+    FormularioPestana formulario = new FormularioPestana();
+    LibroDiarioView libroDiario = LibroDiarioController.getInstance().getView();
+    BalanceComView balanceComprobacion = BalanceComController.getInstance().getView();
+    MayorGenView mayorGeneral = MayorGenController.getInstance().getView();
+    CuentasPestana listaCuenta = new CuentasPestana();
+    SubtiposCuentaPestana listaSubtipoCuenta = new SubtiposCuentaPestana();
+    
     public SistemaContable() {
-        initComponents();
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/nutrehogar_logo.png")));
+        initComponents(); 
+        
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         panContenido.setLayout(new BorderLayout());
-        formulario = new FormularioPestana();
         mostrarPestana(formulario);
-
+        
         estilizarBotones(butFormulario, butBalanceComprobacion, butLibroDiario,
-                butMayorGeneral, butCuentas, butSubtiposCuenta, butBackup
+                butMayorGeneral, butCuentas, butSubtiposCuenta
         );
-
     }
-
-    public Consumer<Integer> editarAsiento = (idAsiento)->{
-        Objects.requireNonNull(idAsiento);
-        formulario= new FormularioPestana(AsientoRepo.findById(idAsiento));
-        mostrarPestana(formulario);
-    };
-
-    public Consumer<CuentaDTO> setMayorGenByCuenta = (cuentaDTO)->{
-        if (mayorGeneral == null) {
-            mayorGeneral = MayorGenController.getInstance().getView(editarAsiento);
-        }
-        MayorGenController.getInstance().setCuentaTo(cuentaDTO);
-        mostrarPestana(mayorGeneral);
-    };
-
+    
     // Estilo de botones
-    private void estilizarBotones(JButton@NotNull...   botones) {
-        for (var boton : botones) {
+    private void estilizarBotones(JButton... botones) {
+        Arrays.asList(botones).forEach((boton) -> { 
             boton.setFocusPainted(false);
             boton.setForeground(Color.WHITE);
-            boton.setBorder(border);
-            boton.addMouseListener(mouseAdapter);
-        }
+            boton.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE)); 
+            
+            boton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    boton.setBackground(Color.decode("#2E4156"));  
+                }
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    boton.setBackground(null);  
+                }
+            });
+        });
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -99,7 +62,6 @@ public class SistemaContable extends javax.swing.JFrame {
         butMayorGeneral = new javax.swing.JButton();
         butCuentas = new javax.swing.JButton();
         butSubtiposCuenta = new javax.swing.JButton();
-        butBackup = new javax.swing.JButton();
         labOcultarMenu = new javax.swing.JLabel();
         panContenido = new javax.swing.JPanel();
 
@@ -107,7 +69,7 @@ public class SistemaContable extends javax.swing.JFrame {
         setTitle("Sistema Contable");
         setBackground(new java.awt.Color(241, 248, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setForeground(new Color(222, 222, 222));
+        setForeground(new Color(222,222,222));
 
         panMenu.setBackground(new java.awt.Color(30, 136, 229));
 
@@ -184,54 +146,40 @@ public class SistemaContable extends javax.swing.JFrame {
             }
         });
 
-        butBackup.setBackground(new java.awt.Color(30, 136, 229));
-        butBackup.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        butBackup.setText("Copia de Datos");
-        butBackup.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        butBackup.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        butBackup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butBackupActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panMenuLayout = new javax.swing.GroupLayout(panMenu);
         panMenu.setLayout(panMenuLayout);
         panMenuLayout.setHorizontalGroup(
-                panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panMenuLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(butMayorGeneral, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(butBalanceComprobacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(butLibroDiario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(butFormulario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(labLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(butCuentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(butSubtiposCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(butBackup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap())
+            panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(butMayorGeneral, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(butBalanceComprobacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(butLibroDiario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(butFormulario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(butCuentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(butSubtiposCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panMenuLayout.setVerticalGroup(
-                panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panMenuLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(labLogo)
-                                .addGap(9, 9, 9)
-                                .addComponent(butFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(butLibroDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(butBalanceComprobacion, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(butMayorGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(butCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(butSubtiposCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(butBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
+            panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labLogo)
+                .addGap(9, 9, 9)
+                .addComponent(butFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(butLibroDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(butBalanceComprobacion, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(butMayorGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(butCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(butSubtiposCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         labOcultarMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu_ocultar.png"))); // NOI18N
@@ -247,98 +195,87 @@ public class SistemaContable extends javax.swing.JFrame {
         javax.swing.GroupLayout panContenidoLayout = new javax.swing.GroupLayout(panContenido);
         panContenido.setLayout(panContenidoLayout);
         panContenidoLayout.setHorizontalGroup(
-                panContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 781, Short.MAX_VALUE)
+            panContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 781, Short.MAX_VALUE)
         );
         panContenidoLayout.setVerticalGroup(
-                panContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+            panContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(panMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(labOcultarMenu)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(panContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
-                                .addGap(0, 0, 0))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(labOcultarMenu)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(panMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(291, Short.MAX_VALUE)
-                                .addComponent(labOcultarMenu)
-                                .addContainerGap(288, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(260, Short.MAX_VALUE)
+                .addComponent(labOcultarMenu)
+                .addContainerGap(256, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     // Escuchadores de botones
     private void butFormularioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butFormularioActionPerformed
-         formulario = new FormularioPestana();
         mostrarPestana(formulario);
     }//GEN-LAST:event_butFormularioActionPerformed
-
+    
     private void butLibroDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLibroDiarioActionPerformed
-        if (libroDiario == null) libroDiario = LibroDiarioController.getInstance().getView(editarAsiento);
         mostrarPestana(libroDiario);
     }//GEN-LAST:event_butLibroDiarioActionPerformed
 
     private void butBalanceComprobacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butBalanceComprobacionActionPerformed
-        if (balanceComprobacion == null) balanceComprobacion = BalanceComController.getInstance().getView(editarAsiento);
         mostrarPestana(balanceComprobacion);
     }//GEN-LAST:event_butBalanceComprobacionActionPerformed
 
     private void butMayorGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butMayorGeneralActionPerformed
-        if (mayorGeneral == null) {
-            mayorGeneral = MayorGenController.getInstance().getView(editarAsiento);
-        }
         mostrarPestana(mayorGeneral);
     }//GEN-LAST:event_butMayorGeneralActionPerformed
 
     private void butCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCuentasActionPerformed
-        if (listaCuenta == null) {
-            listaCuenta = new CuentasPestana(setMayorGenByCuenta);
-        }
         mostrarPestana(listaCuenta);
     }//GEN-LAST:event_butCuentasActionPerformed
-
+    
     private void butSubtiposCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSubtiposCuentaActionPerformed
-        if (listaSubtipoCuenta == null) listaSubtipoCuenta = new SubtiposCuentaPestana();
         mostrarPestana(listaSubtipoCuenta);
     }//GEN-LAST:event_butSubtiposCuentaActionPerformed
 
     // Escuchador de labOcultarMenu
     private void labOcultarMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labOcultarMenuMouseClicked
         panMenu.setVisible(!panMenu.isVisible());
-        labOcultarMenu.setIcon(panMenu.isVisible() ? closeIcon : openIcon);
+
+        if (panMenu.isVisible()) {
+            labOcultarMenu.setIcon(new ImageIcon(getClass().getResource("/icons/menu_ocultar.png"))); 
+        } else {
+            labOcultarMenu.setIcon(new ImageIcon(getClass().getResource("/icons/menu_mostrar.png")));
+        }
 
         revalidate();
         repaint();
     }//GEN-LAST:event_labOcultarMenuMouseClicked
-
-    private void butBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butBackupActionPerformed
-        if (backupService == null) backupService = BackupService.getInstance();
-        backupService.getDialog(this).setVisible(true);
-    }//GEN-LAST:event_butBackupActionPerformed
-
-    private void mostrarPestana(@NotNull JPanel pestana) {
-        pestana.setBackground(pestanaBg);
+    
+    private void mostrarPestana(JPanel pestana){
+        pestana.setBackground(new Color(241,248,255));
         panContenido.removeAll();
         panContenido.add(pestana);
         panContenido.revalidate();
         panContenido.repaint();
     }
-
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton butBackup;
     private javax.swing.JButton butBalanceComprobacion;
     private javax.swing.JButton butCuentas;
     private javax.swing.JButton butFormulario;
@@ -351,3 +288,4 @@ public class SistemaContable extends javax.swing.JFrame {
     private javax.swing.JPanel panMenu;
     // End of variables declaration//GEN-END:variables
 }
+

@@ -6,16 +6,13 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 
 public class RegistroRepo {
-    private static final Logger logger = LoggerFactory.getLogger(RegistroRepo.class);
     private static final Session session = HibernateUtil.getSession();
 
     public static List<Registro> findAll() {
@@ -26,7 +23,7 @@ public class RegistroRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al consultar registros", e);
+            e.printStackTrace();
         }
         return transaccions;
     }
@@ -42,7 +39,6 @@ public class RegistroRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al guardar registro", e);
         }
     }
 
@@ -53,7 +49,6 @@ public class RegistroRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al guardar registros", e);
         }
     }
 
@@ -66,7 +61,7 @@ public class RegistroRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al eliminar registro", e);
+            e.printStackTrace();
         }
     }
 
@@ -79,7 +74,7 @@ public class RegistroRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al eliminar registro", e);
+            e.printStackTrace();
         }
     }
 
@@ -90,7 +85,7 @@ public class RegistroRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al actualizar registro", e);
+            e.printStackTrace();
         }
     }
 }

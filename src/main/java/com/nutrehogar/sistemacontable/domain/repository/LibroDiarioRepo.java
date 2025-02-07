@@ -14,8 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,9 +25,6 @@ import java.util.List;
  * @author Calcifer1331
  */
 public class LibroDiarioRepo {
-    private static final Logger logger = LoggerFactory.getLogger(LibroDiarioRepo.class);
-
-
     private static final Session session = HibernateUtil.getSession();
 
     public static @NotNull List<LibroDiarioDTO> find(Field orderField, OrderDirection orderDirection, Filter... filters) {
@@ -47,7 +42,6 @@ public class LibroDiarioRepo {
             Join<Registro, TipoDocumento> tipoDocumento = registro.join("tipoDocumento");
 
             // Alias
-            Path<Integer> asientoIdPath = asiento.get("id");
             Path<LocalDate> fechaPath = asiento.get("fecha");
             Path<String> tipoDocumentoNombrePath = tipoDocumento.get("nombre");
             Path<String> codigoCuentaPath = cuenta.get("id");
@@ -59,7 +53,6 @@ public class LibroDiarioRepo {
             // Selección de campos para el DTO
             cq.select(cb.construct(
                     LibroDiarioDTO.class,
-                    asientoIdPath,
                     fechaPath,
                     tipoDocumentoNombrePath,
                     codigoCuentaPath,
@@ -113,7 +106,7 @@ public class LibroDiarioRepo {
             if (session != null && session.getTransaction() != null) {
                 session.getTransaction().rollback(); // Deshacer la transacción en caso de error
             }
-            logger.error("Error en libro diario repo", e);
+            e.printStackTrace();
         }
         return libroDiarioDTOS;
     }

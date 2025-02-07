@@ -3,8 +3,11 @@ package com.nutrehogar.sistemacontable.application.service;
 import com.nutrehogar.sistemacontable.domain.HibernateUtil;
 import com.nutrehogar.sistemacontable.ui.services.BackupPanel;
 import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.Session;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -23,10 +26,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static com.nutrehogar.sistemacontable.application.service.ConfigLoader.getBackupPath;
 import static com.nutrehogar.sistemacontable.application.service.Util.getDateFormat;
 
@@ -41,8 +40,6 @@ import static com.nutrehogar.sistemacontable.application.service.Util.getDateFor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BackupService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BackupService.class);
-
     /**
      * Instancia única de la clase, siguiendo el patrón Singleton.
      */
@@ -55,11 +52,6 @@ public class BackupService {
      * Diálogo modal que muestra la interfaz gráfica de respaldo.
      */
     JDialog dialog;
-
-    /**
-     * Frame principal del programa.
-     */
-    Frame mainFrame;
 
     /**
      * Panel principal que contiene los elementos de la interfaz gráfica.
@@ -131,24 +123,6 @@ public class BackupService {
     }
 
     /**
-     * Muestra el diálogo modal para gestionar respaldos.
-     *
-     * @param frame Ventana principal de la aplicación.
-     * @return Instancia del diálogo modal.
-     */
-    public JDialog getDialog(JFrame frame) {
-        if (dialog == null) {
-            mainFrame = frame;
-            dialog = new JDialog(mainFrame, "Copias de Seguridad", true);
-            dialog.setLocationRelativeTo(frame);
-            dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-            dialog.add(backupPanel);
-            dialog.setSize(430, 460);
-        }
-        return dialog;
-    }
-
-    /**
      * Configura los componentes gráficos y asigna los eventos de los botones y la tabla.
      */
     private void initialize() {
@@ -171,7 +145,7 @@ public class BackupService {
                 LocalDateTime date2 = LocalDateTime.parse(o2.toString(), formatter);
                 return date1.compareTo(date2);
             } catch (Exception e) {
-                logger.error("Error parsing date", e);
+                e.printStackTrace();
                 return 0;
             }
         });
@@ -185,24 +159,8 @@ public class BackupService {
      * @param e Evento asociado al clic del botón.
      */
     private void btnRestarBackupActionPerformance(ActionEvent e) {
-        var response = JOptionPane.showConfirmDialog(
-                dialog,
-                "Debe creara una copia de seguridad con los datos actuales.",
-                "Restablecer copia",
-                JOptionPane.OK_CANCEL_OPTION);
-
-        if (response != JOptionPane.OK_OPTION) return;
-
-        int result = btnCreateBackupActionPerformed(null, "security_");
-
-        if (result != JOptionPane.OK_OPTION) return;
-
+        System.out.println(selectedFile.getAbsolutePath());
         restartBackup(selectedFile.getAbsolutePath());
-
-        logger.info("Restar copia finalizada");
-
-        JOptionPane.showMessageDialog(dialog,"Para hacer efectivo los cambios se cerrara el programa.","Se cerrara el programa.", JOptionPane.INFORMATION_MESSAGE);
-        System.exit(1);//terminar proceso
     }
 
     /**
@@ -223,6 +181,7 @@ public class BackupService {
         if (!e.getValueIsAdjusting()) {
             int selectedRow = tableBackup.getSelectedRow();
             if (selectedRow != -1) {
+                System.out.println("Fila seleccionada: " + selectedRow);
                 selectFile(selectedRow);
                 btnRestarBackup.setEnabled(true);
             } else {
@@ -236,10 +195,9 @@ public class BackupService {
      *
      * @param e Evento asociado al clic del botón.
      */
-    public int btnCreateBackupActionPerformed(ActionEvent e, String name) {
+    public void btnCreateBackupActionPerformed(ActionEvent e) {
         JTextField inputFileName = new JTextField();
-        var fileName = name == null ? createNameByDate() : name + createNameByDate();
-        inputFileName.setText(fileName);
+        inputFileName.setText(createNameByDate());
         JPanel contentPanel = new JPanel();
         contentPanel.add(new Label("Nombre:"));
         contentPanel.add(inputFileName);
@@ -257,12 +215,9 @@ public class BackupService {
             backup(createFilePathAndName(input));
             files = findBackupFiles();
             backupTableModel.setDataAndReload(files);
+        } else {
+            System.out.println("Cancelado");
         }
-        return result;
-    }
-
-    public int btnCreateBackupActionPerformed(ActionEvent e) {
-        return btnCreateBackupActionPerformed(e, null);
     }
 
     /**
@@ -272,6 +227,21 @@ public class BackupService {
      */
     private void selectFile(int i) {
         selectedFile = files[i];
+    }
+
+    /**
+     * Muestra el diálogo modal para gestionar respaldos.
+     *
+     * @param frame Ventana principal de la aplicación.
+     * @return Instancia del diálogo modal.
+     */
+    public JDialog showDialog(JFrame frame) {
+        if (dialog == null) {
+            dialog = new JDialog(frame, "Copias de Seguridad", true);
+            dialog.add(backupPanel);
+            dialog.setSize(430, 460);
+        }
+        return dialog;
     }
 
     /**
@@ -298,11 +268,12 @@ public class BackupService {
                 connection.setAutoCommit(true);
                 stmt.execute("VACUUM INTO '" + fileName + "';");
                 connection.setAutoCommit(false);
+                System.out.println("Respaldo completado.");
             } catch (Exception e) {
-                logger.error("Error while backup", e);
+                e.printStackTrace();
                 JOptionPane.showMessageDialog(
                         dialog,
-                        "Error al realizar copia de seguridad.",
+                        "Ha ocurrido un error inesperado.",
                         "Error",
                         JOptionPane.ERROR_MESSAGE
                 );
@@ -318,7 +289,7 @@ public class BackupService {
     public void restartBackup(String fileName) {
         session.doWork(connection -> {
             try (Statement stmt = connection.createStatement()) {
-                // Habilita el autocommit para ejecutar los comandos
+// Habilita el autocommit para ejecutar los comandos
                 connection.setAutoCommit(true);
 
                 // Elimina los datos actuales de las tablas
@@ -342,12 +313,14 @@ public class BackupService {
 
                 // Restaurar el autocommit a su estado inicial
                 connection.setAutoCommit(false);
+
+                System.out.println("Restauración completada.");
             } catch (Exception e) {
-                logger.error("Error al realizar copia de seguridad.", e);
                 // Manejo de errores durante el proceso de respaldo
+                e.printStackTrace();
                 JOptionPane.showMessageDialog(
                         dialog,
-                        "Error al restablecer los datos",
+                        "Ha ocurrido un error inesperado.",
                         "Error",
                         JOptionPane.ERROR_MESSAGE
                 );
@@ -378,7 +351,7 @@ public class BackupService {
      * Modelo de tabla que muestra el nombre y fecha de creacion de los backup
      */
     static class BackupTableModel extends AbstractTableModel {
-        private final String[] titles = {"Nombre", "Fecha"};
+        private String[] titles = {"Nombre", "Fecha"};
         private File[] files;
 
         public BackupTableModel(File[] files) {
@@ -430,7 +403,7 @@ public class BackupService {
                                     .atZone(ZoneId.systemDefault())
                                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
                         } catch (IOException e) {
-                            logger.error("Error al obtener el fichero de datos.", e);
+                            System.err.printf("Error leyendo atributos de %s: %s%n", file.getName(), e.getMessage());
                             JOptionPane.showMessageDialog(
                                     null,
                                     "Ha ocurrido un error inesperado.",

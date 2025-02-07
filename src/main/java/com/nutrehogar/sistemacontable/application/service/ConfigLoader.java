@@ -1,8 +1,6 @@
 package com.nutrehogar.sistemacontable.application.service;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,8 +17,8 @@ import java.util.Properties;
  *
  * @author Calcifer1331
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigLoader {
+
     public static final String RESOURCE_PATH = "config.properties";
     public static final String RESOURCE_RELATIVE_PATH = "src/main/resources/config.properties";
     /**
@@ -38,13 +36,20 @@ public class ConfigLoader {
     private static Properties config = null;
 
     static {
-        setDefaultValues();
-        loadProperties();
-        createDirectory(getAbsoluteProgramPath());
-        createDirectory(getBackupPath());
-        createDirectory(getLogsPath());
+        initialize();
     }
 
+    private ConfigLoader() {
+    }
+
+    /**
+     * Inicializa las configuraciones cargando propiedades y creando directorios necesarios.
+     */
+    public static void initialize() {
+        setDefaultValues();
+        loadProperties();
+        createDirectories();
+    }
 
     public static void setDefaultValues() {
         for (Property property : Property.values()) {
@@ -61,11 +66,11 @@ public class ConfigLoader {
             if (input != null) {
                 properties.load(input);
             } else {
-                saveProperties();
+                System.out.println("No se encontró el archivo de configuración. Usando valores predeterminados.");
             }
         } catch (IOException e) {
             System.err.println("Error al cargar el archivo de configuración. Usando valores predeterminados.");
-            saveProperties();
+            e.printStackTrace();
         }
     }
 
@@ -75,11 +80,26 @@ public class ConfigLoader {
     private static void saveProperties() {
         try (OutputStream output = new FileOutputStream(RESOURCE_RELATIVE_PATH)) {
             properties.store(output, null);
+            System.out.println("Configuración guardada correctamente.");
         } catch (IOException e) {
             System.err.println("Error al guardar el archivo de configuración.");
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Crea los directorios necesarios definidos en las propiedades.
+     */
+    private static void createDirectories() {
+        String programPath = properties.getProperty(Property.PROGRAM_PATH.key);
+        String userHome = System.getProperty("user.home");
+
+        String programPathInUserHome = userHome + File.separator + programPath;
+        String backupPath = programPathInUserHome + File.separator + properties.getProperty(Property.DB_BACKUP_PATH.key);
+
+        createDirectory(programPathInUserHome);
+        createDirectory(backupPath);
+    }
 
     /**
      * Crea un directorio en la ruta especificada si no existe.
@@ -90,7 +110,7 @@ public class ConfigLoader {
         File dir = new File(path);
         if (!dir.exists()) {
             if (dir.mkdirs()) {
-                System.out.println("Directorias guardada con exito: "+path+".");
+                System.out.println("Directorio creado: " + dir.getAbsolutePath());
             }
         }
     }
@@ -147,7 +167,7 @@ public class ConfigLoader {
      * @return Ruta de la base de datos.
      */
     public static @NotNull String getDbPath() {
-        return getAbsoluteProgramPath() + File.separator + properties.getProperty(Property.DB_NAME.key);
+        return System.getProperty("user.home") + File.separator + properties.getProperty(Property.PROGRAM_PATH.key) + File.separator + properties.getProperty(Property.DB_NAME.key);
     }
 
     /**
@@ -156,11 +176,7 @@ public class ConfigLoader {
      * @return Ruta de los respaldos.
      */
     public static @NotNull String getBackupPath() {
-        return getAbsoluteProgramPath() + File.separator + properties.getProperty(Property.DB_BACKUP_PATH.key);
-    }
-
-    public static @NotNull String getLogsPath() {
-        return getAbsoluteProgramPath() + File.separator + "logs";
+        return System.getProperty("user.home") + File.separator + properties.getProperty(Property.PROGRAM_PATH.key) + File.separator + properties.getProperty(Property.DB_BACKUP_PATH.key);
     }
 
     /**
@@ -169,7 +185,7 @@ public class ConfigLoader {
     @Getter
     public enum Property {
         PROGRAM_PATH("program.path", "SistemaContable", "Dirección del programa"),
-        DB_NAME("db.name", "sistemacontable.sqlite", "Nombre de Base de Datos"),
+        DB_NAME("db.name", "srccontabilidad.db", "Nombre de Base de Datos"),
         DB_BACKUP_PATH("db.backup", "backup", "Carpeta de las Copias de Seguridad de la Base de Datos"),
         DB_PATH("db.path", System.getProperty("user.home") + File.separator + "db", "Dirección de la Base de Datos");
 

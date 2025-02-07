@@ -14,25 +14,6 @@ transacciones contables, incluyendo la generación de reportes de libro diario m
 <role>Data Engineer</role>
 ````
 
-```java
-SwingWorker<Void, Void> worker = new SwingWorker<>() {
-
-    @Override
-    protected Void doInBackground() {
-        libroDiario = LibroDiarioController.getInstance().getView();
-        balanceComprobacion = BalanceComController.getInstance().getView();
-        mayorGeneral = MayorGenController.getInstance().getView();
-        listaCuenta = new CuentasPestana();
-        listaSubtipoCuenta = new SubtiposCuentaPestana();
-        backupService = BackupService.getInstance();
-        return null;
-    }
-};
-        worker.
-
-execute();
-```
-
 ## Características
 
 - **Registro de Transacciones**: Permite registrar transacciones contables como ingresos, egresos y adjuntos.

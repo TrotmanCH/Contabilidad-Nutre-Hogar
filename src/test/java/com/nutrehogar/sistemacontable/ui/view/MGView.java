@@ -13,10 +13,10 @@ public class MGView extends javax.swing.JFrame {
 
     public MGView() {
         initComponents();
-//        var pane = MayorGenController.getInstance().getView();
+        var pane = MayorGenController.getInstance().getView();
         conteiner.removeAll();
         conteiner.setLayout(new BorderLayout());  // Añade esta línea para restablecer el diseño del Content
-//        conteiner.add(pane, BorderLayout.CENTER);
+        conteiner.add(pane, BorderLayout.CENTER);
         conteiner.revalidate();
         conteiner.repaint();
     }

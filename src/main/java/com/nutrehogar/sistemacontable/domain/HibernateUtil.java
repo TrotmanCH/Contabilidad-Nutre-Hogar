@@ -1,15 +1,10 @@
 package com.nutrehogar.sistemacontable.domain;
 
-import com.nutrehogar.sistemacontable.application.service.ConfigLoader;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.swing.*;
 
 /**
  * HibernateUtil es una clase de utilidad que gestiona la configuración de Hibernate
@@ -24,8 +19,6 @@ import javax.swing.*;
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class HibernateUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
-
     @Getter
     private static final SessionFactory sessionFactory = buildSessionFactory(); // Instancia de SessionFactory
     private static Session session = null; // Instancia única de Session
@@ -37,26 +30,7 @@ public class HibernateUtil {
      * @throws ExceptionInInitializerError si la configuración falla
      */
     private static SessionFactory buildSessionFactory() {
-        logger.info("Building Hibernate SessionFactory");
-
-        try {
-            // Cargar la configuración de hibernate.cfg.xml
-            Configuration configuration = new Configuration().configure();
-
-            configuration.setProperty("hibernate.connection.url", "jdbc:sqlite:"+ConfigLoader.getDbPath());
-
-            return configuration.buildSessionFactory();
-        } catch (Exception e) {
-            logger.error("Error building SessionFactory", e);
-
-            JOptionPane.showMessageDialog(null,
-                    "Error al iniciar la sesión de Hibernate: " + e.getMessage(),
-                    "Error de Configuración",
-                    JOptionPane.ERROR_MESSAGE);
-
-            System.exit(1);
-            return null;
-        }
+            return new Configuration().configure().buildSessionFactory();
     }
 
     /**
@@ -68,7 +42,6 @@ public class HibernateUtil {
     public static synchronized Session getSession() {
         if (session == null || !session.isOpen()) {
             session = sessionFactory.openSession(); // Crea una nueva sesión si es necesario
-            logger.info("Open session");
         }
         return session; // Devuelve la sesión activa
     }
@@ -80,11 +53,10 @@ public class HibernateUtil {
      */
     public static synchronized void shutdown() {
         if (session != null) {
-            session.close();
+            session.close(); // Cierra la sesión si está activa
         }
         if (sessionFactory != null) {
             sessionFactory.close();
         }
-        logger.info("Session closed");
     }
 }

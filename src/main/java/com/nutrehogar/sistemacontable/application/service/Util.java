@@ -1,25 +1,16 @@
 package com.nutrehogar.sistemacontable.application.service;
 
-import com.nutrehogar.sistemacontable.application.dto.BalanceComDTO;
-import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinnerModel;
-import com.nutrehogar.sistemacontable.ui.controller.TipoCuenta;
-import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
  * Clase de utilidad del proyecto, Contiene metodos que pueden ser utilizados en el proyecto,
@@ -44,20 +35,17 @@ import java.util.List;
  * @see DecimalFormat
  */
 public class Util {
-    public static LocalDate CURRENT_DATE = LocalDate.now();
-
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
-    // Formato estático para números decimales
-    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
+    public static LocalDate currentDate = LocalDate.now();
 
     /**
-     * Formatea un {@link BigDecimal} a dos decimales con redondeo hacia el valor más cercano.
+     * Formato por defecto de un {@link BigDecimal}
      *
-     * @param value número a formatear
-     * @return el número redondeado a dos decimales como cadena
+     * @param value numero a formatear
+     * @return el número redondeado a dos decimales, a la alsa
      */
     public static @NotNull String formatBigDecimal(@NotNull BigDecimal value) {
-        return DECIMAL_FORMAT.format(value.setScale(2, RoundingMode.HALF_UP));
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+        return decimalFormat.format(value.setScale(2, RoundingMode.HALF_UP));
     }
 
     /**
@@ -67,17 +55,17 @@ public class Util {
      */
     @Contract(" -> new")
     public static @NotNull DateTimeFormatter getDateFormat() {
-        return DATE_TIME_FORMATTER;
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
     }
 
     public static void restarDateToSpinners(@NotNull LocalDateSpinnerModel star, @NotNull LocalDateSpinnerModel end) {
-        star.setValue(LocalDate.of(CURRENT_DATE.getYear(), 1, 1));
-        end.setValue(LocalDate.of(CURRENT_DATE.getYear(), 12, 31));
+        star.setValue(LocalDate.of(currentDate.getYear(), 1, 1));
+        end.setValue(LocalDate.of(currentDate.getYear(), 12, 31));
     }
 
     public static void restarDateToSpinners(@NotNull LocalDateSpinner star, @NotNull LocalDateSpinner end) {
-        star.setValue(LocalDate.of(CURRENT_DATE.getYear(), 1, 1));
-        end.setValue(LocalDate.of(CURRENT_DATE.getYear(), 12, 31));
+        star.setValue(LocalDate.of(currentDate.getYear(), 1, 1));
+        end.setValue(LocalDate.of(currentDate.getYear(), 12, 31));
     }
 
     /**
@@ -91,44 +79,15 @@ public class Util {
      *
      * @see DefaultTableCellRenderer
      */
-
-    private static class DecimalRenderer extends DefaultTableCellRenderer {
+    public static class BigDecimalRenderer extends DefaultTableCellRenderer {
         @Override
         protected void setValue(Object value) {
             if (value instanceof BigDecimal bigDecimal) {
-                setText(!bigDecimal.equals(BigDecimal.ZERO) ? formatBigDecimal(bigDecimal) : ""); // Formato con 2 decimales
-            } else if (value instanceof Double doubleValue) {
-                setText(doubleValue != 0.0 ? DECIMAL_FORMAT.format(doubleValue) : ""); // Formato para Double
+                setText(!bigDecimal.equals(BigDecimal.ZERO) ? Util.formatBigDecimal(bigDecimal) : ""); // Formato con 2 decimales
             } else {
                 super.setValue(value);
             }
         }
     }
-    @Getter
-    private static final DecimalRenderer DECIMAL_RENDERER = new DecimalRenderer();
 
-    /**
-     * Configura el renderer por defecto para una o más tablas.
-     *
-     * @param tables Tablas a las que se aplicará el renderer
-     */
-    public static void setTableRenderer(JTable @NotNull ... tables) {
-        for (JTable table : tables) {
-            table.setDefaultRenderer(BigDecimal.class, DECIMAL_RENDERER);
-            table.setDefaultRenderer(Double.class, DECIMAL_RENDERER);
-            table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        }
-    }
-
-    @Contract(value = "!null -> param1", pure = true)
-    public static <E> @NotNull List<E> ifNull(List<E> e) {
-        if (e == null) return List.of();
-        return e;
-    }
-
-    public record Triple<A, B, C>(A first, B second, C third) {
-    }
-
-    public record Pair<A, B>(A first, B second) {
-    }
 }

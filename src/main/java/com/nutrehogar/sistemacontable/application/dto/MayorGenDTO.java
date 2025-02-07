@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MayorGenDTO {
-    Integer asientoId;
     LocalDate asientoFecha;
     String asientoNombre;
     String tipoDocumentoNombre;
@@ -24,9 +23,8 @@ public class MayorGenDTO {
     @Setter
     BigDecimal saldo;
 
-    public MayorGenDTO(Integer asientoId, LocalDate fecha, String asientoNombre, String tipoDocumentoNombre,
+    public MayorGenDTO(LocalDate fecha, String asientoNombre, String tipoDocumentoNombre,
                        String codigoCuenta, Integer idTipoCuenta, String referencia, BigDecimal debe, BigDecimal haber) {
-        this.asientoId = asientoId;
         this.asientoFecha = fecha;
         this.asientoNombre = asientoNombre;
         this.tipoDocumentoNombre = tipoDocumentoNombre;
@@ -38,8 +36,7 @@ public class MayorGenDTO {
         this.saldo = BigDecimal.ZERO;
     }
 
-    public MayorGenDTO(String referencia, BigDecimal haber, BigDecimal debe, BigDecimal saldo) {
-        this.registroReferencia = referencia;
+    public MayorGenDTO(BigDecimal haber, BigDecimal debe, BigDecimal saldo) {
         this.saldo = saldo;
         this.registroDebe = debe;
         this.registroHaber = haber;
