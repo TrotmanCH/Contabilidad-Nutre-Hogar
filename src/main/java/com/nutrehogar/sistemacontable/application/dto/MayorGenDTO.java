@@ -38,8 +38,7 @@ public class MayorGenDTO {
         this.saldo = BigDecimal.ZERO;
     }
 
-    public MayorGenDTO(String referencia, BigDecimal haber, BigDecimal debe, BigDecimal saldo) {
-        this.registroReferencia = referencia;
+    public MayorGenDTO(BigDecimal haber, BigDecimal debe, BigDecimal saldo) {
         this.saldo = saldo;
         this.registroDebe = debe;
         this.registroHaber = haber;

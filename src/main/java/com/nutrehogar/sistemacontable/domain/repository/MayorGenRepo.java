@@ -25,6 +25,7 @@ public class MayorGenRepo {
 
     public static @NotNull List<MayorGenDTO> find(Field orderField, OrderDirection orderDirection, Filter... filters) {
         List<MayorGenDTO> mayorGeneralDTOS = List.of();
+        System.out.println(filters);
         if (filters == null || filters.length == 0) return mayorGeneralDTOS;
         try {
             session.beginTransaction();

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
+ * @author Calcifer1331
  * @param asientoFecha
  * @param tipoDocumentoNombre
  * @param cuentaId
@@ -11,10 +12,8 @@ import java.time.LocalDate;
  * @param registroReferencia
  * @param registroDebe
  * @param registroHaber
- * @author Calcifer1331
  */
-public record LibroDiarioDTO(Integer asientoId,
-                             LocalDate asientoFecha,
+public record LibroDiarioDTO(LocalDate asientoFecha,
                              String tipoDocumentoNombre,
                              String cuentaId,
                              String registroComprobante,

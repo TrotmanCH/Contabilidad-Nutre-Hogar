@@ -6,12 +6,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
+
 public class LibroDiarioView extends javax.swing.JPanel {
     public LibroDiarioView() {
         initComponents();
         
         TableStyle.setStyle(tabRegistros);
-        ButtonStyle.setStyle(butFiltrar, butEdit);
+        ButtonStyle.setStyle(butFiltrar);
     }
     
     @SuppressWarnings("unchecked")
@@ -25,7 +26,6 @@ public class LibroDiarioView extends javax.swing.JPanel {
         labFin = new javax.swing.JLabel();
         spiFin = new com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner();
         butFiltrar = new javax.swing.JButton();
-        butEdit = new javax.swing.JButton();
         scrpanRegistros = new javax.swing.JScrollPane();
         tabRegistros = new javax.swing.JTable();
 
@@ -50,11 +50,6 @@ public class LibroDiarioView extends javax.swing.JPanel {
         butFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/filtrar.png"))); // NOI18N
         butFiltrar.setText("Filtrar");
 
-        butEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        butEdit.setForeground(new java.awt.Color(255, 255, 255));
-        butEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/editar.png"))); // NOI18N
-        butEdit.setText("Editar");
-
         javax.swing.GroupLayout panFiltrosLayout = new javax.swing.GroupLayout(panFiltros);
         panFiltros.setLayout(panFiltrosLayout);
         panFiltrosLayout.setHorizontalGroup(
@@ -70,9 +65,7 @@ public class LibroDiarioView extends javax.swing.JPanel {
                 .addComponent(spiFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(butFiltrar)
-                .addGap(18, 18, 18)
-                .addComponent(butEdit)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
         panFiltrosLayout.setVerticalGroup(
             panFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,8 +76,7 @@ public class LibroDiarioView extends javax.swing.JPanel {
                     .addComponent(spiInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labFin)
                     .addComponent(spiFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(butFiltrar)
-                    .addComponent(butEdit))
+                    .addComponent(butFiltrar))
                 .addGap(12, 12, 12))
         );
 
@@ -106,15 +98,17 @@ public class LibroDiarioView extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(scrpanRegistros)
+                .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labLibroDiario)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrpanRegistros))
-                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +124,6 @@ public class LibroDiarioView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton butEdit;
     private javax.swing.JButton butFiltrar;
     private javax.swing.JLabel labFin;
     private javax.swing.JLabel labInicio;

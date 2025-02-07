@@ -30,14 +30,6 @@ public class SubTipoCuentaRepo {
     public static SubTipoCuenta findById(String id) {
         return session.find(SubTipoCuenta.class, id);
     }
-    public static SubTipoCuenta findByNombre(String nombre) {
-        return session.createQuery(
-                        "from SubTipoCuenta st where st.nombre = :nombre",
-                        SubTipoCuenta.class
-                )
-                .setParameter("nombre", nombre)
-                .uniqueResult();
-    }
 
     public static void save(SubTipoCuenta subTipoCuenta) {
         try {

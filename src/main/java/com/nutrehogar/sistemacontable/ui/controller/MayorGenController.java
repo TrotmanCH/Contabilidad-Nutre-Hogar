@@ -1,8 +1,6 @@
 package com.nutrehogar.sistemacontable.ui.controller;
 
-import com.nutrehogar.sistemacontable.application.dto.CuentaDTO;
 import com.nutrehogar.sistemacontable.application.dto.MayorGenDTO;
-import com.nutrehogar.sistemacontable.application.service.Util;
 import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.MayorGenRepo;
@@ -26,7 +24,6 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.Vector;
 import java.util.function.Consumer;
 
@@ -36,6 +33,7 @@ import static com.nutrehogar.sistemacontable.application.service.Util.restarDate
 
 public class MayorGenController {
     static MayorGenController instance;
+    SistemaContable main;
     final MayorGenView view;
     List<MayorGenDTO> data;
     MayorGenDTO selected;
@@ -44,9 +42,9 @@ public class MayorGenController {
     final JButton editButton;
     final LocalDateSpinnerModel starSpinnerModel;
     final LocalDateSpinnerModel endSpinnerModel;
-    SubTipoCuentaComboBoxModel subTipoCuentaComboModel;
-    TipoCuentaComboBoxModel tipoCuentaComboModel;
-    CuentaComboBoxModel cuentaComboModel;
+    final SubTipoCuentaComboBoxModel subTipoCuentaComboModel;
+    final TipoCuentaComboBoxModel tipoCuentaComboModel;
+    final CuentaComboBoxModel cuentaComboModel;
     /**
      * Última cuenta seleccionada, se usará para la consulta
      */
@@ -65,7 +63,8 @@ public class MayorGenController {
         initComponents();
     }
 
-    public MayorGenView getView(Consumer<Integer> action) {
+    public MayorGenView getView(SistemaContable frame, Consumer<Integer> action) {
+        this.main=frame;
         editButton.addActionListener(e -> action.accept((selected.getAsientoId())));
         return this.view;
     }
@@ -79,7 +78,7 @@ public class MayorGenController {
 
     private void initComponents() {
         editButton.setEnabled(false);
-        Util.setTableRenderer(table);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         view.getTabRegistros().setModel(tableModel);
         view.getComboxTipoCuenta().setModel(tipoCuentaComboModel);
         view.getComboxSubtipoCuenta().setModel(subTipoCuentaComboModel);
@@ -90,46 +89,11 @@ public class MayorGenController {
 
         loadSubTipoCuentas();
         loadCuenta();
-        cuentaId = cuentaComboModel.getElementAt(0).getId();
+        cuentaId=cuentaComboModel.getElementAt(0).getId();
         loadData();
 
         defineModelListener();
     }
-
-    public void setCuentaTo(CuentaDTO cuentaDTO) {
-        Objects.requireNonNull(cuentaDTO);
-        TipoCuenta tipoCuentaConsumer;
-        com.nutrehogar.sistemacontable.domain.model.TipoCuenta cuentaTipo;
-        try {
-            tipoCuentaConsumer = TipoCuenta.valueOf(cuentaDTO.getTipoCuenta().toUpperCase());
-            cuentaTipo = TipoCuentaRepo.findById(tipoCuentaConsumer.getId());
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return;
-        }
-        tipoCuentaComboModel.setSelectedItem(tipoCuentaConsumer);
-        SubTipoCuenta subTipoCuentaConsumer = cuentaTipo.getSubTipoCuenta().getFirst();
-        for (var st : cuentaTipo.getSubTipoCuenta()) {
-            if (st.getNombre().equals(cuentaDTO.getSubTipoCuenta())) {
-                subTipoCuentaConsumer = st;
-                break;
-            }
-        }
-        Objects.requireNonNull(subTipoCuentaConsumer);
-        subTipoCuentaComboModel.setSelectedItem(subTipoCuentaConsumer);
-        Cuenta cuentaConsumer = subTipoCuentaConsumer.getCuentas().getFirst();
-        for (var cu : subTipoCuentaConsumer.getCuentas()) {
-            if (cu.getNombre().equals(cuentaDTO.getCuenta())) {
-                cuentaConsumer = cu;
-                break;
-            }
-        }
-        Objects.requireNonNull(cuentaConsumer);
-        cuentaComboModel.setSelectedItem(cuentaConsumer);
-    }
-
-    ;
-
 
     /**
      * Optiene el {@link TipoCuenta} que está seleccionado en el {@code tipoCuentaComboModel},
@@ -164,13 +128,17 @@ public class MayorGenController {
      * Además, avisa a la tabla, para que renderice los nuevos datos
      */
     public void loadData() {
-        this.data = MayorGenRepo.find(
+        List<MayorGenDTO> data = MayorGenRepo.find(
                 null,
                 null,
                 new MayorGenRepo.Filter.ByFechaRange(starSpinnerModel.getValue(), endSpinnerModel.getValue()),
                 new MayorGenRepo.Filter.ByCuentaId(cuentaId));
-        SwingUtilities.invokeLater(() -> tableModel.setData(this.data));
+        SwingUtilities.invokeLater(() -> {
+            this.data=data;
+            tableModel.setData(data);
+        });
     }
+
 
 
     /**
@@ -236,10 +204,10 @@ public class MayorGenController {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-//                press(e);
+                press(e);
             }
 
-            private void press(@NotNull MouseEvent e) {
+            private void press(MouseEvent e) {
                 int row = table.rowAtPoint(e.getPoint());
                 if (row != -1) {
                     int selectedRow = table.getSelectedRow();
@@ -317,6 +285,7 @@ public class MayorGenController {
      * @see
      */
     public static class MayorGenTableModel extends AbstractTableModel {
+        private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
         /**
          * lista de datos a mostrar en la base de datos
          */
@@ -349,8 +318,8 @@ public class MayorGenController {
             sumHaber = BigDecimal.ZERO;
             for (MayorGenDTO dto : data) {
                 saldo = TipoCuenta.fromId(dto.getTipoCuentaId()).getSaldo(saldo, dto.getRegistroHaber(), dto.getRegistroDebe());
-                sumDebe = sumDebe.add(dto.getRegistroDebe(), MathContext.DECIMAL128).setScale(2, RoundingMode.HALF_UP);
-                sumHaber = sumHaber.add(dto.getRegistroHaber(), MathContext.DECIMAL128).setScale(2, RoundingMode.HALF_UP);
+                sumDebe = sumDebe.add(dto.getRegistroDebe(), MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
+                sumHaber = sumHaber.add(dto.getRegistroHaber(), MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
                 dto.setSaldo(saldo);
             }
             return data;
@@ -389,7 +358,7 @@ public class MayorGenController {
                 };
             } else {
                 return switch (columnIndex) {
-                    case 4 -> "TOTAL";
+                    case 4 -> "TOTAL:";
                     case 5 -> sumDebe;
                     case 6 -> sumHaber;
                     case 7 -> saldo;

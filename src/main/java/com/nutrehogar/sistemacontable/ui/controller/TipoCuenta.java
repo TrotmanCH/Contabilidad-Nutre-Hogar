@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -72,13 +71,11 @@ public enum TipoCuenta {
      */
     final int id;
 
-    public static @NotNull TipoCuenta fromId(int id) {
-        for (TipoCuenta tipo : values()) {
-            if (tipo.getId() == id) {
-                return tipo;
-            }
-        }
-        return ACTIVO;
+    public static TipoCuenta fromId(int id) {
+        return Arrays.stream(TipoCuenta.values())
+                .filter(tipoCuenta -> tipoCuenta.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Invalid TipoCuenta id: " + id));
     }
 
     /**

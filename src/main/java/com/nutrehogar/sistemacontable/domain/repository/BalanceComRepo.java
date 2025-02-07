@@ -7,7 +7,6 @@ import com.nutrehogar.sistemacontable.domain.model.*;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 
@@ -43,7 +42,6 @@ public class BalanceComRepo {
             Join<Registro, TipoDocumento> tipoDocumento = registros.join("tipoDocumento");
 
             // Alias
-            Path<Integer> asientoIdPath = asiento.get("id");
             Path<BigDecimal> debePath = registros.get("debe");
             Path<BigDecimal> haberPath = registros.get("haber");
             Path<LocalDate> fechaPath = asiento.get("fecha");
@@ -56,7 +54,6 @@ public class BalanceComRepo {
             // Selección de campos para el DTO
             cq.select(cb.construct(
                     BalanceComDTO.class,
-                    asientoIdPath,
                     fechaPath,
                     tipoDocumentoNombrePath,
                     codigoCuentaPath,
@@ -123,7 +120,6 @@ public class BalanceComRepo {
      * Enum que define los campos por los cuales se puede ordenar el
      * Balance de Comprobación.
      */
-    @Getter
     public enum Field {
         ASIENTO_FECHA("Fecha"),
         TIPO_DOCUMENTO_NOMBRE("Tipo Documento"),
@@ -135,12 +131,6 @@ public class BalanceComRepo {
         SALDO("Saldo");
 
 
-        /**
-         * -- GETTER --
-         *  Obtiene el nombre del campo correspondiente en la entidad.
-         *
-         * @return Nombre del campo.
-         */
         private final String fieldName;
 
         /**
@@ -152,6 +142,14 @@ public class BalanceComRepo {
             this.fieldName = fieldName;
         }
 
+        /**
+         * Obtiene el nombre del campo correspondiente en la entidad.
+         *
+         * @return Nombre del campo.
+         */
+        public String getFieldName() {
+            return fieldName;
+        }
     }
 
     /**
