@@ -32,7 +32,7 @@ public class AsientoRepo {
     public static int getSize(){
         int size = 0;
         try {
-            size = session.createQuery("select count(*) from Asiento", Long.class).uniqueResult().intValue();
+            size = session.createQuery("select count(id) from Asiento", Long.class).uniqueResult().intValue();
         } catch (Exception e) {
             e.printStackTrace();
             size=-1;
