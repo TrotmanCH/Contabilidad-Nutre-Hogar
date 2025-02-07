@@ -2,8 +2,7 @@ package com.nutrehogar.sistemacontable.ui.JComponents;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.Font;
-import java.awt.FontFormatException;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 

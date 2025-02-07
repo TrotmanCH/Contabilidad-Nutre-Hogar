@@ -2,16 +2,10 @@ package com.nutrehogar.sistemacontable.domain.core;
 
 import com.nutrehogar.sistemacontable.application.repository.crud.CRUDRepository;
 import com.nutrehogar.sistemacontable.exception.RepositoryException;
-import jakarta.persistence.EntityExistsException;
-import jakarta.persistence.OptimisticLockException;
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.ObjectDeletedException;
 import org.hibernate.Session;
-import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 public class CRUDRepositoryImpl<T, ID> extends TransactionManager implements CRUDRepository<T, ID> {
 

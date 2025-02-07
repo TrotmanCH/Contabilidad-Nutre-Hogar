@@ -1,6 +1,5 @@
 package com.nutrehogar.sistemacontable.application.config;
 
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

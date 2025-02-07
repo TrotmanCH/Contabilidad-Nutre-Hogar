@@ -1,15 +1,12 @@
 package com.nutrehogar.sistemacontable.ui.components;
 
-import com.nutrehogar.sistemacontable.application.config.Constants;
 import com.nutrehogar.sistemacontable.domain.AccountType;
 import com.nutrehogar.sistemacontable.domain.DocumentType;
 import com.nutrehogar.sistemacontable.domain.model.Account;
 import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 
@@ -25,22 +22,13 @@ import java.text.DecimalFormat;
  * @see DefaultTableCellRenderer
  */
 public class CustomTableCellRenderer extends DefaultTableCellRenderer {
-    /**
-     * Formatea un {@link BigDecimal} a dos decimales con redondeo hacia el valor más cercano.
-     *
-     * @param value número a formatear
-     * @return el número redondeado a dos decimales como cadena
-     */
-    public static @NotNull String formatBigDecimal(@NotNull BigDecimal value) {
-        return Constants.DECIMAL_FORMAT.format(value.setScale(2, RoundingMode.HALF_UP));
-    }
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
 
     @Override
     protected void setValue(Object value) {
         setText(switch (value) {
-            case BigDecimal bigDecimal ->
-                    (bigDecimal.equals(BigDecimal.ZERO) || bigDecimal.equals(Constants.ZERO) ? " " : formatBigDecimal(bigDecimal));
-            case Double doubleValue -> (doubleValue != 0.0 ? Constants.DECIMAL_FORMAT.format(doubleValue) : " ");
+            case BigDecimal bigDecimal -> DECIMAL_FORMAT.format(bigDecimal);
+            case Double doubleValue -> DECIMAL_FORMAT.format(doubleValue);
             case AccountType accountType -> AccountType.getCellRenderer(accountType);
             case AccountSubtype tipoCuenta ->
                     tipoCuenta.getAccountType().getId() + "." + tipoCuenta.getCanonicalId() + " " + tipoCuenta.getName();

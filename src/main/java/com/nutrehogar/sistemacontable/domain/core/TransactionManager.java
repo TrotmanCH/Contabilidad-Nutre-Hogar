@@ -14,7 +14,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
-import java.sql.SQLException;
 import java.util.function.Supplier;
 
 @Slf4j

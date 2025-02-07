@@ -44,7 +44,7 @@ public class TrialBalanceController extends BusinessController<TrialBalanceDTO> 
             var creditSum = BigDecimal.ZERO;
 
             for (TrialBalanceDTO dto : listaBalances) {
-                balance = dto.getAccountType().getSaldo(balance, dto.getLedgerRecordCredit(), dto.getLedgerRecordDebit());
+                balance = dto.getAccountType().getBalance(balance, dto.getLedgerRecordCredit(), dto.getLedgerRecordDebit());
                 debitSum = debitSum.add(dto.getLedgerRecordDebit(), MathContext.DECIMAL128).setScale(2, RoundingMode.HALF_UP);
                 creditSum = creditSum.add(dto.getLedgerRecordCredit(), MathContext.DECIMAL128).setScale(2, RoundingMode.HALF_UP);
                 dto.setBalance(balance);

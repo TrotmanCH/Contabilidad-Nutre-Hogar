@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
-
 import java.util.function.Consumer;
 
 import static com.nutrehogar.sistemacontable.application.config.Constants.END_PERIOD;

@@ -1,13 +1,10 @@
 package com.nutrehogar.sistemacontable.domain.model;
 
-import com.nutrehogar.sistemacontable.application.dto.Pair;
-import com.nutrehogar.sistemacontable.application.dto.Triple;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

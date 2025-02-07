@@ -2,6 +2,8 @@ package com.nutrehogar.sistemacontable.application.controller.crud;
 
 import com.nutrehogar.sistemacontable.application.config.Constants;
 import com.nutrehogar.sistemacontable.application.controller.SimpleController;
+import com.nutrehogar.sistemacontable.application.controller.service.ReportController;
+import com.nutrehogar.sistemacontable.application.dto.JournalEntryDTO;
 import com.nutrehogar.sistemacontable.application.dto.LedgerRecordDTO;
 import com.nutrehogar.sistemacontable.application.repository.crud.AccountRepository;
 import com.nutrehogar.sistemacontable.application.repository.crud.JournalEntryRepository;
@@ -17,6 +19,7 @@ import jakarta.persistence.EntityExistsException;
 import org.hibernate.ObjectDeletedException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -28,6 +31,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AccountingEntryFormController extends SimpleController<LedgerRecord> {
     private final JournalEntryRepository journalRepository;
@@ -38,7 +42,8 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
     private List<LedgerRecordDTO> tblDataList;
     private boolean isBeingAdded;
     private boolean isBeingEdited;
-    private BigDecimal CERO;
+    private BigDecimal ZERO;
+    private final ReportController reportController = new ReportController();
 
 
     public AccountingEntryFormController(LedgerRecordRepository repository, AccountingEntryFormView view, JournalEntryRepository journalRepository, AccountRepository accountRepository) {
@@ -55,7 +60,7 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
         cbxModelDocumentType = new CustomComboBoxModel<>(DocumentType.values());
         journalEntry = Optional.empty();
         tblDataList = new ArrayList<>();
-        CERO = Constants.ZERO;
+        ZERO = Constants.ZERO;
         getTxtEntryDocumentNumber().setEnabled(false);
         prepareBtnToAddEntry();
         prepareBtnToAddRecord();
@@ -89,9 +94,31 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
         getBtnSaveEntry().addActionListener(e -> saveEntry());
         getBtnDeleteEntry().addActionListener(e -> deleteEntry());
         getBtnUpdateEntry().addActionListener(e -> updateEntry());
-
+        getBtnGeneratePaymentVoucher().addActionListener(e -> {
+            reportController.generateReport(ReportController.ReportType.PAYMENT_VOUCHER, getJournalEntryDTO());
+        });
+        getBtnGenerateRegistrationForm().addActionListener(e -> {
+            reportController.generateReport(ReportController.ReportType.REGISTRATION_FORM, getJournalEntryDTO());
+        });
         ((AbstractDocument) getTxtRecordAmount().getDocument()).setDocumentFilter(new CustomDocumentFilter(CustomDocumentFilter.Type.DECIMAL));
         ((AbstractDocument) getTxtEntryDocumentNumber().getDocument()).setDocumentFilter(new CustomDocumentFilter(CustomDocumentFilter.Type.INTEGER));
+    }
+
+    private @Nullable JournalEntryDTO getJournalEntryDTO() {
+        AtomicReference<JournalEntryDTO> journalEntryDTO = new AtomicReference<>();
+        journalEntry.ifPresentOrElse(entry -> {
+            journalEntryDTO.set(new JournalEntryDTO(
+                    entry.getId(),
+                    entry.getCheckNumber(),
+                    entry.getDate(),
+                    entry.getName(),
+                    entry.getConcept(),
+                    "19,888.9",
+                    tblDataList));
+        }, () -> {
+
+        });
+        return journalEntryDTO.get();
     }
 
 
@@ -158,10 +185,10 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
         lr.setAccount(account.get());
         if (getRbtRecordCredit().isSelected()) {
             lr.setCredit(amount);
-            lr.setDebit(BigDecimal.ZERO);
+            lr.setDebit(ZERO);
         } else if (getRbtRecordDebit().isSelected()) {
             lr.setDebit(amount);
-            lr.setCredit(BigDecimal.ZERO);
+            lr.setCredit(ZERO);
         } else {
             showMessage("Debe seleccionar credito o debito.");
             return Optional.empty();
@@ -179,10 +206,11 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
             showMessage("La Entrada tiene que tener al menos dos registros.");
             return Optional.empty();
         }
-        if (!tblDataList.getLast().balance().equals(CERO)) {
+        if (tblDataList.getLast().getBalance().equals(ZERO)) {
             showMessage("El Saldo total debe estar balanceado(0).");
             return Optional.empty();
         }
+
         je.setName(name);
         je.setConcept(getTaEntryConcept().getText());
         je.setCheckNumber(getTxtEntryCheckNumber().getText());
@@ -236,10 +264,10 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
         getTxtRecordReference().setText(getSelected().getReference());
         cbxModelAccount.setSelectedItem(getSelected().getAccount());
 
-        if (getSelected().getCredit() != null && !getSelected().getCredit().equals(BigDecimal.ZERO)) {
+        if (getSelected().getCredit() != null && !getSelected().getCredit().equals(BigDecimal.valueOf(0, 2))) {
             getRbtRecordCredit().setSelected(true);
             getTxtRecordAmount().setText(getSelected().getCredit().toString());
-        } else if (getSelected().getDebit() != null && !getSelected().getDebit().equals(BigDecimal.ZERO)) {
+        } else if (getSelected().getDebit() != null && !getSelected().getDebit().equals(BigDecimal.valueOf(0, 2))) {
             getRbtRecordDebit().setSelected(true);
             getTxtRecordAmount().setText(getSelected().getDebit().toString());
         } else {
@@ -392,6 +420,8 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
         getBtnSaveEntry().setEnabled(false);
         getBtnDeleteEntry().setEnabled(false);
         getBtnUpdateEntry().setEnabled(false);
+        getBtnGeneratePaymentVoucher().setEnabled(false);
+        getBtnGenerateRegistrationForm().setEnabled(false);
         isBeingAdded = true;
         isBeingEdited = false;
     }
@@ -401,6 +431,8 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
         getBtnSaveEntry().setEnabled(false);
         getBtnDeleteEntry().setEnabled(true);
         getBtnUpdateEntry().setEnabled(false);
+        getBtnGeneratePaymentVoucher().setEnabled(true);
+        getBtnGenerateRegistrationForm().setEnabled(true);
         isBeingEdited = true;
         isBeingAdded = false;
     }
@@ -441,20 +473,19 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
             tblDataList.clear();
         }
         for (LedgerRecord record : getData()) {
-            balance = record.getAccount().getAccountSubtype().getAccountType().getSaldo(balance, record.getCredit(), record.getDebit());
+            balance = record.getAccount().getAccountSubtype().getAccountType().getBalance(balance, record.getCredit(), record.getDebit());
             debitSum = debitSum.add(record.getDebit(), MathContext.DECIMAL128).setScale(2, RoundingMode.HALF_UP);
             creditSum = creditSum.add(record.getCredit(), MathContext.DECIMAL128).setScale(2, RoundingMode.HALF_UP);
-            tblDataList.add(new LedgerRecordDTO(record.getDocumentType().getName(), record.getVoucher(), Account.getCellRenderer(record.getAccount().getId()), record.getReference(), record.getDebit(), record.getCredit(), balance));
+            tblDataList.add(new LedgerRecordDTO(record.getDocumentType().getName(), record.getVoucher(), Account.getCellRenderer(record.getAccount().getId()), record.getReference(), record.getDebit().toString(), record.getCredit().toString(), balance.toString()));
         }
-        tblDataList.add(new LedgerRecordDTO("", "", "", "Total", debitSum, creditSum, balance));
-        boolean isBalanced = !getData().isEmpty() && getData().size() >= 2 && balance.equals(CERO);
+        boolean isBalanced = !getData().isEmpty() && getData().size() >= 2 && balance.equals(ZERO);
         getBtnSaveEntry().setEnabled(isBalanced && isBeingAdded);
         getBtnUpdateEntry().setEnabled(isBalanced && isBeingEdited);
     }
 
     public class LedgerRecordTableModel extends AbstractTableModel {
 
-        private final String[] COLUMN_NAMES = {"Tipo de Documento", "Comprobante No.", "Codigo", "Referencia", "Debito", "Credito", "Saldo"};
+        private final String[] COLUMN_NAMES = {"Tipo de Documento", "Comprobante", "Referencia", "Código", "Debíto", "Crédito", "Saldo"};
 
         @Override
         public int getRowCount() {
@@ -475,13 +506,13 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
         public Object getValueAt(int rowIndex, int columnIndex) {
             LedgerRecordDTO record = tblDataList.get(rowIndex);
             return switch (columnIndex) {
-                case 0 -> record.documentType();
-                case 1 -> record.voucher();
-                case 2 -> record.accountId();
-                case 3 -> record.reference();
-                case 4 -> record.debit();
-                case 5 -> record.credit();
-                case 6 -> record.balance();
+                case 0 -> record.getDocumentType();
+                case 1 -> record.getVoucher();
+                case 2 -> record.getReference();
+                case 3 -> record.getAccountId();
+                case 4 -> record.getDebit();
+                case 5 -> record.getCredit();
+                case 6 -> record.getBalance();
                 default -> "que haces?";
             };
 
@@ -592,6 +623,14 @@ public class AccountingEntryFormController extends SimpleController<LedgerRecord
 
     public JButton getBtnSaveRecord() {
         return getView().getBtnSave();
+    }
+
+    public JButton getBtnGeneratePaymentVoucher() {
+        return getView().getBtnGeneratePaymentVoucher();
+    }
+
+    public JButton getBtnGenerateRegistrationForm() {
+        return getView().getBtnGenerateRegistrationForm();
     }
 
 }

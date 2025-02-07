@@ -4,14 +4,10 @@
  */
 package com.nutrehogar.sistemacontable.ui.JComponents;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
-import javax.swing.JPanel;
 
 public class PanelDegradado extends JPanel {
 

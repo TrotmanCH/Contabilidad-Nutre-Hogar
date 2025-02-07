@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Spinner que tiene como valor un {@link java.time.LocalDate}, para esto tiene un {@link LocalDateSpinnerModel}.
+ * Spinner que tiene como valor un {@link LocalDate}, para esto tiene un {@link LocalDateSpinnerModel}.
  *
  * @author Calcifer1331
  * @see LocalDateSpinnerModel
@@ -40,7 +40,7 @@ public class LocalDateSpinner extends JSpinner {
      * Le da la funcionalidad al espiner de aumentar o decrementar la fecha dependiendo de que seccion se la seleccionada
      */
     public final void configEditor() {
-        JSpinner.DefaultEditor editor = new JSpinner.DefaultEditor(this);
+        DefaultEditor editor = new DefaultEditor(this);
         this.setEditor(editor);
         editor.getTextField().addMouseListener(new MouseAdapter() {
             @Override
