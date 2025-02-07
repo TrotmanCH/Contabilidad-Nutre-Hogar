@@ -10,7 +10,8 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
@@ -51,7 +52,7 @@ public class SistemaContable extends javax.swing.JFrame {
 
     public SistemaContable() {
         initComponents();
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/nutrehogar_logo.png")));
+
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         panContenido.setLayout(new BorderLayout());
         formulario = new FormularioPestana();

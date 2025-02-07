@@ -45,8 +45,6 @@ import java.util.List;
  */
 public class Util {
     public static LocalDate CURRENT_DATE = LocalDate.now();
-
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
     // Formato estático para números decimales
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
 
@@ -67,7 +65,7 @@ public class Util {
      */
     @Contract(" -> new")
     public static @NotNull DateTimeFormatter getDateFormat() {
-        return DATE_TIME_FORMATTER;
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
     }
 
     public static void restarDateToSpinners(@NotNull LocalDateSpinnerModel star, @NotNull LocalDateSpinnerModel end) {

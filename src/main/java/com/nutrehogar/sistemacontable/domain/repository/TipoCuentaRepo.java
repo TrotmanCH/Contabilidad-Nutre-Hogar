@@ -6,15 +6,11 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TipoCuentaRepo {
-    private static final Logger logger = LoggerFactory.getLogger(TipoCuentaRepo.class);
     private static final Session session = HibernateUtil.getSession();
 
     public static List<TipoCuenta> findAll() {
@@ -25,7 +21,7 @@ public class TipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al consultar los tipos de cuenta", e);
+            e.printStackTrace();
         }
         return Transaccions;
     }
@@ -41,7 +37,6 @@ public class TipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al guardar tipo de cuenta", e);
         }
     }
 
@@ -52,7 +47,6 @@ public class TipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al guardar tipo de cuenta", e);
         }
     }
 
@@ -65,7 +59,7 @@ public class TipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al eliminar tipo de cuenta", e);
+            e.printStackTrace();
         }
     }
 
@@ -78,7 +72,7 @@ public class TipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al eliminar tipo de cuenta", e);
+            e.printStackTrace();
         }
     }
 
@@ -90,7 +84,7 @@ public class TipoCuentaRepo {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("Error al actualizar tipo de cuenta", e);
+            e.printStackTrace();
         }
     }
 }

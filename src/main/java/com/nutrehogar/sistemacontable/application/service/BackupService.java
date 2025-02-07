@@ -3,6 +3,8 @@ package com.nutrehogar.sistemacontable.application.service;
 import com.nutrehogar.sistemacontable.domain.HibernateUtil;
 import com.nutrehogar.sistemacontable.ui.services.BackupPanel;
 import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.Session;
 
@@ -23,10 +25,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static com.nutrehogar.sistemacontable.application.service.ConfigLoader.getBackupPath;
 import static com.nutrehogar.sistemacontable.application.service.Util.getDateFormat;
 
@@ -40,8 +38,6 @@ import static com.nutrehogar.sistemacontable.application.service.Util.getDateFor
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BackupService {
-
-    private static final Logger logger = LoggerFactory.getLogger(BackupService.class);
 
     /**
      * Instancia única de la clase, siguiendo el patrón Singleton.
@@ -171,7 +167,7 @@ public class BackupService {
                 LocalDateTime date2 = LocalDateTime.parse(o2.toString(), formatter);
                 return date1.compareTo(date2);
             } catch (Exception e) {
-                logger.error("Error parsing date", e);
+                e.printStackTrace();
                 return 0;
             }
         });
@@ -199,10 +195,8 @@ public class BackupService {
 
         restartBackup(selectedFile.getAbsolutePath());
 
-        logger.info("Restar copia finalizada");
-
         JOptionPane.showMessageDialog(dialog,"Para hacer efectivo los cambios se cerrara el programa.","Se cerrara el programa.", JOptionPane.INFORMATION_MESSAGE);
-        System.exit(1);//terminar proceso
+
     }
 
     /**
@@ -219,7 +213,7 @@ public class BackupService {
      *
      * @param e Evento de selección de la tabla.
      */
-    public void tableChainSelectedRow(@NotNull ListSelectionEvent e) {
+    public void tableChainSelectedRow( ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
             int selectedRow = tableBackup.getSelectedRow();
             if (selectedRow != -1) {
@@ -299,7 +293,6 @@ public class BackupService {
                 stmt.execute("VACUUM INTO '" + fileName + "';");
                 connection.setAutoCommit(false);
             } catch (Exception e) {
-                logger.error("Error while backup", e);
                 JOptionPane.showMessageDialog(
                         dialog,
                         "Error al realizar copia de seguridad.",
@@ -343,7 +336,6 @@ public class BackupService {
                 // Restaurar el autocommit a su estado inicial
                 connection.setAutoCommit(false);
             } catch (Exception e) {
-                logger.error("Error al realizar copia de seguridad.", e);
                 // Manejo de errores durante el proceso de respaldo
                 JOptionPane.showMessageDialog(
                         dialog,
@@ -361,7 +353,7 @@ public class BackupService {
      *
      * @return Ruta completa del archivo de respaldo.
      */
-    private @NotNull String createFilePathAndName(String fileName) {
+    private  String createFilePathAndName(String fileName) {
         return getBackupPath() + File.separator + fileName + ".sqlite";
     }
 
@@ -370,7 +362,7 @@ public class BackupService {
      *
      * @return Nombre del archivo de respaldo.
      */
-    private @NotNull String createNameByDate() {
+    private  String createNameByDate() {
         return "backup_" + LocalDateTime.now().format(getDateFormat());
     }
 
@@ -378,7 +370,7 @@ public class BackupService {
      * Modelo de tabla que muestra el nombre y fecha de creacion de los backup
      */
     static class BackupTableModel extends AbstractTableModel {
-        private final String[] titles = {"Nombre", "Fecha"};
+        private String[] titles = {"Nombre", "Fecha"};
         private File[] files;
 
         public BackupTableModel(File[] files) {
@@ -430,7 +422,7 @@ public class BackupService {
                                     .atZone(ZoneId.systemDefault())
                                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
                         } catch (IOException e) {
-                            logger.error("Error al obtener el fichero de datos.", e);
+                            System.err.printf("Error leyendo atributos de %s: %s%n", file.getName(), e.getMessage());
                             JOptionPane.showMessageDialog(
                                     null,
                                     "Ha ocurrido un error inesperado.",
