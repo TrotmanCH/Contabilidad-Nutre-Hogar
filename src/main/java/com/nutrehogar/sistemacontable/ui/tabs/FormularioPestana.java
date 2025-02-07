@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class FormularioPestana extends javax.swing.JPanel {
     List<Registro> registros = new ArrayList<>();
-
+    
     public FormularioPestana() {
         construirFormulario();
     }
@@ -379,12 +379,11 @@ public class FormularioPestana extends javax.swing.JPanel {
         estilizarComponentes();
         
         // Configurando la selección en tabRegistros
-        assert tabRegistros != null;
         tabRegistros.getSelectionModel()
                 .addListSelectionListener(this::seleccionEscuchador);
         tabRegistros.getSelectionModel()
                 .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -393,14 +392,14 @@ public class FormularioPestana extends javax.swing.JPanel {
         });
         
         // Asignando eschudador de cambios en tabRegistros
-        tabRegistros.getModel()
+        ((DefaultTableModel) tabRegistros.getModel())
                 .addTableModelListener(this::tablaEscuchador);
 
         // Asignando número de documento al formulario
         SwingWorker<Integer, Void> worker = new SwingWorker<>() {
 
             @Override
-            protected Integer doInBackground() {
+            protected Integer doInBackground() throws Exception {
                 return AsientoRepo.getSize();
             }
 
@@ -446,7 +445,7 @@ public class FormularioPestana extends javax.swing.JPanel {
         BigDecimal diferencia;
         
         // Se calcula el total de las columnas "debe" y "haber"
-        for (int i = 0; i < tabRegistros.getModel().getRowCount(); i++) {
+        for (Integer i = 0; i < tabRegistros.getModel().getRowCount(); i++) {
             debeTotal = debeTotal.add(new BigDecimal(tabRegistros.getModel().getValueAt(i, 4).toString()));
             haberTotal = haberTotal.add(new BigDecimal(tabRegistros.getModel().getValueAt(i, 5).toString()));
         }
@@ -491,8 +490,8 @@ public class FormularioPestana extends javax.swing.JPanel {
 
     private void butEliminarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEliminarRegistroMouseClicked
         if (!tabRegistros.getSelectionModel().isSelectionEmpty()){
-            int filaIndice = tabRegistros.getSelectedRow();
-            int respuesta = JOptionPane.showConfirmDialog(
+            Integer filaIndice = tabRegistros.getSelectedRow();
+            Integer respuesta = JOptionPane.showConfirmDialog(
                 this, "¿Está seguro de que desea eliminar este registro?",
                 "Eliminar Registro", JOptionPane.YES_NO_OPTION
             );
@@ -572,7 +571,7 @@ public class FormularioPestana extends javax.swing.JPanel {
     
     // Escuchador para limpiar el formulario
     private void butLimpiarFormularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butLimpiarFormularioMouseClicked
-        int confirmar = JOptionPane.showConfirmDialog(
+        Integer confirmar = JOptionPane.showConfirmDialog(
             this, "¿Está seguro de que desea vaciar todos los campos?",
             "Limpiar formulario", JOptionPane.YES_NO_OPTION
         );
