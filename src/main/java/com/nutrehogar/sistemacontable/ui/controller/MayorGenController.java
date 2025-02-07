@@ -5,10 +5,10 @@ import com.nutrehogar.sistemacontable.domain.model.Cuenta;
 import com.nutrehogar.sistemacontable.domain.model.SubTipoCuenta;
 import com.nutrehogar.sistemacontable.domain.repository.MayorGenRepo;
 import com.nutrehogar.sistemacontable.domain.repository.TipoCuentaRepo;
-import com.nutrehogar.sistemacontable.ui.SistemaContable;
 import com.nutrehogar.sistemacontable.ui.components.LocalDateSpinnerModel;
 import com.nutrehogar.sistemacontable.ui.view.MayorGenView;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -17,8 +17,6 @@ import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.table.AbstractTableModel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -32,13 +30,9 @@ import static com.nutrehogar.sistemacontable.application.service.Util.restarDate
 
 public class MayorGenController {
     static MayorGenController instance;
-    SistemaContable main;
+    @Getter
     final MayorGenView view;
-    List<MayorGenDTO> data;
-    MayorGenDTO selected;
-    final JTable table;
     final MayorGenTableModel tableModel;
-    final JButton editButton;
     final LocalDateSpinnerModel starSpinnerModel;
     final LocalDateSpinnerModel endSpinnerModel;
     final SubTipoCuentaComboBoxModel subTipoCuentaComboModel;
@@ -51,20 +45,13 @@ public class MayorGenController {
 
     private MayorGenController() {
         view = new MayorGenView();
-        this.table = view.getTabRegistros();
         this.tableModel = new MayorGenTableModel();
-        this.editButton = view.getButEdit();
         this.starSpinnerModel = view.getSpiInicio().getCustomModel();
         this.endSpinnerModel = view.getSpiFin().getCustomModel();
         this.tipoCuentaComboModel = new TipoCuentaComboBoxModel();
         this.subTipoCuentaComboModel = new SubTipoCuentaComboBoxModel(List.of());
         this.cuentaComboModel = new CuentaComboBoxModel(List.of());
         initComponents();
-    }
-
-    public MayorGenView getView(SistemaContable frame) {
-        this.main=frame;
-        return this.view;
     }
 
     public static MayorGenController getInstance() {
@@ -75,8 +62,6 @@ public class MayorGenController {
     }
 
     private void initComponents() {
-        editButton.setEnabled(false);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         view.getTabRegistros().setModel(tableModel);
         view.getComboxTipoCuenta().setModel(tipoCuentaComboModel);
         view.getComboxSubtipoCuenta().setModel(subTipoCuentaComboModel);
@@ -131,12 +116,9 @@ public class MayorGenController {
                 new MayorGenRepo.Filter.ByFechaRange((LocalDate) starSpinnerModel.getValue(), (LocalDate) endSpinnerModel.getValue()),
                 new MayorGenRepo.Filter.ByCuentaId(cuentaId));
         SwingUtilities.invokeLater(() -> {
-            this.data=data;
             tableModel.setData(data);
         });
     }
-
-
 
     /**
      * Se asigna los {@code contentsChanged} a los modelos de los combobox.
@@ -189,34 +171,6 @@ public class MayorGenController {
                     cuentaId = cuenta.getId();
                 }
                 loadData();
-            }
-        });
-        editButton.addActionListener(e -> main.editarAsiento(selected.getAsientoId()));
-
-        // Detectar clic derecho
-        table.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                press(e);
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                press(e);
-            }
-
-            private void press(MouseEvent e) {
-                int row = table.rowAtPoint(e.getPoint());
-                if (row != -1) {
-                    int selectedRow = table.getSelectedRow();
-                    if (selectedRow >= 0 && selectedRow < data.size()) {
-                        selected = data.get(selectedRow);
-                        editButton.setEnabled(true);
-                    } else {
-                        editButton.setEnabled(false);
-                    }
-                }
             }
         });
     }
@@ -350,8 +304,8 @@ public class MayorGenController {
                     case 2 -> dto.getTipoDocumentoNombre();
                     case 3 -> dto.getCuentaId();
                     case 4 -> dto.getRegistroReferencia();
-                    case 5 -> dto.getRegistroDebe().setScale(2, RoundingMode.HALF_UP);
-                    case 6 -> dto.getRegistroHaber().setScale(2, RoundingMode.HALF_UP);
+                    case 5 -> dto.getRegistroDebe();
+                    case 6 -> dto.getRegistroHaber();
                     case 7 -> dto.getSaldo();
                     default -> null;
                 };
@@ -384,6 +338,7 @@ public class MayorGenController {
 
         public void setData(List<MayorGenDTO> newData) {
             data = newData != null ? calcularSaldos(newData) : List.of();
+            System.out.println("MayorGenTableModel.setData: " + data);
             fireTableDataChanged();
         }
     }

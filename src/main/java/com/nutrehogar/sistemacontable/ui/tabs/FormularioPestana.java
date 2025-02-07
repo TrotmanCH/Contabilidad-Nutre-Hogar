@@ -6,8 +6,6 @@ import com.nutrehogar.sistemacontable.domain.model.Registro;
 import com.nutrehogar.sistemacontable.domain.repository.AsientoRepo;
 import com.nutrehogar.sistemacontable.ui.styles.*;
 import com.nutrehogar.sistemacontable.ui.windows.RegistroVentana;
-import org.jetbrains.annotations.NotNull;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
@@ -15,49 +13,19 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.concurrent.ExecutionException;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
 public class FormularioPestana extends javax.swing.JPanel {
-
-    private List<Registro> registros;
-    private Asiento asiento;
-    private static final DecimalFormat formater = new DecimalFormat("000");
+    List<Registro> registros = new ArrayList<>();
 
     public FormularioPestana() {
         construirFormulario();
-        registros = new ArrayList<>();
-        asiento = new Asiento();
-        asiento.setRegistros(registros);
     }
-
-    public FormularioPestana(@NotNull Asiento asiento) {
-        setAsiento(asiento);
-    }
-
-    public void setAsiento(@NotNull Asiento asiento) {
-        removeAll();
-        construirFormulario();
-        this.asiento = asiento;
-        this.texareConcepto.setText(asiento.getConcepto());
-        this.texfieNombre.setText(asiento.getNombre());
-        this.texfieNoDoc.setText(formater.format(asiento.getId()));
-        this.texfieNoCheque.setText(asiento.getNumeroCheque());
-        this.registros = asiento.getRegistros();
-        if (tabRegistros.getModel() instanceof DefaultTableModel model) {
-            for (var registro : registros) {
-                model.addRow(new Object[]{
-                    registro.getTipoDocumento().getNombre(), registro.getComprobante(),
-                    registro.getReferencia(), registro.getCuenta().getId(),
-                    registro.getDebe(), registro.getHaber()
-                });
-            }
-        }
-    }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -404,13 +372,14 @@ public class FormularioPestana extends javax.swing.JPanel {
                 .addContainerGap(61, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     // Método externo para generar contenido del frame
     private void construirFormulario() {
         initComponents();
         estilizarComponentes();
-
+        
         // Configurando la selección en tabRegistros
+        assert tabRegistros != null;
         tabRegistros.getSelectionModel()
                 .addListSelectionListener(this::seleccionEscuchador);
         tabRegistros.getSelectionModel()
@@ -422,23 +391,43 @@ public class FormularioPestana extends javax.swing.JPanel {
                 tabRegistros.clearSelection();
             }
         });
-
+        
         // Asignando eschudador de cambios en tabRegistros
         tabRegistros.getModel()
                 .addTableModelListener(this::tablaEscuchador);
-        texfieNoDoc.setText(formater.format(AsientoRepo.getSize()));
-    }
 
+        // Asignando número de documento al formulario
+        SwingWorker<Integer, Void> worker = new SwingWorker<>() {
+
+            @Override
+            protected Integer doInBackground() {
+                return AsientoRepo.getSize();
+            }
+
+            @Override
+            protected void done() {
+                SwingUtilities.invokeLater(() -> {
+                    try {
+                        texfieNoDoc.setText(new DecimalFormat("000").format(get()));
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        };
+        worker.execute();
+    }
+    
     // Estilo de los componentes
     private void estilizarComponentes() {
         new TableStyle(tabRegistros); // Tabla        
-        new ButtonStyle(butAnadirRegistro, butEditarRegistro,
+        new ButtonStyle(butAnadirRegistro, butEditarRegistro, 
                 butEliminarRegistro, butGuardarAsiento,
                 butExportarFormulario, butExportarComprobante,
                 butLimpiarFormulario
         ); // Botones
     }
-
+    
     // Escuchador de selección de tabRegistros
     private void seleccionEscuchador(ListSelectionEvent e) {
         if (tabRegistros.getSelectedRow() != -1) {
@@ -449,13 +438,13 @@ public class FormularioPestana extends javax.swing.JPanel {
             butEliminarRegistro.setEnabled(false);
         }
     }
-
+    
     // Escuchador de cambios de tabRegistros
     private void tablaEscuchador(TableModelEvent e) {
-        BigDecimal debeTotal = BigDecimal.ZERO;
-        BigDecimal haberTotal = BigDecimal.ZERO;
+        BigDecimal debeTotal = BigDecimal.ZERO.setScale(2);
+        BigDecimal haberTotal = BigDecimal.ZERO.setScale(2);
         BigDecimal diferencia;
-
+        
         // Se calcula el total de las columnas "debe" y "haber"
         for (int i = 0; i < tabRegistros.getModel().getRowCount(); i++) {
             debeTotal = debeTotal.add(new BigDecimal(tabRegistros.getModel().getValueAt(i, 4).toString()));
@@ -463,7 +452,7 @@ public class FormularioPestana extends javax.swing.JPanel {
         }
         texfieDebe.setText(debeTotal.toString());
         texfieHaber.setText(haberTotal.toString());
-
+        
         // Se coloca el monto del formulario y la diferencia de ambas columnas
         if (debeTotal.equals(haberTotal)) {
             texfieMonto.setText(debeTotal.toString());
@@ -474,24 +463,24 @@ public class FormularioPestana extends javax.swing.JPanel {
             texfieDiferencia.setText(diferencia.toString());
         }
     }
-
+    
     // Escuchadores de los botones
     private void butAnadirRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butAnadirRegistroMouseClicked
         RegistroVentana rv = new RegistroVentana(
-                "Añadir Registro", (DefaultTableModel) tabRegistros.getModel(),
+                "Añadir Registro", (DefaultTableModel) tabRegistros.getModel(), 
                 null, registros
         );
         rv.setLocationRelativeTo(this);
         rv.setVisible(true);
     }//GEN-LAST:event_butAnadirRegistroMouseClicked
-
+    
     private void butEditarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEditarRegistroMouseClicked
         if (!tabRegistros.getSelectionModel().isSelectionEmpty()) {
             Integer filaIndice = tabRegistros.getSelectedRow();
-
+            
             RegistroVentana rv = new RegistroVentana(
                     "Editar Registro", (DefaultTableModel) tabRegistros.getModel(),
-                    filaIndice, registros
+                     filaIndice, registros
             );
             rv.setLocationRelativeTo(this);
             rv.setVisible(true);
@@ -501,13 +490,13 @@ public class FormularioPestana extends javax.swing.JPanel {
     }//GEN-LAST:event_butEditarRegistroMouseClicked
 
     private void butEliminarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butEliminarRegistroMouseClicked
-        if (!tabRegistros.getSelectionModel().isSelectionEmpty()) {
+        if (!tabRegistros.getSelectionModel().isSelectionEmpty()){
             int filaIndice = tabRegistros.getSelectedRow();
             int respuesta = JOptionPane.showConfirmDialog(
-                    this, "¿Está seguro de que desea eliminar este registro?",
-                    "Eliminar Registro", JOptionPane.YES_NO_OPTION
+                this, "¿Está seguro de que desea eliminar este registro?",
+                "Eliminar Registro", JOptionPane.YES_NO_OPTION
             );
-
+            
             if (respuesta == JOptionPane.YES_OPTION) {
                 ((DefaultTableModel) tabRegistros.getModel()).removeRow(filaIndice);
                 registros.remove(registros.get(filaIndice));
@@ -520,40 +509,41 @@ public class FormularioPestana extends javax.swing.JPanel {
 
     private void butGuardarAsientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butGuardarAsientoMouseClicked
         if (validarDatos()) {
-            asiento.setFecha((LocalDate) spiFecha.getValue());
-            asiento.setNumeroCheque(texfieNoCheque.getText());
-            asiento.setNombre(texfieNombre.getText());
-            asiento.setConcepto(texareConcepto.getText());
+            Asiento asiento = Asiento.builder()
+                    .fecha(LocalDate.parse(spiFecha.getValue().toString()))
+                    .numeroCheque(texfieNoCheque.getText())
+                    .nombre(texfieNombre.getText())
+                    .concepto(texareConcepto.getText())
+                    .build();
+            
             registros.forEach(registro -> registro.setAsiento(asiento));
             asiento.setRegistros(registros);
-            System.out.printf(asiento.toString());
-            asiento.getRegistros().forEach(registro -> System.out.printf(registro.toString()));
-            AsientoRepo.update(asiento);
+            
+            AsientoRepo.save(asiento);   
             JOptionPane.showMessageDialog(this, "Asiento guardado exitosamente.");
         }
     }//GEN-LAST:event_butGuardarAsientoMouseClicked
-
+    
     // Validador de datos
-    private @NotNull
-    Boolean validarDatos() {
+    private Boolean validarDatos() {
         if (texfieNombre.getText().isBlank() || texareConcepto.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Uno o varios campos estan vacíos.");
             return false;
         }
-
+        
         if (!texfieDebe.getText().equals(texfieHaber.getText())) {
             JOptionPane.showMessageDialog(this, "El asiento no está balanceado.");
             return false;
         }
-
+        
         if (registros.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Este asiento no tiene registros.");
             return false;
         }
-
+        
         return true;
     }
-
+    
     // Escuchadores para generar PDFs
     private void butExportarFormularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butExportarFormularioMouseClicked
         PDFService pdf = new PDFService();
@@ -566,9 +556,9 @@ public class FormularioPestana extends javax.swing.JPanel {
         prepararPDF(pdf);
         pdf.llenarComprobante();
     }//GEN-LAST:event_butExportarComprobanteMouseClicked
-
+    
     // Obtención de datos para los PDFs
-    private void prepararPDF(@NotNull PDFService pdf) {
+    private void prepararPDF(PDFService pdf) {
         pdf.noCheque = texfieNoCheque.getText();
         pdf.fecha = spiFecha.getValue().toString();
         pdf.monto = texfieMonto.getText();
@@ -579,20 +569,20 @@ public class FormularioPestana extends javax.swing.JPanel {
         pdf.haber = texfieHaber.getText();
         pdf.registros = tabRegistros.getModel();
     }
-
+    
     // Escuchador para limpiar el formulario
     private void butLimpiarFormularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butLimpiarFormularioMouseClicked
         int confirmar = JOptionPane.showConfirmDialog(
-                this, "¿Está seguro de que desea vaciar todos los campos?",
-                "Limpiar formulario", JOptionPane.YES_NO_OPTION
+            this, "¿Está seguro de que desea vaciar todos los campos?",
+            "Limpiar formulario", JOptionPane.YES_NO_OPTION
         );
-
+            
         if (confirmar == JOptionPane.YES_OPTION) {
             removeAll();
             construirFormulario();
         }
     }//GEN-LAST:event_butLimpiarFormularioMouseClicked
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAnadirRegistro;
     private javax.swing.JButton butEditarRegistro;

@@ -15,7 +15,7 @@ public class MayorGenView extends javax.swing.JPanel {
         initComponents();
         
         new TableStyle(tabRegistros);
-        new ButtonStyle(butFiltrar,butEdit);
+        new ButtonStyle(butFiltrar);
     }
     
     @SuppressWarnings("unchecked")
@@ -33,7 +33,6 @@ public class MayorGenView extends javax.swing.JPanel {
         labFin = new javax.swing.JLabel();
         spiFin = new com.nutrehogar.sistemacontable.ui.components.LocalDateSpinner();
         butFiltrar = new javax.swing.JButton();
-        butEdit = new javax.swing.JButton();
         scrpanRegistros = new javax.swing.JScrollPane();
         tabRegistros = new javax.swing.JTable();
 
@@ -43,7 +42,7 @@ public class MayorGenView extends javax.swing.JPanel {
         labMayorGeneral.setText("Mayor General");
 
         panSelector.setBackground(new java.awt.Color(241, 248, 255));
-        panSelector.setBorder(javax.swing.BorderFactory.createTitledBorder("Selector")); // NOI18N
+        panSelector.setBorder(javax.swing.BorderFactory.createTitledBorder("Selector"));
 
         javax.swing.GroupLayout panSelectorLayout = new javax.swing.GroupLayout(panSelector);
         panSelector.setLayout(panSelectorLayout);
@@ -51,11 +50,11 @@ public class MayorGenView extends javax.swing.JPanel {
             panSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panSelectorLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(comboxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(comboxSubtipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(comboxCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(comboxTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addComponent(comboxSubtipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addComponent(comboxCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
         );
         panSelectorLayout.setVerticalGroup(
@@ -70,7 +69,7 @@ public class MayorGenView extends javax.swing.JPanel {
         );
 
         panFiltros.setBackground(new java.awt.Color(241, 248, 255));
-        panFiltros.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros")); // NOI18N
+        panFiltros.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros"));
 
         labInicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labInicio.setText("Inicio:");
@@ -84,11 +83,6 @@ public class MayorGenView extends javax.swing.JPanel {
         butFiltrar.setForeground(new java.awt.Color(255, 255, 255));
         butFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/filtrar.png"))); // NOI18N
         butFiltrar.setText("Filtrar");
-
-        butEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        butEdit.setForeground(new java.awt.Color(255, 255, 255));
-        butEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/editar.png"))); // NOI18N
-        butEdit.setText("Editar");
 
         javax.swing.GroupLayout panFiltrosLayout = new javax.swing.GroupLayout(panFiltros);
         panFiltros.setLayout(panFiltrosLayout);
@@ -105,9 +99,7 @@ public class MayorGenView extends javax.swing.JPanel {
                 .addComponent(spiFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(butFiltrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(butEdit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
         panFiltrosLayout.setVerticalGroup(
             panFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,8 +110,7 @@ public class MayorGenView extends javax.swing.JPanel {
                     .addComponent(spiInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labFin)
                     .addComponent(spiFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(butFiltrar)
-                    .addComponent(butEdit))
+                    .addComponent(butFiltrar))
                 .addGap(12, 12, 12))
         );
 
@@ -138,18 +129,18 @@ public class MayorGenView extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrpanRegistros, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(panSelector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(20, 20, 20)
+                        .addComponent(panFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labMayorGeneral)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrpanRegistros)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panSelector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +158,6 @@ public class MayorGenView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton butEdit;
     private javax.swing.JButton butFiltrar;
     private com.nutrehogar.sistemacontable.ui.components.CustomComboBox<Cuenta> comboxCuenta;
     private com.nutrehogar.sistemacontable.ui.components.CustomComboBox<SubTipoCuenta> comboxSubtipoCuenta;
