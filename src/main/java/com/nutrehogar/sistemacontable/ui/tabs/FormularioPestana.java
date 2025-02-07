@@ -13,8 +13,8 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
@@ -394,27 +394,10 @@ public class FormularioPestana extends javax.swing.JPanel {
         // Asignando eschudador de cambios en tabRegistros
         ((DefaultTableModel) tabRegistros.getModel())
                 .addTableModelListener(this::tablaEscuchador);
-
+        
         // Asignando número de documento al formulario
-        SwingWorker<Integer, Void> worker = new SwingWorker<>() {
-
-            @Override
-            protected Integer doInBackground() throws Exception {
-                return AsientoRepo.getSize();
-            }
-
-            @Override
-            protected void done() {
-                SwingUtilities.invokeLater(() -> {
-                    try {
-                        texfieNoDoc.setText(new DecimalFormat("000").format(get()));
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-        };
-        worker.execute();
+        Integer noDoc = AsientoRepo.getSize();
+        texfieNoDoc.setText(new DecimalFormat("000").format(noDoc));
     }
     
     // Estilo de los componentes

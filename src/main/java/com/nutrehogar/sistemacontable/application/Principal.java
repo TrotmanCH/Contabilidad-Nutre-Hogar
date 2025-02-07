@@ -8,11 +8,12 @@ import javax.swing.*;
 
 public class Principal {
     public static void main(String[] args) {
-        Thread.startVirtualThread(HibernateUtil::getSession);
+        //Tarea que se realizara antes de que se apage la JVM, cierra conexión de hibernate
+        Runtime.getRuntime().addShutdownHook(new Thread(HibernateUtil::shutdown));
 
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (UnsupportedLookAndFeelException ex) {
+        } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
             JOptionPane.showMessageDialog(null,
                     """
@@ -26,8 +27,5 @@ public class Principal {
         }
 
         java.awt.EventQueue.invokeLater(() -> new SistemaContable().setVisible(true));
-
-        //Tarea que se realizara antes de que se apage la JVM, cierra conexión de hibernate
-        Runtime.getRuntime().addShutdownHook(new Thread(HibernateUtil::shutdown));
     }
 }
