@@ -2,9 +2,9 @@ package com.nutrehogar.sistemacontable.domain.repository;
 
 import com.nutrehogar.sistemacontable.application.dto.GeneralLedgerDTO;
 import com.nutrehogar.sistemacontable.application.repository.business.GeneralLedgerRepository;
-import com.nutrehogar.sistemacontable.domain.helper.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.core.TransactionManager;
 import com.nutrehogar.sistemacontable.domain.helper.GeneralLedgerQueryBuilder;
+import com.nutrehogar.sistemacontable.domain.helper.OrderDirection;
 import jakarta.persistence.criteria.CriteriaQuery;
 import lombok.Getter;
 import org.hibernate.Session;
@@ -19,7 +19,7 @@ public class GeneralLedgerRepositoryImpl extends TransactionManager implements G
         super(session);
     }
 
-    public @NotNull List<GeneralLedgerDTO> find(GeneralLedgerRepositoryImpl.Field orderField, OrderDirection orderDirection, GeneralLedgerRepositoryImpl.Filter... filters) {
+    public @NotNull List<GeneralLedgerDTO> find(Field orderField, OrderDirection orderDirection, Filter... filters) {
         List<GeneralLedgerDTO> mayorGeneralDTOS = List.of();
         if (filters == null || filters.length == 0) return mayorGeneralDTOS;
         mayorGeneralDTOS = executeInTransaction(() -> {
@@ -70,19 +70,19 @@ public class GeneralLedgerRepositoryImpl extends TransactionManager implements G
         /**
          * Filtra el Mayor General por código de cuenta.
          */
-        record ByAccountId(Integer value) implements GeneralLedgerRepositoryImpl.Filter {
+        record ByAccountId(Integer value) implements Filter {
         }
 
         /**
          * Filtra el Mayor General por nombre de cuenta.
          */
-        record ByAccountName(String value) implements GeneralLedgerRepositoryImpl.Filter {
+        record ByAccountName(String value) implements Filter {
         }
 
         /**
          * Filtra el Mayor General por un rango de fechas.
          */
-        record ByDateRange(LocalDate startDate, LocalDate endDate) implements GeneralLedgerRepositoryImpl.Filter {
+        record ByDateRange(LocalDate startDate, LocalDate endDate) implements Filter {
         }
     }
 }

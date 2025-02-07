@@ -93,7 +93,7 @@ public class GeneralLedgerController extends BusinessController<GeneralLedgerDTO
         var creditSum = BigDecimal.ZERO;
 
         for (GeneralLedgerDTO dto : list) {
-            balance = dto.getAccountType().getSaldo(balance, dto.getLedgerRecordCredit(), dto.getLedgerRecordDebit());
+            balance = dto.getAccountType().getBalance(balance, dto.getLedgerRecordCredit(), dto.getLedgerRecordDebit());
             debitSum = debitSum.add(dto.getLedgerRecordDebit(), MathContext.DECIMAL128).setScale(2, RoundingMode.HALF_UP);
             creditSum = creditSum.add(dto.getLedgerRecordCredit(), MathContext.DECIMAL128).setScale(2, RoundingMode.HALF_UP);
             dto.setBalance(balance);

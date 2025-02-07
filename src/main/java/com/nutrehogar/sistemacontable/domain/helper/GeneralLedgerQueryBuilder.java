@@ -1,7 +1,10 @@
 package com.nutrehogar.sistemacontable.domain.helper;
 
 import com.nutrehogar.sistemacontable.application.dto.GeneralLedgerDTO;
-import com.nutrehogar.sistemacontable.domain.model.*;
+import com.nutrehogar.sistemacontable.domain.model.Account;
+import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
+import com.nutrehogar.sistemacontable.domain.model.JournalEntry;
+import com.nutrehogar.sistemacontable.domain.model.LedgerRecord;
 import com.nutrehogar.sistemacontable.domain.repository.GeneralLedgerRepositoryImpl;
 import jakarta.persistence.criteria.*;
 import org.hibernate.Session;

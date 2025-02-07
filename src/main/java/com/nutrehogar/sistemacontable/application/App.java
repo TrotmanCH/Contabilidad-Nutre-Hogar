@@ -2,14 +2,15 @@ package com.nutrehogar.sistemacontable.application;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.nutrehogar.sistemacontable.application.config.HibernateUtil;
-import com.nutrehogar.sistemacontable.application.controller.*;
 import com.nutrehogar.sistemacontable.application.controller.business.GeneralLedgerController;
 import com.nutrehogar.sistemacontable.application.controller.business.JournalController;
 import com.nutrehogar.sistemacontable.application.controller.business.TrialBalanceController;
 import com.nutrehogar.sistemacontable.application.controller.crud.AccountController;
 import com.nutrehogar.sistemacontable.application.controller.crud.AccountSubtypeController;
 import com.nutrehogar.sistemacontable.application.controller.crud.AccountingEntryFormController;
-import com.nutrehogar.sistemacontable.application.controller.impl.PanelDashboardController;
+import com.nutrehogar.sistemacontable.application.controller.service.BackupController;
+import com.nutrehogar.sistemacontable.application.controller.service.DashboardController;
+import com.nutrehogar.sistemacontable.application.controller.service.PanelDashboardController;
 import com.nutrehogar.sistemacontable.application.repository.crud.AccountRepository;
 import com.nutrehogar.sistemacontable.application.repository.crud.AccountSubtypeRepository;
 import com.nutrehogar.sistemacontable.application.repository.crud.JournalEntryRepository;
@@ -22,7 +23,8 @@ import com.nutrehogar.sistemacontable.domain.model.LedgerRecord;
 import com.nutrehogar.sistemacontable.domain.repository.GeneralLedgerRepositoryImpl;
 import com.nutrehogar.sistemacontable.domain.repository.JournalRepositoryImpl;
 import com.nutrehogar.sistemacontable.domain.repository.TrialBalanceRepositoryImpl;
-import com.nutrehogar.sistemacontable.ui.view.*;
+import com.nutrehogar.sistemacontable.ui.JComponents.SplashScreen;
+import com.nutrehogar.sistemacontable.ui.view.BackupView;
 import com.nutrehogar.sistemacontable.ui.view.business.GeneralLedgerView;
 import com.nutrehogar.sistemacontable.ui.view.business.JournalView;
 import com.nutrehogar.sistemacontable.ui.view.business.TrialBalanceView;
@@ -34,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.function.Consumer;
 
 @Slf4j
@@ -66,8 +69,9 @@ public class App {
     private PanelDashboardView dashboardView;
 
     private Consumer<Integer> prepareToEditJournalEntry;
+    private JFrame frame;
 
-    public App() {
+    public App(SplashScreen splash) {
         session = HibernateUtil.getSession();
         Thread.startVirtualThread(() -> Runtime.getRuntime().addShutdownHook(new Thread(HibernateUtil::shutdown)));
         setDefaultRepositories();
@@ -75,7 +79,7 @@ public class App {
         setDefaultControllers();
         FlatSVGIcon svgLogo = new FlatSVGIcon("svgs/SistemaContableLogo.svg", 250, 250);
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame();
+            frame = new JFrame();
             frame.setIconImage(svgLogo.getImage());
             frame.setTitle("Sistema Contable");
             frame.setSize(1300, 600);
@@ -83,8 +87,10 @@ public class App {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
             frame.add(dashboardView);
+            frame.getRootPane().setBackground(Color.WHITE);
             frame.setVisible(true);
         });
+        splash.dispose();
     }
 
     private void setDefaultViews() {
@@ -119,7 +125,7 @@ public class App {
         generalLedgerController = new GeneralLedgerController(generalLedgerRepository, generalLedgerView, prepareToEditJournalEntry, subTipoRepository);
         trialBalanceController = new TrialBalanceController(trialBalanceRepository, trialBalanceView, prepareToEditJournalEntry);
         journalController = new JournalController(journalRepository, journalView, prepareToEditJournalEntry);
-        backupController = new BackupController(backupView);
+        backupController = new BackupController(backupView, session, frame);
         dashboardController = new PanelDashboardController(dashboardView, accountingEntryFormController, accountController, accountSubtypeController, journalController, trialBalanceController, generalLedgerController, backupController);
     }
 

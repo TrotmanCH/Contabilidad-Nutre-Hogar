@@ -2,10 +2,10 @@ package com.nutrehogar.sistemacontable.domain.repository;
 
 import com.nutrehogar.sistemacontable.application.dto.JournalDTO;
 import com.nutrehogar.sistemacontable.application.repository.business.JournalRepository;
-import com.nutrehogar.sistemacontable.domain.helper.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.core.TransactionManager;
 import com.nutrehogar.sistemacontable.domain.helper.JournalQueryBuilder;
-import jakarta.persistence.criteria.*;
+import com.nutrehogar.sistemacontable.domain.helper.OrderDirection;
+import jakarta.persistence.criteria.CriteriaQuery;
 import lombok.Getter;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;

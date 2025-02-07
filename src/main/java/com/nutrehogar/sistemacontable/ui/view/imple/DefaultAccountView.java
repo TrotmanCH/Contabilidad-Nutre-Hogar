@@ -7,7 +7,6 @@ package com.nutrehogar.sistemacontable.ui.view.imple;
 import com.nutrehogar.sistemacontable.domain.AccountType;
 import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
 import com.nutrehogar.sistemacontable.ui.view.crud.AccountView;
-
 import lombok.Getter;
 
 /**

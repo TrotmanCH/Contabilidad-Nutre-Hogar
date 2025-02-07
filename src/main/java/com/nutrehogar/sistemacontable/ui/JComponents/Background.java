@@ -2,13 +2,12 @@ package com.nutrehogar.sistemacontable.ui.JComponents;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
-import javax.swing.JPanel;
 
 @Getter
 @Setter

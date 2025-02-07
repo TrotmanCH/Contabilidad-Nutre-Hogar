@@ -2,10 +2,7 @@ package com.nutrehogar.sistemacontable.application.config;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
-
-
-import static com.nutrehogar.sistemacontable.application.config.Constants.*;
+import java.io.File;
 
 /**
  * Clase encargada de gestionar la carga, el almacenamiento y la inicialización de configuraciones
@@ -18,11 +15,29 @@ import static com.nutrehogar.sistemacontable.application.config.Constants.*;
  * @author Calcifer1331
  */
 public class ConfigLoader {
+    public static final String DIR_PROGRAM_NAME = "SistemaContable";
+    public static final String DB_NAME = "sistemacontable.sqlite";
+    public static final String DIR_BACKUP_NAME = "backup";
+    public static final String DIR_LOG_NAME = "logs";
+    public static final String DIR_REPORTS_NAME = "reports";
+    public static final String DIR_PAYMENT_VOUCHER_NAME = "payment_voucher";
+    public static final String DIR_REGISTRATION_FORM_NAME = "registration_form";
 
     static {
-        createDirectory(getAbsoluteProgramPath());
-        createDirectory(getBackupPath());
-        createDirectory(getLogsPath());
+        createDirectories(
+                getAbsoluteProgramPath(),
+                getBackupPath(),
+                getLogsPath(),
+                getReportsPath(),
+                getRegistrationFormPath(),
+                getPaymentVoucherPath()
+        );
+    }
+
+    private static void createDirectories(String @NotNull ... paths) {
+        for (String path : paths) {
+            createDirectory(path);
+        }
     }
 
     private ConfigLoader() {
@@ -45,7 +60,7 @@ public class ConfigLoader {
     }
 
     public static @NotNull String getAbsoluteProgramPath() {
-        return System.getProperty("user.home") + File.separator + FOLDER_PROGRAM_NAME;
+        return System.getProperty("user.home") + File.separator + DIR_PROGRAM_NAME;
     }
 
     /**
@@ -63,11 +78,22 @@ public class ConfigLoader {
      * @return Ruta de los respaldos.
      */
     public static @NotNull String getBackupPath() {
-        return getAbsoluteProgramPath() + File.separator + FOLDER_BACKUP_NAME;
+        return getAbsoluteProgramPath() + File.separator + DIR_BACKUP_NAME;
     }
 
     public static @NotNull String getLogsPath() {
-        return getAbsoluteProgramPath() + File.separator + FOLDER_LOG_NAME;
+        return getAbsoluteProgramPath() + File.separator + DIR_LOG_NAME;
     }
 
+    public static @NotNull String getReportsPath() {
+        return getAbsoluteProgramPath() + File.separator + DIR_REPORTS_NAME;
+    }
+
+    public static @NotNull String getPaymentVoucherPath() {
+        return getReportsPath() + File.separator + DIR_PAYMENT_VOUCHER_NAME;
+    }
+
+    public static @NotNull String getRegistrationFormPath() {
+        return getReportsPath() + File.separator + DIR_REGISTRATION_FORM_NAME;
+    }
 }

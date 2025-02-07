@@ -35,6 +35,10 @@ public abstract class AccountingEntryFormView extends CRUDView {
 
     public abstract JButton getBtnAddEntry();
 
+    public abstract JButton getBtnGeneratePaymentVoucher();
+
+    public abstract JButton getBtnGenerateRegistrationForm();
+
     public abstract JComboBox<Account> getCbxRecordAccount();
 
     public abstract JComboBox<DocumentType> getCbxRecordDocumentType();

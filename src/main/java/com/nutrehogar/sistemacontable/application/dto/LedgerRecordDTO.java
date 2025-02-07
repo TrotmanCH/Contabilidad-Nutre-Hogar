@@ -1,12 +1,16 @@
 package com.nutrehogar.sistemacontable.application.dto;
 
-import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-public record LedgerRecordDTO(String documentType,
-                              String voucher,
-                              String accountId,
-                              String reference,
-                              BigDecimal debit,
-                              BigDecimal credit,
-                              BigDecimal balance) {
+@Data
+@AllArgsConstructor
+public class LedgerRecordDTO {
+    String documentType;
+    String voucher;
+    String accountId;
+    String reference;
+    String debit;
+    String credit;
+    String balance;
 }

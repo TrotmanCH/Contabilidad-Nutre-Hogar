@@ -86,6 +86,12 @@ public class DefaultAccountEntryFormView extends AccountingEntryFormView {
         btnUpdateEntry = new javax.swing.JButton();
         btnDeleteEntry = new javax.swing.JButton();
         btnAddEntry = new javax.swing.JButton();
+        pnlFooter = new javax.swing.JPanel();
+        pnlSourceDocuments = new javax.swing.JPanel();
+        lblPaymentVoucher = new javax.swing.JLabel();
+        btnGeneratePaymentVoucher = new javax.swing.JButton();
+        btnGenerateRegistrationForm = new javax.swing.JButton();
+        lblEdit2 = new javax.swing.JLabel();
 
         setOpaque(false);
 
@@ -440,6 +446,73 @@ public class DefaultAccountEntryFormView extends AccountingEntryFormView {
                 .addContainerGap())
         );
 
+        pnlFooter.setOpaque(false);
+
+        pnlSourceDocuments.setBorder(javax.swing.BorderFactory.createTitledBorder("Documentos Fuente"));
+        pnlSourceDocuments.setOpaque(false);
+
+        lblPaymentVoucher.setLabelFor(btnEdit);
+        lblPaymentVoucher.setText("<html><p>Genera un comprobante de pago de la entrada</p></html>");
+        lblPaymentVoucher.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblPaymentVoucher.setMaximumSize(new java.awt.Dimension(255, 40));
+        lblPaymentVoucher.setPreferredSize(new java.awt.Dimension(100, 40));
+
+        btnGeneratePaymentVoucher.setText("Comprobante");
+
+        btnGenerateRegistrationForm.setText("Formulario");
+        btnGenerateRegistrationForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateRegistrationFormActionPerformed(evt);
+            }
+        });
+
+        lblEdit2.setLabelFor(btnGenerateRegistrationForm);
+        lblEdit2.setText("<html><p>Genera un comprobante de registro</p></html>");
+        lblEdit2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblEdit2.setMaximumSize(new java.awt.Dimension(196, 40));
+        lblEdit2.setPreferredSize(new java.awt.Dimension(100, 40));
+
+        javax.swing.GroupLayout pnlSourceDocumentsLayout = new javax.swing.GroupLayout(pnlSourceDocuments);
+        pnlSourceDocuments.setLayout(pnlSourceDocumentsLayout);
+        pnlSourceDocumentsLayout.setHorizontalGroup(
+            pnlSourceDocumentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSourceDocumentsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblPaymentVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGeneratePaymentVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGenerateRegistrationForm, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlSourceDocumentsLayout.setVerticalGroup(
+            pnlSourceDocumentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSourceDocumentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(lblPaymentVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGeneratePaymentVoucher)
+                .addComponent(lblEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGenerateRegistrationForm))
+        );
+
+        javax.swing.GroupLayout pnlFooterLayout = new javax.swing.GroupLayout(pnlFooter);
+        pnlFooter.setLayout(pnlFooterLayout);
+        pnlFooterLayout.setHorizontalGroup(
+            pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFooterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlSourceDocuments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlFooterLayout.setVerticalGroup(
+            pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFooterLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlSourceDocuments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -448,7 +521,8 @@ public class DefaultAccountEntryFormView extends AccountingEntryFormView {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlEntryForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(pnlFooter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlAside, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -457,14 +531,20 @@ public class DefaultAccountEntryFormView extends AccountingEntryFormView {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlAside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlEntryForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlFooter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlAside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGenerateRegistrationFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateRegistrationFormActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGenerateRegistrationFormActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -474,6 +554,8 @@ public class DefaultAccountEntryFormView extends AccountingEntryFormView {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDeleteEntry;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnGeneratePaymentVoucher;
+    private javax.swing.JButton btnGenerateRegistrationForm;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveEntry;
     private javax.swing.JButton btnUpdate;
@@ -487,10 +569,12 @@ public class DefaultAccountEntryFormView extends AccountingEntryFormView {
     private javax.swing.JLabel lblConcept;
     private javax.swing.JLabel lblDelete;
     private javax.swing.JLabel lblEdit;
+    private javax.swing.JLabel lblEdit2;
     private javax.swing.JLabel lblEntryCeckNumber;
     private javax.swing.JLabel lblEntryDate;
     private javax.swing.JLabel lblEntryDocumentNumber;
     private javax.swing.JLabel lblEntryName;
+    private javax.swing.JLabel lblPaymentVoucher;
     private javax.swing.JLabel lblRecordAccount;
     private javax.swing.JLabel lblRecordAmount;
     private javax.swing.JLabel lblRecordDocumentType;
@@ -501,8 +585,10 @@ public class DefaultAccountEntryFormView extends AccountingEntryFormView {
     private javax.swing.JLabel lblUpdate;
     private javax.swing.JPanel pnlAside;
     private javax.swing.JPanel pnlEntryForm;
+    private javax.swing.JPanel pnlFooter;
     private javax.swing.JPanel pnlLedgerRecordOperations;
     private javax.swing.JPanel pnlRecordForm;
+    private javax.swing.JPanel pnlSourceDocuments;
     private javax.swing.JRadioButton rbtRecordCredit;
     private javax.swing.JRadioButton rbtRecordDebit;
     private javax.swing.JSeparator sepaSection1;

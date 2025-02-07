@@ -1,14 +1,13 @@
 package com.nutrehogar.sistemacontable.domain.repository;
 
+import com.nutrehogar.sistemacontable.application.dto.TrialBalanceDTO;
 import com.nutrehogar.sistemacontable.application.repository.business.TrialBalanceRepository;
 import com.nutrehogar.sistemacontable.domain.core.TransactionManager;
+import com.nutrehogar.sistemacontable.domain.helper.OrderDirection;
 import com.nutrehogar.sistemacontable.domain.helper.TrialBalanceQueryBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
 import lombok.Getter;
 import org.hibernate.Session;
-
-import com.nutrehogar.sistemacontable.application.dto.TrialBalanceDTO;
-import com.nutrehogar.sistemacontable.domain.helper.OrderDirection;
-import jakarta.persistence.criteria.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;

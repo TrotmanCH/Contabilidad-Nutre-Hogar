@@ -27,38 +27,38 @@ import java.math.RoundingMode;
 public enum AccountType {
     ASSETS(1, "ACTIVO") {
         @Override
-        public BigDecimal getSaldo(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
+        public BigDecimal getBalance(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
             return balance.add(debit, MATH_CONTEXT).subtract(credit, MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
         }
     },
     LIABILITIES(2, "PASIVO") {
         @Override
-        public BigDecimal getSaldo(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
+        public BigDecimal getBalance(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
             return balance.add(credit, MATH_CONTEXT).subtract(debit, MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
         }
     },
     EQUITY(3, "PATRIMONIO") {
         @Override
-        public BigDecimal getSaldo(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
+        public BigDecimal getBalance(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
             return balance.add(credit, MATH_CONTEXT).subtract(debit, MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
         }
     },
     INCOME(4, "INGRESO") {
         @Override
-        public BigDecimal getSaldo(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
+        public BigDecimal getBalance(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
             return balance.add(credit, MATH_CONTEXT).subtract(debit, MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
         }
     },
     EXPENSE(5, "GASTO") {
         @Override
-        public BigDecimal getSaldo(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
+        public BigDecimal getBalance(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
             return balance.add(debit, MATH_CONTEXT).subtract(credit, MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
         }
     },
     //TODO: El metodo no esta bien implementado
     COST(6, "COSTO") {
         @Override
-        public BigDecimal getSaldo(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
+        public BigDecimal getBalance(BigDecimal balance, BigDecimal credit, BigDecimal debit) {
             return balance.add(credit, MATH_CONTEXT).subtract(debit, MATH_CONTEXT).setScale(2, RoundingMode.HALF_UP);
         }
     };
@@ -89,7 +89,7 @@ public enum AccountType {
      * @param debit
      * @return suma de {@code saldo} y el resultado de la resta o suma de {@code haber} y {@code debe}
      */
-    public abstract BigDecimal getSaldo(BigDecimal balance, BigDecimal credit, BigDecimal debit);
+    public abstract BigDecimal getBalance(BigDecimal balance, BigDecimal credit, BigDecimal debit);
 
     public static @NotNull String getCellRenderer(@NotNull AccountType tipo) {
         return tipo.getId() + " " + tipo.getName();
