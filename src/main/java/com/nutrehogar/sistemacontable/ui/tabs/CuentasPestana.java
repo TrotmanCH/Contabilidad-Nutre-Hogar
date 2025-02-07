@@ -191,8 +191,8 @@ public class CuentasPestana extends javax.swing.JPanel {
     
     // Estilo de los componentes
     private void estilizarComponentes() {
-        TableStyle.setStyle(tabCuentas); // Tabla;
-        ButtonStyle.setStyle(butAnadir, butEditar, butEliminar); // Botones
+        new TableStyle(tabCuentas); // Tabla;
+        new ButtonStyle(butAnadir, butEditar, butEliminar); // Botones
     }
     
     // Escuchador de selección de tabCuentas

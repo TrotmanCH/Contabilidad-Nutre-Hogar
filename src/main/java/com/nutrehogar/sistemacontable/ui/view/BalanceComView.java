@@ -11,8 +11,8 @@ public class BalanceComView extends javax.swing.JPanel {
     public BalanceComView() {
         initComponents();
         
-        TableStyle.setStyle(tabRegistros);
-        ButtonStyle.setStyle(butFiltrar);
+        new TableStyle(tabRegistros);
+        new ButtonStyle(butFiltrar);
     }
 
     @SuppressWarnings("unchecked")

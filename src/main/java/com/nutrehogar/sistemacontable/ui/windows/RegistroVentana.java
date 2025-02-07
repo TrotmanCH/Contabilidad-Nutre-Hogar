@@ -20,7 +20,7 @@ public class RegistroVentana extends javax.swing.JFrame {
     public RegistroVentana(String titulo, DefaultTableModel tabRegistrosModelo, 
                  Integer filaIndice, List<Registro> registros) {
         initComponents();
-        ButtonStyle.setStyle(butAnadir, butEditar);
+        new ButtonStyle(butAnadir, butEditar);
         
         // Trayendo datos de FormularioPestana
         labTitulo.setText(titulo);

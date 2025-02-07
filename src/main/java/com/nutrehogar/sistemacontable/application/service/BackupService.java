@@ -136,7 +136,6 @@ public class BackupService {
         if (dialog == null) {
             mainFrame = frame;
             dialog = new JDialog(mainFrame, "Copias de Seguridad", true);
-            dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
             dialog.add(backupPanel);
             dialog.setSize(430, 460);
         }

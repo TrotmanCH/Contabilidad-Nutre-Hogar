@@ -41,7 +41,9 @@ public class BalanceComController {
         table = view.getTabRegistros();
         starDateSpinner = view.getSpiInicio();
         endDateSpinner = view.getSpiFin();
-        view.getButFiltrar().addActionListener(e -> loadData());
+        view.getButFiltrar().addActionListener(e -> {
+            loadData();
+        });
         tableModel = new BalanceComTableModel();
         table.setModel(tableModel);
         table.setDefaultRenderer(BigDecimal.class, new Util.BigDecimalRenderer());
@@ -60,13 +62,13 @@ public class BalanceComController {
         var data = BalanceComRepo.find(
                 BalanceComRepo.Field.CUENTA_ID,
                 OrderDirection.ASCENDING,
-                new BalanceComRepo.Filter.ByFechaRange((LocalDate)starDateSpinner.getValue(),(LocalDate) endDateSpinner.getValue()));
+                new BalanceComRepo.Filter.ByFechaRange((LocalDate) starDateSpinner.getValue(), (LocalDate) endDateSpinner.getValue()));
         SwingUtilities.invokeLater(() -> {
             tableModel.setData(data);
         });
     }
 
-    public static class BalanceComTableModel extends AbstractTableModel {
+    public class BalanceComTableModel extends AbstractTableModel {
         private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
         /**
          * lista de datos a mostrar en la base de datos
