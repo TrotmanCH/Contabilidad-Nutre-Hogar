@@ -235,7 +235,7 @@ public class BackupService {
      * @param frame Ventana principal de la aplicación.
      * @return Instancia del diálogo modal.
      */
-    public JDialog getDialog(JFrame frame) {
+    public JDialog showDialog(JFrame frame) {
         if (dialog == null) {
             dialog = new JDialog(frame, "Copias de Seguridad", true);
             dialog.add(backupPanel);
