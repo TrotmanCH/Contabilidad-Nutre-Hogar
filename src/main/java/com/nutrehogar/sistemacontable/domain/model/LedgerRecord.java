@@ -12,28 +12,25 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @ToString(exclude = "journalEntry")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "ledger_record")
-public class LedgerRecord {
+public class LedgerRecord extends AuditableEntity{
+    public LedgerRecord(User user) {
+        super(user);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id_journal_entry", nullable = false)
+    @JoinColumns({
+            @JoinColumn(name = "id_journal_document_number", referencedColumnName = "document_number"),
+            @JoinColumn(name = "id_journal_document_type", referencedColumnName = "document_type")
+    })
     JournalEntry journalEntry;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "document_type")
-    DocumentType documentType;
-
-    /**
-     * Comprobante
-     */
-    @Column(name = "voucher", columnDefinition = "TEXT")
-    String voucher;
 
     @Column(name = "reference", columnDefinition = "TEXT")
     String reference;

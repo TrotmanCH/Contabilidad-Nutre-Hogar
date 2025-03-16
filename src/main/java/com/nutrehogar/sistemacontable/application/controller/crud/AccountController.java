@@ -1,19 +1,23 @@
 package com.nutrehogar.sistemacontable.application.controller.crud;
 
-import com.nutrehogar.sistemacontable.application.repository.crud.AccountRepository;
-import com.nutrehogar.sistemacontable.application.repository.crud.AccountSubtypeRepository;
+import com.nutrehogar.sistemacontable.infrastructure.report.ReportService;
+import com.nutrehogar.sistemacontable.application.repository.AccountRepository;
+import com.nutrehogar.sistemacontable.application.repository.AccountSubtypeRepository;
 import com.nutrehogar.sistemacontable.domain.AccountType;
 import com.nutrehogar.sistemacontable.domain.model.Account;
 import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
+import com.nutrehogar.sistemacontable.domain.model.User;
 import com.nutrehogar.sistemacontable.ui.components.CustomComboBoxModel;
 import com.nutrehogar.sistemacontable.ui.components.CustomListCellRenderer;
 import com.nutrehogar.sistemacontable.ui.components.DocumentSizeFilter;
-import com.nutrehogar.sistemacontable.ui.view.crud.AccountView;
+import com.nutrehogar.sistemacontable.application.view.crud.AccountView;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.text.PlainDocument;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AccountController extends CRUDController<Account, Integer> {
     private final AccountSubtypeRepository subtypeRepository;
@@ -21,8 +25,8 @@ public class AccountController extends CRUDController<Account, Integer> {
     private CustomComboBoxModel<AccountSubtype> cbxModelSubtype;
     private DocumentSizeFilter documentSizeFilter;
 
-    public AccountController(AccountRepository repository, AccountView view, AccountSubtypeRepository subtypeRepository) {
-        super(repository, view);
+    public AccountController(AccountRepository repository, AccountView view, AccountSubtypeRepository subtypeRepository, ReportService reportService, User user) {
+        super(repository, view, reportService, user);
         this.subtypeRepository = subtypeRepository;
         loadDataSubtype();
         setTextToLbAccountTypeId();
@@ -67,7 +71,6 @@ public class AccountController extends CRUDController<Account, Integer> {
         if (cbxModelAccountType.getSelectedItem() == null) return;
         var id = cbxModelAccountType.getSelectedItem().getId();
         getView().getLblAccountTypeId().setText(id + ".");
-
     }
 
     private void setTextToLbAccountSubtypeId() {
@@ -117,7 +120,7 @@ public class AccountController extends CRUDController<Account, Integer> {
         try {
             id = Integer.parseInt(getTxtAccountId().getText());
         } catch (NumberFormatException e) {
-            showMessage("El Codigo tiene que ser un numero.");
+            showMessage("El Código tiene que ser un numero.");
             return null;
         }
         if (cbxModelAccountType.getSelectedItem() == null || cbxModelSubtype.getSelectedItem() == null || getTxtAccountName().getText().isBlank()) {
@@ -125,7 +128,7 @@ public class AccountController extends CRUDController<Account, Integer> {
             return null;
         }
 
-        var account = new Account();
+        var account = new Account(user);
         account.setAccountSubtype(cbxModelSubtype.getSelectedItem());
         try {
             account.setId(id);
@@ -135,7 +138,7 @@ public class AccountController extends CRUDController<Account, Integer> {
         }
 
         if (getRepository().existsById(account.getId())) {
-            showMessage("Ya existe una cuenta con el codigo: " + account.getId());
+            showMessage("Ya existe una cuenta con el Código: " + account.getId());
             return null;
         }
 
@@ -150,6 +153,7 @@ public class AccountController extends CRUDController<Account, Integer> {
             return null;
         }
         getSelected().setName(getTxtAccountName().getText());
+        getSelected().setUser(user);
         return getSelected();
     }
 

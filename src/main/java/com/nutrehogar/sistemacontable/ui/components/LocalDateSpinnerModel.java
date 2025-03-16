@@ -7,7 +7,8 @@ import javax.swing.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-import static com.nutrehogar.sistemacontable.application.config.Constants.CURRENT_DATE;
+import static com.nutrehogar.sistemacontable.application.config.Util.CURRENT_DATE;
+
 
 /**
  * Modelo de un spinner que tiene como valor un {@link LocalDate}
@@ -66,6 +67,7 @@ public class LocalDateSpinnerModel extends AbstractSpinnerModel {
 
     public void setValue(LocalDate value) {
         currentDate = ifDateNull(value);
+        fireStateChanged();
     }
 
     public void resetValue() {

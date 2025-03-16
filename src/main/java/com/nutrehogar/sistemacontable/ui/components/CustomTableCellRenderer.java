@@ -2,12 +2,15 @@ package com.nutrehogar.sistemacontable.ui.components;
 
 import com.nutrehogar.sistemacontable.domain.AccountType;
 import com.nutrehogar.sistemacontable.domain.DocumentType;
+import com.nutrehogar.sistemacontable.domain.Permissions;
 import com.nutrehogar.sistemacontable.domain.model.Account;
 import com.nutrehogar.sistemacontable.domain.model.AccountSubtype;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+
+import static com.nutrehogar.sistemacontable.application.config.Util.DECIMAL_FORMAT;
 
 
 /**
@@ -22,20 +25,38 @@ import java.text.DecimalFormat;
  * @see DefaultTableCellRenderer
  */
 public class CustomTableCellRenderer extends DefaultTableCellRenderer {
-    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
 
     @Override
     protected void setValue(Object value) {
-        setText(switch (value) {
-            case BigDecimal bigDecimal -> DECIMAL_FORMAT.format(bigDecimal);
-            case Double doubleValue -> DECIMAL_FORMAT.format(doubleValue);
-            case AccountType accountType -> AccountType.getCellRenderer(accountType);
-            case AccountSubtype tipoCuenta ->
-                    tipoCuenta.getAccountType().getId() + "." + tipoCuenta.getCanonicalId() + " " + tipoCuenta.getName();
-            case Account account -> account.getId() + " " + account.getName();
-            case DocumentType documentType -> documentType.getName();
-            case null -> "";
-            default -> value.toString();
-        });
+
+        switch (value) {
+            case BigDecimal bigDecimal -> {
+                setText(bigDecimal.compareTo(BigDecimal.ZERO) == 0 ? "" : DECIMAL_FORMAT.format(bigDecimal));
+                setHorizontalAlignment(RIGHT);
+            }
+            case Double doubleValue -> {
+                setText(doubleValue == 0.0 ? "" : DECIMAL_FORMAT.format(doubleValue));
+                setHorizontalAlignment(RIGHT);
+            }
+            case AccountType accountType -> {
+                setText(AccountType.getCellRenderer(accountType));
+            }
+            case AccountSubtype tipoCuenta -> {
+                setText(tipoCuenta.getAccountType().getId() + "." + tipoCuenta.getCanonicalId() + " " + tipoCuenta.getName());
+            }
+            case Account account -> {
+                setText(account.getId() + " " + account.getName());
+            }
+            case DocumentType documentType -> {
+                setText(documentType.getName());
+
+            }
+            case Permissions permissions -> {
+                setText(permissions.getName());
+            }
+            case null -> setText("");
+            default -> setText(value.toString());
+        }
     }
+
 }

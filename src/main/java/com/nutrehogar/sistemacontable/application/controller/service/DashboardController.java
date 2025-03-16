@@ -1,5 +1,6 @@
 package com.nutrehogar.sistemacontable.application.controller.service;
 
+import com.nutrehogar.sistemacontable.application.config.ApplicationContext;
 import com.nutrehogar.sistemacontable.application.controller.Controller;
 import com.nutrehogar.sistemacontable.application.controller.business.GeneralLedgerController;
 import com.nutrehogar.sistemacontable.application.controller.business.JournalController;
@@ -7,56 +8,84 @@ import com.nutrehogar.sistemacontable.application.controller.business.TrialBalan
 import com.nutrehogar.sistemacontable.application.controller.crud.AccountController;
 import com.nutrehogar.sistemacontable.application.controller.crud.AccountSubtypeController;
 import com.nutrehogar.sistemacontable.application.controller.crud.AccountingEntryFormController;
-import com.nutrehogar.sistemacontable.ui.view.DashboardView;
-import lombok.Getter;
+import com.nutrehogar.sistemacontable.application.controller.crud.UserController;
+import com.nutrehogar.sistemacontable.application.view.business.BusinessView;
+import com.nutrehogar.sistemacontable.application.view.service.DashboardView;
 
 import javax.swing.*;
 import java.awt.*;
 
-@Getter
-public class DashboardController extends Controller {
-    private final AccountingEntryFormController accountingEntryFormController;
-    private final AccountController accountController;
-    private final AccountSubtypeController accountSubtypeController;
-    private final JournalController journalController;
-    private final TrialBalanceController trialBalanceController;
-    private final GeneralLedgerController generalLedgerController;
-    private final BackupController backupController;
 
-    public DashboardController(DashboardView view, AccountingEntryFormController accountingEntryFormController, AccountController accountController, AccountSubtypeController accountSubtypeController, JournalController journalController, TrialBalanceController trialBalanceController, GeneralLedgerController generalLedgerController, BackupController backupController) {
+public class DashboardController extends Controller {
+    private final ApplicationContext context;
+
+    public DashboardController(DashboardView view, ApplicationContext context) {
         super(view);
-        this.accountingEntryFormController = accountingEntryFormController;
-        this.accountController = accountController;
-        this.accountSubtypeController = accountSubtypeController;
-        this.journalController = journalController;
-        this.trialBalanceController = trialBalanceController;
-        this.generalLedgerController = generalLedgerController;
-        this.backupController = backupController;
+        this.context = context;
         initialize();
     }
 
     @Override
     protected void initialize() {
-        getPnlContent().setOpaque(false);
-        setupViewListeners();
+        SwingUtilities.invokeLater(() -> {
+            getPnlNav().setVisible(false);
+            getPnlContent().setOpaque(false);
+        });
+        Thread.startVirtualThread(this::setupViewListeners);
+        //            prepareToEditJournalEntry = (Integer JournalEntryId) -> {
+//                setContent(getAccountingEntryFormController().getView());
+//                getAccountingEntryFormController().prepareToEditEntry(JournalEntryId);
+//            };
     }
 
     protected void setupViewListeners() {
-        getBtnShowFormView().addActionListener(e -> setContent(accountingEntryFormController.getView()));
-        getBtnShowAccountSubtypeView().addActionListener(e -> setContent(accountSubtypeController.getView()));
-        getBtnShowAccountView().addActionListener(e -> setContent(accountController.getView()));
-        getBtnShowJournalView().addActionListener(e -> setContent(journalController.getView()));
-        getBtnShowTrialBalanceView().addActionListener(e -> setContent(trialBalanceController.getView()));
-        getBtnShowGeneralLedgerView().addActionListener(e -> setContent(generalLedgerController.getView()));
-        getBtnShowBackupView().addActionListener(e -> backupController.showView());
+        getBtnShowFormView().addActionListener(e ->
+                setContent(context.getBean(AccountingEntryFormController.class).getView()));
+        getBtnShowAccountSubtypeView().addActionListener(e -> setContent(context.getBean(AccountSubtypeController.class).getView()));
+        getBtnShowAccountView().addActionListener(e -> {
+            setContent(context.getBean(AccountController.class).getView());
+            context.getBean(AccountController.class).loadData();
+        });
+        getBtnShowJournalView().addActionListener(e -> {
+            setContent(context.getBean(JournalController.class).getView());
+            context.getBean(JournalController.class).loadData();
+        });
+        getBtnShowTrialBalanceView().addActionListener(e -> {
+            setContent(context.getBean(TrialBalanceController.class).getView());
+            context.getBean(TrialBalanceController.class).loadData();
+        });
+        getBtnShowGeneralLedgerView().addActionListener(e -> {
+            setContent(context.getBean(GeneralLedgerController.class).getView());
+            context.getBean(GeneralLedgerController.class).loadDataSubtype();
+            context.getBean(GeneralLedgerController.class).loadDataAccount();
+        });
+        getBtnShowBackupView().addActionListener(e -> context.getBean(BackupController.class).showView());
+        getBtnHome().addActionListener(e -> setContent(getPnlHome()));
+        getBtnShowUserView().addActionListener(e -> setContent(context.getBean(UserController.class).getView()));
     }
 
     public void setContent(JPanel p) {
-        getPnlContent().removeAll();
-        getPnlContent().setLayout(new BorderLayout());
-        getPnlContent().add(p, BorderLayout.CENTER);
-        getPnlContent().revalidate();
-        getPnlContent().repaint();
+        SwingUtilities.invokeLater(() -> {
+            if (p != getPnlHome()) {
+                getPnlNav().setVisible(true);
+            } else {
+                getPnlNav().setVisible(false);
+                getBtnShowFormView().setBackground(Color.WHITE);
+                getBtnShowJournalView().setBackground(Color.WHITE);
+                getBtnShowTrialBalanceView().setBackground(Color.WHITE);
+                getBtnShowGeneralLedgerView().setBackground(Color.WHITE);
+                getBtnShowAccountView().setBackground(Color.WHITE);
+                getBtnShowAccountSubtypeView().setBackground(Color.WHITE);
+            }
+            getPnlContent().removeAll();
+            getPnlContent().setLayout(new BorderLayout());
+            getPnlContent().add(p, BorderLayout.CENTER);
+            getPnlContent().revalidate();
+            getPnlContent().repaint();
+            if (p instanceof BusinessView view) {
+                view.getBtnFilter().doClick();
+            }
+        });
     }
 
     @Override
@@ -92,7 +121,24 @@ public class DashboardController extends Controller {
         return getView().getBtnShowBackupView();
     }
 
+    public JButton getBtnShowUserView() {
+        return getView().getBtnShowUserView();
+    }
+
+
     public JPanel getPnlContent() {
         return getView().getPnlContent();
+    }
+
+    public JButton getBtnHome() {
+        return getView().getBtnHome();
+    }
+
+    public JPanel getPnlHome() {
+        return getView().getPnlHome();
+    }
+
+    public JPanel getPnlNav() {
+        return getView().getPnlNav();
     }
 }
