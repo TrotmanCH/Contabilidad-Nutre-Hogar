@@ -53,7 +53,7 @@ public class AppConfig {
             dashboard.setContent(context.getBean(AccountingEntryFormController.class).getView());
             context.getBean(AccountingEntryFormController.class).prepareToEditEntry(JournalEntryId);
         };
-        ReportService.initializeReports();
+        //ReportService.initializeReports();
     }
 
     public static void init(@NotNull ApplicationContext context, Session session, User user, JFrame parent) {
