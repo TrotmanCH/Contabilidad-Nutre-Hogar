@@ -5,14 +5,15 @@
 
     <groupId>com.nutrehogar</groupId>
     <artifactId>SistemaContable</artifactId>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.9.0.4</version>
     <packaging>jar</packaging>
 
     <name>Sistema Contable</name>
     <url>https://github.com/TrotmanCH/Contabilidad-Nutre-Hogar</url>
     <description>
         Este proyecto es una aplicación de escritorio para la gestión contable de Nutre Hogar.
-        Permite el registro y control de transacciones contables, incluyendo la generación de reportes de libro diario
+        Permite el ledgerRecord y control de transacciones contables, incluyendo la generación de reportes de libro
+        diario
         mayor y general.
     </description>
     <inceptionYear>2024</inceptionYear>
@@ -26,7 +27,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+<<<<<<< HEAD
         <exec.mainClass>com.nutrehogar.sistemacontable.application.Principal</exec.mainClass>
+=======
+        <exec.mainClass>com.nutrehogar.sistemacontable.application.MainClass</exec.mainClass>
+>>>>>>> dev
     </properties>
 
     <developers>
@@ -68,7 +73,7 @@
             </properties>
         </developer>
         <developer>
-            <id>JaysonG05 </id>
+            <id>JaysonG05</id>
             <name>Jayson Grant</name>
             <email>jaysonc-09@outlook.es</email>
             <url>https://github.com/JaysonG05</url>
@@ -135,10 +140,25 @@
         </dependency>
 
         <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itextpdf</artifactId>
-            <version>5.5.13.4</version>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>7.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-pdf</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>net.sf.jasperreports</groupId>-->
+        <!--            <artifactId>jasperreports-fonts</artifactId>-->
+        <!--            <version>7.0.0</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>net.sf.jasperreports</groupId>-->
+        <!--            <artifactId>jasperreports-jdt</artifactId>-->
+        <!--            <version>7.0.1</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -153,6 +173,21 @@
             <version>3.5.2</version>
         </dependency>
 
+<<<<<<< HEAD
+=======
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.formdev/flatlaf-fonts-roboto -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-fonts-roboto</artifactId>
+            <version>2.137</version>
+        </dependency>
+
+>>>>>>> dev
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -167,6 +202,7 @@
             <scope>compile</scope>
         </dependency>
 
+<<<<<<< HEAD
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -178,6 +214,16 @@
 <!--            <version>2.0.9</version>-->
 <!--            <scope>runtime</scope>-->
 <!--        </dependency>-->
+=======
+        <!-- SLF4J API -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.13</version>
+        </dependency>
+
+        <!-- Logback Classic -->
+>>>>>>> dev
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -208,15 +254,17 @@
             <!-- Maven Shade Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.0</version>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
+                        <id>copy-dependencies</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
+<<<<<<< HEAD
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
@@ -235,6 +283,12 @@
                                     </excludes>
                                 </filter>
                             </filters>
+=======
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+>>>>>>> dev
                         </configuration>
                     </execution>
                 </executions>

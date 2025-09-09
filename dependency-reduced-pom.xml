@@ -6,7 +6,7 @@
   <name>Sistema Contable</name>
   <version>1.5-SNAPSHOT</version>
   <description>Este proyecto es una aplicación de escritorio para la gestión contable de Nutre Hogar.
-        Permite el registro y control de transacciones contables, incluyendo la generación de reportes de libro diario
+        Permite el ledgerRecord y control de transacciones contables, incluyendo la generación de reportes de libro diario
         mayor y general.</description>
   <url>https://github.com/TrotmanCH/Contabilidad-Nutre-Hogar</url>
   <inceptionYear>2024</inceptionYear>
@@ -166,7 +166,11 @@
   </dependencies>
   <properties>
     <maven.compiler.target>21</maven.compiler.target>
+<<<<<<< HEAD
     <exec.mainClass>com.nutrehogar.sistemacontable.application.Principal</exec.mainClass>
+=======
+    <exec.mainClass>com.nutrehogar.sistemacontable.application.MainClass</exec.mainClass>
+>>>>>>> dev
     <maven.compiler.source>21</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
